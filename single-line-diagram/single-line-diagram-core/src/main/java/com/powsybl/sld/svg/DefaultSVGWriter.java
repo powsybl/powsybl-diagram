@@ -334,7 +334,9 @@ public class DefaultSVGWriter implements SVGWriter {
             // internCellHeight
             drawGridHorizontalLine(document, graph, maxH, graph.getY() + graph.getFirstBusY() + layoutParameters.getInternCellHeight() + layoutParameters.getVerticalSpaceBus() * maxV, gridRoot);
             // FeederSpan
-            drawGridHorizontalLine(document, graph, maxH, graph.getY() + graph.getFirstBusY() + graph.getExternCellHeight(BOTTOM) - layoutParameters.getFeederSpan() + layoutParameters.getVerticalSpaceBus() * maxV, gridRoot);
+            drawGridHorizontalLine(document, graph, maxH,
+                graph.getY() + graph.getFirstBusY() + graph.getExternCellHeight(BOTTOM) - layoutParameters.getFeederSpan() + layoutParameters.getVerticalSpaceBus() * maxV,
+                gridRoot);
         }
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, gridId,

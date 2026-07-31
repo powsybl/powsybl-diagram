@@ -7,12 +7,12 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.components.ComponentSize;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
 import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
-import com.powsybl.diagram.components.ComponentSize;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -56,7 +56,8 @@ class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         substationGraphLayout(g);
 
         assertEquals(toString("/NodeDecoratorsBranchStatusNodeBreaker.svg"),
-                toSVG(g, "/NodeDecoratorsBranchStatusNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+                toSVG(g, "/NodeDecoratorsBranchStatusNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters,
+                    getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -68,7 +69,10 @@ class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         new HorizontalSubstationLayoutFactory().create(g, new SmartVoltageLevelLayoutFactory(networkInternalPst)).run(layoutParameters);
 
         assertEquals(toString("/VerticalInternalPstBranchStatusNodeBreaker.svg"),
-                toSVG(g, "/VerticalInternalPstBranchStatusNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters, new DefaultLabelProvider(networkInternalPst, componentLibrary, layoutParameters, svgParameters), new StyleProvidersList(new TopologicalStyleProvider(networkInternalPst), new HighlightLineStateStyleProvider(networkInternalPst)), new DefaultSVGLegendWriter(networkInternalPst, svgParameters)));
+                toSVG(g, "/VerticalInternalPstBranchStatusNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters,
+                    new DefaultLabelProvider(networkInternalPst, componentLibrary, layoutParameters, svgParameters),
+                    new StyleProvidersList(new TopologicalStyleProvider(networkInternalPst), new HighlightLineStateStyleProvider(networkInternalPst)),
+                    new DefaultSVGLegendWriter(networkInternalPst, svgParameters)));
     }
 
     @Test

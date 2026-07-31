@@ -37,6 +37,8 @@ class TestBattery extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestBatteries.svg"), toSVG(g, "/TestBatteries.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+        assertEquals(toString("/TestBatteries.svg"),
+            toSVG(g, "/TestBatteries.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters,
+                getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 }

@@ -28,7 +28,7 @@ final class Links {
     private final Map<BSClusterSide, List<Link>> bsClusterSideToLink = new HashMap<>();
     private int linkCounter = 0;
 
-    public Links(List<BSCluster> bsClusters) {
+    Links(List<BSCluster> bsClusters) {
         bsClusters.forEach(this::addClusterSidesTwins);
     }
 

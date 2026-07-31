@@ -20,7 +20,7 @@ class SvgParametersTest {
     void test() {
         SvgParameters svgParameters0 = new SvgParameters()
                 .setPrefixId("test")
-                .setUndefinedValueSymbol("\u002A")
+                .setUndefinedValueSymbol("*")
                 .setLanguageTag("es")
                 .setVoltageValuePrecision(0)
                 .setPowerValuePrecision(3)

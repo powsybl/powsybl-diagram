@@ -13,7 +13,6 @@ import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
-
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

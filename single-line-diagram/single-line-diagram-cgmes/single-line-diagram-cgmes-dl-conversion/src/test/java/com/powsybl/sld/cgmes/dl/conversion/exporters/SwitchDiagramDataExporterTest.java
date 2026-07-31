@@ -6,14 +6,13 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion.exporters;
 
+import com.powsybl.diagram.test.Networks;
+import com.powsybl.iidm.network.Switch;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
-
-import com.powsybl.diagram.test.Networks;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
-import com.powsybl.iidm.network.Switch;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}

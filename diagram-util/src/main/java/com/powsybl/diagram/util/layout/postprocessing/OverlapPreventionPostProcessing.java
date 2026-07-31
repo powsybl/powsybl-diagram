@@ -54,7 +54,8 @@ public class OverlapPreventionPostProcessing<V, E> implements PostProcessing<V, 
         pointSize = parameters.getPointSizeScale() * layoutContext.getAllPoints().size() + parameters.getPointSizeOffset();
         List<Force<V, E>> forces = List.of(
                 new EdgeAttractionForceNoOverlapLinear<>(parameters.getEdgeAttractionIntensity(), parameters.getPointSizeScale(), parameters.getPointSizeOffset()),
-                new RepulsionForceDegreeBasedNoOverlapLinear<>(parameters.getRepulsionNoOverlapIntensity(), parameters.getRepulsionWithOverlapIntensity(), parameters.getPointSizeScale(), parameters.getPointSizeOffset(), parameters.getRepulsionZoneRatio()),
+                new RepulsionForceDegreeBasedNoOverlapLinear<>(parameters.getRepulsionNoOverlapIntensity(), parameters.getRepulsionWithOverlapIntensity(),
+                    parameters.getPointSizeScale(), parameters.getPointSizeOffset(), parameters.getRepulsionZoneRatio()),
                 new AttractToCenterForceDegreeBasedLinear<>(parameters.getAttractToCenterIntensity())
         );
 

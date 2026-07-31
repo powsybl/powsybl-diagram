@@ -32,7 +32,7 @@ class TestLegend extends AbstractTestCaseIidm {
 
     public class SpecificLegendWriter extends DefaultSVGLegendWriter {
 
-        public SpecificLegendWriter(Network network, SvgParameters svgParameters) {
+        SpecificLegendWriter(Network network, SvgParameters svgParameters) {
             super(network, svgParameters);
         }
 

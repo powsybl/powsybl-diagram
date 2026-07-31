@@ -50,7 +50,8 @@ class TestCaseTeePoint extends AbstractTestCaseIidm {
 
         // write Json and compare to reference
         assertEquals(toString("/TestCaseTeePointTopological.svg"),
-                toSVG(g, "/TestCaseTeePointTopological.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network, true), getDefaultSVGLegendWriter()));
+                toSVG(g, "/TestCaseTeePointTopological.svg", componentLibrary, layoutParameters, svgParameters,
+                    getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network, true), getDefaultSVGLegendWriter()));
 
         // Deactivate tee point display
         layoutParameters.setDisplayTeePointsInVoltageLevels(false);
@@ -97,7 +98,8 @@ class TestCaseTeePoint extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         assertEquals(toString("/TestCaseTeePointNodeBreaker.svg"),
-                toSVG(g, "/TestCaseTeePointNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network, true), getDefaultSVGLegendWriter()));
+                toSVG(g, "/TestCaseTeePointNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters,
+                    getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network, true), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -112,6 +114,7 @@ class TestCaseTeePoint extends AbstractTestCaseIidm {
 
         // write Json and compare to reference
         assertEquals(toString("/TestCaseTeePointBusBreaker.svg"),
-                toSVG(g, "/TestCaseTeePointBusBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network, true), getDefaultSVGLegendWriter()));
+                toSVG(g, "/TestCaseTeePointBusBreaker.svg", componentLibrary, layoutParameters, svgParameters,
+                    getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network, true), getDefaultSVGLegendWriter()));
     }
 }

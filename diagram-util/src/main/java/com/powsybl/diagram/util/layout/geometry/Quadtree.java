@@ -132,11 +132,11 @@ public class Quadtree {
         }
 
         if (
-            // if there is only a single Point in this node, it's a leaf, barycenter is the point
+                // if there is only a single Point in this node, it's a leaf, barycenter is the point
                 points.size() == 1
                 || remainingDepth == 0
-            // if the size of the points in an area did not diminish, it might be because two or more points are at the same position, or very close
-            // use the first two index checks to not have to calculate the equality between all points in the range each time
+                // if the size of the points in an area did not diminish, it might be because two or more points are at the same position, or very close
+                // use the first two index checks to not have to calculate the equality between all points in the range each time
                 || points.size() == previousSize && checkPointPositionEquality(points)
         ) {
             int newNodeIndex = nodesList.size();

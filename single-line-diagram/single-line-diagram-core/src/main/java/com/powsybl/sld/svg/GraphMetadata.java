@@ -27,11 +27,7 @@ import java.io.Reader;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -39,7 +35,10 @@ import java.util.Objects;
  * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
-public class GraphMetadata extends AbstractMetadata {
+public class GraphMetadata extends AbstractMetadata<GraphMetadata> {
+
+    //v 1.0 adds metadata versionning, please note further changes as a comment when version is bumped
+    private static final String METADATA_VERSION = "1.0";
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     // On some systems, the export order is determined by the order of the 1st encountered JsonCreator's attributes
@@ -68,7 +67,6 @@ public class GraphMetadata extends AbstractMetadata {
         private final String equipmentId;
 
         private final List<NodeLabelMetadata> labels;
-
 
         /**
          * @deprecated use {@link NodeMetadata#NodeMetadata(String, String, String, String, String, boolean, Direction, boolean, String, List)} instead.
@@ -201,7 +199,8 @@ public class GraphMetadata extends AbstractMetadata {
                                      String userDefinedId) {
 
         @JsonCreator
-        public FeederInfoMetadata(@JsonProperty("id") String id, @JsonProperty("equipmentId") String equipmentId, @JsonProperty("side") String side, @JsonProperty("componentType") String componentType, @JsonProperty("userDefinedId") String userDefinedId) {
+        public FeederInfoMetadata(@JsonProperty("id") String id, @JsonProperty("equipmentId") String equipmentId, @JsonProperty("side") String side,
+                                  @JsonProperty("componentType") String componentType, @JsonProperty("userDefinedId") String userDefinedId) {
             this.id = Objects.requireNonNull(id);
             this.equipmentId = Objects.requireNonNull(equipmentId);
             this.side = side;
@@ -237,7 +236,9 @@ public class GraphMetadata extends AbstractMetadata {
     private final Map<String, BusInfoMetadata> busInfoMetadataMap = new HashMap<>();
 
     public GraphMetadata(LayoutParameters layoutParameters, SvgParameters svgParameters) {
-        this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), layoutParameters, svgParameters);
+        this.layoutParameters = layoutParameters;
+        this.svgParameters = svgParameters;
+        this.metadataVersion = METADATA_VERSION;
     }
 
     @JsonCreator
@@ -248,7 +249,11 @@ public class GraphMetadata extends AbstractMetadata {
                          @JsonProperty("feederInfos") List<FeederInfoMetadata> feederInfoMetadataList,
                          @JsonProperty("busInfos") List<BusInfoMetadata> busInfoMetadataList,
                          @JsonProperty("layoutParams") LayoutParameters layoutParams,
-                         @JsonProperty("svgParams") SvgParameters svgParams) {
+                         @JsonProperty("svgParams") SvgParameters svgParams,
+                         @JsonProperty("networkId") String networkId,
+                         @JsonProperty("networkName") String networkName,
+                         @JsonProperty("networkDate") String networkDate) {
+        super(networkId, networkName, networkDate);
         for (SldComponent component : componentList) {
             addComponent(component);
         }
@@ -269,6 +274,7 @@ public class GraphMetadata extends AbstractMetadata {
         }
         layoutParameters = layoutParams;
         svgParameters = svgParams;
+        this.metadataVersion = METADATA_VERSION;
     }
 
     public static GraphMetadata parseJson(Path file) {
@@ -405,4 +411,5 @@ public class GraphMetadata extends AbstractMetadata {
         return svgParameters;
 
     }
+
 }

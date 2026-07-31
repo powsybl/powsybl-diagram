@@ -16,9 +16,9 @@ import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.NodeSide;
-import com.powsybl.sld.svg.CustomLabelProvider.FeederContext;
 import com.powsybl.sld.svg.CustomLabelProvider.CustomFeederInfos;
 import com.powsybl.sld.svg.CustomLabelProvider.CustomLabels;
+import com.powsybl.sld.svg.CustomLabelProvider.FeederContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -28,7 +28,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.powsybl.sld.library.SldComponentTypeName.*;
+import static com.powsybl.sld.library.SldComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.SldComponentTypeName.ARROW_CURRENT;
+import static com.powsybl.sld.library.SldComponentTypeName.ARROW_REACTIVE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

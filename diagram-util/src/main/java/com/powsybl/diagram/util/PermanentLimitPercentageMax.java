@@ -1,11 +1,6 @@
 package com.powsybl.diagram.util;
 
-import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.CurrentLimits;
-import com.powsybl.iidm.network.Terminal;
-import com.powsybl.iidm.network.ThreeSides;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TwoSides;
+import com.powsybl.iidm.network.*;
 
 import java.util.stream.Stream;
 
@@ -19,20 +14,24 @@ public final class PermanentLimitPercentageMax {
     }
 
     public static double getPermanentLimitPercentageMax(Branch<?> branch) {
-        return Stream.of(TwoSides.ONE, TwoSides.TWO)
-            .map(side -> getPermanentLimitPercentageMax(branch.getTerminal(side), branch.getCurrentLimits(side).orElse(null)))
-            .mapToDouble(Double::doubleValue)
-            .max().getAsDouble();
+        return getStreamMaxFiltered(Stream.of(TwoSides.ONE, TwoSides.TWO)
+            .flatMap(side -> branch.getAllSelectedCurrentLimits(side).stream()
+                .map(l -> getPermanentLimitPercentageMax(branch.getTerminal(side), l))
+            ));
     }
 
     public static double getPermanentLimitPercentageMax(ThreeWindingsTransformer twt) {
-        return Stream.of(ThreeSides.ONE, ThreeSides.TWO, ThreeSides.THREE)
-            .map(side -> getPermanentLimitPercentageMax(twt.getTerminal(side), twt.getLeg(side).getCurrentLimits().orElse(null)))
-            .mapToDouble(Double::doubleValue)
-            .max().getAsDouble();
+        return getStreamMaxFiltered(Stream.of(ThreeSides.ONE, ThreeSides.TWO, ThreeSides.THREE)
+            .flatMap(side -> twt.getLeg(side).getAllSelectedCurrentLimits().stream()
+                .map(l -> getPermanentLimitPercentageMax(twt.getTerminal(side), l))
+            ));
+    }
+
+    private static double getStreamMaxFiltered(Stream<Double> values) {
+        return values.mapToDouble(Double::doubleValue).filter(v -> !Double.isNaN(v)).max().orElse(Double.NaN);
     }
 
     private static double getPermanentLimitPercentageMax(Terminal terminal, CurrentLimits currentLimits) {
-        return currentLimits == null ? Double.NaN : Math.abs(terminal.getI() * 100) / currentLimits.getPermanentLimit();
+        return currentLimits != null && currentLimits.getDetectionKind() == DetectionKind.HIGH ? Math.abs(terminal.getI() * 100) / currentLimits.getPermanentLimit() : Double.NaN;
     }
 }

@@ -6,13 +6,12 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion.exporters;
 
+import com.powsybl.diagram.test.Networks;
+import com.powsybl.iidm.network.StaticVarCompensator;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
-
-import com.powsybl.diagram.test.Networks;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
-import com.powsybl.iidm.network.StaticVarCompensator;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}

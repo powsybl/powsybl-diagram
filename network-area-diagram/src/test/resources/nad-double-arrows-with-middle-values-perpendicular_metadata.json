@@ -1,4 +1,5 @@
 {
+  "metadataVersion" : "1.0",
   "layoutParameters" : {
     "textNodesForceLayout" : false,
     "textNodeFixedShift" : {
@@ -126,7 +127,8 @@
       "labelB" : "100"
     },
     "classes1" : [ "nad-vl300to500" ],
-    "classes2" : [ "nad-vl300to500" ]
+    "classes2" : [ "nad-vl300to500" ],
+    "classes" : [ "nad-boundary-line-edge" ]
   }, {
     "svgId" : "12",
     "equipmentId" : "hvdc",
@@ -163,7 +165,8 @@
       "labelB" : "100"
     },
     "classes1" : [ "nad-vl300to500" ],
-    "classes2" : [ "nad-vl300to500" ]
+    "classes2" : [ "nad-vl300to500" ],
+    "classes" : [ "nad-hvdc-edge" ]
   } ],
   "textNodes" : [ {
     "svgId" : "1",
@@ -181,5 +184,8 @@
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
-  } ]
+  } ],
+  "networkId" : "testCase1",
+  "networkName" : "testCase1",
+  "networkDate" : "2023-05-31T10:41+02:00[CET]"
 }

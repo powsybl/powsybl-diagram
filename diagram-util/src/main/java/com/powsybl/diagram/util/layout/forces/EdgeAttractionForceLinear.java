@@ -7,9 +7,9 @@
  */
 package com.powsybl.diagram.util.layout.forces;
 
+import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
-import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import org.jgrapht.Graphs;
 
 /**
