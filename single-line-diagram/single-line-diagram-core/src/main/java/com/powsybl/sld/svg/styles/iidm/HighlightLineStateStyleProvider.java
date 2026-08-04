@@ -31,11 +31,7 @@ import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.styles.EmptyStyleProvider;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
 
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
@@ -46,6 +42,7 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
     private final Network network;
 
     public HighlightLineStateStyleProvider(Network network) {
+        Objects.requireNonNull(network);
         this.network = network;
     }
 
