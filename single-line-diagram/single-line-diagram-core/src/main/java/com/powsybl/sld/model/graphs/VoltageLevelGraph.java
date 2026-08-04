@@ -592,14 +592,14 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     public Point getCoord() {
-        return coord;
+        return coord;// new Point(0, 0);
     }
 
     public void addPaddingToCoord(LayoutParameters layoutParam) {
         LayoutParameters.Padding vlPadding = layoutParam.getVoltageLevelPadding();
         LayoutParameters.Padding dPadding = layoutParam.getDiagramPadding();
-        setCoord(coord.getX() + dPadding.left() + vlPadding.left(),
-                coord.getY() + dPadding.top() + vlPadding.top());
+        setCoord(getCoord().getX() + dPadding.left() + vlPadding.left(),
+                getCoord().getY() + dPadding.top() + vlPadding.top());
     }
 
     public void setCoord(double x, double y) {

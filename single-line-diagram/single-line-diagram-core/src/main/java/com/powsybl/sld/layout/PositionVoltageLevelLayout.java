@@ -62,7 +62,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         calculateBusNodeCoord(getGraph(), layoutParam);
         calculateCellCoord(getGraph(), layoutParam);
 
-        getGraph().addPaddingToCoord(layoutParam);
+        getGraph().addPaddingToCoord(layoutParam);// bug
         setGraphSize(layoutParam);
 
         // Calculate all the coordinates for the middle nodes and the snake lines in the voltageLevel graph
@@ -82,7 +82,6 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         LayoutParameters.Padding padding = layoutParam.getVoltageLevelPadding();
         double width = widthWithoutPadding + padding.left() + padding.right();
         double height = heightWithoutPadding + padding.top() + padding.bottom();
-
         getGraph().setSize(width, height);
     }
 
