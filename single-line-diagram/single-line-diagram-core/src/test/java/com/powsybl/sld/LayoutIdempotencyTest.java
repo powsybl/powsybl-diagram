@@ -16,9 +16,15 @@ import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.layout.*;
+import com.powsybl.sld.layout.pathfinding.DijkstraPathFinder;
+import com.powsybl.sld.model.graphs.Graph;
+import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.ZoneGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -43,18 +49,31 @@ class LayoutIdempotencyTest extends AbstractTestCaseIidm {
 
     @Test
     void layoutRunTwiceShouldProduceSameGraphPositionFactory() {
-        assertLayoutIdempotent(new PositionVoltageLevelLayoutFactory());
+        VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl.getId());
+        assertLayoutIdempotent(new PositionVoltageLevelLayoutFactory().create(graph), graph);
     }
 
     @Test
     void layoutRunTwiceShouldProduceSameGraphSmartFactory() {
-        assertLayoutIdempotent(new SmartVoltageLevelLayoutFactory(network));
+        VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl.getId());
+        assertLayoutIdempotent(new SmartVoltageLevelLayoutFactory(network).create(graph), graph);
     }
 
-    void assertLayoutIdempotent(VoltageLevelLayoutFactory layoutFactory) {
-        // Given (layout)
-        VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl.getId());
-        Layout layout = layoutFactory.create(graph);
+    @Test
+    void substationLayoutRunTwiceShouldProduceSameGraph() {
+        SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
+        Layout layout = new HorizontalSubstationLayoutFactory().create(graph, new PositionVoltageLevelLayoutFactory());
+        assertLayoutIdempotent(layout, graph);
+    }
+
+    @Test
+    void zoneLayoutRunTwiceShouldProduceSameGraph() {
+        ZoneGraph graph = new NetworkGraphBuilder(network).buildZoneGraph(List.of(substation.getId()));
+        Layout layout = new HorizontalZoneLayoutFactory().create(graph, DijkstraPathFinder::new, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory());
+        assertLayoutIdempotent(layout, graph);
+    }
+
+    void assertLayoutIdempotent(Layout layout, Graph graph) {
         // When run Layout (first call)
         layout.run(layoutParameter);
         String afterFirstRun = toJson(graph, "/afterFirstRun.json");
