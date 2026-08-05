@@ -15,12 +15,12 @@ import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /**
  * @author Samir Romdhani {@literal <samir.romdhani at rte-france.com>}
@@ -43,19 +43,21 @@ class LayoutIdempotencyTest extends AbstractTestCaseIidm {
 
     @Test
     void layoutRunTwiceShouldProduceSameGraph() {
+        // Given
         VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl.getId());
-        var layout = new PositionVoltageLevelLayoutFactory().create(graph);
+        Layout layout = new PositionVoltageLevelLayoutFactory().create(graph);
 //        var layout = new SmartVoltageLevelLayoutFactory(network).create(graph);
-//        var layout = new RandomVoltageLevelLayoutFactory(40, 40).create(graph);
+        // When run (first call)
         layout.run(layoutParameter);
         String afterFirstRun = toJson(graph, "/afterFirstRun.json");
-        debugSvgFiles = true; // check .powsybl/debug-sld
         String svgAfterFirstLayout = toSVG(graph, "/svg-after-first-layout.svg");
+        // When run (second call)
         layout.run(layoutParameter);
         String afterSecondRun = toJson(graph, "/afterSecondRun.json");
-        debugSvgFiles = true;
         String svgAfterSecondLayout = toSVG(graph, "/svg-after-second-layout.svg");
-        assertEquals(afterFirstRun, afterSecondRun);
-        assertEquals(svgAfterFirstLayout, svgAfterSecondLayout);
+        // Then
+        assertThat(afterSecondRun).isEqualTo(afterFirstRun);
+        assertThat(svgAfterSecondLayout).isEqualTo(svgAfterFirstLayout);
     }
+
 }

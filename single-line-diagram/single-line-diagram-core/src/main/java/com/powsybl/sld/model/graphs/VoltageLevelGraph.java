@@ -592,7 +592,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     public Point getCoord() {
-        return coord;// new Point(0, 0);
+        return coord;
     }
 
     public void addPaddingToCoord(LayoutParameters layoutParam) {
@@ -781,5 +781,11 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     private record GroundDisconnection(List<Node> nodes, FeederNode ground, SwitchNode disconnector, Node forkNode) {
+    }
+
+    public void clearCells() {
+        cells.clear();
+        cellCounter = 0;
+        setCoord(0, 0);
     }
 }

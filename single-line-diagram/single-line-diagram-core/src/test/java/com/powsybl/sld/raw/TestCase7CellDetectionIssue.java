@@ -42,4 +42,26 @@ class TestCase7CellDetectionIssue extends AbstractTestCaseRaw {
         new ImplicitCellDetector().detectCells(g);
         assertEquals(1, g.getCellStream().count());
     }
+
+    @Test
+    void detectCellsTwiceReturnDuplicatesCells() {
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
+        ImplicitCellDetector cellDetector = new ImplicitCellDetector();
+        cellDetector.detectCells(g);
+        assertEquals(1, g.getCellStream().count());
+        cellDetector.detectCells(g);
+        assertEquals(2, g.getCellStream().count()); // origin bug 289
+    }
+
+    @Test
+    void detectCellsTwiceWithClearIsIdempotent() {
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
+        ImplicitCellDetector cellDetector = new ImplicitCellDetector();
+        cellDetector.detectCells(g);
+        assertEquals(1, g.getCellStream().count());
+
+        g.clearCells();
+        cellDetector.detectCells(g);
+        assertEquals(1, g.getCellStream().count()); // fix bug 289
+    }
 }
