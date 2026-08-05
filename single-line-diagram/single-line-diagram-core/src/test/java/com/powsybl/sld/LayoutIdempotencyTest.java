@@ -42,16 +42,24 @@ class LayoutIdempotencyTest extends AbstractTestCaseIidm {
     }
 
     @Test
-    void layoutRunTwiceShouldProduceSameGraph() {
-        // Given
+    void layoutRunTwiceShouldProduceSameGraphPositionFactory() {
+        assertLayoutIdempotent(new PositionVoltageLevelLayoutFactory());
+    }
+
+    @Test
+    void layoutRunTwiceShouldProduceSameGraphSmartFactory() {
+        assertLayoutIdempotent(new SmartVoltageLevelLayoutFactory(network));
+    }
+
+    void assertLayoutIdempotent(VoltageLevelLayoutFactory layoutFactory) {
+        // Given (layout)
         VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl.getId());
-        Layout layout = new PositionVoltageLevelLayoutFactory().create(graph);
-//        var layout = new SmartVoltageLevelLayoutFactory(network).create(graph);
-        // When run (first call)
+        Layout layout = layoutFactory.create(graph);
+        // When run Layout (first call)
         layout.run(layoutParameter);
         String afterFirstRun = toJson(graph, "/afterFirstRun.json");
         String svgAfterFirstLayout = toSVG(graph, "/svg-after-first-layout.svg");
-        // When run (second call)
+        // When run Layout (second call)
         layout.run(layoutParameter);
         String afterSecondRun = toJson(graph, "/afterSecondRun.json");
         String svgAfterSecondLayout = toSVG(graph, "/svg-after-second-layout.svg");
