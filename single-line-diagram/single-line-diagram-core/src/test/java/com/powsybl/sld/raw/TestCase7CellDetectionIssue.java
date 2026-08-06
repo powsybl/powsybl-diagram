@@ -7,6 +7,7 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
+import com.powsybl.sld.layout.CellDetector;
 import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -46,22 +47,22 @@ class TestCase7CellDetectionIssue extends AbstractTestCaseRaw {
     @Test
     void detectCellsTwiceReturnDuplicatesCells() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
-        ImplicitCellDetector cellDetector = new ImplicitCellDetector();
+        CellDetector cellDetector = new ImplicitCellDetector();
         cellDetector.detectCells(g);
         assertEquals(1, g.getCellStream().count());
         cellDetector.detectCells(g);
-        assertEquals(2, g.getCellStream().count()); // origin bug 289
+        assertEquals(2, g.getCellStream().count());
     }
 
     @Test
     void detectCellsTwiceWithClearIsIdempotent() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
-        ImplicitCellDetector cellDetector = new ImplicitCellDetector();
+        CellDetector cellDetector = new ImplicitCellDetector();
         cellDetector.detectCells(g);
         assertEquals(1, g.getCellStream().count());
 
         g.clearCells();
         cellDetector.detectCells(g);
-        assertEquals(1, g.getCellStream().count()); // fix bug 289
+        assertEquals(1, g.getCellStream().count());
     }
 }
