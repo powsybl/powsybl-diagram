@@ -41,6 +41,10 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
 
     private final Network network;
 
+    /**
+     *
+     * @param network the IIDM network (must not be {@code null})
+     */
     public HighlightLineStateStyleProvider(Network network) {
         Objects.requireNonNull(network);
         this.network = network;
