@@ -169,7 +169,7 @@
                 <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_vl_95_b1_95_gd1">
                     <polyline points="115.0,186.0,115.0,164.0"/>
                 </g>
-                <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_vl_95_gd1_95_INTERNAL_95_vl_95_line_95_ONE">
+                <g class="sld-wire sld-vl300to500 sld-bus-0 sld-feeder-connected-disconnected" id="_95_vl_95_gd1_95_INTERNAL_95_vl_95_line_95_ONE">
                     <polyline points="115.0,164.0,115.0,142.0"/>
                 </g>
                 <g class="sld-wire sld-vl300to500 sld-bus-0 sld-feeder-connected-disconnected" id="_95_vl_95_INTERNAL_95_vl_95_line_95_ONE_95_line_95_ONE">

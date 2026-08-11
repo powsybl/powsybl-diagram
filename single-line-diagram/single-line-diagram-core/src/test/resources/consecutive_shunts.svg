@@ -567,7 +567,7 @@
                 <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_CZ_95_EZ">
                     <polyline points="165.0,498.0,165.0,523.0"/>
                 </g>
-                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_FT_95_ONE_95_EZ">
+                <g class="sld-wire sld-vl70to120 sld-bus-1 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FT_95_ONE_95_EZ">
                     <polyline points="165.0,578.0,165.0,543.0"/>
                 </g>
                 <g class="sld-wire sld-vl70to120 sld-bus-1 sld-feeder-connected-disconnected" id="_95_AU_95_FT_95_ONE_95_INTERNAL_95_AU_95_FT_95_ONE">
@@ -1023,7 +1023,7 @@
                 <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_EF_95_INTERNAL_95_AU_95_BUSCO_95_BB_95_EF_45_EF">
                     <polyline points="1065.0,192.5,1065.0,223.0"/>
                 </g>
-                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_FV_95_ONE_95_EF">
+                <g class="sld-wire sld-vl70to120 sld-bus-0 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FV_95_ONE_95_EF">
                     <polyline points="1065.0,142.0,1065.0,172.5"/>
                 </g>
                 <g class="sld-wire sld-vl70to120 sld-bus-0 sld-feeder-connected-disconnected" id="_95_AU_95_FV_95_ONE_95_INTERNAL_95_AU_95_FV_95_ONE">

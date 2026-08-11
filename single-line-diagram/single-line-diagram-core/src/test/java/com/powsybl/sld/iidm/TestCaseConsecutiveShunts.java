@@ -18,7 +18,6 @@ import com.powsybl.sld.svg.LabelProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -53,7 +52,7 @@ class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
     }
 
     @Test
-    void test() throws IOException {
+    void test() {
 
         // build voltage level 1 graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
