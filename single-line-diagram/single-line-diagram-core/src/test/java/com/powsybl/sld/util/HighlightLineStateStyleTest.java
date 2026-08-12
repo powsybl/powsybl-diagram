@@ -12,13 +12,12 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.svg.styles.DefaultStyleProviderFactory;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
 import com.powsybl.sld.svg.styles.StyleProvider;
-import com.powsybl.sld.svg.styles.iidm.HighlightLineStateStyleProvider;
+import com.powsybl.sld.svg.styles.StyleProviderFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,21 +36,24 @@ class HighlightLineStateStyleTest extends AbstractTestCaseIidm {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = network.newSubstation().setId("substation").setCountry(Country.FR).add();
+        vl = Networks.createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380);
         // bbs - disconnector - breaker - load
-        VoltageLevel vl1 = Networks.createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380);
-        Networks.createBusBarSection(vl1, "bbs1", "bbs1", 0, 1, 1);
-        Networks.createLoad(vl1, "load", "load", "load", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
-        Networks.createSwitch(vl1, "disconnector", "disconnector", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
-        Networks.createSwitch(vl1, "breaker", "breaker", SwitchKind.BREAKER, false, false, false, 1, 2);
+        Networks.createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
+        Networks.createLoad(vl, "load", "load", "load", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
+        Networks.createSwitch(vl, "disconnector", "disconnector", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
+        Networks.createSwitch(vl, "breaker", "breaker", SwitchKind.BREAKER, false, false, false, 1, 2);
     }
 
     @Test
-    void testHighlightLineStateAtFictitiousNode() {
+    void testHighlightLineStateAtEdgesLinkedToFictitiousNode() {
+        // Given feeder disconnected
         network.getLoad("load").getTerminal().disconnect();
-        StyleProvider styleProvider = new HighlightLineStateStyleProvider(network);
-        VoltageLevelGraph graph = new NetworkGraphBuilder(network).buildVoltageLevelGraph("vl1");
-        new SmartVoltageLevelLayoutFactory(network).create(graph).run(new LayoutParameters());
-        assertThat(graph.getEdges()).hasSize(5);
+        // When building graph
+        VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl.getId());
+        voltageLevelGraphLayout(graph);
+        StyleProviderFactory styleFactory = new DefaultStyleProviderFactory(); // HighlightLineStateStyleProvider included by default
+        StyleProvider styleProvider = styleFactory.create(network, svgParameters);
+        // Then
         assertThat(graph.getEdges())
                 .filteredOn(edge -> styleProvider.getEdgeStyles(graph, edge)
                         .contains(StyleClassConstants.FEEDER_DISCONNECTED_CONNECTED))

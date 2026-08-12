@@ -35,7 +35,6 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -119,7 +118,6 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
         return fictitious.getAdjacentNodes().stream()
                 .filter(FeederNode.class::isInstance)
                 .map(FeederNode.class::cast)
-                .filter(feeder -> !Objects.equals(adjacentNode.getId(), feeder.getId()))
                 .findFirst()
                 .flatMap(feeder -> getHighlightFeederStateStyle(graph, feeder));
     }
