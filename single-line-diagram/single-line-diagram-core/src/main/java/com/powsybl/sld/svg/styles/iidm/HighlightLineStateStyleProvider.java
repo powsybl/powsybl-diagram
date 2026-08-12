@@ -106,9 +106,6 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
         } else if (n2.isFictitious()) {
             fictitious = n2;
         } else {
-            fictitious = null;
-        }
-        if (fictitious == null) {
             return Optional.empty();
         }
         Node adjacentNode = fictitious == n1 ? n2 : n1;
