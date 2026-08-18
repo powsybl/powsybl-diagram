@@ -240,7 +240,7 @@ class DiagramMetadataTest extends AbstractTest {
         );
 
         labelProvider = new DefaultLabelProvider(network, getSvgParameters());
-        StyleProvider styleProvider = new CustomStyleProvider(busNodesStyles, edgesStyles, threeWtsStyles);
+        StyleProvider styleProvider = new CustomStyleProvider(busNodesStyles, edgesStyles, threeWtsStyles, new HashMap<>());
         roundTrip(network, "/custom_style_metadata.json", new LayoutParameters().setInjectionsAdded(true), styleProvider);
     }
 

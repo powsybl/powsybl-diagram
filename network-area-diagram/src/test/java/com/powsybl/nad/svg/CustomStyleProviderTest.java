@@ -7,17 +7,23 @@
  */
 package com.powsybl.nad.svg;
 
+import com.google.common.jimfs.Configuration;
+import com.google.common.jimfs.Jimfs;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.AbstractTest;
+import com.powsybl.nad.NadParameters;
 import com.powsybl.nad.layout.LayoutParameters;
+import com.powsybl.nad.svg.CustomLabelProvider.InjectionLabels;
 import com.powsybl.nad.svg.CustomStyleProvider.BusNodeStyles;
 import com.powsybl.nad.svg.CustomStyleProvider.EdgeStyles;
+import com.powsybl.nad.svg.CustomStyleProvider.InjectionStyles;
 import com.powsybl.nad.svg.CustomStyleProvider.ThreeWtStyles;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.FileSystem;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,9 +32,11 @@ import java.util.Map;
  */
 class CustomStyleProviderTest extends AbstractTest {
     StyleProvider styleProvider;
+    FileSystem fileSystem;
 
     @BeforeEach
     void setup() {
+        fileSystem = Jimfs.newFileSystem(Configuration.unix());
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
@@ -75,15 +83,52 @@ class CustomStyleProviderTest extends AbstractTest {
                 )
         );
 
-        styleProvider = new CustomStyleProvider(busNodesStyles, edgesStyles, threeWtsStyles);
+        styleProvider = new CustomStyleProvider(busNodesStyles, edgesStyles, threeWtsStyles, new HashMap<>());
         assertSvgEquals("/custom_style_provider.svg", network);
     }
 
     @Test
     void testCustomStyleProviderEmpty() {
         Network network = Networks.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
-        styleProvider = new CustomStyleProvider(new HashMap<>(), new HashMap<>(), new HashMap<>());
+        styleProvider = new CustomStyleProvider(new HashMap<>(), new HashMap<>(), new HashMap<>(), new HashMap<>());
         assertSvgEquals("/custom_style_provider_empty.svg", network);
+    }
+
+    @Test
+    void testInjectionWithCustomLabelAndStyleProvider() {
+        Network network = Networks.createNodeBreakerNetworkWithBranchStatus("test", "test");
+        NadParameters nadParameters = new NadParameters()
+                .setLayoutParameters(new LayoutParameters().setInjectionsAdded(true))
+                .setStyleProviderFactory(network1 -> createCustomStyleInjections())
+                .setLabelProviderFactory((network1, svgParameters) -> createCustomLabelInjections());
+        setNadParameters(nadParameters);
+        assertSvgEqualsWithNadParameters("/nad-injection-with-custom-label-and-style.svg", network);
+    }
+
+    @Test
+    void testInjectionWithCustomStyleProvider() {
+        Network network = Networks.createNodeBreakerNetworkWithBranchStatus("test", "test");
+        NadParameters nadParameters = new NadParameters()
+                .setLayoutParameters(new LayoutParameters().setInjectionsAdded(true))
+                .setStyleProviderFactory(network1 -> createCustomStyleInjections());
+        setNadParameters(nadParameters);
+        assertSvgEqualsWithNadParameters("/nad-injection-with-custom-style.svg", network);
+    }
+
+    private CustomStyleProvider createCustomStyleInjections() {
+        Map<String, InjectionStyles> injectionStyles = new HashMap<>();
+        injectionStyles.put("G", new InjectionStyles("red", "4px", null));
+        injectionStyles.put("L1", new InjectionStyles("green", "4px", "2"));
+        injectionStyles.put("L2", new InjectionStyles("green", "4px", null));
+        return new CustomStyleProvider(new HashMap<>(), new HashMap<>(), new HashMap<>(), injectionStyles);
+    }
+
+    private CustomLabelProvider createCustomLabelInjections() {
+        Map<String, InjectionLabels> injectionLabels = new HashMap<>();
+        injectionLabels.put("G", new InjectionLabels(null, "gen", EdgeInfo.Direction.IN));
+        injectionLabels.put("L1", new InjectionLabels(null, "label 1", EdgeInfo.Direction.OUT));
+        injectionLabels.put("L2", new InjectionLabels(null, "label 2", EdgeInfo.Direction.OUT));
+        return new CustomLabelProvider(new HashMap<>(), new HashMap<>(), injectionLabels, new HashMap<>());
     }
 
 }
