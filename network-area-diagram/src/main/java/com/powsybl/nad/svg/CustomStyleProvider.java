@@ -34,7 +34,9 @@ import java.util.stream.Stream;
  * are the color, the size and a dash pattern for the three legs of the transformer.
  *
  * <p>
- * The injectionStyles map TODO
+ * The injectionStyles map is indexed by the injection equipment ID and defines the style for injection elements (e.g. generators, loads).
+ * In the map, the style is declared in an InjectionStyles record: stroke, strokeWidth and dash are the color,
+ * the size and a dash pattern for the injection connector
  *
  * <p>
  * Note that the edge size is a string, it can be specified in pixel (e.g, 4px).

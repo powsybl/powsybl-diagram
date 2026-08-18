@@ -7,8 +7,6 @@
  */
 package com.powsybl.nad.svg;
 
-import com.google.common.jimfs.Configuration;
-import com.google.common.jimfs.Jimfs;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.AbstractTest;
@@ -23,7 +21,6 @@ import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.FileSystem;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,11 +29,9 @@ import java.util.Map;
  */
 class CustomStyleProviderTest extends AbstractTest {
     StyleProvider styleProvider;
-    FileSystem fileSystem;
 
     @BeforeEach
     void setup() {
-        fileSystem = Jimfs.newFileSystem(Configuration.unix());
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
