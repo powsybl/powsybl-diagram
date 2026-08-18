@@ -91,19 +91,15 @@ public abstract class AbstractTest {
     }
 
     protected void assertSvgEqualsWithNadParameters(String resourceName, Network network) {
-        assertSvgEqualsWithNadParameters(resourceName, network, VoltageLevelFilter.NO_FILTER);
+        assertSvgEqualsWithNadParameters(resourceName, network, new BasicForceLayout());
     }
 
-    protected void assertSvgEqualsWithNadParameters(String resourceName, Network network, Predicate<VoltageLevel> voltageLevelFilter) {
-        assertSvgEqualsWithNadParameters(resourceName, network, voltageLevelFilter, new BasicForceLayout());
-    }
-
-    protected void assertSvgEqualsWithNadParameters(String resourceName, Network network, Predicate<VoltageLevel> voltageLevelFilter, AbstractLayout layout) {
+    protected void assertSvgEqualsWithNadParameters(String resourceName, Network network, AbstractLayout layout) {
         StyleProvider styleProvider = getNadParameters().getStyleProviderFactory().create(network);
-        SvgParameters svgParameters = getNadParameters().getSvgParameters();
+        svgParameters = getNadParameters().getSvgParameters();
+        layoutParameters = getNadParameters().getLayoutParameters();
         LabelProvider labelProvider = getNadParameters().getLabelProviderFactory().create(network, svgParameters);
-        LayoutParameters layoutParameters = getNadParameters().getLayoutParameters();
-        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, labelProvider, layoutParameters, new IntIdProvider()).buildGraph();
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, labelProvider, layoutParameters, new IntIdProvider()).buildGraph();
         layout.run(graph, layoutParameters);
         assertFalse(graph.isStyleApplied());
         NetworkGraphBuilder.applyStyle(graph, styleProvider);
