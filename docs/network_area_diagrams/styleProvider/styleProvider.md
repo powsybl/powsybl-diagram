@@ -36,4 +36,4 @@ This leads to a color shading for each range of nominal voltages defined by the 
 The text node of corresponding voltage level gives a legend for the color shading, based on the selected given `LabelProvider` - the default being the voltage and angle. 
 
 ## CustomStyleProvider feature
-Custom styles can be applied to bus nodes, branch sides, three-winding transformer legs and injections based on their IIDM identifiers.
+Custom styles can be applied to bus nodes, branch sides and three-winding transformer legs based on their IIDM identifiers.
