@@ -2,7 +2,7 @@
 
 The `StyleProvider` interface provides a way to customize the appearance of the single-area diagram.
 
-Currently, there are 2 implementations of the `StyleProvider`: the `BasicStyleProvider`, the `NominalVoltageStyleProvider` and the `TopologicalStyleProvider`
+Currently, there are 3 implementations of the `StyleProvider`: the `BasicStyleProvider`, the `NominalVoltageStyleProvider` and the `TopologicalStyleProvider`
 
 ## Common features
 The common features are factorized in the abstract classes `AbstractStyleProvider` and `AbstractVoltageStyleProvider`.
