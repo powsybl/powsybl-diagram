@@ -29,3 +29,5 @@ public class YourCustomStyleProviderFactory implements StyleProviderFactory {
 ```
 
 ![sld-highlight-buses](../../_static/img/sld/sld-highlight-buses.svg){class="forced-white-background"}
+
+The `CustomTopologicalStyleProvider` can be used to apply custom styles to a bus and its connected elements using the bus IIDM identifier.
