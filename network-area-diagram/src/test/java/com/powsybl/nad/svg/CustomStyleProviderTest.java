@@ -93,7 +93,8 @@ class CustomStyleProviderTest extends AbstractTest {
     void testInjectionWithCustomLabelAndStyleProvider() {
         Network network = Networks.createNodeBreakerNetworkWithBranchStatus("test", "test");
         NadParameters nadParameters = new NadParameters()
-                .setLayoutParameters(new LayoutParameters().setInjectionsAdded(true))
+                .setSvgParameters(getSvgParameters())
+                .setLayoutParameters(getLayoutParameters().setInjectionsAdded(true))
                 .setStyleProviderFactory(network1 -> createCustomStyleInjections())
                 .setLabelProviderFactory((network1, svgParameters) -> createCustomLabelInjections());
         setNadParameters(nadParameters);
@@ -104,7 +105,8 @@ class CustomStyleProviderTest extends AbstractTest {
     void testInjectionWithCustomStyleProvider() {
         Network network = Networks.createNodeBreakerNetworkWithBranchStatus("test", "test");
         NadParameters nadParameters = new NadParameters()
-                .setLayoutParameters(new LayoutParameters().setInjectionsAdded(true))
+                .setSvgParameters(getSvgParameters())
+                .setLayoutParameters(getLayoutParameters().setInjectionsAdded(true))
                 .setStyleProviderFactory(network1 -> createCustomStyleInjections());
         setNadParameters(nadParameters);
         assertSvgEqualsWithNadParameters("/nad-injection-with-custom-style.svg", network);
