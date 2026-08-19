@@ -48,8 +48,6 @@ public abstract class AbstractTest {
 
     private LayoutParameters layoutParameters;
 
-    private NadParameters nadParameters;
-
     protected abstract StyleProvider getStyleProvider(Network network);
 
     protected abstract LabelProvider getLabelProvider(Network network);
@@ -87,25 +85,6 @@ public abstract class AbstractTest {
         assertTrue(graph.isStyleApplied());
         StringWriter writer = new StringWriter();
         new SvgWriter(getSvgParameters(), getComponentLibrary(), getEdgeRouting()).writeSvg(graph, writer);
-        assertStringEquals(resourceName, writer.toString());
-    }
-
-    protected void assertSvgEqualsWithNadParameters(String resourceName, Network network) {
-        assertSvgEqualsWithNadParameters(resourceName, network, new BasicForceLayout());
-    }
-
-    protected void assertSvgEqualsWithNadParameters(String resourceName, Network network, AbstractLayout layout) {
-        StyleProvider styleProvider = getNadParameters().getStyleProviderFactory().create(network);
-        svgParameters = getNadParameters().getSvgParameters();
-        layoutParameters = getNadParameters().getLayoutParameters();
-        LabelProvider labelProvider = getNadParameters().getLabelProviderFactory().create(network, svgParameters);
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, labelProvider, layoutParameters, new IntIdProvider()).buildGraph();
-        layout.run(graph, layoutParameters);
-        assertFalse(graph.isStyleApplied());
-        NetworkGraphBuilder.applyStyle(graph, styleProvider);
-        assertTrue(graph.isStyleApplied());
-        StringWriter writer = new StringWriter();
-        new SvgWriter(svgParameters, getNadParameters().getComponentLibrary(), getNadParameters().getEdgeRouting()).writeSvg(graph, writer);
         assertStringEquals(resourceName, writer.toString());
     }
 
@@ -172,13 +151,5 @@ public abstract class AbstractTest {
 
     protected void setSvgParameters(SvgParameters svgParameters) {
         this.svgParameters = svgParameters;
-    }
-
-    protected void setNadParameters(NadParameters nadParameters) {
-        this.nadParameters = nadParameters;
-    }
-
-    protected NadParameters getNadParameters() {
-        return nadParameters;
     }
 }

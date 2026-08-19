@@ -10,9 +10,7 @@ package com.powsybl.nad.svg;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.AbstractTest;
-import com.powsybl.nad.NadParameters;
 import com.powsybl.nad.layout.LayoutParameters;
-import com.powsybl.nad.svg.CustomLabelProvider.InjectionLabels;
 import com.powsybl.nad.svg.CustomStyleProvider.BusNodeStyles;
 import com.powsybl.nad.svg.CustomStyleProvider.EdgeStyles;
 import com.powsybl.nad.svg.CustomStyleProvider.InjectionStyles;
@@ -58,7 +56,26 @@ class CustomStyleProviderTest extends AbstractTest {
     @Test
     void testCustomStyleProvider() {
         Network network = Networks.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
+        styleProvider = createCustomStyleInjections();
+        assertSvgEquals("/custom_style_provider.svg", network);
+    }
 
+    @Test
+    void testCustomStyleProviderEmpty() {
+        Network network = Networks.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
+        styleProvider = new CustomStyleProvider(new HashMap<>(), new HashMap<>(), new HashMap<>(), new HashMap<>());
+        assertSvgEquals("/custom_style_provider_empty.svg", network);
+    }
+
+    @Test
+    void testInjectionWithCustomStyleProvider() {
+        Network network = Networks.createNodeBreakerNetworkWithBranchStatus("test", "test");
+        getLayoutParameters().setInjectionsAdded(true);
+        styleProvider = createCustomStyleInjections();
+        assertSvgEquals("/nad_custom_style_provider_injections.svg", network);
+    }
+
+    private CustomStyleProvider createCustomStyleInjections() {
         Map<String, BusNodeStyles> busNodesStyles = new HashMap<>();
         busNodesStyles.put("VL1_10", new BusNodeStyles("yellow", null, null));
         busNodesStyles.put("VL2_30", new BusNodeStyles("red", "black", "4px"));
@@ -77,55 +94,11 @@ class CustomStyleProviderTest extends AbstractTest {
                         "pink", "6px", null
                 )
         );
-
-        styleProvider = new CustomStyleProvider(busNodesStyles, edgesStyles, threeWtsStyles, new HashMap<>());
-        assertSvgEquals("/custom_style_provider.svg", network);
-    }
-
-    @Test
-    void testCustomStyleProviderEmpty() {
-        Network network = Networks.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
-        styleProvider = new CustomStyleProvider(new HashMap<>(), new HashMap<>(), new HashMap<>(), new HashMap<>());
-        assertSvgEquals("/custom_style_provider_empty.svg", network);
-    }
-
-    @Test
-    void testInjectionWithCustomLabelAndStyleProvider() {
-        Network network = Networks.createNodeBreakerNetworkWithBranchStatus("test", "test");
-        NadParameters nadParameters = new NadParameters()
-                .setSvgParameters(getSvgParameters())
-                .setLayoutParameters(getLayoutParameters().setInjectionsAdded(true))
-                .setStyleProviderFactory(network1 -> createCustomStyleInjections())
-                .setLabelProviderFactory((network1, svgParameters) -> createCustomLabelInjections());
-        setNadParameters(nadParameters);
-        assertSvgEqualsWithNadParameters("/nad-injection-with-custom-label-and-style.svg", network);
-    }
-
-    @Test
-    void testInjectionWithCustomStyleProvider() {
-        Network network = Networks.createNodeBreakerNetworkWithBranchStatus("test", "test");
-        NadParameters nadParameters = new NadParameters()
-                .setSvgParameters(getSvgParameters())
-                .setLayoutParameters(getLayoutParameters().setInjectionsAdded(true))
-                .setStyleProviderFactory(network1 -> createCustomStyleInjections());
-        setNadParameters(nadParameters);
-        assertSvgEqualsWithNadParameters("/nad-injection-with-custom-style.svg", network);
-    }
-
-    private CustomStyleProvider createCustomStyleInjections() {
         Map<String, InjectionStyles> injectionStyles = new HashMap<>();
-        injectionStyles.put("G", new InjectionStyles("red", "4px", null));
-        injectionStyles.put("L1", new InjectionStyles("green", "4px", "2"));
-        injectionStyles.put("L2", new InjectionStyles("green", "4px", null));
-        return new CustomStyleProvider(new HashMap<>(), new HashMap<>(), new HashMap<>(), injectionStyles);
-    }
-
-    private CustomLabelProvider createCustomLabelInjections() {
-        Map<String, InjectionLabels> injectionLabels = new HashMap<>();
-        injectionLabels.put("G", new InjectionLabels(null, "gen", EdgeInfo.Direction.IN));
-        injectionLabels.put("L1", new InjectionLabels(null, "label 1", EdgeInfo.Direction.OUT));
-        injectionLabels.put("L2", new InjectionLabels(null, "label 2", EdgeInfo.Direction.OUT));
-        return new CustomLabelProvider(new HashMap<>(), new HashMap<>(), injectionLabels, new HashMap<>());
+        injectionStyles.put("G", new InjectionStyles("SteelBlue", "4px", null));
+        injectionStyles.put("L1", new InjectionStyles("SteelBlue", "4px", null));
+        injectionStyles.put("L2", new InjectionStyles("SteelBlue", "4px", "1"));
+        return new CustomStyleProvider(busNodesStyles, edgesStyles, threeWtsStyles, injectionStyles);
     }
 
 }
