@@ -56,7 +56,7 @@ class CustomStyleProviderTest extends AbstractTest {
     @Test
     void testCustomStyleProvider() {
         Network network = Networks.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
-        styleProvider = createCustomStyleInjections();
+        styleProvider = createCustomStyleProvider();
         assertSvgEquals("/custom_style_provider.svg", network);
     }
 
@@ -71,11 +71,11 @@ class CustomStyleProviderTest extends AbstractTest {
     void testInjectionWithCustomStyleProvider() {
         Network network = Networks.createNodeBreakerNetworkWithBranchStatus("test", "test");
         getLayoutParameters().setInjectionsAdded(true);
-        styleProvider = createCustomStyleInjections();
+        styleProvider = createCustomStyleProvider();
         assertSvgEquals("/nad_custom_style_provider_injections.svg", network);
     }
 
-    private CustomStyleProvider createCustomStyleInjections() {
+    private CustomStyleProvider createCustomStyleProvider() {
         Map<String, BusNodeStyles> busNodesStyles = new HashMap<>();
         busNodesStyles.put("VL1_10", new BusNodeStyles("yellow", null, null));
         busNodesStyles.put("VL2_30", new BusNodeStyles("red", "black", "4px"));
