@@ -95,9 +95,9 @@ class CustomStyleProviderTest extends AbstractTest {
                 )
         );
         Map<String, InjectionStyles> injectionStyles = new HashMap<>();
-        injectionStyles.put("G", new InjectionStyles("SteelBlue", "4px", null));
-        injectionStyles.put("L1", new InjectionStyles("SteelBlue", "4px", null));
-        injectionStyles.put("L2", new InjectionStyles("SteelBlue", "4px", "1"));
+        injectionStyles.put("G", new InjectionStyles("green", "8px", null));
+        injectionStyles.put("L1", new InjectionStyles("blue", "8px", "10"));
+        injectionStyles.put("L2", new InjectionStyles("red", "5px", "4 4"));
         return new CustomStyleProvider(busNodesStyles, edgesStyles, threeWtsStyles, injectionStyles);
     }
 

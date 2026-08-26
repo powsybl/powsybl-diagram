@@ -63,10 +63,21 @@ public class CustomStyleProvider extends AbstractStyleProvider {
                                 String dash2, String edge3, String width3, String dash3) {
     }
 
-    private record EdgeStyle(String stroke, String strokeWidth, String dash) {
+    /**
+     * Defines the style of an injection element.
+     *
+     * @param stroke        the color of the injection connector
+     * @param strokeWidth   the width of the injection connector
+     * @param dash          the dash pattern of the injection connector
+     *
+     * <p>For example:
+     * <pre> {@code Map.of("GEN_1", new InjectionStyles("red", "4px", "5"))}
+     * </pre>
+     */
+    public record InjectionStyles(String stroke, String strokeWidth, String dash) {
     }
 
-    public record InjectionStyles(String stroke, String strokeWidth, String dash) {
+    private record EdgeStyle(String stroke, String strokeWidth, String dash) {
     }
 
     public CustomStyleProvider(Map<String, BusNodeStyles> busNodesStyles, Map<String, EdgeStyles> edgesStyles,
