@@ -201,7 +201,7 @@
             <g>
                 <circle class="nad-vl300to500 nad-winding" cx="-385.26" cy="-561.80" r="20.00"/>
                 <circle class="nad-vl300to500 nad-winding" cx="-367.97" cy="-571.86" r="20.00"/>
-                <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(0.86,-0.50,0.50,0.86,-417.64,-577.67)" class="nad-pst-arrow"/>
+                <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(0.86,-0.50,0.50,0.86,-417.64,-577.67)" class="nad-vl300to500 nad-pst-arrow"/>
             </g>
         </g>
         <g id="47">
@@ -256,7 +256,7 @@
             <g>
                 <circle class="nad-vl300to500 nad-winding" cx="-139.69" cy="785.07" r="20.00"/>
                 <circle class="nad-vl300to500 nad-winding" cx="-154.83" cy="772.00" r="20.00"/>
-                <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-0.76,-0.65,0.65,-0.76,-144.16,820.85)" class="nad-pst-arrow"/>
+                <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-0.76,-0.65,0.65,-0.76,-144.16,820.85)" class="nad-vl300to500 nad-pst-arrow"/>
             </g>
         </g>
         <g id="57">
