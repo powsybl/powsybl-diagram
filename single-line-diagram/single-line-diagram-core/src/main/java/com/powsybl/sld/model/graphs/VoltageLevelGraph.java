@@ -598,8 +598,8 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     public void addPaddingToCoord(LayoutParameters layoutParam) {
         LayoutParameters.Padding vlPadding = layoutParam.getVoltageLevelPadding();
         LayoutParameters.Padding dPadding = layoutParam.getDiagramPadding();
-        setCoord(coord.getX() + dPadding.left() + vlPadding.left(),
-                coord.getY() + dPadding.top() + vlPadding.top());
+        setCoord(getCoord().getX() + dPadding.left() + vlPadding.left(),
+                getCoord().getY() + dPadding.top() + vlPadding.top());
     }
 
     public void setCoord(double x, double y) {
@@ -781,5 +781,11 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     private record GroundDisconnection(List<Node> nodes, FeederNode ground, SwitchNode disconnector, Node forkNode) {
+    }
+
+    public void clearCells() {
+        cells.clear();
+        cellCounter = 0;
+        setCoord(0, 0);
     }
 }
