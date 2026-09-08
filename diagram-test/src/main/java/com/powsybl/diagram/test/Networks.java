@@ -10,6 +10,7 @@ import com.powsybl.commons.extensions.Extendable;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.*;
+import com.powsybl.iidm.network.regulation.RegulationMode;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -248,7 +249,7 @@ public final class Networks {
                 .setBus("Bus")
                 .setBmin(0.0002)
                 .setBmax(0.0008)
-                .setRegulationMode(StaticVarCompensator.RegulationMode.VOLTAGE)
+                .setRegulationMode(RegulationMode.VOLTAGE)
                 .setRegulating(true)
                 .setVoltageSetpoint(390.0)
                 .setReactivePowerSetpoint(1.0)
@@ -1536,7 +1537,7 @@ public final class Networks {
                 .setNode(2)
                 .setBmin(0.0002)
                 .setBmax(0.0008)
-                .setRegulationMode(StaticVarCompensator.RegulationMode.VOLTAGE)
+                .setRegulationMode(RegulationMode.VOLTAGE)
                 .setRegulating(true)
                 .setVoltageSetpoint(390)
                 .add();

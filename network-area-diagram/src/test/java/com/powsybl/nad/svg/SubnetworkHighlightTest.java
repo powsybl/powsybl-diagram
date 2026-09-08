@@ -10,6 +10,7 @@ package com.powsybl.nad.svg;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.regulation.RegulationMode;
 import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
@@ -397,7 +398,7 @@ class SubnetworkHighlightTest extends AbstractTest {
             .setTapPosition(1)
             .setLoadTapChangingCapabilities(true)
             .setRegulating(true)
-            .setRegulationMode(RatioTapChanger.RegulationMode.VOLTAGE)
+            .setRegulationMode(RegulationMode.VOLTAGE)
             .setRegulationValue(158.0)
             .setTargetDeadband(0)
             .setRegulationTerminal(nhv2Nload.getTerminal2())
