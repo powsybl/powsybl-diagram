@@ -447,6 +447,54 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     /**
+     * Set on each connectivity node still without one the node of the node/breaker view it stands on:
+     * the node its neighbours have in common. Only the connectivity nodes created from the network keep
+     * that node; those inserted afterwards for the layout are given it back here.
+     * Repeated until nothing more is resolved, as a connectivity node may neighbour another one.
+     */
+    public void resolveConnectivityNodesIidmNode() {
+        boolean resolvedOne = true;
+        while (resolvedOne) {
+            resolvedOne = false;
+            for (ConnectivityNode node : getConnectivityNodeStream().filter(n -> n.getIidmNode().isEmpty()).toList()) {
+                resolvedOne |= resolveIidmNode(node);
+            }
+        }
+    }
+
+    private static boolean resolveIidmNode(ConnectivityNode node) {
+        Set<Integer> shared = null;
+        for (Node neighbour : node.getAdjacentNodes()) {
+            List<Integer> candidates = iidmNodesOf(neighbour);
+            if (candidates.isEmpty()) {
+                continue;
+            }
+            if (shared == null) {
+                shared = new HashSet<>(candidates);
+            } else {
+                shared.retainAll(candidates);
+            }
+        }
+        if (shared == null || shared.size() != 1) {
+            return false;
+        }
+        node.setIidmNode(shared.iterator().next());
+        return true;
+    }
+
+    /**
+     * The nodes of the node/breaker view a node stands on: one for an equipment, two for a switch.
+     */
+    private static List<Integer> iidmNodesOf(Node node) {
+        if (node instanceof SwitchNode switchNode) {
+            return switchNode.getIidmNode1().isPresent() && switchNode.getIidmNode2().isPresent()
+                    ? List.of(switchNode.getIidmNode1().get(), switchNode.getIidmNode2().get())
+                    : List.of();
+        }
+        return node.getIidmNode().map(List::of).orElse(List.of());
+    }
+
+    /**
      * Substitute a node with another node already in the graph.
      *
      * @param nodeOrigin: node which will be substituted
