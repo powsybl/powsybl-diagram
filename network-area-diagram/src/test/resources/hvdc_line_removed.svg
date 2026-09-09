@@ -94,7 +94,7 @@
             <g>
                 <circle class="nad-vl180to300 nad-winding" cx="-583.12" cy="-226.79" r="20.00"/>
                 <circle class="nad-vl300to500 nad-winding" cx="-590.83" cy="-208.33" r="20.00"/>
-                <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-0.39,0.92,-0.92,-0.39,-547.73,-233.68)" class="nad-pst-arrow"/>
+                <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-0.39,0.92,-0.92,-0.39,-547.73,-233.68)" class="nad-vl180to300 nad-vl300to500 nad-pst-arrow"/>
             </g>
         </g>
         <g id="23">
