@@ -78,14 +78,6 @@ public interface Node {
 
     void setIidmNode(int iidmNode);
 
-    Optional<Integer> getIidmNode1();
-
-    void setIidmNode1(int iidmNode);
-
-    Optional<Integer> getIidmNode2();
-
-    void setIidmNode2(int iidmNode);
-
     Direction getDirection();
 
     void setDirection(Direction direction);

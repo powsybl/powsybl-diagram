@@ -121,6 +121,7 @@
     "componentType" : "NODE",
     "open" : false,
     "vlabel" : false,
+    "iidmNode" : 1,
     "labels" : [ ]
   }, {
     "id" : "idl",
@@ -142,6 +143,7 @@
     "componentType" : "NODE",
     "open" : false,
     "vlabel" : false,
+    "iidmNode" : 2,
     "labels" : [ ]
   }, {
     "id" : "idINTERNAL_95_vl1_95_trf_95_ONE",
@@ -149,6 +151,7 @@
     "componentType" : "NODE",
     "open" : false,
     "vlabel" : false,
+    "iidmNode" : 4,
     "labels" : [ ]
   }, {
     "id" : "idtrf_95_ONE",
@@ -185,6 +188,7 @@
     "componentType" : "NODE",
     "open" : false,
     "vlabel" : false,
+    "iidmNode" : 3,
     "labels" : [ ]
   }, {
     "id" : "idd2",

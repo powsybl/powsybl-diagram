@@ -484,12 +484,15 @@ public class DefaultSVGWriter implements SVGWriter {
 
         boolean isOpen = node.getType() == NodeType.SWITCH && ((SwitchNode) node).isOpen();
 
+        Integer iidmNode1 = node instanceof SwitchNode switchNode ? switchNode.getIidmNode1().orElse(null) : null;
+        Integer iidmNode2 = node instanceof SwitchNode switchNode ? switchNode.getIidmNode2().orElse(null) : null;
+
         metadata.addNodeMetadata(
                 new GraphMetadata.NodeMetadata(getUnescapedId(node), nodeEscapedId, vId, nextVId, node.getComponentType(), isOpen, direction, false,
                         node instanceof EquipmentNode ? ((EquipmentNode) node).getEquipmentId() : null,
                         node.getIidmNode().orElse(null),
-                        node.getIidmNode1().orElse(null),
-                        node.getIidmNode2().orElse(null),
+                        iidmNode1,
+                        iidmNode2,
                         node.getOrder().orElse(null),
                         null, null,
                         createNodeLabelMetadata(prefixId, node, nodeLabels)));

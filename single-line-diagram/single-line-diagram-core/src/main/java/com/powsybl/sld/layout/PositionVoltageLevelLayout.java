@@ -58,6 +58,9 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         cellDetector.detectCells(getGraph());
         blockOrganizer.organize(getGraph(), layoutParam);
 
+        // The graph is complete: give the connectivity nodes inserted above their node/breaker view node back
+        getGraph().resolveConnectivityNodesIidmNode();
+
         calculateMaxCellHeight(layoutParam);
         calculateBusNodeCoord(getGraph(), layoutParam);
         calculateCellCoord(getGraph(), layoutParam);
