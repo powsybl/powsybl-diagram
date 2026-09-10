@@ -501,6 +501,9 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
      * @param newNode:    node which will substitute the first one
      */
     public void substituteNode(Node nodeOrigin, Node newNode) {
+        if (newNode.getIidmNode().isEmpty()) {
+            nodeOrigin.getIidmNode().ifPresent(newNode::setIidmNode);
+        }
         transferEdges(nodeOrigin, newNode);
         removeNode(nodeOrigin);
     }
