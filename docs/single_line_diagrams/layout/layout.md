@@ -32,10 +32,33 @@ This layout positions the different elements inside a voltage level according to
 - Compute real coordinates of busNode and blocks connected to busbars (see [PositionFinder](positionFinder.md))
 
 ##### The `PositionVoltageLevelLayoutFactoryParameters` class
-<h4 style="color:red">TODO</h4>
+
+This class gathers the parameters that customize the way `PositionVoltageLevelLayout` behaves, from the preliminary
+graph cleaning (see [Graph Refiner](graphRefiner.md)) to the block/position computation (see
+[CellBlockDecomposer](cellBlockDecomposer.md) and [PositionFinder](positionFinder.md)):
+
+* `feederStacked` (default `true`): whether `LegPrimaryBlock` sharing the same non-bus extremity should be detected and
+  marked as stackable, so that the corresponding feeders can later be stacked on top of each other instead of being
+  spread out horizontally.
+* `removeUnnecessaryFictitiousNodes` (default `true`): whether the `GraphRefiner` should remove the redundant
+  `FICTITIOUS` nodes of the graph (i.e. nodes with only two adjacent edges that can be bypassed with a single edge).
+* `substituteSingularFictitiousByFeederNode` (default `true`): whether the `GraphRefiner` should replace `INTERNAL`
+  nodes having a single neighbor by a fictitious `FeederNode`.
+* `substituteInternalMiddle2wtByEquipmentNodes` (default `true`): whether the `GraphRefiner` should replace, by simple
+  `EquipmentNode`, the feeder/middle nodes of a two-winding transformer whose both ends are in the same voltage level,
+  in order to avoid unnecessary snake lines.
+* `exceptionIfPatternNotHandled` (default `false`): whether an exception should be thrown when the block decomposition
+  algorithm cannot fully merge the blocks of a cell (see [CellBlockDecomposer](cellBlockDecomposer.md)); when `false`,
+  the remaining blocks are simply gathered into an `UndefinedBlock` and the diagram building continues.
+* `handleShunts` (default `false`): whether `PositionFinder` implementations should take `ShuntCell` into account
+  when computing the `List<Subsection>` (see [Subsection](subsection.md)).
+* `busInfoMap` (default empty): a map giving, for some `BusNode` ids, on which `Side` (`LEFT`/`RIGHT`) extra information
+  about the bus should be displayed; this is taken into account by `BlockPositionner` to reserve the corresponding space.
 
 ##### The `PositionFinder` class
-<h4 style="color:red">TODO</h4>
+
+The `PositionFinder` interface, and its available implementations (`PositionFromExtension` and `PositionByClustering`),
+are described in a dedicated page: see [Position of `BusNodes` and `Cells` order](positionFinder.md).
 
 #### RandomVoltageLevelLayout
 
@@ -108,7 +131,44 @@ SldParameters sldParameters = new SldParameters().setVoltageLevelLayoutFactoryCr
 ```
 
 ## Layouts for substations
-TODO
+
+A substation layout arranges, relative to one another, the `VoltageLevelGraph` of the different `VoltageLevel` of a
+substation (each one already laid out thanks to a `VoltageLevelLayout`), and computes the snake lines connecting them
+(the edges of the `SubstationGraph`, see [GraphBuilder creation requirements](../model/graphBuilderCreationRequirements.md#substationgraph)).
+
+### Existing implementations
+
+#### HorizontalSubstationLayout
+
+With this layout, the `VoltageLevelGraph` are placed side by side horizontally, ordered as they were added to the 
+`SubstationGraph` (by default, `NetworkGraphBuilder` adds them by descending nominal voltage), and vertically aligned according to the
+`LayoutParameters.getBusbarsAlignment()` parameter (aligning on the first, the last, or the middle busbar section, or
+without any alignment).
+
+<div style="width:50%; margin: auto;">
+
+![substationLayoutHorizontal](../../_static/img/sld/layout/substationLayoutHorizontal.svg)
+</div>
+
+#### VerticalSubstationLayout
+
+With this layout, the `VoltageLevelGraph` are stacked vertically, ordered as they appear in the `SubstationGraph`
+(i.e. by descending nominal voltage), each one below the previous one.
+
+<div style="width:20%; margin: auto;">
+
+![substationLayoutVertical](../../_static/img/sld/layout/substationLayoutVertical.svg)
+</div>
+
+### Choosing a `SubstationLayout`
+
+The `substationLayoutFactory` attribute in the [`SldParameters`](../sld_parameters.md) class is the customization
+parameter to use to choose a specific `SubstationLayout`: it takes a `SubstationLayoutFactory`, either a
+`HorizontalSubstationLayoutFactory` (the default) or a `VerticalSubstationLayoutFactory`.
+
+```java
+SldParameters sldParameters = new SldParameters().setSubstationLayoutFactory(new VerticalSubstationLayoutFactory());
+```
 
 ## Layouts for multi-substation graphs
 

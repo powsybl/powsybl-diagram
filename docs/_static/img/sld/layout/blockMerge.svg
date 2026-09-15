@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 260" font-family="sans-serif" font-size="13">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333333"/>
+    </marker>
+  </defs>
+
+  <!-- two leg primary blocks -->
+  <rect x="10" y="15" width="140" height="34" rx="4" fill="#f2f8ff" stroke="#2255aa"/>
+  <text x="80" y="36" text-anchor="middle" font-size="11">LegPrimaryBlock A</text>
+
+  <rect x="10" y="65" width="140" height="34" rx="4" fill="#f2f8ff" stroke="#2255aa"/>
+  <text x="80" y="86" text-anchor="middle" font-size="11">LegPrimaryBlock B</text>
+
+  <text x="80" y="10" text-anchor="middle" font-size="11" fill="#555555">share the same 2 extremities</text>
+
+  <!-- parallel merge arrow -->
+  <line x1="150" y1="32" x2="220" y2="55" stroke="#333333" marker-end="url(#arrow)"/>
+  <line x1="150" y1="82" x2="220" y2="59" stroke="#333333" marker-end="url(#arrow)"/>
+  <text x="185" y="45" font-size="10">parallel</text>
+  <text x="185" y="100" font-size="10">merge</text>
+
+  <!-- LegParallelBlock -->
+  <rect x="220" y="45" width="150" height="34" rx="4" fill="#eefbf0" stroke="#2a8a3d"/>
+  <text x="295" y="66" text-anchor="middle" font-size="11">LegParallelBlock</text>
+
+  <!-- FeederPrimaryBlock -->
+  <rect x="220" y="130" width="150" height="34" rx="4" fill="#fde9cf" stroke="#b06a11"/>
+  <text x="295" y="151" text-anchor="middle" font-size="11">FeederPrimaryBlock</text>
+
+  <text x="295" y="185" text-anchor="middle" font-size="11" fill="#555555">start where LegParallelBlock ends</text>
+
+  <!-- serial merge arrow -->
+  <line x1="370" y1="65" x2="450" y2="95" stroke="#333333" marker-end="url(#arrow)"/>
+  <line x1="370" y1="140" x2="450" y2="99" stroke="#333333" marker-end="url(#arrow)"/>
+  <text x="400" y="80" font-size="10">serial</text>
+  <text x="400" y="130" font-size="10">merge</text>
+
+  <!-- SerialBlock root -->
+  <rect x="450" y="85" width="150" height="34" rx="4" fill="#fef3e2" stroke="#b06a11" stroke-width="2"/>
+  <text x="525" y="106" text-anchor="middle" font-size="11">SerialBlock (root)</text>
+  <text x="525" y="135" text-anchor="middle" font-size="11" fill="#555555">Cell.setRootBlock</text>
+</svg>
