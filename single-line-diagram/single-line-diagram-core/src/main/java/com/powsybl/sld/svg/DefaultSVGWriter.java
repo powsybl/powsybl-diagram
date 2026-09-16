@@ -64,6 +64,7 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final Logger LOGGER = LoggerFactory.getLogger(DefaultSVGWriter.class);
 
     protected static final String STYLE = "style";
+    protected static final String LABEL_ROTATION_VARIABLE = "--sld-label-rotation";
     protected static final String TRANSFORM = "transform";
     protected static final String TRANSLATE = "translate";
     protected static final String ROTATE = "rotate";
@@ -577,7 +578,7 @@ public class DefaultSVGWriter implements SVGWriter {
         label.setAttribute("x", String.valueOf(xShift));
         label.setAttribute("y", String.valueOf(yShift));
         if (shiftAngle != 0) {
-            label.setAttribute(TRANSFORM, ROTATE + "(" + shiftAngle + "," + 0 + "," + 0 + ")");
+            label.setAttribute(STYLE, LABEL_ROTATION_VARIABLE + ": " + shiftAngle + "deg");
         }
         label.setAttribute(CLASS, StyleClassConstants.LABEL_STYLE_CLASS);
         Text text = g.getOwnerDocument().createTextNode(str);
