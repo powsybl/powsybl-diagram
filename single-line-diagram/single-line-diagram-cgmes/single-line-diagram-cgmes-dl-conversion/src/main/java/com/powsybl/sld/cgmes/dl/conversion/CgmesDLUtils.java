@@ -43,7 +43,7 @@ public final class CgmesDLUtils {
         network.getShuntCompensatorStream().forEach(t -> t.removeExtension(InjectionDiagramData.class));
         network.getLoadStream().forEach(t -> t.removeExtension(InjectionDiagramData.class));
         network.getGeneratorStream().forEach(t -> t.removeExtension(InjectionDiagramData.class));
-        network.getDanglingLineStream().forEach(t -> t.removeExtension(LineDiagramData.class));
+        network.getBoundaryLineStream().forEach(t -> t.removeExtension(LineDiagramData.class));
         network.getLineStream().forEach(t -> t.removeExtension(LineDiagramData.class));
         network.getVoltageLevelStream().forEach(voltageLevel -> {
             switch (voltageLevel.getTopologyKind()) {

@@ -6,12 +6,15 @@
  */
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.diagram.test.Networks;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  *
@@ -19,8 +22,8 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class VoltageLevelDiagramDataTest {
 
-    protected static String DIAGRAM_NAME = "diagram";
-    protected static String DIAGRAM_NAME2 = "diagram2";
+    protected static final String DIAGRAM_NAME = "diagram";
+    protected static final String DIAGRAM_NAME2 = "diagram2";
 
     @Test
     void test() {

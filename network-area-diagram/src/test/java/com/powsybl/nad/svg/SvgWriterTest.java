@@ -43,10 +43,10 @@ class SvgWriterTest extends AbstractTest {
     @Test
     void testDisconnectedLine() {
         labelProvider = new DefaultLabelProvider.Builder()
-            .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.CURRENT)
-            .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
-            .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.NAME)
-            .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .setInfoSideExternal(EdgeInfoEnum.CURRENT)
+            .setInfoSideInternal(EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide1(EdgeInfoEnum.NAME)
+            .setInfoMiddleSide2(EdgeInfoEnum.EMPTY)
             .build(network, getSvgParameters());
         assertSvgEquals("/half_visible_line.svg", network, voltageLevel -> !List.of("S1VL1", "S4VL1").contains(voltageLevel.getId()));
     }

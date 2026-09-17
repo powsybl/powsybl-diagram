@@ -6,19 +6,18 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion.exporters;
 
-import java.util.Arrays;
-
+import com.powsybl.diagram.test.Networks;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.sld.cgmes.dl.conversion.AbstractCgmesDLExporterTest;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
+import com.powsybl.triplestore.api.PropertyBags;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
-import com.powsybl.sld.cgmes.dl.conversion.AbstractCgmesDLExporterTest;
-import com.powsybl.diagram.test.Networks;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.triplestore.api.PropertyBags;
+import java.util.Arrays;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}

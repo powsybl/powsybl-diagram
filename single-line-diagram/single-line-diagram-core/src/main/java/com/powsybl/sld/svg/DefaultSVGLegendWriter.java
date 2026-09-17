@@ -59,11 +59,17 @@ public class DefaultSVGLegendWriter implements SVGLegendWriter {
     protected List<BusLegendInfo> getBusLegendInfos(VoltageLevelGraph graph) {
         VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().id());
         return vl.getBusView().getBusStream()
-            .map(b -> new BusLegendInfo(b.getId(), List.of(
-                new BusLegendInfo.Caption(valueFormatter.formatVoltage(b.getV(), "kV"), "v"),
-                new BusLegendInfo.Caption(valueFormatter.formatAngleInDegrees(b.getAngle()), "angle")
+            .map(bus -> new BusLegendInfo(bus.getId(), List.of(
+                new BusLegendInfo.Caption(valueFormatter.formatVoltage(bus.getV(), "kV"), "v"),
+                new BusLegendInfo.Caption(valueFormatter.formatAngleInDegrees(bus.getAngle()), "angle"),
+                new BusLegendInfo.Caption(valueFormatter.formatPower(bus.getFictitiousP0(), withDefaultUnit(svgParameters.getActivePowerUnit(), "MW")), "fictitiousP0"),
+                new BusLegendInfo.Caption(valueFormatter.formatPower(bus.getFictitiousQ0(), withDefaultUnit(svgParameters.getReactivePowerUnit(), "MVar")), "fictitiousQ0")
             )))
             .toList();
+    }
+
+    private static String withDefaultUnit(String configuredUnit, String defaultUnit) {
+        return configuredUnit == null || configuredUnit.isEmpty() ? defaultUnit : configuredUnit;
     }
 
     private void drawBusLegendInfo(BusLegendInfo busLegendInfo, double xShift, double yShift,

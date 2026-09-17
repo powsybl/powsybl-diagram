@@ -26,7 +26,7 @@ public interface StyleProvider {
     String INJECTIONS_CLASS = CLASSES_PREFIX + "injections";
     String HVDC_EDGE_CLASS = CLASSES_PREFIX + "hvdc-edge";
     String THREE_WT_EDGES_CLASS = CLASSES_PREFIX + "3wt-edges";
-    String DANGLING_LINE_EDGE_CLASS = CLASSES_PREFIX + "dangling-line-edge";
+    String BOUNDARY_LINE_EDGE_CLASS = CLASSES_PREFIX + "boundary-line-edge";
     String TIE_LINE_EDGE_CLASS = CLASSES_PREFIX + "tie-line-edge";
     String TEXT_EDGES_CLASS = CLASSES_PREFIX + "text-edges";
     String EDGE_INFOS_CLASS = CLASSES_PREFIX + "edge-infos";

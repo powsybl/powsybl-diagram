@@ -329,30 +329,32 @@ public class Subsection {
     }
 
     private static void alignMultiFeederShunt(Set<ShuntCell> shCells) {
-        shCells.forEach(sc -> {
-            for (Side side : Side.defined()) {
-                ExternCell cell = sc.getSideCell(side);
-                List<FeederNode> feeders = cell.getFeederNodes();
-                if (feeders.size() > 1) {
-                    Node shNode = sc.getSideShuntNode(side);
-                    Set<Node> outsideNodes = new HashSet<>();
-                    outsideNodes.add(shNode);
-                    List<FeederNode> shuntSideFeederNodes = buildShuntSideFeederNodes(shNode, outsideNodes);
-                    feeders.removeAll(shuntSideFeederNodes);
-                    List<FeederNode> newlyOrderdFeeders;
-                    if (side == RIGHT) {
-                        newlyOrderdFeeders = shuntSideFeederNodes;
-                        newlyOrderdFeeders.addAll(feeders);
-                    } else {
-                        newlyOrderdFeeders = feeders;
-                        newlyOrderdFeeders.addAll(shuntSideFeederNodes);
-                    }
-                    for (int i = 0; i < newlyOrderdFeeders.size(); i++) {
-                        newlyOrderdFeeders.get(i).setOrder(i);
-                    }
+        shCells.forEach(Subsection::manageShuntCell);
+    }
+
+    private static void manageShuntCell(ShuntCell sc) {
+        for (Side side : Side.defined()) {
+            ExternCell cell = sc.getSideCell(side);
+            List<FeederNode> feeders = cell.getFeederNodes();
+            if (feeders.size() > 1) {
+                Node shNode = sc.getSideShuntNode(side);
+                Set<Node> outsideNodes = new HashSet<>();
+                outsideNodes.add(shNode);
+                List<FeederNode> shuntSideFeederNodes = buildShuntSideFeederNodes(shNode, outsideNodes);
+                feeders.removeAll(shuntSideFeederNodes);
+                List<FeederNode> newlyOrderdFeeders;
+                if (side == RIGHT) {
+                    newlyOrderdFeeders = shuntSideFeederNodes;
+                    newlyOrderdFeeders.addAll(feeders);
+                } else {
+                    newlyOrderdFeeders = feeders;
+                    newlyOrderdFeeders.addAll(shuntSideFeederNodes);
+                }
+                for (int i = 0; i < newlyOrderdFeeders.size(); i++) {
+                    newlyOrderdFeeders.get(i).setOrder(i);
                 }
             }
-        });
+        }
     }
 
     private static List<FeederNode> buildShuntSideFeederNodes(Node shNode, Set<Node> outsideNodes) {

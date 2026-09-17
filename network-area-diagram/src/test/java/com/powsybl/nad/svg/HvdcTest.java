@@ -6,7 +6,9 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.iidm.network.HvdcLine;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.test.FourSubstationsNodeBreakerFactory;
 import com.powsybl.iidm.network.test.HvdcTestNetwork;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
@@ -45,5 +47,17 @@ class HvdcTest extends AbstractTest {
         Network network = HvdcTestNetwork.createVsc();
         VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelDepthFilter(network, network.getVoltageLevel("VL1").getId(), 1);
         assertSvgEquals("/hvdc-vl-depth-1.svg", network, filter);
+    }
+
+    @Test
+    void testHvdcLineRemoved() {
+        Network network = FourSubstationsNodeBreakerFactory.create();
+        assertSvgEquals("/hvdc_present.svg", network);
+        setLayoutParameters(new LayoutParameters().setInjectionsAdded(true));
+        assertSvgEquals("/hvdc_injections.svg", network);
+        network.getHvdcLineStream().toList().forEach(HvdcLine::remove);
+        assertSvgEquals("/hvdc_line_removed_injections.svg", network);
+        setLayoutParameters(new LayoutParameters().setInjectionsAdded(false));
+        assertSvgEquals("/hvdc_line_removed.svg", network);
     }
 }

@@ -105,8 +105,8 @@ public class CustomLabelProvider implements LabelProvider {
 
     @Override
     public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, String branchType) {
-        BranchLabels bl = branchLabels.get(branchId);
-        return Optional.of(new EdgeInfo(INFO_TYPE, INFO_TYPE, bl.arrowMiddle, bl.middle1, bl.middle2));
+        return Optional.ofNullable(branchLabels.get(branchId))
+                .map(bl -> new EdgeInfo(INFO_TYPE, INFO_TYPE, bl.arrowMiddle, bl.middle1, bl.middle2));
     }
 
     @Override

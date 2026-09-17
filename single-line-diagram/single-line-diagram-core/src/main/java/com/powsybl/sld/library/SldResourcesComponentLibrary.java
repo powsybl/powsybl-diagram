@@ -28,10 +28,12 @@ public class SldResourcesComponentLibrary extends ResourcesComponentLibrary<SldC
         SldComponentTypeName.PHASE_SHIFT_TRANSFORMER_LEG,
         SldComponentTypeName.TWO_WINDINGS_TRANSFORMER_LEG,
         SldComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG,
+        SldComponentTypeName.TEE_POINT_LEG,
         SldComponentTypeName.LINE,
         SldComponentTypeName.TIE_LINE,
-        SldComponentTypeName.DANGLING_LINE,
-        SldComponentTypeName.BUSBAR_SECTION
+        SldComponentTypeName.BOUNDARY_LINE,
+        SldComponentTypeName.BUSBAR_SECTION,
+        SldComponentTypeName.TEE_POINT
     };
 
     public SldResourcesComponentLibrary(String name, String directory, String... additionalDirectories) {

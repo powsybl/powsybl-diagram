@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
+import com.powsybl.cgmes.model.CgmesModel;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.BusbarSection;
 import com.powsybl.iidm.network.Network;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
@@ -23,17 +25,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class CgmesDLImportPostProcessorTest extends CgmesDLModelTest {
 
     private Network network;
+    private CgmesModel cgmesModel;
 
     @BeforeEach
     @Override
     public void setUp() {
         super.setUp();
+        cgmesModel = Mockito.mock(CgmesModel.class);
+        when(cgmesModel.tripleStore()).thenReturn(tripleStore);
         network = Networks.createNetworkWithBusbar();
     }
 
     @Test
     void process() {
-        new CgmesDLImportPostProcessor(queryCatalog).process(network, tripleStore);
+        new CgmesDLImportPostProcessor(queryCatalog).process(network, cgmesModel);
 
         BusbarSection busbar = network.getBusbarSection("Busbar");
         NodeDiagramData<BusbarSection> busDiagramData = busbar.getExtension(NodeDiagramData.class);
@@ -52,7 +57,7 @@ class CgmesDLImportPostProcessorTest extends CgmesDLModelTest {
     void processEmpty() {
         queryCatalog = Mockito.mock(QueryCatalog.class);
         cgmesDLModel = new CgmesDLModel(tripleStore, queryCatalog);
-        new CgmesDLImportPostProcessor(queryCatalog).process(network, tripleStore);
+        new CgmesDLImportPostProcessor(queryCatalog).process(network, cgmesModel);
 
         BusbarSection busbar = network.getBusbarSection("Busbar");
         assertNull(busbar.getExtension(NodeDiagramData.class));

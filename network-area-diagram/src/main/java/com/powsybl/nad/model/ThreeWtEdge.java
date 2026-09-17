@@ -21,7 +21,7 @@ import java.util.Optional;
 public class ThreeWtEdge extends AbstractEdge {
 
     public enum Side {
-        ONE, TWO, THREE;
+        ONE, TWO, THREE
     }
 
     public static final String THREE_WT_EDGE = "ThreeWtEdge";
@@ -32,6 +32,8 @@ public class ThreeWtEdge extends AbstractEdge {
     private List<Point> points;
     private final boolean visible;
     private final SvgEdgeInfo svgEdgeInfo;
+
+    private EdgeStyleInfo edgeStyleInfo = new EdgeStyleInfo(Collections.emptyList(), null);
 
     public ThreeWtEdge(IdProvider idProvider, String equipmentId, String transformerName, Side side, String type, boolean visible, EdgeInfo edgeInfo) {
         super(idProvider.createSvgId(equipmentId), equipmentId, transformerName, type);
@@ -70,5 +72,13 @@ public class ThreeWtEdge extends AbstractEdge {
 
     public Optional<SvgEdgeInfo> getSvgEdgeInfo() {
         return Optional.ofNullable(svgEdgeInfo);
+    }
+
+    public EdgeStyleInfo getEdgeStyleInfo() {
+        return edgeStyleInfo;
+    }
+
+    public void setEdgeStyleInfo(EdgeStyleInfo edgeStyleInfo) {
+        this.edgeStyleInfo = edgeStyleInfo;
     }
 }

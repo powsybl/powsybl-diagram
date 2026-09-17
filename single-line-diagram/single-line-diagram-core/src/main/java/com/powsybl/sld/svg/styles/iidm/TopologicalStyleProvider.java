@@ -7,11 +7,7 @@
 package com.powsybl.sld.svg.styles.iidm;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
-import com.powsybl.iidm.network.Bus;
-import com.powsybl.iidm.network.Connectable;
-import com.powsybl.iidm.network.Identifiable;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.Terminal;
+import com.powsybl.iidm.network.*;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
@@ -108,10 +104,12 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     }
 
     private boolean isMultiTerminalNode(Node node) {
-        if (node instanceof EquipmentNode) {
-            Identifiable<?> identifiable = network.getIdentifiable(((EquipmentNode) node).getEquipmentId());
-            if (identifiable instanceof Connectable<?>) {
-                return ((Connectable<?>) identifiable).getTerminals().size() > 1;
+        if (node instanceof EquipmentNode equipmentNode) {
+            Identifiable<?> identifiable = network.getIdentifiable(equipmentNode.getEquipmentId());
+            if (identifiable instanceof Connectable<?> connectable) {
+                return connectable.getTerminals().size() > 1;
+            } else {
+                return identifiable instanceof VoltageLevel;
             }
         }
         return false;

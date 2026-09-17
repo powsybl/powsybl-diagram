@@ -13,6 +13,7 @@ import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.SvgWriter;
 import com.powsybl.nad.svg.metadata.DiagramMetadata;
@@ -48,7 +49,8 @@ public final class NetworkAreaDiagram {
     }
 
     public static void draw(Network network, Writer writer, Writer metadataWriter, String voltageLevelId, int depth) {
-        draw(network, writer, metadataWriter, new NadParameters(), VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
+        draw(network, writer, metadataWriter, new NadParameters(),
+            VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
     }
 
     public static void draw(Network network, Path svgFile, List<String> voltageLevelIds) {
@@ -72,9 +74,11 @@ public final class NetworkAreaDiagram {
         Objects.requireNonNull(svgFile);
         Objects.requireNonNull(param);
 
+        StyleProvider styleProvider = param.getStyleProviderFactory().create(network);
         Graph graph = getLayoutResult(network, param, voltageLevelFilter);
-        createSvgWriter(network, param).writeSvg(graph, svgFile);
-        createMetadata(graph, param).writeJson(getMetadataPath(svgFile));
+        NetworkGraphBuilder.applyStyle(graph, styleProvider);
+        createSvgWriter(param).writeSvg(graph, svgFile);
+        createMetadata(graph, param, network).writeJson(getMetadataPath(svgFile));
     }
 
     public static void draw(Network network, Writer writer, Writer metadataWriter, NadParameters param, Predicate<VoltageLevel> voltageLevelFilter) {
@@ -83,13 +87,17 @@ public final class NetworkAreaDiagram {
         Objects.requireNonNull(metadataWriter);
         Objects.requireNonNull(param);
 
+        StyleProvider styleProvider = param.getStyleProviderFactory().create(network);
         Graph graph = getLayoutResult(network, param, voltageLevelFilter);
-        createSvgWriter(network, param).writeSvg(graph, writer);
-        createMetadata(graph, param).writeJson(metadataWriter);
+        NetworkGraphBuilder.applyStyle(graph, styleProvider);
+        createSvgWriter(param).writeSvg(graph, writer);
+        createMetadata(graph, param, network).writeJson(metadataWriter);
     }
 
-    private static DiagramMetadata createMetadata(Graph graph, NadParameters param) {
-        return new DiagramMetadata(param.getLayoutParameters(), param.getSvgParameters()).addMetadata(graph);
+    private static DiagramMetadata createMetadata(Graph graph, NadParameters param, Network network) {
+        return new DiagramMetadata(param.getLayoutParameters(), param.getSvgParameters())
+            .setNetworkInformation(network.getNameOrId(), network.getId(), network.getCaseDate().toString())
+            .addMetadata(graph);
     }
 
     private static Graph getLayoutResult(Network network, NadParameters param, Predicate<VoltageLevel> voltageLevelFilter) {
@@ -100,9 +108,9 @@ public final class NetworkAreaDiagram {
         return graph;
     }
 
-    private static SvgWriter createSvgWriter(Network network, NadParameters param) {
-        return new SvgWriter(param.getSvgParameters(), param.getStyleProviderFactory().create(network),
-                param.getComponentLibrary(), param.getEdgeRouting());
+    private static SvgWriter createSvgWriter(NadParameters param) {
+        return new SvgWriter(param.getSvgParameters(), param.getComponentLibrary(),
+                param.getEdgeRouting());
     }
 
     private static Path getMetadataPath(Path svgPath) {

@@ -9,6 +9,7 @@ package com.powsybl.nad.layout;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.AbstractTest;
+import com.powsybl.nad.svg.EdgeInfoEnum;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
@@ -22,12 +23,19 @@ import org.junit.jupiter.api.Test;
  */
 class ForceLayoutTest extends AbstractTest {
 
+    private final LayoutParameters layoutParameters = new LayoutParameters().setTextNodesForceLayout(false);
+    private EdgeInfoEnum infoSideExternal = EdgeInfoEnum.ACTIVE_POWER;
+    private EdgeInfoEnum infoMiddleSide1 = EdgeInfoEnum.EMPTY;
+    private EdgeInfoEnum infoMiddleSide2 = EdgeInfoEnum.EMPTY;
+    private EdgeInfoEnum infoSideInternal = EdgeInfoEnum.EMPTY;
+    private final SvgParameters svgParameters = new SvgParameters()
+        .setInsertNameDesc(false)
+        .setSvgWidthAndHeightAdded(false);
+
     @BeforeEach
     void setup() {
-        setLayoutParameters(new LayoutParameters().setTextNodesForceLayout(false));
-        setSvgParameters(new SvgParameters()
-                .setInsertNameDesc(false)
-                .setSvgWidthAndHeightAdded(false));
+        setLayoutParameters(layoutParameters);
+        setSvgParameters(svgParameters);
     }
 
     @Override
@@ -37,11 +45,28 @@ class ForceLayoutTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-        return new DefaultLabelProvider(network, getSvgParameters());
+        return new DefaultLabelProvider.Builder()
+            .setInfoSideExternal(infoSideExternal)
+            .setInfoSideInternal(infoSideInternal)
+            .setInfoMiddleSide1(infoMiddleSide1)
+            .setInfoMiddleSide2(infoMiddleSide2)
+            .build(network, getSvgParameters());
     }
 
     @Test
     void testDiamond() {
         assertSvgEquals("/diamond-network.svg", LayoutNetworkFactory.createDiamond());
+    }
+
+    @Test
+    void testScale() {
+        infoSideExternal = EdgeInfoEnum.NAME;
+        infoSideInternal = EdgeInfoEnum.NAME;
+        infoMiddleSide1 = EdgeInfoEnum.NAME;
+        infoMiddleSide2 = EdgeInfoEnum.NAME;
+        assertSvgEquals("/diamond-network-labels-scale100.svg", LayoutNetworkFactory.createDiamond());
+        layoutParameters.setScaleFactor(2);
+        svgParameters.setArrowShift(60);
+        assertSvgEquals("/diamond-network-labels-scale200.svg", LayoutNetworkFactory.createDiamond());
     }
 }

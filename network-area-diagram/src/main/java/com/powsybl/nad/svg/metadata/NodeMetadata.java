@@ -24,10 +24,15 @@ public class NodeMetadata extends AbstractMetadataItem {
     private final double y;
     private final boolean fictitious;
     private final boolean invisible;
+    private final String type;
+    private final boolean unknownBus;
+    private final List<String> unknownBusClasses;
+    private final String unknownBusStyle;
     private final String legendSvgId;
     private final String legendEdgeSvgId;
     private final List<String> legendHeader;
     private final List<String> legendFooter;
+    private final List<String> classes;
 
     public NodeMetadata(@JsonProperty("svgId") String svgId,
                         @JsonProperty("equipmentId") String equipmentId,
@@ -38,7 +43,12 @@ public class NodeMetadata extends AbstractMetadataItem {
                         @JsonProperty("legendSvgId") String legendSvgId,
                         @JsonProperty("legendEdgeSvgId") String legendEdgeSvgId,
                         @JsonProperty("legendHeader") List<String> legendHeader,
-                        @JsonProperty("legendFooter") List<String> legendFooter) {
+                        @JsonProperty("legendFooter") List<String> legendFooter,
+                        @JsonProperty("type") String type,
+                        @JsonProperty("unknownBus") boolean unknownBus,
+                        @JsonProperty("unknownBusClasses") List<String> unknownBusClasses,
+                        @JsonProperty("unknownBusStyle") String unknownBusStyle,
+                        @JsonProperty("classes") List<String> classes) {
         super(svgId, equipmentId);
         this.x = x;
         this.y = y;
@@ -48,6 +58,11 @@ public class NodeMetadata extends AbstractMetadataItem {
         this.legendEdgeSvgId = legendEdgeSvgId;
         this.legendHeader = legendHeader;
         this.legendFooter = legendFooter;
+        this.type = type;
+        this.unknownBus = unknownBus;
+        this.unknownBusClasses = unknownBusClasses;
+        this.unknownBusStyle = unknownBusStyle;
+        this.classes = classes;
     }
 
     public double getX() {
@@ -70,9 +85,33 @@ public class NodeMetadata extends AbstractMetadataItem {
         return invisible;
     }
 
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("unknownBus")
+    public boolean isUnknownBus() {
+        return unknownBus;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("unknownBusClasses")
+    public List<String> getUnknownBusClasses() {
+        return unknownBusClasses;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("unknownBusStyle")
+    public String getUnknownBusStyle() {
+        return unknownBusStyle;
+    }
+
     @JsonIgnore
     public Point getPosition() {
         return new Point(x, y);
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("type")
+    public String getType() {
+        return type;
     }
 
     @JsonProperty("legendSvgId")
@@ -94,4 +133,11 @@ public class NodeMetadata extends AbstractMetadataItem {
     public List<String> getLegendFooter() {
         return legendFooter;
     }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("classes")
+    public List<String> getClasses() {
+        return classes;
+    }
+
 }

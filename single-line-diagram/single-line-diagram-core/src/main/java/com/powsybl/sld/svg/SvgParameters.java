@@ -37,6 +37,7 @@ public class SvgParameters {
     private double angleLabelShift = 15.;
     private boolean labelCentered = false;
     private boolean labelDiagonal = false;
+    private boolean busLabelDiagonal = false;
     private boolean tooltipEnabled = false;
     private boolean svgWidthAndHeightAdded = false;
     private CssLocation cssLocation = CssLocation.INSERTED_IN_SVG;
@@ -51,15 +52,6 @@ public class SvgParameters {
     private ThreeWindingsTransformerFeederInfoMode threeWindingsTransformerFeederInfoMode = ThreeWindingsTransformerFeederInfoMode.INSIDE_VOLTAGE_LEVEL;
 
     public SvgParameters() {
-    }
-
-    public enum CssLocation {
-        INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
-    }
-
-    public enum ThreeWindingsTransformerFeederInfoMode {
-        INSIDE_VOLTAGE_LEVEL,
-        FULL_3WT
     }
 
     public SvgParameters(SvgParameters other) {
@@ -84,6 +76,7 @@ public class SvgParameters {
         this.angleLabelShift = other.angleLabelShift;
         this.labelCentered = other.labelCentered;
         this.labelDiagonal = other.labelDiagonal;
+        this.busLabelDiagonal = other.busLabelDiagonal;
         this.tooltipEnabled = other.tooltipEnabled;
         this.svgWidthAndHeightAdded = other.svgWidthAndHeightAdded;
         this.cssLocation = other.cssLocation;
@@ -97,6 +90,17 @@ public class SvgParameters {
         this.unifyVoltageLevelColors = other.unifyVoltageLevelColors;
         this.threeWindingsTransformerFeederInfoMode = other.threeWindingsTransformerFeederInfoMode;
     }
+
+    public enum CssLocation {
+        INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
+    }
+
+    public enum ThreeWindingsTransformerFeederInfoMode {
+        INSIDE_VOLTAGE_LEVEL,
+        FULL_3WT
+    }
+
+
 
     public ValueFormatter createValueFormatter() {
         return new ValueFormatter(powerValuePrecision, voltageValuePrecision, currentValuePrecision, angleValuePrecision,
@@ -287,6 +291,15 @@ public class SvgParameters {
 
     public SvgParameters setLabelDiagonal(boolean labelDiagonal) {
         this.labelDiagonal = labelDiagonal;
+        return this;
+    }
+
+    public boolean isBusLabelDiagonal() {
+        return busLabelDiagonal;
+    }
+
+    public SvgParameters setBusLabelDiagonal(boolean busLabelDiagonal) {
+        this.busLabelDiagonal = busLabelDiagonal;
         return this;
     }
 

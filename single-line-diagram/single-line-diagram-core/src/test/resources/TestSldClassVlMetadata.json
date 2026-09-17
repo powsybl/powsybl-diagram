@@ -1,4 +1,5 @@
 {
+  "metadataVersion" : "1.0",
   "components" : [ {
     "type" : "BUSBAR_SECTION",
     "size" : {
@@ -322,10 +323,8 @@
     "busbarsAlignment" : "FIRST",
     "componentsOnBusbars" : [ "DISCONNECTOR" ],
     "removeFictitiousSwitchNodes" : false,
-    "cgmesScaleFactor" : 1.0,
-    "cgmesDiagramName" : null,
-    "cgmesUseNames" : true,
-    "zoneLayoutSnakeLinePadding" : 90
+    "zoneLayoutSnakeLinePadding" : 90,
+    "displayTeePointsInVoltageLevels" : false
   },
   "svgParams" : {
     "prefixId" : "",
@@ -348,6 +347,7 @@
     "angleLabelShift" : 15.0,
     "labelCentered" : false,
     "labelDiagonal" : false,
+    "busLabelDiagonal" : false,
     "tooltipEnabled" : false,
     "svgWidthAndHeightAdded" : false,
     "cssLocation" : "INSERTED_IN_SVG",
@@ -360,5 +360,8 @@
     "displayConnectivityNodesId" : false,
     "unifyVoltageLevelColors" : false,
     "threeWindingsTransformerFeederInfoMode" : "INSIDE_VOLTAGE_LEVEL"
-  }
+  },
+  "networkId" : "TestSingleLineDiagramClass",
+  "networkName" : "TestSingleLineDiagramClass",
+  "networkDate" : "2017-01-15T18:45+01:00"
 }

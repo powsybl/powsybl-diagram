@@ -10,6 +10,8 @@ package com.powsybl.nad.svg.metadata;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
@@ -20,18 +22,24 @@ public class InjectionMetadata extends AbstractMetadataItem {
     private final EdgeInfoMetadata edgeInfo;
     private final String busNodeId;
     private final String vlNodeId;
+    private final List<String> classes;
+    private final String style;
 
     public InjectionMetadata(@JsonProperty("svgId") String svgId,
                              @JsonProperty("equipmentId") String equipmentId,
                              @JsonProperty("componentType") String componentType,
                              @JsonProperty("busNodeId") String busNodeId,
                              @JsonProperty("vlNodeId") String vlNodeId,
-                             @JsonProperty("edgeInfo") EdgeInfoMetadata edgeInfo) {
+                             @JsonProperty("edgeInfo") EdgeInfoMetadata edgeInfo,
+                             @JsonProperty("classes") List<String> classes,
+                             @JsonProperty("style") String style) {
         super(svgId, equipmentId);
         this.componentType = componentType;
         this.busNodeId = busNodeId;
         this.vlNodeId = vlNodeId;
         this.edgeInfo = edgeInfo;
+        this.classes = classes;
+        this.style = style;
     }
 
     @JsonProperty("componentType")
@@ -52,5 +60,17 @@ public class InjectionMetadata extends AbstractMetadataItem {
     @JsonProperty("edgeInfo")
     public EdgeInfoMetadata getEdgeInfoMetadata() {
         return edgeInfo;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("classes")
+    public List<String> getClasses() {
+        return classes;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("style")
+    public String getStyle() {
+        return style;
     }
 }

@@ -7,7 +7,7 @@
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
 import com.powsybl.commons.extensions.AbstractExtension;
-import com.powsybl.iidm.network.DanglingLine;
+import com.powsybl.iidm.network.BoundaryLine;
 import com.powsybl.iidm.network.HvdcLine;
 import com.powsybl.iidm.network.Identifiable;
 import com.powsybl.iidm.network.LccConverterStation;
@@ -41,8 +41,8 @@ public class LineDiagramData<T extends Identifiable<T>> extends AbstractExtensio
         this((T) line);
     }
 
-    public LineDiagramData(DanglingLine danglingLine) {
-        this((T) danglingLine);
+    public LineDiagramData(BoundaryLine boundaryLine) {
+        this((T) boundaryLine);
     }
 
     public LineDiagramData(HvdcLine hvdcLine) {
@@ -113,12 +113,12 @@ public class LineDiagramData<T extends Identifiable<T>> extends AbstractExtensio
         return lineDiagramData;
     }
 
-    public static LineDiagramData<DanglingLine> getOrCreateDiagramData(DanglingLine danglingLine) {
-        LineDiagramData<DanglingLine> danglingLineData = danglingLine.getExtension(LineDiagramData.class);
-        if (danglingLineData == null) {
-            danglingLineData = new LineDiagramData<>(danglingLine);
+    public static LineDiagramData<BoundaryLine> getOrCreateDiagramData(BoundaryLine boundaryLine) {
+        LineDiagramData<BoundaryLine> boundaryLineData = boundaryLine.getExtension(LineDiagramData.class);
+        if (boundaryLineData == null) {
+            boundaryLineData = new LineDiagramData<>(boundaryLine);
         }
-        return danglingLineData;
+        return boundaryLineData;
     }
 
     public static LineDiagramData<VscConverterStation> getOrCreateDiagramData(VscConverterStation vsc) {

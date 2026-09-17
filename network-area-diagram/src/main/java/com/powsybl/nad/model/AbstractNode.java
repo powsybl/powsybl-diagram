@@ -6,6 +6,8 @@
  */
 package com.powsybl.nad.model;
 
+import java.util.List;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
@@ -68,5 +70,9 @@ public abstract class AbstractNode extends AbstractIdentifiable implements Node 
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public List<String> getStyleClasses() {
+        return List.of();
     }
 }

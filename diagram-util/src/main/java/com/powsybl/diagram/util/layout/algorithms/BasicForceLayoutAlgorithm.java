@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, RTE (http://www.rte-france.com)
+ * Copyright (c) 2025-2026, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -40,27 +40,19 @@ public class BasicForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         Objects.requireNonNull(layoutParameters);
         this.forces.add(new SpringForce<>());
         this.forces.add(new CoulombForce<>(
-            layoutParameters.getRepulsion(),
-            layoutParameters.isRepulsionForceFromFixedPoints()
+            layoutParameters.getRepulsionIntensity(),
+            layoutParameters.isRepulsionFromFixedPointsEnabled()
         ));
-        if (layoutParameters.isAttractToCenterForce()) {
-            this.forces.add(new AttractToCenterForceLinear<>(layoutParameters.getRepulsion() / 200));
+        if (layoutParameters.isAttractToCenterEnabled()) {
+            this.forces.add(new AttractToCenterForceLinear<>(layoutParameters.getRepulsionIntensity() / 200));
         }
         this.layoutParameters = layoutParameters;
-    }
-
-    // To be moved later if needed by other algorithms
-    private void initAllForces(List<Force<V, E>> forces, LayoutContext<V, E> layoutContext) {
-        for (Force<V, E> force : forces) {
-            force.init(layoutContext);
-        }
     }
 
     @Override
     public void run(LayoutContext<V, E> layoutContext) {
         Objects.requireNonNull(layoutContext);
-        //Initialize Spring force
-        initAllForces(forces, layoutContext);
+        forces.forEach(f -> f.init(layoutContext));
 
         // do the loop on the nodes and forces
         int i;
@@ -95,7 +87,7 @@ public class BasicForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     private void updateVelocity(LayoutContext<V, E> layoutContext) {
         for (Point point : layoutContext.getMovingPoints().values()) {
             Vector2D newVelocity = new Vector2D(point.getForces());
-            newVelocity.multiplyBy((1 - Math.exp(-layoutParameters.getDeltaTime() * layoutParameters.getFriction() / point.getMass())) / layoutParameters.getFriction());
+            newVelocity.multiplyBy((1 - Math.exp(-layoutParameters.getDeltaTime() * layoutParameters.getFrictionIntensity() / point.getMass())) / layoutParameters.getFrictionIntensity());
             point.setVelocity(newVelocity);
 
             if (newVelocity.magnitude() > layoutParameters.getMaxSpeed()) {

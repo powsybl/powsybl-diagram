@@ -22,7 +22,7 @@ class SpringForceTest {
     @Test
     void apply() {
         double delta = 1e-3;
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
         SpringForce<String, DefaultEdge> springForce = new SpringForce<>();
         springForce.init(layoutContext);
         String[] vertexToTest = {

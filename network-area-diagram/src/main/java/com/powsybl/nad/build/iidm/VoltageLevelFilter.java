@@ -139,7 +139,7 @@ public record VoltageLevelFilter(Set<VoltageLevel> voltageLevels) implements Pre
         private final Set<VoltageLevel> visitedVoltageLevels;
         private final Predicate<VoltageLevel> voltageLevelPredicate;
 
-        public VlVisitor(Set<VoltageLevel> nextDepthVoltageLevels, Set<VoltageLevel> visitedVoltageLevels, Predicate<VoltageLevel> voltageLevelPredicate) {
+        VlVisitor(Set<VoltageLevel> nextDepthVoltageLevels, Set<VoltageLevel> visitedVoltageLevels, Predicate<VoltageLevel> voltageLevelPredicate) {
             this.nextDepthVoltageLevels = nextDepthVoltageLevels;
             this.visitedVoltageLevels = visitedVoltageLevels;
             this.voltageLevelPredicate = voltageLevelPredicate;
@@ -186,9 +186,9 @@ public record VoltageLevelFilter(Set<VoltageLevel> voltageLevels) implements Pre
         }
 
         @Override
-        public void visitDanglingLine(DanglingLine danglingLine) {
-            if (danglingLine.isPaired()) {
-                danglingLine.getTieLine().ifPresent(tieline -> visitBranch(tieline, tieline.getSide(danglingLine.getTerminal())));
+        public void visitBoundaryLine(BoundaryLine boundaryLine) {
+            if (boundaryLine.isPaired()) {
+                boundaryLine.getTieLine().ifPresent(tieline -> visitBranch(tieline, tieline.getSide(boundaryLine.getTerminal())));
             }
         }
     }

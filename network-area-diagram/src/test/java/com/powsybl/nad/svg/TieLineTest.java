@@ -55,7 +55,7 @@ class TieLineTest extends AbstractTest {
     }
 
     @Test
-    void testDanglingLinePaired() {
+    void testBoundaryLinePaired() {
         Network network = EurostagTutorialExample1Factory.createWithTieLine();
         VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelsDepthFilter(network, Collections.singletonList("VLHV1"), 1);
         assertSvgEquals("/tie_line_filtered.svg", network, filter);

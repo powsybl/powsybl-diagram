@@ -13,6 +13,7 @@ import com.powsybl.diagram.test.Networks;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.test.ScadaNetworkFactory;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.build.iidm.IntIdProvider;
@@ -20,6 +21,7 @@ import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.BasicForceLayout;
 import com.powsybl.nad.layout.LayoutParameters;
+import com.powsybl.nad.model.BusNode;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
@@ -27,14 +29,22 @@ import com.powsybl.nad.svg.metadata.DiagramMetadata;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
@@ -119,14 +129,85 @@ class DiagramMetadataTest extends AbstractTest {
     }
 
     @Test
+    void testUnknownBus() {
+        Network network = ScadaNetworkFactory.create();
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        roundTrip(network, "/scada_network.json", new LayoutParameters().setInjectionsAdded(true));
+    }
+
+    @Test
+    void testUnknownBusCustomStyle() {
+        Network network = ScadaNetworkFactory.create();
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        StyleProvider styleProvider = new TopologicalStyleProvider(network) {
+            @Override
+            public List<String> getBusNodeStyleClasses(BusNode busNode) {
+                if (busNode == BusNode.UNKNOWN) {
+                    return List.of("unknownBusStyleClass1", "unknownBusStyleClass2", "unknownBusStyleClass3");
+                }
+                return super.getBusNodeStyleClasses(busNode);
+            }
+
+            @Override
+            public String getBusNodeStyle(BusNode busNode) {
+                if (busNode == BusNode.UNKNOWN) {
+                    return "unknownBusStyle1";
+                }
+                return super.getBusNodeStyle(busNode);
+            }
+        };
+        roundTrip(network, "/scada_network_unknown_bus.json", new LayoutParameters().setInjectionsAdded(true), styleProvider);
+    }
+
+    @Test
+    void testOverUnderVoltage() {
+        Network network = Networks.createTwoVoltageLevelsThreeBuses();
+        network.getVoltageLevel("vl1")
+                .setHighVoltageLimit(385)
+                .getBusView().getBus("vl1_0").setV(385.1);
+        network.getVoltageLevel("vl2")
+                .setLowVoltageLimit(390)
+                .getBusView().getBus("vl2_0").setV(388);
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        roundTrip(network, "/under_over_voltage_metadata.json", new LayoutParameters().setInjectionsAdded(true));
+    }
+
+    @Test
+    void testLineOverloadedAndDisconnected() {
+        Network network = IeeeCdfNetworkFactory.create9zeroimpedance();
+        Line line = network.getLine("L9-8-0");
+        line.getTerminal1().setP(800).setQ(400.0);
+        line.getTerminal2().setP(810).setQ(410.0);
+        line.getOrCreateSelectedOperationalLimitsGroup1().newCurrentLimits()
+                .setPermanentLimit(2000.0)
+                .beginTemporaryLimit()
+                .setName("20'")
+                .setValue(2100)
+                .setAcceptableDuration(20 * 60)
+                .endTemporaryLimit()
+                .beginTemporaryLimit()
+                .setName("10'")
+                .setValue(2200.0)
+                .setAcceptableDuration(10 * 60)
+                .endTemporaryLimit()
+                .add();
+
+        Line line2 = network.getLine("L7-8-0");
+        line2.disconnect();
+
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        roundTrip(network, "/line_overload_disconnected_metadata.json", new LayoutParameters().setInjectionsAdded(true));
+    }
+
+    @Test
     void testEdgeInfoMetadata() {
         Network network = Networks.createTwoVoltageLevels();
         labelProvider = new DefaultLabelProvider.Builder()
-            .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.CURRENT)
-            .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
-            .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.NAME)
-            .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
-            .build(network, getSvgParameters());
+                .setInfoSideExternal(EdgeInfoEnum.CURRENT)
+                .setInfoSideInternal(EdgeInfoEnum.ACTIVE_POWER)
+                .setInfoMiddleSide1(EdgeInfoEnum.NAME)
+                .setInfoMiddleSide2(EdgeInfoEnum.EMPTY)
+                .build(network, getSvgParameters());
         Line line = network.getLine("l1");
         line.getTerminal1().setP(1400.0).setQ(400.0);
         line.getTerminal2().setP(1410.0).setQ(410.0);
@@ -135,12 +216,48 @@ class DiagramMetadataTest extends AbstractTest {
         roundTrip(network, "/edge_info_metadata.json", new LayoutParameters().setInjectionsAdded(true));
     }
 
+    @Test
+    void testCustomStyleProviderMetadata() {
+        Network network = Networks.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
+
+        Map<String, CustomStyleProvider.BusNodeStyles> busNodesStyles = new HashMap<>();
+        busNodesStyles.put("VL1_10", new CustomStyleProvider.BusNodeStyles("yellow", null, "2px"));
+        busNodesStyles.put("VL2_30", new CustomStyleProvider.BusNodeStyles("red", "black", "4px"));
+
+        Map<String, CustomStyleProvider.EdgeStyles> edgesStyles = new HashMap<>();
+        edgesStyles.put("L11", new CustomStyleProvider.EdgeStyles("blue", "2px", null, "blue", "2px", null));
+        edgesStyles.put("L12", new CustomStyleProvider.EdgeStyles("green", "4px", "8,4", "green", "4px", "4,2"));
+        edgesStyles.put("T11", new CustomStyleProvider.EdgeStyles("red", "8px", null, "brown", "8px", null));
+        edgesStyles.put("T12", new CustomStyleProvider.EdgeStyles("orange", null, null, "orange", null, null));
+
+        Map<String, CustomStyleProvider.ThreeWtStyles> threeWtsStyles = new HashMap<>();
+        threeWtsStyles.put("T3_12",
+                new CustomStyleProvider.ThreeWtStyles(
+                        "gray", "1px", null,
+                        "purple", "2px", "2,2",
+                        "pink", "3px", null
+                )
+        );
+
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        StyleProvider styleProvider = new CustomStyleProvider(busNodesStyles, edgesStyles, threeWtsStyles);
+        roundTrip(network, "/custom_style_metadata.json", new LayoutParameters().setInjectionsAdded(true), styleProvider);
+    }
+
     private DiagramMetadata roundTrip(Network network, String referenceMetadata, LayoutParameters layoutParameters) {
+        return roundTrip(network, referenceMetadata, layoutParameters, getStyleProvider(network));
+    }
+
+    private DiagramMetadata roundTrip(Network network, String referenceMetadata, LayoutParameters layoutParameters, StyleProvider styleProvider) {
         Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, getLabelProvider(network), layoutParameters, new IntIdProvider()).buildGraph();
         new BasicForceLayout().run(graph, layoutParameters);
+        NetworkGraphBuilder.applyStyle(graph, styleProvider);
+        assertTrue(graph.isStyleApplied());
         // Write Metadata as temporary json file
         Path outMetadataPath = tmpDir.resolve("metadata.json");
         new DiagramMetadata(layoutParameters, getSvgParameters()).addMetadata(graph).writeJson(outMetadataPath);
+        assertNotNull(graph.getCssUrls());
+        assertNotNull(graph.getCssFilenames());
         // Checking
         assertFileEquals(referenceMetadata, outMetadataPath);
         // Read metadata from file

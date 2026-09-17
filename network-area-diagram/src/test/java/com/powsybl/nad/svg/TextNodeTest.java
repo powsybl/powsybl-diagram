@@ -59,7 +59,7 @@ class TextNodeTest extends AbstractTest {
                             vl.getLoadCount() + " loads",
                             vl.getGeneratorCount() + " generators",
                             vl.getBatteryCount() + " batteries",
-                            vl.getDanglingLineCount() + " dangling lines");
+                            vl.getBoundaryLineCount() + " boundary lines");
                 } else {
                     return Collections.emptyList();
                 }

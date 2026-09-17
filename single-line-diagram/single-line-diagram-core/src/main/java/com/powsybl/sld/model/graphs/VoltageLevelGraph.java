@@ -8,6 +8,7 @@ package com.powsybl.sld.model.graphs;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.cells.ArchCell;
 import com.powsybl.sld.model.cells.BusCell;
@@ -383,8 +384,13 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         // FeederNode linked to Middle3WTNode do not need any fictitious node inserted, because of the fictitious Middle3WTNode
         List<Node> feederNodes = nodesByType.computeIfAbsent(Node.NodeType.FEEDER, nodeType -> new ArrayList<>());
         feederNodes.stream()
-                .filter(feederNode -> !isInternal3wtFeederNode((FeederNode) feederNode))
+                .filter(feederNode -> !isHookReplacement((FeederNode) feederNode))
                 .forEach(this::insertFeederHookNode);
+    }
+
+    private boolean isHookReplacement(FeederNode feederNode) {
+        return feederNode.getFeeder().getFeederType() == FeederType.TEE_POINT_LEG
+                || isInternal3wtFeederNode(feederNode);
     }
 
     private boolean isInternal3wtFeederNode(FeederNode feederNode) {
@@ -587,6 +593,13 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public Point getCoord() {
         return coord;
+    }
+
+    public void addPaddingToCoord(LayoutParameters layoutParam) {
+        LayoutParameters.Padding vlPadding = layoutParam.getVoltageLevelPadding();
+        LayoutParameters.Padding dPadding = layoutParam.getDiagramPadding();
+        setCoord(coord.getX() + dPadding.left() + vlPadding.left(),
+                coord.getY() + dPadding.top() + vlPadding.top());
     }
 
     public void setCoord(double x, double y) {

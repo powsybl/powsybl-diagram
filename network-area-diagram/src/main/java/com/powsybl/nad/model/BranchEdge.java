@@ -34,7 +34,7 @@ public class BranchEdge extends AbstractEdge {
     public static final String LINE_EDGE = "LineEdge";
     public static final String HVDC_LINE_LCC_EDGE = "HvdcLineLccEdge";
     public static final String HVDC_LINE_VSC_EDGE = "HvdcLineVscEdge";
-    public static final String DANGLING_LINE_EDGE = "DanglingLineEdge";
+    public static final String BOUNDARY_LINE_EDGE = "BoundaryLineEdge";
     public static final String TIE_LINE_EDGE = "TieLineEdge";
 
     private List<Point> points1 = Collections.emptyList();
@@ -47,6 +47,10 @@ public class BranchEdge extends AbstractEdge {
     private final SvgEdgeInfo svgEdgeInfo1;
     private final SvgEdgeInfo svgEdgeInfo2;
     private final SvgEdgeInfo svgEdgeInfoMiddle;
+
+    private List<String> styleClasses = Collections.emptyList();
+    private EdgeStyleInfo edgeStyleInfo1;
+    private EdgeStyleInfo edgeStyleInfo2;
 
     public BranchEdge(IdProvider idProvider, String equipmentId, String nameOrId, String type,
                       EdgeInfo edgeInfo1, EdgeInfo edgeInfo2, EdgeInfo edgeInfoMiddle) {
@@ -171,5 +175,34 @@ public class BranchEdge extends AbstractEdge {
 
     private static boolean isEdgeInfoNotEmptyNorNull(EdgeInfo edgeInfo) {
         return edgeInfo != null && (edgeInfo.getInfoTypeB() != null || edgeInfo.getInfoTypeA() != null);
+    }
+
+    public List<String> getStyleClasses() {
+        return styleClasses;
+    }
+
+    public void setStyleClasses(List<String> styleClasses) {
+        this.styleClasses = styleClasses;
+    }
+
+    public EdgeStyleInfo getEdgeStyleInfo1() {
+        return edgeStyleInfo1;
+    }
+
+    public void setEdgeStyleInfo1(EdgeStyleInfo edgeStyleInfo1) {
+        this.edgeStyleInfo1 = edgeStyleInfo1;
+    }
+
+    public EdgeStyleInfo getEdgeStyleInfo2() {
+        return edgeStyleInfo2;
+    }
+
+    public void setEdgeStyleInfo2(EdgeStyleInfo edgeStyleInfo2) {
+        this.edgeStyleInfo2 = edgeStyleInfo2;
+    }
+
+    public EdgeStyleInfo getEdgeStyleInfo(Side side) {
+        Objects.requireNonNull(side);
+        return side == Side.ONE ? edgeStyleInfo1 : edgeStyleInfo2;
     }
 }

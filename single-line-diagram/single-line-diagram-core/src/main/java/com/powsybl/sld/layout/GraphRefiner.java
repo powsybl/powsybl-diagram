@@ -86,7 +86,8 @@ public class GraphRefiner {
     private void addFictitiousBusInConnectedComponent(VoltageLevelGraph graph, Set<Node> nodes) {
         // Replace the most meshed fictitious node by a fictitious BusNode.
         // If no fictitious node, insert/add a fictitious BusNode at the most meshed node of the set.
-        Comparator<Node> mostMeshedComparator = Comparator.<Node>comparingInt(node -> node.getAdjacentEdges().size()).reversed().thenComparing(Node::getId); // for stable fictitious node selection, also sort on id
+        // for stable fictitious node selection, also sort on id
+        Comparator<Node> mostMeshedComparator = Comparator.<Node>comparingInt(node -> node.getAdjacentEdges().size()).reversed().thenComparing(Node::getId);
         int sectionIndex = 1 + graph.getNodeBuses().stream().mapToInt(BusNode::getSectionIndex).max().orElse(0);
         nodes.stream().filter(node -> node.getType() == Node.NodeType.INTERNAL)
                 .min(mostMeshedComparator)

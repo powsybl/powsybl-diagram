@@ -26,7 +26,7 @@ class SquareRandomSetupTest {
 
     @Test
     void run() {
-        Graph<String, DefaultEdge> graph = GraphTestData.getGraph();
+        Graph<String, DefaultEdge> graph = GraphTestData.getGraph1();
         SquareRandomSetup<String, DefaultEdge> squareRandomSetup = new SquareRandomSetup<>();
         LayoutContext<String, DefaultEdge> layoutContext = new LayoutContext<>(graph);
         squareRandomSetup.run(layoutContext);

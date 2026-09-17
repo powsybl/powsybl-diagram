@@ -824,6 +824,19 @@
     ],
     "styleClass": "sld-current"
   }, {
+    "type" : "TEE_POINT",
+    "styleClass" : "sld-wire",
+    "subComponents": [],
+  "anchorPoints" : [ {
+    "x" : 0.0,
+    "y" : 0.0,
+    "orientation" : "HORIZONTAL"
+  } ],
+  "size" : {
+      "width" : 16.0,
+      "height" : 24.0
+    }
+  },{
     "type": "VALUE_PERMANENT_LIMIT_PERCENTAGE",
     "styleClass": "sld-permanent-limit-percentage",
     "size": {

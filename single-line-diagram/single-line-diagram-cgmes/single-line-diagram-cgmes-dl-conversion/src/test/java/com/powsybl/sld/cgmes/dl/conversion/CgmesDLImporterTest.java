@@ -6,11 +6,10 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
-import com.powsybl.diagram.test.Networks;
 import com.powsybl.triplestore.api.PropertyBags;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -18,14 +17,17 @@ import org.mockito.Mockito;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class CgmesDLImporterTest extends AbstractCgmesDLTest {
 
-    protected static String OTHER_DIAGRAM_NAME = "diagram-1";
+    protected static final String OTHER_DIAGRAM_NAME = "diagram-1";
 
     private CgmesDLModel cgmesDLModel;
 
@@ -77,8 +79,8 @@ class CgmesDLImporterTest extends AbstractCgmesDLTest {
                                                  createBusbarPropertyBag(NAMESPACE + "Busbar", "Busbar", 40, 80, 2, OTHER_DIAGRAM_NAME)));
         linesPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "Line", "Line", 40, 10, 1, OTHER_DIAGRAM_NAME),
                                                createPropertyBag(NAMESPACE + "Line", "Line", 40, 80, 2, OTHER_DIAGRAM_NAME)));
-        danglingLinesPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "DanglingLine", "DanglingLine", 40, 10, 1, OTHER_DIAGRAM_NAME),
-                                                       createPropertyBag(NAMESPACE + "DanglingLine", "DanglingLine", 40, 80, 2, OTHER_DIAGRAM_NAME)));
+        boundaryLinesPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "BoundaryLine", "BoundaryLine", 40, 10, 1, OTHER_DIAGRAM_NAME),
+                                                       createPropertyBag(NAMESPACE + "BoundaryLine", "BoundaryLine", 40, 80, 2, OTHER_DIAGRAM_NAME)));
         generatorsPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "Generator", "Generator", 20, 20, 0, 90, OTHER_DIAGRAM_NAME)));
         loadsPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "Load", "Load", 20, 20, 0, 90, OTHER_DIAGRAM_NAME)));
         shuntsPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "Shunt", "Shunt", 20, 20, 0, 90, OTHER_DIAGRAM_NAME)));
@@ -154,16 +156,16 @@ class CgmesDLImporterTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    void testDanglingLines() {
-        Mockito.when(cgmesDLModel.getLinesDiagramData()).thenReturn(danglingLinesPropertyBags);
-        CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithDanglingLine(), cgmesDLModel);
+    void testBoundaryLines() {
+        Mockito.when(cgmesDLModel.getLinesDiagramData()).thenReturn(boundaryLinesPropertyBags);
+        CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithBoundaryLine(), cgmesDLModel);
         cgmesDLImporter.importDLData();
         Network network = cgmesDLImporter.getNetworkWithDLData();
-        DanglingLine danglingLine = network.getDanglingLine("DanglingLine");
-        LineDiagramData<DanglingLine> danglingLineDiagramData = danglingLine.getExtension(LineDiagramData.class);
+        BoundaryLine boundaryLine = network.getBoundaryLine("BoundaryLine");
+        LineDiagramData<BoundaryLine> boundaryLineDiagramData = boundaryLine.getExtension(LineDiagramData.class);
 
-        checkDiagramData(danglingLineDiagramData, DEFAULT_DIAGRAM_NAME, 20, 5, 20, 40);
-        checkDiagramData(danglingLineDiagramData, OTHER_DIAGRAM_NAME, 40, 10, 40, 80);
+        checkDiagramData(boundaryLineDiagramData, DEFAULT_DIAGRAM_NAME, 20, 5, 20, 40);
+        checkDiagramData(boundaryLineDiagramData, OTHER_DIAGRAM_NAME, 40, 10, 40, 80);
     }
 
     @Test
