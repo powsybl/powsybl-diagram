@@ -18,8 +18,8 @@ import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.svg.SvgParameters;
 import com.powsybl.sld.svg.DefaultLabelProvider;
+import com.powsybl.sld.svg.SvgParameters;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -59,6 +59,7 @@ class TestThreeWindingsTransformerFeederInfoArrow extends AbstractTestCaseIidm {
         labelProvider.setDisplayCurrent(true);
         labelProvider.setDisplayArrowForCurrent(true);
         labelProvider.setDisplayPermanentLimitPercentage(true);
+        svgParameters.setThreeWindingsTransformerFeederInfoMode(SvgParameters.ThreeWindingsTransformerFeederInfoMode.FULL_3WT);
 
         // Build substation graph and run layout
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VL_132");

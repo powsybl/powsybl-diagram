@@ -7,23 +7,13 @@
 
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.blocks.Block;
-import com.powsybl.sld.model.blocks.BlockVisitor;
-import com.powsybl.sld.model.blocks.BodyParallelBlock;
-import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
-import com.powsybl.sld.model.blocks.ComposedBlock;
-import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
-import com.powsybl.sld.model.blocks.LegParallelBlock;
-import com.powsybl.sld.model.blocks.LegPrimaryBlock;
-import com.powsybl.sld.model.blocks.SerialBlock;
-import com.powsybl.sld.model.blocks.UndefinedBlock;
+import com.powsybl.sld.model.blocks.*;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.DoubleBinaryOperator;
-
-import com.powsybl.sld.model.nodes.Middle3WTNode;
 
 import static com.powsybl.sld.model.nodes.Node.NodeType.BUS;
 

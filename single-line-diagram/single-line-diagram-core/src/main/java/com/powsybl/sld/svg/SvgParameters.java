@@ -100,8 +100,6 @@ public class SvgParameters {
         FULL_3WT
     }
 
-
-
     public ValueFormatter createValueFormatter() {
         return new ValueFormatter(powerValuePrecision, voltageValuePrecision, currentValuePrecision, angleValuePrecision,
             percentageValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
