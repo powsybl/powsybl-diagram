@@ -49,7 +49,7 @@ public class SvgParameters {
     private boolean displayEquipmentNodesLabel;
     private boolean displayConnectivityNodesId;
     private boolean unifyVoltageLevelColors = false;
-    private ThreeWindingsTransformerFeederInfoMode threeWindingsTransformerFeederInfoMode = ThreeWindingsTransformerFeederInfoMode.ONLY_INSIDE_VOLTAGE_LEVEL;
+    private ThreeWindingsTransformerFeederInfoMode threeWindingsTransformerFeederInfoMode = ThreeWindingsTransformerFeederInfoMode.ONLY_OUTSIDE_VOLTAGE_LEVEL;
 
     public SvgParameters() {
     }

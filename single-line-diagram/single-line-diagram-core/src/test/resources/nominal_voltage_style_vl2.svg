@@ -138,16 +138,6 @@
                 <g class="sld-wire sld-vl180to300" id="_95_vl2_95_3WT_95_b3WT_95_2">
                     <polyline points="200.0,154.0,200.0,228.66666666666666"/>
                 </g>
-                <g class="sld-feeder-info sld-in sld-active-power" id="id3WT_95_ARROW_95_ACTIVE" transform="translate(195.0,169.0)">
-                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                    <text class="sld-label" x="15.0" y="5.0">—</text>
-                </g>
-                <g class="sld-feeder-info sld-in sld-reactive-power" id="id3WT_95_ARROW_95_REACTIVE" transform="translate(195.0,189.0)">
-                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                    <text class="sld-label" x="15.0" y="5.0">—</text>
-                </g>
                 <g class="sld-wire sld-vl300to500 sld-feeder-connected-disconnected" id="_95_vl2_95_3WT_95_ONE_95_3WT">
                     <polyline points="160.0,80.0,160.0,142.0,193.0,142.0"/>
                 </g>

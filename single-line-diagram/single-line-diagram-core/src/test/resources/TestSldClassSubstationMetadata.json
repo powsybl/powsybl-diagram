@@ -602,7 +602,7 @@
     "displayEquipmentNodesLabel" : false,
     "displayConnectivityNodesId" : false,
     "unifyVoltageLevelColors" : false,
-    "threeWindingsTransformerFeederInfoMode" : "ONLY_INSIDE_VOLTAGE_LEVEL"
+    "threeWindingsTransformerFeederInfoMode" : "ONLY_OUTSIDE_VOLTAGE_LEVEL"
   },
   "networkId" : "TestSingleLineDiagramClass",
   "networkName" : "TestSingleLineDiagramClass",
