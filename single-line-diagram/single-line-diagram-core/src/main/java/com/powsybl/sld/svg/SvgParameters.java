@@ -49,6 +49,7 @@ public class SvgParameters {
     private boolean displayEquipmentNodesLabel;
     private boolean displayConnectivityNodesId;
     private boolean unifyVoltageLevelColors = false;
+    private ThreeWindingsTransformerFeederInfoMode threeWindingsTransformerFeederInfoMode = ThreeWindingsTransformerFeederInfoMode.ONLY_OUTSIDE_VOLTAGE_LEVEL;
 
     public SvgParameters() {
     }
@@ -87,6 +88,17 @@ public class SvgParameters {
         this.displayEquipmentNodesLabel = other.displayEquipmentNodesLabel;
         this.displayConnectivityNodesId = other.displayConnectivityNodesId;
         this.unifyVoltageLevelColors = other.unifyVoltageLevelColors;
+        this.threeWindingsTransformerFeederInfoMode = other.threeWindingsTransformerFeederInfoMode;
+    }
+
+    public enum CssLocation {
+        INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
+    }
+
+    public enum ThreeWindingsTransformerFeederInfoMode {
+        ONLY_INSIDE_VOLTAGE_LEVEL,
+        ONLY_OUTSIDE_VOLTAGE_LEVEL,
+        FULL_3WT
     }
 
     public ValueFormatter createValueFormatter() {
@@ -390,7 +402,12 @@ public class SvgParameters {
         return this;
     }
 
-    public enum CssLocation {
-        INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
+    public ThreeWindingsTransformerFeederInfoMode getThreeWindingsTransformerFeederInfoMode() {
+        return threeWindingsTransformerFeederInfoMode;
+    }
+
+    public SvgParameters setThreeWindingsTransformerFeederInfoMode(ThreeWindingsTransformerFeederInfoMode threeWindingsTransformerFeederInfoMode) {
+        this.threeWindingsTransformerFeederInfoMode = Objects.requireNonNull(threeWindingsTransformerFeederInfoMode);
+        return this;
     }
 }

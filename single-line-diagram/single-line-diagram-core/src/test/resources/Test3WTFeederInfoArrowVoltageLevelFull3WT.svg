@@ -202,6 +202,16 @@
                 <g class="sld-wire sld-vl120to180 sld-bus-0" id="_95_VL_95_132_95_INTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_45_3WT_95_3WT">
                     <polyline points="140.0,231.0,140.0,154.0"/>
                 </g>
+                <g class="sld-feeder-info sld-in sld-active-power" id="id3WT_95_ARROW_95_ACTIVE" transform="translate(135.0,169.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                    <text class="sld-label" x="15.0" y="5.0">-2,800</text>
+                </g>
+                <g class="sld-feeder-info sld-out sld-reactive-power" id="id3WT_95_ARROW_95_REACTIVE" transform="translate(135.0,189.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                    <text class="sld-label" x="15.0" y="5.0">800</text>
+                </g>
                 <g class="sld-wire sld-vl30to50 sld-bus-0" id="_95_VL_95_132_95_3WT_95_TWO_95_3WT">
                     <polyline points="115.0,80.0,115.0,142.0,133.0,142.0"/>
                 </g>
@@ -238,7 +248,6 @@
                     <circle class="sld-vl30to50 sld-bus-0 sld-winding" cx="5" cy="15" r="5"/>
                     <circle class="sld-vl0to30 sld-bus-0 sld-winding" cx="11" cy="15" r="5"/>
                     <circle class="sld-vl120to180 sld-bus-0 sld-winding" cx="8" cy="19" r="5"/>
-                    <path class="sld-vl30to50 sld-bus-0 sld-winding" d="M9,9 0,20 M7,9 9,9 9,11"/>
                 </g>
                 <g class="sld-top-feeder sld-vl120to180 sld-bus-0" id="id3WT_95_TWO" transform="translate(115.0,80.0)">
                     <text class="sld-label" id="id3WT_95_TWO_95_N_95_LABEL" x="-5.0" y="-11.0">3WT</text>
