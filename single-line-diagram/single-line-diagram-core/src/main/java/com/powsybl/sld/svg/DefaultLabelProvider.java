@@ -72,7 +72,8 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     public List<FeederInfo> getFeederInfos(Middle3WTNode twtNode) {
         List<FeederInfo> infos = new ArrayList<>();
         ThreeWindingsTransformer twt = network.getThreeWindingsTransformer(twtNode.getEquipmentId());
-        if (twt != null) {
+        boolean onlyOutside = svgParameters.getThreeWindingsTransformerFeederInfoMode() == SvgParameters.ThreeWindingsTransformerFeederInfoMode.ONLY_OUTSIDE_VOLTAGE_LEVEL;
+        if (twt != null && !onlyOutside) {
             twt.getTerminal(ThreeSides.ONE);
             infos.addAll(this.buildFeederInfos(twt.getTerminal(ThreeSides.ONE), true));
         }
@@ -202,8 +203,8 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
 
     private List<FeederInfo> get3WTFeederInfos(ThreeWindingsTransformer transformer, ThreeSides side, boolean insideVoltageLevel) {
         List<FeederInfo> feederInfoList = new ArrayList<>();
-        boolean onlyInside = svgParameters.getThreeWindingsTransformerFeederInfoMode() == SvgParameters.ThreeWindingsTransformerFeederInfoMode.INSIDE_VOLTAGE_LEVEL;
-        if (!onlyInside || insideVoltageLevel) {
+        boolean outsideOrFull = svgParameters.getThreeWindingsTransformerFeederInfoMode() != SvgParameters.ThreeWindingsTransformerFeederInfoMode.ONLY_INSIDE_VOLTAGE_LEVEL;
+        if (outsideOrFull || insideVoltageLevel) {
             feederInfoList = buildFeederInfos(transformer.getTerminal(side), insideVoltageLevel);
         }
         if (this.displayPermanentLimitPercentage) {
