@@ -68,11 +68,10 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
         double yPxStep = sign * block.getCoord().getSpan(Y) / (blockNodes.size() - 1);
         double swStep = sign * block.getCoord().getSpan(Y) / (blockNodes.size());
 
-        boolean blockWith3wt = blockNodes.stream().anyMatch(Middle3WTNode.class::isInstance);
-
         for (int i = 0; i < blockNodes.size(); i++) {
             Node n = blockNodes.get(i);
-            if (blockWith3wt && n.getType() == NodeType.SWITCH || n.getType() == NodeType.FEEDER) {
+            if (layoutParameters.isThreeWindingsIncreasePrimaryBlockHeight(blockNodes.stream())
+                && n.getType() == NodeType.SWITCH || n.getType() == NodeType.FEEDER) {
                 n.setCoordinates(block.getCoord().get(X), y0 - yPxStep * i + swStep);
             } else {
                 n.setCoordinates(block.getCoord().get(X), y0 - yPxStep * i);

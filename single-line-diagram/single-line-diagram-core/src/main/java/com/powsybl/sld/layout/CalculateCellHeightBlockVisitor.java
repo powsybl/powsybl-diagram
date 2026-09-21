@@ -8,7 +8,6 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.blocks.*;
-import com.powsybl.sld.model.nodes.Middle3WTNode;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.util.HashSet;
@@ -65,10 +64,9 @@ public final class CalculateCellHeightBlockVisitor implements BlockVisitor {
         // already encountered
         long nbNodes = block.getNodeStream().filter(n -> !encounteredNodes.contains(n) && n.getType() != BUS)
                 .count();
-        boolean blockWith3wt = block.getNodeStream().anyMatch(Middle3WTNode.class::isInstance);
 
         this.blockHeight = (nbNodes - 1) * componentHeight;
-        if (blockWith3wt) {
+        if (layoutParameters.isThreeWindingsIncreasePrimaryBlockHeight(block.getNodeStream())) {
             this.blockHeight += layoutParameters.getFeederSpan();
         }
     }

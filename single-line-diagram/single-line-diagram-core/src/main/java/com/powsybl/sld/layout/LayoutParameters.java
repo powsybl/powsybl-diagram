@@ -12,11 +12,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.powsybl.diagram.components.ComponentSize;
 import com.powsybl.sld.library.SldComponentTypeName;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -337,6 +340,11 @@ public class LayoutParameters {
         ONLY_INSIDE_VOLTAGE_LEVEL,
         ONLY_OUTSIDE_VOLTAGE_LEVEL,
         FULL_3WT
+    }
+
+    public boolean isThreeWindingsIncreasePrimaryBlockHeight(Stream<Node> nodes) {
+        return nodes.anyMatch(Middle3WTNode.class::isInstance)
+            && getThreeWindingsTransformerFeederInfoMode() != ThreeWindingsTransformerFeederInfoMode.ONLY_OUTSIDE_VOLTAGE_LEVEL;
     }
 
     public record Padding(double left, double top, double right, double bottom) {
