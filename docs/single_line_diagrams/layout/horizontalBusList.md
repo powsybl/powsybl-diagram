@@ -33,4 +33,5 @@ A `BSCluster` with 3 `HorizontalBusList` stacked vertically, illustrating the `s
 a `BusNode` spanning over several positions, and a `null` gap between two `BusNode`. Those lists relate to the final
 `(h,v)` `BusNode` positions (see [Position of `BusNodes` and `Cells` order](positionFinder.md)):
 
+![horizontalBusList](../../_static/img/sld/layout/HorizontalBusListScheme.svg){align=center class="forced-white-background"}
 ![horizontalBusList](../../_static/img/sld/layout/horizontalBusList.svg){align=center class="forced-white-background"}

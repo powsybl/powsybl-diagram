@@ -31,10 +31,6 @@ A `Block` is identified by a `Block.Type`:
   A fallback block gathering the remaining blocks when the algorithm could not identify any further merge
   (see [Step 2: merge the blocks](#step-2-merge-the-blocks) below). Such blocks instantiate `UndefinedBlock`.
 
-`LEGPRIMARY`, `FEEDERPRIMARY` and `BODYPRIMARY` are said to be *primary* blocks: they are the leaves of the hierarchy and
-directly embed a list of `Node`. `LEGPARALLEL` and `BODYPARALLEL` are said to be *parallel* blocks, while `SERIAL` and
-`UNDEFINED` are *composed* blocks made of a list of sub-`Blocks`.
-
 The `Block` type hierarchy, showing which types are primary/parallel/composed and which interfaces/classes they map to:
 
 ![blockHierarchy](../../_static/img/sld/layout/blockHierarchy.svg){align=center class="forced-white-background"}
@@ -55,8 +51,11 @@ then explored recursively to create the `BodyPrimaryBlock` instances, until ever
 exactly as many primary blocks as its cardinality allows (a node shared by several blocks, e.g. a fork node, can belong
 to several primary blocks).
 
-A small cell graph and the resulting set of primary blocks (`LegPrimaryBlock`, `FeederPrimaryBlock`) it is decomposed
-into, sharing the fork `FICTITIOUS` node:
+A small cell graph and the resulting set of primary blocks (`LegPrimaryBlock`, `BodyPrimaryBlock`, `FeederPrimaryBlock`)
+it is decomposed into: two parallel `SWITCH` branches respectively connect `BUS1` and `BUS2` to the same first
+`FICTITIOUS` node, each one forming its own `LegPrimaryBlock` (`LegPrimaryBlock 1` on `BUS1` and `LegPrimaryBlock 2`
+on `BUS2`); the `BodyPrimaryBlock` then connects that `FICTITIOUS` node to a second one through a `SWITCH`, and the
+`FeederPrimaryBlock` connects that second `FICTITIOUS` node directly to the `FEEDER`:
 
 ![primaryBlockDecomposition](../../_static/img/sld/layout/primaryBlockDecomposition.svg){align=center class="forced-white-background"}
 
@@ -64,9 +63,14 @@ into, sharing the fork `FICTITIOUS` node:
 
 The primary blocks are then merged together, repeatedly, until only one block remains:
 
-* **Parallel merge**: two blocks are parallel if they share the same two extremity nodes (in the same order or reversed).
-  All the blocks found to be parallel to one another are merged into a single `LegParallelBlock` (if they are all
-  `LegPrimaryBlock`) or `BodyParallelBlock` (otherwise).
+* **Parallel merge**: two blocks are parallel if they share two "similar" extremity nodes (in the same order or
+  reversed); two nodes are considered similar as soon as they are the same node, or they are both `FEEDER`-like nodes,
+  or they are both `BUS` nodes (regardless of whether it is the very same `BusNode` or not). All the blocks found to
+  be parallel to one another are merged into a single `LegParallelBlock` (if they are all `LegPrimaryBlock`) or
+  `BodyParallelBlock` (otherwise). In the example above, `LegPrimaryBlock 1` and `LegPrimaryBlock 2` share the same
+  `FICTITIOUS` fork node on one side, and, on the other side, `BUS1` and `BUS2`: even though `BUS1` and `BUS2` are two
+  distinct `BusNode`, they are still considered similar extremities, so the two blocks are merged into a single
+  `LegParallelBlock`.
 * **Serial merge**: a chain of blocks, each one starting where the previous one ends, is merged into a single `SerialBlock`.
 
 Both kinds of merge are attempted alternately until no more blocks can be merged. If, at some point, none of the two
@@ -74,8 +78,8 @@ merges can be applied while several blocks remain, the remaining blocks are gath
 means the pattern of the cell is not handled by the algorithm (this can be turned into an exception thanks to the
 `exceptionIfPatternNotHandled` parameter, see [`PositionVoltageLevelLayoutFactoryParameters`](layout.md#the-positionvoltagelevellayoutfactoryparameters-class)).
 
-The merge of two `LegPrimaryBlock` into a `LegParallelBlock`, then its serial merge with a `FeederPrimaryBlock` into the
-final `SerialBlock` root:
+The resulting `LegParallelBlock`, together with the `BodyPrimaryBlock` and `FeederPrimaryBlock` identified above, each
+start where the previous one ends, so they are merged, in a single serial merge, into the final `SerialBlock` root:
 
 ![blockMerge](../../_static/img/sld/layout/blockMerge.svg){align=center class="forced-white-background"}
 
