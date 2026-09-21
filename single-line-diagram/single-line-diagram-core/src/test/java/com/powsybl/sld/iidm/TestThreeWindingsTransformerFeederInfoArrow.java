@@ -16,10 +16,10 @@ import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
+import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultLabelProvider;
-import com.powsybl.sld.svg.SvgParameters;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +42,7 @@ class TestThreeWindingsTransformerFeederInfoArrow extends AbstractTestCaseIidm {
 
     @Test
     void test3WTVoltageLevelGraphFeederInfoInside() {
-        svgParameters.setThreeWindingsTransformerFeederInfoMode(SvgParameters.ThreeWindingsTransformerFeederInfoMode.ONLY_INSIDE_VOLTAGE_LEVEL);
+        layoutParameters.setThreeWindingsTransformerFeederInfoMode(LayoutParameters.ThreeWindingsTransformerFeederInfoMode.ONLY_INSIDE_VOLTAGE_LEVEL);
 
         // Build voltage level graph and run layout with INSIDE_VOLTAGE_LEVEL mode (default)
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VL_132");
@@ -60,7 +60,7 @@ class TestThreeWindingsTransformerFeederInfoArrow extends AbstractTestCaseIidm {
         labelProvider.setDisplayCurrent(true);
         labelProvider.setDisplayArrowForCurrent(true);
         labelProvider.setDisplayPermanentLimitPercentage(true);
-        svgParameters.setThreeWindingsTransformerFeederInfoMode(SvgParameters.ThreeWindingsTransformerFeederInfoMode.FULL_3WT);
+        layoutParameters.setThreeWindingsTransformerFeederInfoMode(LayoutParameters.ThreeWindingsTransformerFeederInfoMode.FULL_3WT);
 
         // Build substation graph and run layout
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VL_132");
@@ -75,7 +75,7 @@ class TestThreeWindingsTransformerFeederInfoArrow extends AbstractTestCaseIidm {
     void test3WTVoltageLevelGraphFullFeederInfos() {
 
         // Build voltage level graph and run layout with FULL_3WT mode
-        svgParameters.setThreeWindingsTransformerFeederInfoMode(SvgParameters.ThreeWindingsTransformerFeederInfoMode.FULL_3WT);
+        layoutParameters.setThreeWindingsTransformerFeederInfoMode(LayoutParameters.ThreeWindingsTransformerFeederInfoMode.FULL_3WT);
 
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VL_132");
         voltageLevelGraphLayout(g);
@@ -98,7 +98,7 @@ class TestThreeWindingsTransformerFeederInfoArrow extends AbstractTestCaseIidm {
     void testSubstationGraphFullFeederInfos() {
 
         // Build substation graph and run layout with FULL_3WT mode
-        svgParameters.setThreeWindingsTransformerFeederInfoMode(SvgParameters.ThreeWindingsTransformerFeederInfoMode.FULL_3WT);
+        layoutParameters.setThreeWindingsTransformerFeederInfoMode(LayoutParameters.ThreeWindingsTransformerFeederInfoMode.FULL_3WT);
         SubstationGraph g = graphBuilder.buildSubstationGraph("SUBSTATION");
         substationGraphLayout(g);
 
@@ -108,7 +108,7 @@ class TestThreeWindingsTransformerFeederInfoArrow extends AbstractTestCaseIidm {
 
     @Test
     void testVoltageLevelGraph3WTSwitch() {
-        svgParameters.setThreeWindingsTransformerFeederInfoMode(SvgParameters.ThreeWindingsTransformerFeederInfoMode.FULL_3WT);
+        layoutParameters.setThreeWindingsTransformerFeederInfoMode(LayoutParameters.ThreeWindingsTransformerFeederInfoMode.FULL_3WT);
         network = get3WtWithSwitchNetwork(1);
         NetworkGraphBuilder graphBuilder2 = new NetworkGraphBuilder(network);
         VoltageLevelGraph g = graphBuilder2.buildVoltageLevelGraph("vl3");
@@ -119,7 +119,7 @@ class TestThreeWindingsTransformerFeederInfoArrow extends AbstractTestCaseIidm {
 
     @Test
     void testVoltageLevelGraph3WTMultiplesSwitches() {
-        svgParameters.setThreeWindingsTransformerFeederInfoMode(SvgParameters.ThreeWindingsTransformerFeederInfoMode.FULL_3WT);
+        layoutParameters.setThreeWindingsTransformerFeederInfoMode(LayoutParameters.ThreeWindingsTransformerFeederInfoMode.FULL_3WT);
         network = get3WtWithSwitchNetwork(2);
         NetworkGraphBuilder graphBuilder2 = new NetworkGraphBuilder(network);
         VoltageLevelGraph g = graphBuilder2.buildVoltageLevelGraph("vl3");

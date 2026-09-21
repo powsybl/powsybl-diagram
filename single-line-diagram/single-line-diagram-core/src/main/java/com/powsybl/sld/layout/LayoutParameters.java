@@ -47,6 +47,7 @@ public class LayoutParameters {
     private boolean removeFictitiousSwitchNodes = false;
     private int zoneLayoutSnakeLinePadding = 90;
     private boolean displayTeePointsInVoltageLevels = false;
+    private ThreeWindingsTransformerFeederInfoMode threeWindingsTransformerFeederInfoMode = ThreeWindingsTransformerFeederInfoMode.ONLY_OUTSIDE_VOLTAGE_LEVEL;
 
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
@@ -74,7 +75,8 @@ public class LayoutParameters {
                             @JsonProperty("componentsOnBusbars") List<String> componentsOnBusbars,
                             @JsonProperty("removeFictitiousSwitchNodes") boolean removeFictitiousSwitchNodes,
                             @JsonProperty("zoneLayoutSnakeLinePadding") int zoneLayoutSnakeLinePadding,
-                            @JsonProperty("displayTeePointsInVoltageLevels") boolean displayTeePointsInVoltageLevels) {
+                            @JsonProperty("displayTeePointsInVoltageLevels") boolean displayTeePointsInVoltageLevels,
+                            @JsonProperty("threeWindingsTransformerFeederInfoMode") ThreeWindingsTransformerFeederInfoMode threeWindingsTransformerFeederInfoMode) {
 
         this.verticalSpaceBus = verticalSpaceBus;
         this.horizontalBusPadding = horizontalBusPadding;
@@ -96,6 +98,7 @@ public class LayoutParameters {
         this.removeFictitiousSwitchNodes = removeFictitiousSwitchNodes;
         this.zoneLayoutSnakeLinePadding = zoneLayoutSnakeLinePadding;
         this.displayTeePointsInVoltageLevels = displayTeePointsInVoltageLevels;
+        this.threeWindingsTransformerFeederInfoMode = threeWindingsTransformerFeederInfoMode;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -121,6 +124,7 @@ public class LayoutParameters {
         componentsSize = other.componentsSize;
         zoneLayoutSnakeLinePadding = other.zoneLayoutSnakeLinePadding;
         displayTeePointsInVoltageLevels = other.displayTeePointsInVoltageLevels;
+        threeWindingsTransformerFeederInfoMode = other.threeWindingsTransformerFeederInfoMode;
     }
 
     public double getVerticalSpaceBus() {
@@ -316,8 +320,23 @@ public class LayoutParameters {
         return this;
     }
 
+    public ThreeWindingsTransformerFeederInfoMode getThreeWindingsTransformerFeederInfoMode() {
+        return threeWindingsTransformerFeederInfoMode;
+    }
+
+    public LayoutParameters setThreeWindingsTransformerFeederInfoMode(ThreeWindingsTransformerFeederInfoMode threeWindingsTransformerFeederInfoMode) {
+        this.threeWindingsTransformerFeederInfoMode = Objects.requireNonNull(threeWindingsTransformerFeederInfoMode);
+        return this;
+    }
+
     public enum Alignment {
         FIRST, LAST, MIDDLE, NONE
+    }
+
+    public enum ThreeWindingsTransformerFeederInfoMode {
+        ONLY_INSIDE_VOLTAGE_LEVEL,
+        ONLY_OUTSIDE_VOLTAGE_LEVEL,
+        FULL_3WT
     }
 
     public record Padding(double left, double top, double right, double bottom) {

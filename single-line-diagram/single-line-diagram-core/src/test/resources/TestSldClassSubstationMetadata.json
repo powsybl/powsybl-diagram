@@ -567,7 +567,8 @@
     "componentsOnBusbars" : [ "DISCONNECTOR" ],
     "removeFictitiousSwitchNodes" : false,
     "zoneLayoutSnakeLinePadding" : 90,
-    "displayTeePointsInVoltageLevels" : false
+    "displayTeePointsInVoltageLevels" : false,
+    "threeWindingsTransformerFeederInfoMode" : "ONLY_OUTSIDE_VOLTAGE_LEVEL"
   },
   "svgParams" : {
     "prefixId" : "",
@@ -601,8 +602,7 @@
     "showInternalNodes" : false,
     "displayEquipmentNodesLabel" : false,
     "displayConnectivityNodesId" : false,
-    "unifyVoltageLevelColors" : false,
-    "threeWindingsTransformerFeederInfoMode" : "ONLY_OUTSIDE_VOLTAGE_LEVEL"
+    "unifyVoltageLevelColors" : false
   },
   "networkId" : "TestSingleLineDiagramClass",
   "networkName" : "TestSingleLineDiagramClass",
