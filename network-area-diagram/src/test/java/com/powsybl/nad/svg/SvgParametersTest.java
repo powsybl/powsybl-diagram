@@ -51,7 +51,7 @@ class SvgParametersTest {
                 .setCurrentValuePrecision(1)
                 .setPercentageValuePrecision(1)
                 .setPstArrowHeadSize(20)
-                .setUndefinedValueSymbol("\u002A")
+                .setUndefinedValueSymbol("*")
                 .setInjectionAperture(0.4)
                 .setInjectionCircleRadius(1.)
                 .setInjectionEdgeLength(5.)

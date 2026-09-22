@@ -48,7 +48,9 @@ class TestCaseFictitiousSwitchNode extends AbstractTestCaseIidm {
         factory.create(g1).run(layoutParameters);
 
         // write svg and compare to reference
-        assertEquals(toString("/TestCaseKeepFictitiousSwitchNode.svg"), toSVG(g1, "/TestCaseKeepFictitiousSwitchNode.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+        assertEquals(toString("/TestCaseKeepFictitiousSwitchNode.svg"),
+            toSVG(g1, "/TestCaseKeepFictitiousSwitchNode.svg", componentLibrary, layoutParameters, svgParameters,
+                getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -63,7 +65,9 @@ class TestCaseFictitiousSwitchNode extends AbstractTestCaseIidm {
         factory.create(g2).run(layoutParameters);
 
         // write svg and compare to reference
-        assertEquals(toString("/TestCaseRemoveFictitiousSwitchNode.svg"), toSVG(g2, "/TestCaseRemoveFictitiousSwitchNode.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+        assertEquals(toString("/TestCaseRemoveFictitiousSwitchNode.svg"),
+            toSVG(g2, "/TestCaseRemoveFictitiousSwitchNode.svg", componentLibrary, layoutParameters, svgParameters,
+                getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
 }

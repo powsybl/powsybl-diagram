@@ -10,7 +10,7 @@ graphRefiner.md
 cellDetector.md
 cellBlockDecomposer.md
 positionFinder.md
-zoneMatrixLayout.md
+zoneLayouts.md
 ```
 
 A layout represents the way in which the elements of a graph are arranged.
@@ -113,4 +113,4 @@ TODO
 ## Layouts for multi-substation graphs
 
 Multi-substation graphs can use a matrix-like layout for the different substations.
-See [Zone Matrix Layout](zoneMatrixLayout.md) for more details.
+See [Zone Matrix Layout](zoneLayouts.md) for more details.

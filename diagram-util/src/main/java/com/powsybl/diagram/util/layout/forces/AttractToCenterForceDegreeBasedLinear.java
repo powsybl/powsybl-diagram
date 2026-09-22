@@ -8,9 +8,9 @@
 
 package com.powsybl.diagram.util.layout.forces;
 
+import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
-import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 
 /**
  * A force that attracts all the points towards the center of the graph. The force depends on the number of edge of the point.

@@ -33,6 +33,7 @@ public class EdgeMetadata extends AbstractMetadataItem {
     private final List<String> classes2;
     private final String style1;
     private final String style2;
+    private final List<String> classes;
 
     public EdgeMetadata(@JsonProperty("svgId") String svgId,
                         @JsonProperty("equipmentId") String equipmentId,
@@ -50,7 +51,8 @@ public class EdgeMetadata extends AbstractMetadataItem {
                         @JsonProperty("classes1") List<String> classes1,
                         @JsonProperty("classes2") List<String> classes2,
                         @JsonProperty("style1") String style1,
-                        @JsonProperty("style2") String style2
+                        @JsonProperty("style2") String style2,
+                        @JsonProperty("classes") List<String> classes
                         ) {
         super(svgId, equipmentId);
         this.node1SvgId = node1SvgId;
@@ -68,6 +70,7 @@ public class EdgeMetadata extends AbstractMetadataItem {
         this.classes2 = classes2;
         this.style1 = style1;
         this.style2 = style2;
+        this.classes = classes;
     }
 
     @JsonProperty("node1")
@@ -150,4 +153,11 @@ public class EdgeMetadata extends AbstractMetadataItem {
     public String getStyle2() {
         return style2;
     }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("classes")
+    public List<String> getClasses() {
+        return classes;
+    }
+
 }

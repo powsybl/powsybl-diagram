@@ -78,7 +78,8 @@ public final class NodeFactory {
         return bn;
     }
 
-    public static FeederNode createFeederNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentTypeName, boolean fictitious, Feeder feeder, Orientation orientation) {
+    public static FeederNode createFeederNode(VoltageLevelGraph graph, String id, String name, String equipmentId,
+                                              String componentTypeName, boolean fictitious, Feeder feeder, Orientation orientation) {
         FeederNode fn = new FeederNode(id, name, equipmentId, componentTypeName, fictitious, feeder, orientation);
         graph.addNode(fn);
         return fn;
@@ -135,7 +136,8 @@ public final class NodeFactory {
         return gdNode;
     }
 
-    public static FeederNode createVscConverterStation(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+    public static FeederNode createVscConverterStation(VoltageLevelGraph graph, String id, String name, String equipmentId,
+                                                       NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         FeederWithSides feeder = new FeederWithSides(FeederType.HVDC, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos);
         return createFeederNode(graph, id, name, equipmentId, SldComponentTypeName.VSC_CONVERTER_STATION, feeder);
     }
@@ -144,7 +146,8 @@ public final class NodeFactory {
         return createFeederInjectionNode(graph, id, name, VSC_CONVERTER_STATION);
     }
 
-    public static FeederNode createLccConverterStation(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+    public static FeederNode createLccConverterStation(VoltageLevelGraph graph, String id, String name, String equipmentId,
+                                                       NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         FeederWithSides feeder = new FeederWithSides(FeederType.HVDC, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos);
         return createFeederNode(graph, id, name, equipmentId, SldComponentTypeName.LCC_CONVERTER_STATION, feeder);
     }
@@ -153,15 +156,18 @@ public final class NodeFactory {
         return createFeederInjectionNode(graph, id, name, LCC_CONVERTER_STATION);
     }
 
-    public static FeederNode createFeederBranchNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+    public static FeederNode createFeederBranchNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType,
+                                                    NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         return createFeederNode(graph, id, name, equipmentId, componentType, new FeederWithSides(FeederType.BRANCH, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
     }
 
-    public static FeederNode createFeeder2WTNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+    public static FeederNode createFeeder2WTNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType,
+                                                 NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         return createFeederBranchNode(graph, id, name, equipmentId, componentType, side, otherSideVoltageLevelInfos);
     }
 
-    public static FeederNode createFeeder2WTNode(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+    public static FeederNode createFeeder2WTNode(VoltageLevelGraph graph, String id, String name, String equipmentId,
+                                                 NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         return createFeeder2WTNode(graph, id, name, equipmentId, TWO_WINDINGS_TRANSFORMER, side, otherSideVoltageLevelInfos);
     }
 
@@ -169,19 +175,23 @@ public final class NodeFactory {
         return createFeeder2WTNode(graph, id, name, equipmentId, side, graph.getVoltageLevelInfos());
     }
 
-    public static FeederNode createFeeder2WTNodeWithPhaseShifter(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+    public static FeederNode createFeeder2WTNodeWithPhaseShifter(VoltageLevelGraph graph, String id, String name, String equipmentId,
+                                                                 NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         return createFeeder2WTNode(graph, id, name, equipmentId, PHASE_SHIFT_TRANSFORMER, side, otherSideVoltageLevelInfos);
     }
 
-    public static FeederNode createFeederLineNode(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+    public static FeederNode createFeederLineNode(VoltageLevelGraph graph, String id, String name, String equipmentId,
+                                                  NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         return createFeederBranchNode(graph, id, name, equipmentId, SldComponentTypeName.LINE, side, otherSideVoltageLevelInfos);
     }
 
-    public static FeederNode createFeederTeePointLegNode(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
+    public static FeederNode createFeederTeePointLegNode(VoltageLevelGraph graph, String id, String name, String equipmentId,
+                                                         NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
         return createFeederNode(graph, id, name, equipmentId, TEE_POINT_LEG, new FeederTeePointLeg(feederType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
     }
 
-    public static FeederNode createFeederTwtLegNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
+    public static FeederNode createFeederTwtLegNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType,
+                                                    NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
         return createFeederNode(graph, id, name, equipmentId, componentType, new FeederTwLeg(feederType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
     }
 
@@ -189,11 +199,13 @@ public final class NodeFactory {
         return createFeederTwtLegNode(graph, id, name, equipmentId, TWO_WINDINGS_TRANSFORMER_LEG, side, graph.getVoltageLevelInfos(), FeederType.TWO_WINDINGS_TRANSFORMER_LEG);
     }
 
-    public static FeederNode createFeeder2WTLegNodeWithPhaseShifter(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side) {
+    public static FeederNode createFeeder2WTLegNodeWithPhaseShifter(VoltageLevelGraph graph, String id, String name, String equipmentId,
+                                                                    NodeSide side) {
         return createFeederTwtLegNode(graph, id, name, equipmentId, PHASE_SHIFT_TRANSFORMER_LEG, side, graph.getVoltageLevelInfos(), FeederType.TWO_WINDINGS_TRANSFORMER_LEG);
     }
 
-    public static FeederNode createFeeder3WTLegNodeForVoltageLevelDiagram(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+    public static FeederNode createFeeder3WTLegNodeForVoltageLevelDiagram(VoltageLevelGraph graph, String id, String name, String equipmentId,
+                                                                          NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         return createFeederTwtLegNode(graph, id, name, equipmentId, THREE_WINDINGS_TRANSFORMER_LEG, side, otherSideVoltageLevelInfos, FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
     }
 
@@ -201,7 +213,8 @@ public final class NodeFactory {
         return createFeederTwtLegNode(graph, id, name, equipmentId, THREE_WINDINGS_TRANSFORMER_LEG, side, graph.getVoltageLevelInfos(), FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
     }
 
-    public static FeederNode createFeederTeePointNodeForVoltageLevelDiagram(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+    public static FeederNode createFeederTeePointNodeForVoltageLevelDiagram(VoltageLevelGraph graph, String id, String name, String equipmentId,
+                                                                            NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         return createFeederTeePointLegNode(graph, id, name, equipmentId, side, otherSideVoltageLevelInfos, FeederType.TEE_POINT_LEG);
     }
 
@@ -211,13 +224,15 @@ public final class NodeFactory {
         return createConnectivityNode(graph, connectivityNodeId, NODE);
     }
 
-    public static SwitchNode createSwitchNode(VoltageLevelGraph graph, String id, String name, String componentType, boolean fictitious, SwitchKind kind, boolean open) {
+    public static SwitchNode createSwitchNode(VoltageLevelGraph graph, String id, String name, String componentType,
+                                              boolean fictitious, SwitchKind kind, boolean open) {
         SwitchNode sn = new SwitchNode(id, name, componentType, fictitious, kind, open);
         graph.addNode(sn);
         return sn;
     }
 
-    public static EquipmentNode createInternal2WTNode(VoltageLevelGraph graph, String id, String nameOrId, String equipmentId, Node n1, Node n2, String component) {
+    public static EquipmentNode createInternal2WTNode(VoltageLevelGraph graph, String id, String nameOrId, String equipmentId,
+                                                      Node n1, Node n2, String component) {
         EquipmentNode i2wt = new Internal2WTNode(id, nameOrId, equipmentId, component);
         graph.addNode(i2wt);
         graph.addEdge(n1, i2wt);
@@ -225,7 +240,9 @@ public final class NodeFactory {
         return i2wt;
     }
 
-    public static Middle2WTNode createMiddle2WTNode(BaseGraph baseGraph, String id, String name, FeederNode legNode1, FeederNode legNode2, VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2, boolean hasPhaseTapChanger) {
+    public static Middle2WTNode createMiddle2WTNode(BaseGraph baseGraph, String id, String name, FeederNode legNode1,
+                                                    FeederNode legNode2, VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2,
+                                                    boolean hasPhaseTapChanger) {
         String componentType = hasPhaseTapChanger ? PHASE_SHIFT_TRANSFORMER : TWO_WINDINGS_TRANSFORMER;
         Middle2WTNode m2wn = new Middle2WTNode(id, name, vlInfos1, vlInfos2, componentType);
         baseGraph.addTwtEdge(legNode1, m2wn);
@@ -236,7 +253,8 @@ public final class NodeFactory {
 
     public static Middle3WTNode createMiddle3WTNode(VoltageLevelGraph baseGraph, String id, String name, NodeSide vlSide,
                                                     FeederNode firstOtherLegNode, FeederNode secondOtherLegNode,
-                                                    VoltageLevelInfos vlLeg1, VoltageLevelInfos vlLeg2, VoltageLevelInfos vlLeg3, boolean hasPhaseTapChanger1, boolean hasPhaseTapChanger2, boolean hasPhaseTapChanger3) {
+                                                    VoltageLevelInfos vlLeg1, VoltageLevelInfos vlLeg2, VoltageLevelInfos vlLeg3,
+                                                    boolean hasPhaseTapChanger1, boolean hasPhaseTapChanger2, boolean hasPhaseTapChanger3) {
         if (firstOtherLegNode.getFeeder().getFeederType() != FeederType.THREE_WINDINGS_TRANSFORMER_LEG
                 || secondOtherLegNode.getFeeder().getFeederType() != FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
             throw new PowsyblException("Middle3WTNode must be created with FeederNode with ComponentTypeName THREE_WINDINGS_TRANSFORMER_LEG");

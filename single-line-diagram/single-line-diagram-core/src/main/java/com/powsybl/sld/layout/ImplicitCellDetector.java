@@ -182,14 +182,16 @@ public class ImplicitCellDetector implements CellDetector {
                 .filter(node -> !nodes.contains(node))
                 .collect(Collectors.toList());
 
-        Optional<List<Node>> cellNodesExtern = nodes.stream().filter(n -> n.getAdjacentNodes().size() > 2 && n instanceof ConnectivityNode) // optimisation : a Shunt node has necessarily 3 ore more adjacent nodes and must be InternalNode
+        // optimisation : a Shunt node has necessarily 3 ore more adjacent nodes and must be InternalNode
+        Optional<List<Node>> cellNodesExtern = nodes.stream().filter(n -> n.getAdjacentNodes().size() > 2 && n instanceof ConnectivityNode)
                 .map(n -> checkCandidateShuntNode((ConnectivityNode) n, externalNodes))
                 .filter(nodesExternCell -> !nodesExternCell.isEmpty()).findFirst();
 
         if (cellNodesExtern.isPresent()) {
             Set<Node> remainingNodes = new LinkedHashSet<>(nodes);
             List<ShuntCell> shuntCellsCreated = new ArrayList<>(shuntCells);
-            ConnectivityNode shuntNode = (ConnectivityNode) cellNodesExtern.get().getFirst();  // reminder: the first node returned by checkCandidateShuntNode is the candidateShuntNode and is therefore a checked InternalNode
+            // reminder: the first node returned by checkCandidateShuntNode is the candidateShuntNode and is therefore a checked InternalNode
+            ConnectivityNode shuntNode = (ConnectivityNode) cellNodesExtern.get().getFirst();
             splitNodes(graph, nodes, shuntNode, cellNodesExtern.get(), remainingNodes, externalNodes, shuntCellsCreated);
 
             // buses and shunts are kept as they might be shared, but if isolated, they should be removed now from remaining nodes

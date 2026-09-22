@@ -139,7 +139,7 @@ public record VoltageLevelFilter(Set<VoltageLevel> voltageLevels) implements Pre
         private final Set<VoltageLevel> visitedVoltageLevels;
         private final Predicate<VoltageLevel> voltageLevelPredicate;
 
-        public VlVisitor(Set<VoltageLevel> nextDepthVoltageLevels, Set<VoltageLevel> visitedVoltageLevels, Predicate<VoltageLevel> voltageLevelPredicate) {
+        VlVisitor(Set<VoltageLevel> nextDepthVoltageLevels, Set<VoltageLevel> visitedVoltageLevels, Predicate<VoltageLevel> voltageLevelPredicate) {
             this.nextDepthVoltageLevels = nextDepthVoltageLevels;
             this.visitedVoltageLevels = visitedVoltageLevels;
             this.voltageLevelPredicate = voltageLevelPredicate;

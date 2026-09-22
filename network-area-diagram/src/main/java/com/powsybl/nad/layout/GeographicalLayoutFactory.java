@@ -74,7 +74,9 @@ public class GeographicalLayoutFactory extends FixedLayoutFactory implements Lay
                 int i = 0;
                 for (VoltageLevel voltageLevel : voltageLevelList) {
                     double angleVoltageLevel = angle * i;
-                    fixedNodePositionMap.put(voltageLevel.getId(), new Point(scalingFactor * mercatorCoordinates.getFirst() + radiusFactor * Math.cos(angleVoltageLevel), scalingFactor * mercatorCoordinates.getSecond() + radiusFactor * Math.sin(angleVoltageLevel)));
+                    fixedNodePositionMap.put(voltageLevel.getId(),
+                        new Point(scalingFactor * mercatorCoordinates.getFirst() + radiusFactor * Math.cos(angleVoltageLevel),
+                            scalingFactor * mercatorCoordinates.getSecond() + radiusFactor * Math.sin(angleVoltageLevel)));
                     i++;
                 }
             }

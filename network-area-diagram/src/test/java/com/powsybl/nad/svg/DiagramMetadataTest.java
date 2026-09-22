@@ -29,11 +29,10 @@ import com.powsybl.nad.svg.metadata.DiagramMetadata;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
@@ -42,6 +41,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
@@ -167,6 +170,33 @@ class DiagramMetadataTest extends AbstractTest {
                 .getBusView().getBus("vl2_0").setV(388);
         labelProvider = new DefaultLabelProvider(network, getSvgParameters());
         roundTrip(network, "/under_over_voltage_metadata.json", new LayoutParameters().setInjectionsAdded(true));
+    }
+
+    @Test
+    void testLineOverloadedAndDisconnected() {
+        Network network = IeeeCdfNetworkFactory.create9zeroimpedance();
+        Line line = network.getLine("L9-8-0");
+        line.getTerminal1().setP(800).setQ(400.0);
+        line.getTerminal2().setP(810).setQ(410.0);
+        line.getOrCreateSelectedOperationalLimitsGroup1().newCurrentLimits()
+                .setPermanentLimit(2000.0)
+                .beginTemporaryLimit()
+                .setName("20'")
+                .setValue(2100)
+                .setAcceptableDuration(20 * 60)
+                .endTemporaryLimit()
+                .beginTemporaryLimit()
+                .setName("10'")
+                .setValue(2200.0)
+                .setAcceptableDuration(10 * 60)
+                .endTemporaryLimit()
+                .add();
+
+        Line line2 = network.getLine("L7-8-0");
+        line2.disconnect();
+
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        roundTrip(network, "/line_overload_disconnected_metadata.json", new LayoutParameters().setInjectionsAdded(true));
     }
 
     @Test

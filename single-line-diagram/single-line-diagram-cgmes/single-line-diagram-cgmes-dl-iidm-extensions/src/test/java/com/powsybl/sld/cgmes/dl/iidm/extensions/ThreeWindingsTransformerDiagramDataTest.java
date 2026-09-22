@@ -6,19 +6,21 @@
  */
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.diagram.test.Networks;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class ThreeWindingsTransformerDiagramDataTest {
 
-    public static String DIAGRAM_NAME = "default";
+    public static final String DIAGRAM_NAME = "default";
 
     @Test
     void test() {
@@ -26,7 +28,8 @@ class ThreeWindingsTransformerDiagramDataTest {
         ThreeWindingsTransformer twt = network.getThreeWindingsTransformer("Transformer3w");
 
         ThreeWindingsTransformerDiagramData twtDiagramData = new ThreeWindingsTransformerDiagramData(twt);
-        ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails = new ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails(new DiagramPoint(20, 13, 0), 90);
+        ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails =
+            new ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails(new DiagramPoint(20, 13, 0), 90);
 
         diagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(15, 10, 2));
         diagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(0, 10, 1));

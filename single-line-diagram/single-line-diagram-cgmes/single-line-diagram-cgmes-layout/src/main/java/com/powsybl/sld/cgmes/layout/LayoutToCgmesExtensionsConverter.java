@@ -88,107 +88,7 @@ public class LayoutToCgmesExtensionsConverter {
 
         LayoutInfo subsBoundary = new LayoutInfo(0.0, 0.0);
         Substation substation = network.getSubstation(substationId);
-        substation.getVoltageLevelStream().forEach(voltageLevel -> {
-            VoltageLevelGraph vlGraph = sgraph.getVoltageLevel(voltageLevel.getId());
-
-            // remove fictitious nodes & switches (no CGMES DL data available for them)
-            vlGraph.removeUnnecessaryConnectivityNodes();
-            AbstractCgmesLayout.removeFictitiousSwitchNodes(vlGraph, voltageLevel);
-
-            // retrieve connectivity nodes which might correspond to CGMES connectivity nodes, to be exported to DL
-            vlGraph.getConnectivityNodeStream().forEach(cn ->
-                    AbstractCgmesLayout.getIidmEquivalentNode(voltageLevel, cn)
-                            .ifPresent(equivalentIidmNode -> VoltageLevelDiagramData.addInternalNodeDiagramPoint(
-                                    voltageLevel, diagramName, equivalentIidmNode, new DiagramPoint(cn.getX(), cn.getY(), 0))));
-
-            double vlNodeMaxX = vlGraph.getNodes().stream().map(Node::getX).max(Comparator.naturalOrder()).orElse(0.0);
-            double vlNodeMaxY = vlGraph.getNodes().stream().map(Node::getY).max(Comparator.naturalOrder()).orElse(0.0);
-            subsBoundary.update(vlNodeMaxX, vlNodeMaxY);
-
-            List<String> componentTypeList = vlGraph.getNodes().stream().map(Node::getComponentType).collect(Collectors.toList());
-            LOG.debug("Voltage level id: {} ({}); {} ;component types: {}; max x,y: {}, {}", voltageLevel.getId(), voltageLevel.getNameOrId(), voltageLevel.getTopologyKind(), componentTypeList, vlNodeMaxX, vlNodeMaxY);
-
-            //iterate over the voltage level's equipments, and fill the IIDM CGMES DL extensions with the computed layout info
-            voltageLevel.getLoadStream().filter(load -> vlGraph.getNode(load.getId()) != null).forEach(load -> {
-                Node node = vlGraph.getNode(load.getId());
-                DiagramPoint lDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
-                InjectionDiagramData<Load> loadIidmDiagramData = new InjectionDiagramData<>(load);
-                InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(lDiagramPoint, 0);
-                loadIidmDiagramData.addData(diagramName, diagramDetails);
-                LOG.debug("setting CGMES DL IIDM extensions for Load: {}, {}", load.getId(), lDiagramPoint);
-                load.addExtension(InjectionDiagramData.class, loadIidmDiagramData);
-            });
-
-            voltageLevel.getGeneratorStream().filter(generator -> vlGraph.getNode(generator.getId()) != null).forEach(generator -> {
-                Node node = vlGraph.getNode(generator.getId());
-                DiagramPoint gDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
-                InjectionDiagramData<Generator> gIidmDiagramData = new InjectionDiagramData<>(generator);
-                InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(gDiagramPoint, 0);
-                gIidmDiagramData.addData(diagramName, diagramDetails);
-                LOG.debug("setting CGMES DL IIDM extensions for Generator: {}, {}", generator.getId(), gDiagramPoint);
-                generator.addExtension(InjectionDiagramData.class, gIidmDiagramData);
-            });
-
-            voltageLevel.getShuntCompensatorStream().filter(shuntCompensator -> vlGraph.getNode(shuntCompensator.getId()) != null).forEach(shuntCompensator -> {
-                Node node = vlGraph.getNode(shuntCompensator.getId());
-                DiagramPoint scDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
-                InjectionDiagramData<ShuntCompensator> scDiagramData = new InjectionDiagramData<>(shuntCompensator);
-                InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(scDiagramPoint, 0);
-                scDiagramData.addData(diagramName, diagramDetails);
-                LOG.debug("setting CGMES DL IIDM extensions for ShuntCompensator: {}, {}", shuntCompensator.getId(), scDiagramPoint);
-                shuntCompensator.addExtension(InjectionDiagramData.class, scDiagramData);
-            });
-
-            voltageLevel.getStaticVarCompensatorStream().filter(staticVarCompensator -> vlGraph.getNode(staticVarCompensator.getId()) != null).forEach(staticVarCompensator -> {
-                Node node = vlGraph.getNode(staticVarCompensator.getId());
-                DiagramPoint svcDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
-                InjectionDiagramData<StaticVarCompensator> svcDiagramData = new InjectionDiagramData<>(staticVarCompensator);
-                InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(svcDiagramPoint, 0);
-                svcDiagramData.addData(diagramName, diagramDetails);
-                LOG.debug("setting CGMES DL IIDM extensions for StaticVarCompensator: {}, {}", staticVarCompensator.getId(), svcDiagramPoint);
-                staticVarCompensator.addExtension(InjectionDiagramData.class, svcDiagramData);
-            });
-
-            vlGraph.getNodes().stream().filter(node -> Objects.equals(node.getComponentType(), LINE)).forEach(node -> applyLayoutOnLines(node, voltageLevel, diagramName, offsetPoint));
-
-            vlGraph.getNodes().stream().filter(node -> Objects.equals(node.getComponentType(), BOUNDARY_LINE)).forEach(node -> applyLayoutOnBoundaryLines(node, voltageLevel, diagramName, offsetPoint));
-
-            vlGraph.getNodes().stream().filter(node -> Objects.equals(node.getComponentType(), VSC_CONVERTER_STATION)).forEach(node -> applyLayoutOnVscConverterStation(node, voltageLevel, diagramName, offsetPoint));
-
-            vlGraph.getNodes().stream().filter(node -> Objects.equals(node.getComponentType(), LCC_CONVERTER_STATION)).forEach(node -> applyLayoutOnLccConverterStation(node, voltageLevel, diagramName, offsetPoint));
-
-            if (TopologyKind.BUS_BREAKER.equals(voltageLevel.getTopologyKind())) {
-                voltageLevel.getBusBreakerView().getBusStream().forEach(bus ->
-                        vlGraph.getNodeBuses().stream().filter(busNode -> busNode.getId().equals(bus.getId())).findFirst().ifPresent(busNode -> {
-                            NodeDiagramData<Bus> busDiagramData = NodeDiagramData.getOrCreateDiagramData(bus);
-                            setNodeDiagramPoints(busDiagramData, busNode, offsetPoint, diagramName);
-                            LOG.debug("setting CGMES DL IIDM extensions for Bus {}, {} - {}", bus.getId(), busDiagramData.getData(diagramName).getPoint1(), busDiagramData.getData(diagramName).getPoint2());
-                            bus.addExtension(NodeDiagramData.class, busDiagramData);
-                        })
-                );
-
-            } else {
-                voltageLevel.getNodeBreakerView().getBusbarSectionStream().forEach(busbarSection ->
-                        vlGraph.getNodeBuses().stream().filter(busNode -> busNode.getId().equals(busbarSection.getId())).findFirst().ifPresent(busNode -> {
-                            NodeDiagramData<BusbarSection> busbarSectionDiagramData = NodeDiagramData.getOrCreateDiagramData(busbarSection);
-                            setNodeDiagramPoints(busbarSectionDiagramData, busNode, offsetPoint, diagramName);
-                            LOG.debug("setting CGMES DL IIDM extensions for BusbarSection {}, {} - {}", busbarSection.getId(), busbarSectionDiagramData.getData(diagramName).getPoint1(), busbarSectionDiagramData.getData(diagramName).getPoint2());
-                            busbarSection.addExtension(NodeDiagramData.class, busbarSectionDiagramData);
-                        })
-                );
-
-                voltageLevel.getNodeBreakerView().getSwitchStream().filter(Objects::nonNull).forEach(sw -> {
-                    Node swNode = vlGraph.getNode(sw.getId());
-                    if (checkSwitchNode(swNode)) {
-                        CouplingDeviceDiagramData<Switch> switchIidmDiagramData = new CouplingDeviceDiagramData<>(sw);
-                        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = new CouplingDeviceDiagramData.CouplingDeviceDiagramDetails(offsetPoint.newDiagramPoint(swNode.getX(), swNode.getY(), 0), switchRotationValue(swNode));
-                        switchIidmDiagramData.addData(diagramName, diagramDetails);
-                        LOG.debug("setting CGMES DL IIDM extensions for Switch {}, {}", sw.getId(), switchIidmDiagramData);
-                        sw.addExtension(CouplingDeviceDiagramData.class, switchIidmDiagramData);
-                    }
-                });
-            }
-        });
+        substation.getVoltageLevelStream().forEach(voltageLevel -> applyLayoutOnVoltageLevel(voltageLevel, sgraph, diagramName, offsetPoint, subsBoundary));
 
         substation.getTwoWindingsTransformerStream().forEach(twoWindingsTransformer -> sgraph.getMultiTermNodes().stream()
                 .filter(node -> checkNode(twoWindingsTransformer, node)).findFirst().ifPresent(node -> {
@@ -205,7 +105,8 @@ public class LayoutToCgmesExtensionsConverter {
                 .filter(node -> checkNode(threeWindingsTransformer, node)).findFirst().ifPresent(node -> {
                     DiagramPoint tDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
                     ThreeWindingsTransformerDiagramData transformerIidmDiagramData = new ThreeWindingsTransformerDiagramData(threeWindingsTransformer);
-                    ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails = new ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails(tDiagramPoint, rotationValue(node));
+                    ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails =
+                        new ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails(tDiagramPoint, rotationValue(node));
                     transformerIidmDiagramData.addData(diagramName, diagramDetails);
                     LOG.debug("setting CGMES DL IIDM extensions for ThreeWindingTransformer: {}, {}", threeWindingsTransformer.getId(), tDiagramPoint);
                     threeWindingsTransformer.addExtension(ThreeWindingsTransformerDiagramData.class, transformerIidmDiagramData);
@@ -213,6 +114,118 @@ public class LayoutToCgmesExtensionsConverter {
         );
 
         return subsBoundary;
+    }
+
+    private void applyLayoutOnVoltageLevel(VoltageLevel voltageLevel, SubstationGraph sgraph, String diagramName,
+                                           OffsetPoint offsetPoint, LayoutInfo subsBoundary) {
+        VoltageLevelGraph vlGraph = sgraph.getVoltageLevel(voltageLevel.getId());
+
+        // remove fictitious nodes & switches (no CGMES DL data available for them)
+        vlGraph.removeUnnecessaryConnectivityNodes();
+        AbstractCgmesLayout.removeFictitiousSwitchNodes(vlGraph, voltageLevel);
+
+        // retrieve connectivity nodes which might correspond to CGMES connectivity nodes, to be exported to DL
+        vlGraph.getConnectivityNodeStream().forEach(cn ->
+            AbstractCgmesLayout.getIidmEquivalentNode(voltageLevel, cn)
+                .ifPresent(equivalentIidmNode -> VoltageLevelDiagramData.addInternalNodeDiagramPoint(
+                    voltageLevel, diagramName, equivalentIidmNode, new DiagramPoint(cn.getX(), cn.getY(), 0))));
+
+        double vlNodeMaxX = vlGraph.getNodes().stream().map(Node::getX).max(Comparator.naturalOrder()).orElse(0.0);
+        double vlNodeMaxY = vlGraph.getNodes().stream().map(Node::getY).max(Comparator.naturalOrder()).orElse(0.0);
+        subsBoundary.update(vlNodeMaxX, vlNodeMaxY);
+
+        List<String> componentTypeList = vlGraph.getNodes().stream().map(Node::getComponentType).collect(Collectors.toList());
+        LOG.debug("Voltage level id: {} ({}); {} ;component types: {}; max x,y: {}, {}", voltageLevel.getId(),
+            voltageLevel.getNameOrId(), voltageLevel.getTopologyKind(), componentTypeList, vlNodeMaxX, vlNodeMaxY);
+
+        //iterate over the voltage level's equipments, and fill the IIDM CGMES DL extensions with the computed layout info
+        voltageLevel.getLoadStream().filter(load -> vlGraph.getNode(load.getId()) != null).forEach(load -> {
+            Node node = vlGraph.getNode(load.getId());
+            DiagramPoint lDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
+            InjectionDiagramData<Load> loadIidmDiagramData = new InjectionDiagramData<>(load);
+            InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(lDiagramPoint, 0);
+            loadIidmDiagramData.addData(diagramName, diagramDetails);
+            LOG.debug("setting CGMES DL IIDM extensions for Load: {}, {}", load.getId(), lDiagramPoint);
+            load.addExtension(InjectionDiagramData.class, loadIidmDiagramData);
+        });
+
+        voltageLevel.getGeneratorStream().filter(generator -> vlGraph.getNode(generator.getId()) != null).forEach(generator -> {
+            Node node = vlGraph.getNode(generator.getId());
+            DiagramPoint gDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
+            InjectionDiagramData<Generator> gIidmDiagramData = new InjectionDiagramData<>(generator);
+            InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(gDiagramPoint, 0);
+            gIidmDiagramData.addData(diagramName, diagramDetails);
+            LOG.debug("setting CGMES DL IIDM extensions for Generator: {}, {}", generator.getId(), gDiagramPoint);
+            generator.addExtension(InjectionDiagramData.class, gIidmDiagramData);
+        });
+
+        voltageLevel.getShuntCompensatorStream().filter(shuntCompensator -> vlGraph.getNode(shuntCompensator.getId()) != null).forEach(shuntCompensator -> {
+            Node node = vlGraph.getNode(shuntCompensator.getId());
+            DiagramPoint scDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
+            InjectionDiagramData<ShuntCompensator> scDiagramData = new InjectionDiagramData<>(shuntCompensator);
+            InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(scDiagramPoint, 0);
+            scDiagramData.addData(diagramName, diagramDetails);
+            LOG.debug("setting CGMES DL IIDM extensions for ShuntCompensator: {}, {}", shuntCompensator.getId(), scDiagramPoint);
+            shuntCompensator.addExtension(InjectionDiagramData.class, scDiagramData);
+        });
+
+        voltageLevel.getStaticVarCompensatorStream().filter(staticVarCompensator -> vlGraph.getNode(staticVarCompensator.getId()) != null).forEach(staticVarCompensator -> {
+            Node node = vlGraph.getNode(staticVarCompensator.getId());
+            DiagramPoint svcDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
+            InjectionDiagramData<StaticVarCompensator> svcDiagramData = new InjectionDiagramData<>(staticVarCompensator);
+            InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(svcDiagramPoint, 0);
+            svcDiagramData.addData(diagramName, diagramDetails);
+            LOG.debug("setting CGMES DL IIDM extensions for StaticVarCompensator: {}, {}", staticVarCompensator.getId(), svcDiagramPoint);
+            staticVarCompensator.addExtension(InjectionDiagramData.class, svcDiagramData);
+        });
+
+        vlGraph.getNodes().stream().filter(node -> Objects.equals(node.getComponentType(), LINE))
+            .forEach(node -> applyLayoutOnLines(node, voltageLevel, diagramName, offsetPoint));
+
+        vlGraph.getNodes().stream().filter(node -> Objects.equals(node.getComponentType(), BOUNDARY_LINE))
+            .forEach(node -> applyLayoutOnBoundaryLines(node, voltageLevel, diagramName, offsetPoint));
+
+        vlGraph.getNodes().stream().filter(node -> Objects.equals(node.getComponentType(), VSC_CONVERTER_STATION))
+            .forEach(node -> applyLayoutOnVscConverterStation(node, voltageLevel, diagramName, offsetPoint));
+
+        vlGraph.getNodes().stream().filter(node -> Objects.equals(node.getComponentType(), LCC_CONVERTER_STATION))
+            .forEach(node -> applyLayoutOnLccConverterStation(node, voltageLevel, diagramName, offsetPoint));
+
+        if (TopologyKind.BUS_BREAKER.equals(voltageLevel.getTopologyKind())) {
+            voltageLevel.getBusBreakerView().getBusStream().forEach(bus ->
+                vlGraph.getNodeBuses().stream().filter(busNode -> busNode.getId().equals(bus.getId())).findFirst().ifPresent(busNode -> {
+                    NodeDiagramData<Bus> busDiagramData = NodeDiagramData.getOrCreateDiagramData(bus);
+                    setNodeDiagramPoints(busDiagramData, busNode, offsetPoint, diagramName);
+                    LOG.debug("setting CGMES DL IIDM extensions for Bus {}, {} - {}", bus.getId(), busDiagramData.getData(diagramName).getPoint1(), busDiagramData.getData(diagramName).getPoint2());
+                    bus.addExtension(NodeDiagramData.class, busDiagramData);
+                })
+            );
+
+        } else {
+            voltageLevel.getNodeBreakerView().getBusbarSectionStream().forEach(busbarSection ->
+                vlGraph.getNodeBuses().stream().filter(busNode -> busNode.getId().equals(busbarSection.getId())).findFirst().ifPresent(busNode -> {
+                    NodeDiagramData<BusbarSection> busbarSectionDiagramData = NodeDiagramData.getOrCreateDiagramData(busbarSection);
+                    setNodeDiagramPoints(busbarSectionDiagramData, busNode, offsetPoint, diagramName);
+                    LOG.debug("setting CGMES DL IIDM extensions for BusbarSection {}, {} - {}",
+                        busbarSection.getId(), busbarSectionDiagramData.getData(diagramName).getPoint1(), busbarSectionDiagramData.getData(diagramName).getPoint2());
+                    busbarSection.addExtension(NodeDiagramData.class, busbarSectionDiagramData);
+                })
+            );
+
+            voltageLevel.getNodeBreakerView().getSwitchStream().filter(Objects::nonNull).forEach(sw -> {
+                Node swNode = vlGraph.getNode(sw.getId());
+                if (checkSwitchNode(swNode)) {
+                    CouplingDeviceDiagramData<Switch> switchIidmDiagramData = new CouplingDeviceDiagramData<>(sw);
+                    CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails =
+                        new CouplingDeviceDiagramData.CouplingDeviceDiagramDetails(offsetPoint.newDiagramPoint(
+                            swNode.getX(), swNode.getY(), 0),
+                            switchRotationValue(swNode));
+                    switchIidmDiagramData.addData(diagramName, diagramDetails);
+                    LOG.debug("setting CGMES DL IIDM extensions for Switch {}, {}", sw.getId(), switchIidmDiagramData);
+                    sw.addExtension(CouplingDeviceDiagramData.class, switchIidmDiagramData);
+                }
+            });
+        }
     }
 
     private void applyLayoutOnLines(Node node, VoltageLevel voltageLevel, String diagramName, OffsetPoint offsetPoint) {

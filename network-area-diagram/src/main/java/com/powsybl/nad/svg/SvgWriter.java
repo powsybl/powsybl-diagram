@@ -347,7 +347,16 @@ public class SvgWriter {
                 .map(point -> getFormattedValue(point.x()) + "," + getFormattedValue(point.y()))
                 .collect(Collectors.joining(" "));
         writer.writeAttribute(POINTS_ATTRIBUTE, lineFormatted);
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.HVDC_CLASS);
+        // Carry the voltage-level style classes of both sides
+        writeStyleClasses(writer, bothSidesStyleClasses(edge), StyleProvider.HVDC_CLASS);
+    }
+
+    private static List<String> bothSidesStyleClasses(BranchEdge edge) {
+        return Stream.concat(
+                edge.getEdgeStyleInfo(BranchEdge.Side.ONE).styleClasses().stream(),
+                edge.getEdgeStyleInfo(BranchEdge.Side.TWO).styleClasses().stream())
+            .distinct()
+            .toList();
     }
 
     private void drawThreeWtEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
@@ -763,7 +772,10 @@ public class SvgWriter {
         boolean textFlipped = Math.sin(edgeAngle) > 0;
         double textAngle = textFlipped ? -Math.PI / 2 + edgeAngle : Math.PI / 2 + edgeAngle;
         double shift = svgParameters.getArrowLabelShift() * factor;
-        double shiftAdjusted = externalLabel == textFlipped ? shift * 1.15 : -shift; // to have a nice compact rendering, shift needs to be adjusted, because of dominant-baseline:middle (text is expected to be a number, hence not below the line)
+
+        // to have a nice compact rendering, shift needs to be adjusted, because of dominant-baseline:middle (text is expected to be a number, hence not below the line)
+        double shiftAdjusted = externalLabel == textFlipped ? shift * 1.15 : -shift;
+
         drawLabel(writer, label, shiftAdjusted, TEXT_ANCHOR_MIDDLE, textAngle, Y_ATTRIBUTE, classes);
     }
 
@@ -831,7 +843,8 @@ public class SvgWriter {
         writer.writeEmptyElement(PATH_ELEMENT_NAME);
         writer.writeAttribute(PATH_D_ATTRIBUTE, getPstArrowPath(arrowSize));
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getMatrixString(matrix));
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.PST_ARROW_CLASS);
+        // Carry the voltage-level style classes of both sides
+        writeStyleClasses(writer, bothSidesStyleClasses(edge), StyleProvider.PST_ARROW_CLASS);
     }
 
     private String getPstArrowPath(double arrowSize) {

@@ -21,7 +21,7 @@ import java.util.Optional;
 public class ThreeWtEdge extends AbstractEdge {
 
     public enum Side {
-        ONE, TWO, THREE;
+        ONE, TWO, THREE
     }
 
     public static final String THREE_WT_EDGE = "ThreeWtEdge";

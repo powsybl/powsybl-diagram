@@ -84,7 +84,7 @@
             <polyline class="nad-vl300to500 nad-edge-path" points="-120.31,-109.38 -263.58,-51.14"/>
             <polyline class="nad-vl300to500 nad-edge-path" points="-406.85,7.10 -263.58,-51.14"/>
             <g>
-                <polyline points="-231.16,-64.32 -296.00,-37.96" class="nad-hvdc"/>
+                <polyline points="-231.16,-64.32 -296.00,-37.96" class="nad-vl300to500 nad-hvdc"/>
             </g>
         </g>
     </g>

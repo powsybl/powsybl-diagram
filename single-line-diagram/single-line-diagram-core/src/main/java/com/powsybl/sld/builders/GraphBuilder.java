@@ -6,9 +6,12 @@
  */
 package com.powsybl.sld.builders;
 
-import java.util.List;
+import com.powsybl.sld.model.graphs.Graph;
+import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.ZoneGraph;
 
-import com.powsybl.sld.model.graphs.*;
+import java.util.List;
 
 /**
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}

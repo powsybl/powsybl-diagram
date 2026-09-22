@@ -56,7 +56,9 @@ class TestThreeWindingsTransformerFeederInfoArrow extends AbstractTestCaseIidm {
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VL_132");
         voltageLevelGraphLayout(g);
 
-        assertEquals(toString("/Test3WTFeederInfoArrowVoltageLevelWithAllPossibleFeederInfos.svg"), toSVG(g, "/Test3WTFeederInfoArrowVoltageLevelWithAllPossibleFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), getDefaultSVGLegendWriter()));
+        assertEquals(toString("/Test3WTFeederInfoArrowVoltageLevelWithAllPossibleFeederInfos.svg"),
+            toSVG(g, "/Test3WTFeederInfoArrowVoltageLevelWithAllPossibleFeederInfos.svg", componentLibrary, layoutParameters, svgParameters,
+                labelProvider, new BasicStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test

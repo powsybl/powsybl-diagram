@@ -64,8 +64,10 @@ public final class OverlapPreventionPostProcessingParameters {
         private double attractToCenterIntensity = DEFAULT_ATTRACT_TO_CENTER_INTENSITY;
 
         /**
-         * @param pointSizeScale The scale for the size we want our point to take on the screen (akin to a size in pixel), the size of the point is calculated with pointSizeScale * graphSize + pointSizeOffset<br>
-         *                  Default is {@value DEFAULT_POINT_SIZE_SCALE}, be careful, this parameter is very sensitive. With default values, the size for a graph of 100 nodes is 5, 12 for 1000 nodes and 28 for a graph of 3000 nodes
+         * @param pointSizeScale The scale for the size we want our point to take on the screen (akin to a size in pixel),
+         *                       the size of the point is calculated with {@code pointSizeScale * graphSize + pointSizeOffset}<br>
+         *                       Default is {@value DEFAULT_POINT_SIZE_SCALE}, be careful, this parameter is very sensitive.
+         *                       With default values, the size for a graph of 100 nodes is 5, 12 for 1000 nodes, and 28 for a graph of 3000 nodes
          * @return the instance of this Builder with the pointSizeScale parameter changed
          */
         public Builder withPointSizeScale(double pointSizeScale) {
@@ -74,8 +76,10 @@ public final class OverlapPreventionPostProcessingParameters {
         }
 
         /**
-         * @param pointSizeOffset The offset for the size we want our point to take on the screen (akin to a size in pixel), the size of the point is calculated with pointSizeScale * graphSize + pointSizeOffset<br>
-         *                  Default is {@value DEFAULT_POINT_SIZE_OFFSET}, With default values, the size for a graph of 100 nodes is 5, 12 for 1000 nodes and 28 zfor a graph of 3000 nodes
+         * @param pointSizeOffset The offset for the size we want our point to take on the screen (akin to a size in pixel),
+         *                        the size of the point is calculated with {@code pointSizeScale * graphSize + pointSizeOffset}<br>
+         *                        Default is {@value DEFAULT_POINT_SIZE_OFFSET}, With default values, the size for a graph of 100
+         *                        nodes is 5, 12 for 1000 nodes, and 28 for a graph of 3000 nodes
          * @return the instance of this Builder with the pointSizeOffset parameter changed
          */
         public Builder withPointSizeOffset(double pointSizeOffset) {
@@ -94,8 +98,9 @@ public final class OverlapPreventionPostProcessingParameters {
         }
 
         /**
-         * @param repulsionNoOverlapIntensity the coefficient for the repulsion force when two points do not overlap, should be no greater than repulsionWithOverlap / 10<br>
-         *                           Default is {@value DEFAULT_REPULSION_NO_OVERLAP_INTENSITY}
+         * @param repulsionNoOverlapIntensity the coefficient for the repulsion force when two points do not overlap. It
+         *                                    should not be greater than {@code repulsionWithOverlap / 10}<br>
+         *                                    Default is {@value DEFAULT_REPULSION_NO_OVERLAP_INTENSITY}
          * @return the instance of this Builder with the repulsionNoOverlapIntensity parameter changed
          */
         public Builder withRepulsionNoOverlapIntensity(double repulsionNoOverlapIntensity) {
@@ -104,7 +109,8 @@ public final class OverlapPreventionPostProcessingParameters {
         }
 
         /**
-         * @param repulsionWithOverlapIntensity the coefficient for the repulsion force when two points overlap, should be at least 10 times the value of the repulsion without overlap<br>
+         * @param repulsionWithOverlapIntensity the coefficient for the repulsion force when two points overlap,
+         *                                      should be at least 10 times the value of the repulsion without overlap<br>
          *                             Default is {@value DEFAULT_REPULSION_WITH_OVERLAP_INTENSITY}
          * @return the instance of this Builder with the repulsionWithOverlapIntensity parameter changed
          */
@@ -114,7 +120,8 @@ public final class OverlapPreventionPostProcessingParameters {
         }
 
         /**
-         * @param repulsionZoneRatio the ratio between the area we check repulsion in and the size of the point, that is to say calculate repulsion forces around a point in a radius of ratio * point size<br>
+         * @param repulsionZoneRatio the ratio between the area we check repulsion in and the size of the point,
+         *                           that is to say calculate repulsion forces around a point in a radius of ratio * point size<br>
          *                           Default is {@value DEFAULT_REPULSION_ZONE_RATIO}
          * @return the instance of this Builder with the repulsionZoneRatio parameter changed
          */

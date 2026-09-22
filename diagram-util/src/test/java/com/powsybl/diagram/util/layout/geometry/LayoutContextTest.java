@@ -9,20 +9,22 @@
 package com.powsybl.diagram.util.layout.geometry;
 
 import com.powsybl.diagram.util.layout.GraphTestData;
-import com.powsybl.diagram.util.layout.ResourceUtils;
 import com.powsybl.diagram.util.layout.Layout;
+import com.powsybl.diagram.util.layout.ResourceUtils;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import java.io.*;
+import java.io.File;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}

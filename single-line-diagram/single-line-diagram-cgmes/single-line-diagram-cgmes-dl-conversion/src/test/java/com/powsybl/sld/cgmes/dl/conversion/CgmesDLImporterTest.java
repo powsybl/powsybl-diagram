@@ -6,11 +6,10 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
-import com.powsybl.diagram.test.Networks;
 import com.powsybl.triplestore.api.PropertyBags;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -18,14 +17,17 @@ import org.mockito.Mockito;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class CgmesDLImporterTest extends AbstractCgmesDLTest {
 
-    protected static String OTHER_DIAGRAM_NAME = "diagram-1";
+    protected static final String OTHER_DIAGRAM_NAME = "diagram-1";
 
     private CgmesDLModel cgmesDLModel;
 
