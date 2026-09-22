@@ -260,8 +260,6 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // To avoid overlapping lines over the switches, first, we draw all nodes except the switch nodes and bus connections,
         // then we draw all the edges, and finally we draw the switch nodes and bus connections
-        String prefixId = metadata.getSvgParameters().getPrefixId();
-
         String cellId = idProvider.getOrCreateSvgId(cell.getId());
         Element g = root.getOwnerDocument().createElement(GROUP);
         g.setAttribute("id", cellId);
