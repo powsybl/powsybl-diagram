@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * @author Nicolas Rol {@literal <nicolas.rol at rte-france.com>}
@@ -73,5 +74,17 @@ class IdProviderTest extends AbstractTestCaseIidm {
 
         assertEquals(toString("/TestDefaultIdProvider.json"), toMetadata(g, "/TestDefaultIdProvider.json",
             componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, idProvider, svgLegendWriter));
+    }
+
+    @Test
+    void testDefaultIdProviderDoesNotCollideWhenIdsContainSeparators() {
+        DefaultIdProvider defaultIdProvider = new DefaultIdProvider(svgParameters.getPrefixId());
+
+        String equipmentId = defaultIdProvider.getOrCreateSvgId("ALDJF_subType_AER");
+        String equipmentSubtype = defaultIdProvider.getOrCreateSvgId("ALDJF", "AER");
+
+        assertNotEquals(equipmentId, equipmentSubtype);
+        assertEquals(equipmentId, defaultIdProvider.getOrCreateSvgId("ALDJF_subType_AER"));
+        assertEquals(equipmentSubtype, defaultIdProvider.getOrCreateSvgId("ALDJF", "AER"));
     }
 }
