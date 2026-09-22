@@ -18,7 +18,6 @@ import com.powsybl.sld.model.blocks.SerialBlock;
 import com.powsybl.sld.model.blocks.UndefinedBlock;
 import com.powsybl.sld.model.coordinate.Coord;
 import com.powsybl.sld.model.coordinate.Position;
-import com.powsybl.sld.model.nodes.Middle3WTNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.Node.NodeType;
 
@@ -68,14 +67,12 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
         double yPxStep = sign * block.getCoord().getSpan(Y) / (blockNodes.size() - 1);
         double swStep = sign * block.getCoord().getSpan(Y) / (blockNodes.size());
 
+        boolean increasePrimaryBlockHeight = layoutParameters.isThreeWindingsIncreasePrimaryBlockHeight(blockNodes.stream());
+
         for (int i = 0; i < blockNodes.size(); i++) {
             Node n = blockNodes.get(i);
-            if (layoutParameters.isThreeWindingsIncreasePrimaryBlockHeight(blockNodes.stream())
-                && n.getType() == NodeType.SWITCH || n.getType() == NodeType.FEEDER) {
-                n.setCoordinates(block.getCoord().get(X), y0 - yPxStep * i + swStep);
-            } else {
-                n.setCoordinates(block.getCoord().get(X), y0 - yPxStep * i);
-            }
+            double currentSwStep = increasePrimaryBlockHeight && n.getType() == NodeType.SWITCH || n.getType() == NodeType.FEEDER ? swStep : 0;
+            n.setCoordinates(block.getCoord().get(X), y0 - yPxStep * i + currentSwStep);
         }
     }
 
@@ -89,11 +86,9 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
         double swStep = block.getCoord().getSpan(X) / (blockNodes.size());
         for (int i = 0; i < blockNodes.size(); i++) {
             Node n = blockNodes.get(i);
-            if (n.getType() == NodeType.SWITCH && n.getAdjacentNodes().stream().anyMatch(Middle3WTNode.class::isInstance)) {
-                n.setCoordinates(x0 + swStep + xPxStep * i, block.getCoord().get(Y));
-            } else {
-                n.setCoordinates(x0 + xPxStep * i, block.getCoord().get(Y));
-            }
+            double currentSwStep = layoutParameters.isThreeWindingsIncreasePrimaryBlockHeight(n.getAdjacentNodes().stream())
+                && n.getType() == NodeType.SWITCH ? swStep : 0;
+            n.setCoordinates(x0 + currentSwStep + xPxStep * i, block.getCoord().get(Y));
         }
     }
 
