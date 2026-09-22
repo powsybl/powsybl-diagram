@@ -7,16 +7,7 @@
 
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.blocks.Block;
-import com.powsybl.sld.model.blocks.BlockVisitor;
-import com.powsybl.sld.model.blocks.BodyParallelBlock;
-import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
-import com.powsybl.sld.model.blocks.ComposedBlock;
-import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
-import com.powsybl.sld.model.blocks.LegParallelBlock;
-import com.powsybl.sld.model.blocks.LegPrimaryBlock;
-import com.powsybl.sld.model.blocks.SerialBlock;
-import com.powsybl.sld.model.blocks.UndefinedBlock;
+import com.powsybl.sld.model.blocks.*;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.util.HashSet;
@@ -75,6 +66,9 @@ public final class CalculateCellHeightBlockVisitor implements BlockVisitor {
                 .count();
 
         this.blockHeight = (nbNodes - 1) * componentHeight;
+        if (layoutParameters.isThreeWindingsIncreasePrimaryBlockHeight(block.getNodeStream())) {
+            this.blockHeight += layoutParameters.getFeederSpan();
+        }
     }
 
     @Override
