@@ -192,7 +192,7 @@
     "vlabel" : false,
     "equipmentId" : "trf7",
     "labels" : [ {
-      "id" : "trf7_THREE_S_LABEL",
+      "id" : "idtrf7_95_THREE_95_S_95_LABEL",
       "positionName" : "S_LABEL"
     } ]
   }, {
@@ -340,7 +340,7 @@
     "vlabel" : false,
     "equipmentId" : "bbs4",
     "labels" : [ {
-      "id" : "bbs4_NW_LABEL",
+      "id" : "idbbs4_95_NW_95_LABEL",
       "positionName" : "NW_LABEL"
     } ]
   }, {
@@ -375,7 +375,7 @@
     "vlabel" : false,
     "equipmentId" : "gen1",
     "labels" : [ {
-      "id" : "gen1_S_LABEL",
+      "id" : "idgen1_95_S_95_LABEL",
       "positionName" : "S_LABEL"
     } ]
   }, {
@@ -387,7 +387,7 @@
     "vlabel" : false,
     "equipmentId" : "gen2",
     "labels" : [ {
-      "id" : "gen2_S_LABEL",
+      "id" : "idgen2_95_S_95_LABEL",
       "positionName" : "S_LABEL"
     } ]
   }, {
@@ -405,7 +405,7 @@
     "vlabel" : false,
     "equipmentId" : "bbs1",
     "labels" : [ {
-      "id" : "bbs1_NW_LABEL",
+      "id" : "idbbs1_95_NW_95_LABEL",
       "positionName" : "NW_LABEL"
     } ]
   }, {
@@ -416,7 +416,7 @@
     "vlabel" : false,
     "equipmentId" : "bbs2",
     "labels" : [ {
-      "id" : "bbs2_NW_LABEL",
+      "id" : "idbbs2_95_NW_95_LABEL",
       "positionName" : "NW_LABEL"
     } ]
   }, {
@@ -427,7 +427,7 @@
     "vlabel" : false,
     "equipmentId" : "bbs3",
     "labels" : [ {
-      "id" : "bbs3_NW_LABEL",
+      "id" : "idbbs3_95_NW_95_LABEL",
       "positionName" : "NW_LABEL"
     } ]
   }, {
@@ -462,7 +462,7 @@
     "vlabel" : false,
     "equipmentId" : "trf6",
     "labels" : [ {
-      "id" : "trf6_THREE_N_LABEL",
+      "id" : "idtrf6_95_THREE_95_N_95_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -475,7 +475,7 @@
     "vlabel" : false,
     "equipmentId" : "trf1",
     "labels" : [ {
-      "id" : "trf1_ONE_N_LABEL",
+      "id" : "idtrf1_95_ONE_95_N_95_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -488,7 +488,7 @@
     "vlabel" : false,
     "equipmentId" : "trf5",
     "labels" : [ {
-      "id" : "trf5_ONE_N_LABEL",
+      "id" : "idtrf5_95_ONE_95_N_95_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -501,7 +501,7 @@
     "vlabel" : false,
     "equipmentId" : "trf3",
     "labels" : [ {
-      "id" : "trf3_ONE_S_LABEL",
+      "id" : "idtrf3_95_ONE_95_S_95_LABEL",
       "positionName" : "S_LABEL"
     } ]
   }, {
@@ -652,7 +652,7 @@
     "vlabel" : false,
     "equipmentId" : "trf8",
     "labels" : [ {
-      "id" : "trf8_TWO_N_LABEL",
+      "id" : "idtrf8_95_TWO_95_N_95_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -665,7 +665,7 @@
     "vlabel" : false,
     "equipmentId" : "trf7",
     "labels" : [ {
-      "id" : "trf7_TWO_S_LABEL",
+      "id" : "idtrf7_95_TWO_95_S_95_LABEL",
       "positionName" : "S_LABEL"
     } ]
   }, {
@@ -692,7 +692,7 @@
     "vlabel" : false,
     "equipmentId" : "trf6",
     "labels" : [ {
-      "id" : "trf6_TWO_N_LABEL",
+      "id" : "idtrf6_95_TWO_95_N_95_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -749,7 +749,7 @@
     "vlabel" : false,
     "equipmentId" : "load1",
     "labels" : [ {
-      "id" : "load1_N_LABEL",
+      "id" : "idload1_95_N_95_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -761,7 +761,7 @@
     "vlabel" : false,
     "equipmentId" : "load2",
     "labels" : [ {
-      "id" : "load2_N_LABEL",
+      "id" : "idload2_95_N_95_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -790,7 +790,7 @@
     "vlabel" : false,
     "equipmentId" : "trf8",
     "labels" : [ {
-      "id" : "trf8_THREE_N_LABEL",
+      "id" : "idtrf8_95_THREE_95_N_95_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -833,7 +833,7 @@
     "vlabel" : false,
     "equipmentId" : "trf2",
     "labels" : [ {
-      "id" : "trf2_ONE_N_LABEL",
+      "id" : "idtrf2_95_ONE_95_N_95_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -846,7 +846,7 @@
     "vlabel" : false,
     "equipmentId" : "trf4",
     "labels" : [ {
-      "id" : "trf4_ONE_S_LABEL",
+      "id" : "idtrf4_95_ONE_95_S_95_LABEL",
       "positionName" : "S_LABEL"
     } ]
   } ],
