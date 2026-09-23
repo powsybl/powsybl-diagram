@@ -12,10 +12,11 @@ import java.util.Map;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
+ * @author Charly Bion {@literal <charly.bion at rte-france.com>}
  */
 public class DefaultIdProvider implements IdProvider {
 
-    private sealed interface IdKey permits EquipmentKey, EquipmentSubtypeKey, WireKey {
+    private interface IdKey {
     }
 
     private record EquipmentKey(String equipmentId) implements IdKey {
