@@ -2,7 +2,7 @@
 
 ## Context
 
-`PositionPredefined` implements [PositionFinder](positionFinder.md) and uses predefined information to organize `BSClusters`. When building the `VoltageLevelGraph`, `NetworkGraphBuilder` retrieves and sets:
+`PositionPredefined` implements [PositionFinder](positionFinder.md) and uses predefined information to organize `BSClusters` (see [BSCluster](bsCluster.md)). When building the `VoltageLevelGraph`, `NetworkGraphBuilder` retrieves and sets:
 
 * `BusNode.busbarIndex` and `BusNode.sectionIndex`,
 * `FeederNode.order` which is used to define `ExternCells::getOrder`,

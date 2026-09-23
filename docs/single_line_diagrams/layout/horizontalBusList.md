@@ -1,6 +1,6 @@
 # HorizontalBusList
 
-A `HorizontalBusList` is an ordered sequence of positions occupied by `BusNode`s that are displayed horizontally at the
+A `HorizontalBusList` is an ordered sequence of positions occupied by `BusNode` objects that are displayed horizontally at the
 same vertical position (`vPos`) in a `BSCluster`.
 
 It is composed of:
@@ -11,8 +11,8 @@ It is composed of:
   `[startingIndex, getEndingIndex())`, where `getEndingIndex()` is `startingIndex + length`. Consequently, its last
   position is `getEndingIndex() - 1` (when the list is not empty).
 
-The indexes of a `HorizontalBusList` refer to positions in the `BSCluster`, whose columns are the `VerticalBusSet`s.
-The same `BusNode` can therefore occur at several contiguous positions in a list when it spans several `VerticalBusSet`s.
+The indexes of a `HorizontalBusList` refer to positions in the `BSCluster`, whose columns are the `VerticalBusSet` objects.
+The same `BusNode` can therefore occur at several contiguous positions in a list when it spans several `VerticalBusSet` objects.
 
 A `HorizontalBusList` is initially created with one `BusNode` for each bus node of a `VerticalBusSet`, when a `BSCluster`
 is built (see [BSCluster](bsCluster.md#build)). When two clusters are merged, the selected `HorizontalBusListsMerger`

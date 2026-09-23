@@ -1,4 +1,4 @@
-## GraphBuilder creation requirements
+## Requirements for implementing a custom GraphBuilder
 
 Implementing a GraphBuilder is the way to build the graph to be rendered by SingleLineDiagram.
 This shall implement builder for `VoltageLevelGraph`, `SubstationGraph` and `ZoneGraph`.

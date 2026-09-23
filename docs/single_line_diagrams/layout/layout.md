@@ -40,30 +40,35 @@ graph cleaning (see [Graph Refiner](graphRefiner.md)) to the block/position comp
 * `feederStacked` (default `true`): whether `LegPrimaryBlock` sharing the same non-bus extremity should be detected and
   marked as stackable, so that the corresponding feeders can later be stacked on top of each other instead of being
   spread out horizontally.
-
-  ![feederStackedDefault](../../_static/img/sld/layout/feederStackedDefault.svg){class="forced-white-background svg-height"}
-  ![feederStackedChanged](../../_static/img/sld/layout/feederStackedChanged.svg){class="forced-white-background svg-height"}
+ 
+  | ![feederStackedDefault](../../_static/img/sld/layout/feederStackedDefault.svg){class="forced-white-background svg-height"} | ![feederStackedChanged](../../_static/img/sld/layout/feederStackedChanged.svg){class="forced-white-background svg-height"} |
+  |:--------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------:|
+  |                                                   Default value (`true`)                                                   |                                                  Value changed (`false`)                                                   |
+  
 
 * `removeUnnecessaryFictitiousNodes` (default `true`): whether the `GraphRefiner` should remove the redundant
   `FICTITIOUS` nodes of the graph (i.e. nodes with only two adjacent edges that can be bypassed with a single edge).
   Combined with `LayoutParameters.adaptCellHeightToContent`, keeping these nodes makes the feeder cell taller, since
   each remaining fictitious node is counted as an extra block when computing the cell height.
 
-  ![removeUnnecessaryFictitiousNodesDefault](../../_static/img/sld/layout/removeUnnecessaryFictitiousNodesDefault.svg){class="forced-white-background svg-height"}
-  ![removeUnnecessaryFictitiousNodesChanged](../../_static/img/sld/layout/removeUnnecessaryFictitiousNodesChanged.svg){class="forced-white-background svg-height"}
+| ![removeUnnecessaryFictitiousNodesDefault](../../_static/img/sld/layout/removeUnnecessaryFictitiousNodesDefault.svg){class="forced-white-background svg-height"} | ![removeUnnecessaryFictitiousNodesChanged](../../_static/img/sld/layout/removeUnnecessaryFictitiousNodesChanged.svg){class="forced-white-background svg-height"} |
+|:----------------------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|                                                                      Default value (`true`)                                                                      |                                                                     Value changed (`false`)                                                                      |
 
 * `substituteSingularFictitiousByFeederNode` (default `true`): whether the `GraphRefiner` should replace `INTERNAL`
   nodes having a single neighbor by a fictitious `FeederNode`.
 
-  ![substituteSingularFictitiousByFeederNodeDefault](../../_static/img/sld/layout/substituteSingularFictitiousByFeederNodeDefault.svg){class="forced-white-background svg-height"}
-  ![substituteSingularFictitiousByFeederNodeChanged](../../_static/img/sld/layout/substituteSingularFictitiousByFeederNodeChanged.svg){class="forced-white-background svg-height"}
+| ![substituteSingularFictitiousByFeederNodeDefault](../../_static/img/sld/layout/substituteSingularFictitiousByFeederNodeDefault.svg){class="forced-white-background svg-height"} | ![substituteSingularFictitiousByFeederNodeChanged](../../_static/img/sld/layout/substituteSingularFictitiousByFeederNodeChanged.svg){class="forced-white-background svg-height"} |
+|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|                                                                              Default value (`true`)                                                                              |                                                                             Value changed (`false`)                                                                              |
 
 * `substituteInternalMiddle2wtByEquipmentNodes` (default `true`): whether the `GraphRefiner` should replace, by simple
   `EquipmentNode`, the feeder/middle nodes of a two-winding transformer whose both ends are in the same voltage level,
   in order to avoid unnecessary snake lines.
 
-  ![substituteInternalMiddle2wtByEquipmentNodesDefault](../../_static/img/sld/layout/substituteInternalMiddle2wtByEquipmentNodesDefault.svg){class="forced-white-background svg-height"}
-  ![substituteInternalMiddle2wtByEquipmentNodesChanged](../../_static/img/sld/layout/substituteInternalMiddle2wtByEquipmentNodesChanged.svg){class="forced-white-background svg-height"}
+| ![substituteInternalMiddle2wtByEquipmentNodesDefault](../../_static/img/sld/layout/substituteInternalMiddle2wtByEquipmentNodesDefault.svg){class="forced-white-background svg-height"} | ![substituteInternalMiddle2wtByEquipmentNodesChanged](../../_static/img/sld/layout/substituteInternalMiddle2wtByEquipmentNodesChanged.svg){class="forced-white-background svg-height"} |
+|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|                                                                                 Default value (`true`)                                                                                 |                                                                                Value changed (`false`)                                                                                 |
 
 * `exceptionIfPatternNotHandled` (default `false`): whether an exception should be thrown when the block decomposition
   algorithm cannot fully merge the blocks of a cell (see [CellBlockDecomposer](cellBlockDecomposer.md)); when `false`,
@@ -83,8 +88,9 @@ graph cleaning (see [Graph Refiner](graphRefiner.md)) to the block/position comp
   moved out of the way (to the left of `loadA`), leaving a clean, crossing-free path for the jumper between `loadA`
   and `loadB` (at the cost of a wider diagram).
 
-  ![handleShuntsDefault](../../_static/img/sld/layout/handleShuntsDefault.svg){class="forced-white-background svg-height"}
-  ![handleShuntsChanged](../../_static/img/sld/layout/handleShuntsChanged.svg){class="forced-white-background svg-height"}
+| ![handleShuntsDefault](../../_static/img/sld/layout/handleShuntsDefault.svg){class="forced-white-background svg-height"} | ![handleShuntsChanged](../../_static/img/sld/layout/handleShuntsChanged.svg){class="forced-white-background svg-height"} |
+|:------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------:|
+|                                                 Default value (`false`)                                                  |                                                  Value changed (`true`)                                                  |
 
 * `busInfoMap` (default empty): a map giving, for some `BusNode` ids, on which `Side` (`LEFT`/`RIGHT`) extra information
   about the bus should be displayed; this is taken into account by `BlockPositionner` to reserve the corresponding space.
@@ -94,8 +100,9 @@ graph cleaning (see [Graph Refiner](graphRefiner.md)) to the block/position comp
   With `busInfoMap` configured, `BlockPositionner` extends each busbar section by reserving a dedicated cell on the specified
   side, completely separating the indicators from the feeders.
 
-  ![busInfoMapDefault](../../_static/img/sld/layout/busInfoMapDefault.svg){class="forced-white-background svg-height"}
-  ![busInfoMapChanged](../../_static/img/sld/layout/busInfoMapChanged.svg){class="forced-white-background svg-height"}
+| ![busInfoMapDefault](../../_static/img/sld/layout/busInfoMapDefault.svg){class="forced-white-background svg-height"} | ![busInfoMapChanged](../../_static/img/sld/layout/busInfoMapChanged.svg){class="forced-white-background svg-height"} |
+|:--------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------:|
+|                                               Default value (`empty`)                                                |                              Value changed (`bbs1 -> Side.LEFT`, `bbs2 -> Side.RIGHT`)                               |
 
 ##### The `PositionFinder` class
 
@@ -176,7 +183,7 @@ SldParameters sldParameters = new SldParameters().setVoltageLevelLayoutFactoryCr
 
 A substation layout arranges, relative to one another, the `VoltageLevelGraph` of the different `VoltageLevel` of a
 substation (each one already laid out thanks to a `VoltageLevelLayout`), and computes the snake lines connecting them
-(the edges of the `SubstationGraph`, see [GraphBuilder creation requirements](../model/graphBuilderCreationRequirements.md#substationgraph)).
+(the edges of the `SubstationGraph`, see [Requirements for implementing a custom GraphBuilder](../model/graphBuilderCreationRequirements.md#substationgraph)).
 
 ### Existing implementations
 
@@ -205,7 +212,7 @@ With this layout, the `VoltageLevelGraph` are stacked vertically, ordered as the
 ### Choosing a `SubstationLayout`
 
 The `substationLayoutFactory` attribute in the [`SldParameters`](../sld_parameters.md) class is the customization
-parameter to use to choose a specific `SubstationLayout`: it takes a `SubstationLayoutFactory`, either a
+parameter to use to choose a specific `SubstationLayout`: it takes a `SubstationLayoutFactory`, for example a
 `HorizontalSubstationLayoutFactory` (the default) or a `VerticalSubstationLayoutFactory`.
 
 ```java

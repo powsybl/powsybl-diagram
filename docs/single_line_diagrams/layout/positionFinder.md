@@ -1,4 +1,4 @@
-# Position of `BusNodes` and `Cells` order
+# PositionFinder
 
 ```{toctree}
 ---
@@ -31,7 +31,7 @@ The picture hereafter shows the information that is to be established.
 
 Two implementations are available:
 
-* `PositionPredefined` which relies on explicitly given positions (for example, to reflect the on-site real structure and/or the way the SCADA organizes it). See [PositionPredefined](positionFromExtension.md)
+* `PositionPredefined` which relies on explicitly given positions (for example, to reflect the on-site real structure and/or the way the SCADA organizes it). See [PositionPredefined](positionPredefined.md)
 * `PositionByClustering` which finds an organization of the `VoltageLevel` with no other information than the graph itself. See [PositionByClustering](positionByClustering.md)
 
 Both rely on the `BSCluster` (see [BSCluster](bsCluster.md)) and have the same skeleton:
@@ -74,7 +74,7 @@ This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
 ![BSClusterInit](../../_static/img/sld/layout/BSClusterInit.svg){align=center class="forced-white-background"}
 
 > **Important - On this result:**
-> - It is representative of the general case. But note that for `PositionPredefined`, the `verticalBusSets` is sorted to end up to a ready-to-merge `bsClusters`. See [PositionPredefined](positionFromExtension.md).
+> - It is representative of the general case. But note that for `PositionPredefined`, the `verticalBusSets` is sorted to end up to a ready-to-merge `bsClusters`. See [PositionPredefined](positionPredefined.md).
 > - In this picture, the `NodeBus` are on different rows to show that they are not necessarily aligned. Only both `B1` will necessarily be on the same row.
 
 ### Step 3: Merge `BSClusters` into a single one
@@ -90,11 +90,11 @@ This expected result should be similar to the following `BSCluster`:
 
 ![BSClusterFinal](../../_static/img/sld/layout/BSClusterFinal.svg){align=center class="forced-white-background"}
 
-| VerticalBusSets                                                                                                                                                    | HorizontalBusLists                                         |
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
-| [ <br><br> ( [B2, B5] , , [IC1.L, IC1.R, IC2.L] ) , <br><br> ( [B4, B1] ,  [EC2, EC3, EC4] , [IC3.R] ) , <br><br> ( [B3, B1] , [EC1] , [IC2.R, IC3.L] ) <br><br> ] | [ <br><br> [B2, B4, B3] , <br><br> [B5, B1, B1] <br><br> ] |
+| VerticalBusSets                                                                                                                                                | HorizontalBusLists                                      |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|
+| <ul><li> ( [B2, B5] , , [IC1.L, IC1.R, IC2.L] ) </li><li> ( [B4, B1] ,  [EC2, EC3, EC4] , [IC3.R] ) </li><li> ( [B3, B1] , [EC1] , [IC2.R, IC3.L] ) </li></ul> | <ul><li> [B2, B4, B3] </li><li> [B5, B1, B1] </li></ul> |
 
-The way this example is handled is detailed in each implementation documentation: [PositionPredefined](positionFromExtension.md), [PositionByClustering](positionByClustering.md).
+The way this example is handled is detailed in each implementation documentation: [PositionPredefined](positionPredefined.md), [PositionByClustering](positionByClustering.md).
 
 ### Step 4: Build the `List<Subsection>`
 
