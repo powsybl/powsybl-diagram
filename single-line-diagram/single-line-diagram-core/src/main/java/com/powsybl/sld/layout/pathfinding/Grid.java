@@ -49,10 +49,10 @@ public class Grid {
     /**
      * Availability of every cell, one bit each (too expensive to store width*height full objects).
      */
-    private final BitSet availability;
+    private final BitSet nodeAvailability;
 
     /** Cells the path-finding walked through, created on demand to carry their search state. */
-    private final Map<Integer, Node> nodes = new HashMap<>();
+    private final Map<Integer, Node> processedNodes = new HashMap<>();
 
     private final int width;
     private final int height;
@@ -64,7 +64,7 @@ public class Grid {
         }
         this.width = width;
         this.height = height;
-        this.availability = new BitSet((int) cellCount);
+        this.nodeAvailability = new BitSet((int) cellCount);
     }
 
     public void updateNode(Point point, int cost, double distance, Node parent) {
@@ -83,7 +83,7 @@ public class Grid {
     }
 
     private Node getNodeAt(int x, int y) {
-        return nodes.computeIfAbsent(index(x, y), i -> new Node(new Point(x, y), 0));
+        return processedNodes.computeIfAbsent(index(x, y), i -> new Node(new Point(x, y), 0));
     }
 
     private int index(int x, int y) {
@@ -92,11 +92,11 @@ public class Grid {
 
     // Make sure we are not out of bounds
     private static int clamp(double value, int size) {
-        return (int) Math.max(0, Math.min(value, size - 1.0));
+        return (int) Math.clamp(value, 0, size - 1.0);
     }
 
     public void setAvailability(double x, double y, boolean available) {
-        availability.set(index(clamp(x, width), clamp(y, height)), available);
+        nodeAvailability.set(index(clamp(x, width), clamp(y, height)), available);
     }
 
     public void setAvailability(Point point, boolean available) {
@@ -112,8 +112,12 @@ public class Grid {
     }
 
     public boolean isAvailable(Point point) {
-        return point.getX() >= 0 && point.getX() < width && point.getY() >= 0 && point.getY() < height
-                && availability.get(index((int) point.getX(), (int) point.getY()));
+        return isInBounds(point.getX(), point.getY())
+                && nodeAvailability.get(index((int) point.getX(), (int) point.getY()));
+    }
+
+    private boolean isInBounds(double x, double y) {
+        return x >= 0 && x < width && y >= 0 && y < height;
     }
 
     protected List<Node> getNeighbors(Point point) {
@@ -127,10 +131,12 @@ public class Grid {
     }
 
     private void addIfAvailable(List<Node> neighbors, double x, double y) {
-        int nodeX = clamp(x, width);
-        int nodeY = clamp(y, height);
-        if (availability.get(index(nodeX, nodeY))) {
-            neighbors.add(getNodeAt(nodeX, nodeY));
+        if (isInBounds(x, y)) {
+            int nodeX = (int) x;
+            int nodeY = (int) y;
+            if (nodeAvailability.get(index(nodeX, nodeY))) {
+                neighbors.add(getNodeAt(nodeX, nodeY));
+            }
         }
     }
 
