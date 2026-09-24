@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg height="382.0" viewBox="40 50 300.0 282.0" width="380.0" xmlns="http://www.w3.org/2000/svg">
+    <style><![CDATA[/* ----------------------------------------------------------------------- */
+/* File: tautologies.css ------------------------------------------------- */
+.sld-out .sld-arrow-in {visibility: hidden}
+.sld-in .sld-arrow-out {visibility: hidden}
+.sld-closed .sld-sw-open {visibility: hidden}
+.sld-open .sld-sw-closed {visibility: hidden}
+.sld-hidden-node {visibility: hidden}
+.sld-top-feeder .sld-label {dominant-baseline: auto}
+.sld-bottom-feeder .sld-label {dominant-baseline: hanging}
+.sld-active-power .sld-label {dominant-baseline: mathematical}
+.sld-reactive-power .sld-label {dominant-baseline: mathematical}
+.sld-current .sld-label {dominant-baseline: mathematical}
+.sld-current-value .sld-label {dominant-baseline: mathematical}
+.sld-permanent-limit-percentage .sld-label {dominant-baseline: mathematical}
+/* ----------------------------------------------------------------------- */
+/* File : components.css ------------------------------------------------- */
+/* Stroke black */
+.sld-disconnector {stroke-width: 3; stroke: black; fill: none}
+/* Stroke blue */
+.sld-breaker {stroke-width: 2; stroke: blue; fill:white}
+.sld-load-break-switch {stroke: blue; fill: white}
+/* Stroke --sld-vl-color with fallback black */
+.sld-bus-connection {fill: var(--sld-vl-color, black)}
+.sld-cell-shape-flat .sld-bus-connection {visibility: hidden}
+.sld-busbar-section {stroke: var(--sld-vl-color, black); stroke-width: 3; fill: none}
+/* Stroke --sld-vl-color with fallback red */
+.sld-wire {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-wire.sld-boundary-line {stroke-width: 2px}
+.sld-wire.sld-tie-line {stroke-width: 2px}
+/* Stroke --sld-vl-color with fallback blue */
+.sld-load {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-battery {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-generator {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-two-wt {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-three-wt {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-winding {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-capacitor {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-inductor {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-pst {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-pst-arrow {stroke: black; fill: none}
+.sld-svc {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-vsc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
+.sld-lcc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
+.sld-ground {stroke: var(--sld-vl-color, blue); fill: none}
+/* Stroke none & fill: --sld-vl-color */
+.sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
+/* Stroke none & fill: black */
+.sld-node {stroke: none; fill: black}
+.sld-flash {stroke: none; fill: black}
+.sld-lock {stroke: none; fill: black}
+.sld-unknown {stroke: none; fill: black}
+/* Fonts */
+.sld-label {stroke: none; fill: black; font: 8px serif}
+.sld-bus-legend-info {font: 10px serif}
+.sld-graph-label {font: 12px serif}
+/* Specific */
+.sld-grid {stroke: #003700; stroke-dasharray: 1,10}
+.sld-feeder-info.sld-active-power {fill:black}
+.sld-feeder-info.sld-reactive-power {fill:blue}
+.sld-feeder-info.sld-current {fill:purple}
+.sld-frame {fill: var(--sld-background-color, transparent)}
+/* Stroke maroon for fictitious switch */
+.sld-breaker.sld-fictitious {stroke: maroon}
+.sld-disconnector.sld-fictitious {stroke: maroon}
+.sld-load-break-switch.sld-fictitious {stroke: maroon}
+.sld-busbar-section.sld-fictitious {stroke: var(--sld-vl-color, #c80000); stroke-width: 1}
+/* ground disconnector specific */
+.sld-ground-disconnection-attach {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-open .sld-ground-disconnection-ground {stroke: black; fill: none}
+.sld-closed .sld-ground-disconnection-ground {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-ground-disconnection .sld-sw-open {stroke: black; fill: none}
+.sld-ground-disconnection .sld-sw-closed {stroke: black; fill: none}
+]]></style>
+    <rect class="sld-frame" height="100%" width="100%"/>
+    <g>
+        <g class="sld-voltage-level" id="idvl">
+            <g class="sld-busbar-section" id="idbbsD" transform="translate(52.5,252.0)">
+                <line x1="0" x2="25.0" y1="0" y2="0"/>
+                <text class="sld-label" id="idbbsD_95_NW_95_LABEL" x="-10.0" y="-5.0">bbsD</text>
+            </g>
+            <g class="sld-busbar-section" id="idbbsE" transform="translate(152.5,252.0)">
+                <line x1="0" x2="25.0" y1="0" y2="0"/>
+                <text class="sld-label" id="idbbsE_95_NW_95_LABEL" x="-10.0" y="-5.0">bbsE</text>
+            </g>
+            <g class="sld-busbar-section" id="idbbsF" transform="translate(252.5,252.0)">
+                <line x1="0" x2="75.0" y1="0" y2="0"/>
+                <text class="sld-label" id="idbbsF_95_NW_95_LABEL" x="-10.0" y="-5.0">bbsF</text>
+            </g>
+            <g class="sld-busbar-section" id="idbbsB" transform="translate(52.5,277.0)">
+                <line x1="0" x2="25.0" y1="0" y2="0"/>
+                <text class="sld-label" id="idbbsB_95_NW_95_LABEL" x="-10.0" y="-5.0">bbsB</text>
+            </g>
+            <g class="sld-busbar-section" id="idbbsC" transform="translate(252.5,277.0)">
+                <line x1="0" x2="75.0" y1="0" y2="0"/>
+                <text class="sld-label" id="idbbsC_95_NW_95_LABEL" x="-10.0" y="-5.0">bbsC</text>
+            </g>
+            <g class="sld-busbar-section" id="idbbsA" transform="translate(52.5,302.0)">
+                <line x1="0" x2="125.0" y1="0" y2="0"/>
+                <text class="sld-label" id="idbbsA_95_NW_95_LABEL" x="-10.0" y="-5.0">bbsA</text>
+            </g>
+            <g class="sld-intern-cell sld-cell-shape-flat" id="idINTERN_32_0">
+                <g class="sld-wire" id="_95_vl_95_bbsD_95_BUSCO_95_bbsD_95_couplerDE">
+                    <polyline points="77.5,252.0,90.0,252.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_BUSCO_95_bbsD_95_couplerDE_45_couplerDE_95_couplerDE">
+                    <polyline points="90.0,252.0,115.0,252.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_couplerDE_95_INTERNAL_95_vl_95_BUSCO_95_bbsE_95_couplerDE_45_couplerDE">
+                    <polyline points="115.0,252.0,140.0,252.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_BUSCO_95_bbsE_95_couplerDE_95_bbsE">
+                    <polyline points="140.0,252.0,152.5,252.0"/>
+                </g>
+                <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_bbsD_95_couplerDE" transform="translate(86.0,248.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_BUSCO_95_bbsD_95_couplerDE_45_couplerDE" transform="translate(86.0,248.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-disconnector sld-open" id="idcouplerDE" transform="translate(111.0,248.0)">
+                    <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                    <path class="sld-sw-open" d="M8,0 0,8"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_BUSCO_95_bbsE_95_couplerDE_45_couplerDE" transform="translate(136.0,248.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_bbsE_95_couplerDE" transform="translate(136.0,248.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+            </g>
+            <g class="sld-intern-cell sld-cell-shape-flat" id="idINTERN_32_1">
+                <g class="sld-wire" id="_95_vl_95_bbsE_95_BUSCO_95_bbsE_95_couplerEF">
+                    <polyline points="177.5,252.0,190.0,252.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_BUSCO_95_bbsE_95_couplerEF_45_couplerEF_95_couplerEF">
+                    <polyline points="190.0,252.0,215.0,252.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_couplerEF_95_INTERNAL_95_vl_95_BUSCO_95_bbsF_95_couplerEF_45_couplerEF">
+                    <polyline points="215.0,252.0,240.0,252.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_BUSCO_95_bbsF_95_couplerEF_95_bbsF">
+                    <polyline points="240.0,252.0,252.5,252.0"/>
+                </g>
+                <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_bbsE_95_couplerEF" transform="translate(186.0,248.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_BUSCO_95_bbsE_95_couplerEF_45_couplerEF" transform="translate(186.0,248.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-disconnector sld-open" id="idcouplerEF" transform="translate(211.0,248.0)">
+                    <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                    <path class="sld-sw-open" d="M8,0 0,8"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_BUSCO_95_bbsF_95_couplerEF_45_couplerEF" transform="translate(236.0,248.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_bbsF_95_couplerEF" transform="translate(236.0,248.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+            </g>
+            <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_2">
+                <g class="sld-wire" id="_95_vl_95_d3_95_INTERNAL_95_vl_95_cn_95_load1">
+                    <polyline points="65.0,252.0,65.0,222.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_d1_95_INTERNAL_95_vl_95_cn_95_load1">
+                    <polyline points="65.0,302.0,65.0,222.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_d2_95_INTERNAL_95_vl_95_cn_95_load1">
+                    <polyline points="65.0,277.0,65.0,222.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_cn_95_load1_95_b4">
+                    <polyline points="65.0,222.0,65.0,192.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_b4_95_INTERNAL_95_vl_95_load1">
+                    <polyline points="65.0,172.0,65.0,142.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_load1_95_load1">
+                    <polyline points="65.0,142.0,65.0,84.5"/>
+                </g>
+                <g class="sld-disconnector sld-closed" id="idd3" transform="translate(61.0,248.0)">
+                    <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                    <path class="sld-sw-open" d="M8,0 0,8"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_cn_95_load1" transform="translate(61.0,218.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-disconnector sld-closed" id="idd1" transform="translate(61.0,298.0)">
+                    <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                    <path class="sld-sw-open" d="M8,0 0,8"/>
+                </g>
+                <g class="sld-disconnector sld-closed" id="idd2" transform="translate(61.0,273.0)">
+                    <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                    <path class="sld-sw-open" d="M8,0 0,8"/>
+                </g>
+                <g class="sld-breaker sld-closed" id="idb4" transform="translate(55.0,172.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_load1" transform="translate(61.0,138.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-load sld-top-feeder" id="idload1" transform="translate(57.0,75.5)">
+                    <rect height="9" width="16"/>
+                    <line x1="0" x2="16" y1="0" y2="9"/>
+                    <line x1="16" x2="0" y1="0" y2="9"/>
+                    <text class="sld-label" id="idload1_95_N_95_LABEL" x="0.0" y="-6.5">load1</text>
+                </g>
+            </g>
+            <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_3">
+                <g class="sld-wire" id="_95_vl_95_d6_95_INTERNAL_95_vl_95_cn_95_load2">
+                    <polyline points="165.0,252.0,165.0,222.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_d5_95_INTERNAL_95_vl_95_cn_95_load2">
+                    <polyline points="165.0,302.0,165.0,222.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_cn_95_load2_95_b7">
+                    <polyline points="165.0,222.0,165.0,192.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_b7_95_INTERNAL_95_vl_95_load2">
+                    <polyline points="165.0,172.0,165.0,142.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_load2_95_load2">
+                    <polyline points="165.0,142.0,165.0,84.5"/>
+                </g>
+                <g class="sld-disconnector sld-closed" id="idd6" transform="translate(161.0,248.0)">
+                    <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                    <path class="sld-sw-open" d="M8,0 0,8"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_cn_95_load2" transform="translate(161.0,218.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-disconnector sld-closed" id="idd5" transform="translate(161.0,298.0)">
+                    <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                    <path class="sld-sw-open" d="M8,0 0,8"/>
+                </g>
+                <g class="sld-breaker sld-closed" id="idb7" transform="translate(155.0,172.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_load2" transform="translate(161.0,138.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-load sld-top-feeder" id="idload2" transform="translate(157.0,75.5)">
+                    <rect height="9" width="16"/>
+                    <line x1="0" x2="16" y1="0" y2="9"/>
+                    <line x1="16" x2="0" y1="0" y2="9"/>
+                    <text class="sld-label" id="idload2_95_N_95_LABEL" x="0.0" y="-6.5">load2</text>
+                </g>
+            </g>
+            <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_4">
+                <g class="sld-wire" id="_95_vl_95_d9_95_INTERNAL_95_vl_95_cn_95_load3">
+                    <polyline points="265.0,252.0,265.0,222.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_d8_95_INTERNAL_95_vl_95_cn_95_load3">
+                    <polyline points="265.0,277.0,265.0,222.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_cn_95_load3_95_b10">
+                    <polyline points="265.0,222.0,265.0,192.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_b10_95_INTERNAL_95_vl_95_load3">
+                    <polyline points="265.0,172.0,265.0,142.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_load3_95_load3">
+                    <polyline points="265.0,142.0,265.0,84.5"/>
+                </g>
+                <g class="sld-disconnector sld-closed" id="idd9" transform="translate(261.0,248.0)">
+                    <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                    <path class="sld-sw-open" d="M8,0 0,8"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_cn_95_load3" transform="translate(261.0,218.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-disconnector sld-closed" id="idd8" transform="translate(261.0,273.0)">
+                    <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                    <path class="sld-sw-open" d="M8,0 0,8"/>
+                </g>
+                <g class="sld-breaker sld-closed" id="idb10" transform="translate(255.0,172.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_load3" transform="translate(261.0,138.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-load sld-top-feeder" id="idload3" transform="translate(257.0,75.5)">
+                    <rect height="9" width="16"/>
+                    <line x1="0" x2="16" y1="0" y2="9"/>
+                    <line x1="16" x2="0" y1="0" y2="9"/>
+                    <text class="sld-label" id="idload3_95_N_95_LABEL" x="0.0" y="-6.5">load3</text>
+                </g>
+            </g>
+            <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_5">
+                <g class="sld-wire" id="_95_vl_95_d11_95_INTERNAL_95_vl_95_d11_45_b12">
+                    <polyline points="315.0,277.0,315.0,222.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_d11_45_b12_95_b12">
+                    <polyline points="315.0,222.0,315.0,192.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_b12_95_INTERNAL_95_vl_95_load4">
+                    <polyline points="315.0,172.0,315.0,142.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_load4_95_load4">
+                    <polyline points="315.0,142.0,315.0,84.5"/>
+                </g>
+                <g class="sld-disconnector sld-closed" id="idd11" transform="translate(311.0,273.0)">
+                    <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                    <path class="sld-sw-open" d="M8,0 0,8"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_d11_45_b12" transform="translate(311.0,218.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-breaker sld-closed" id="idb12" transform="translate(305.0,172.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_load4" transform="translate(311.0,138.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-load sld-top-feeder" id="idload4" transform="translate(307.0,75.5)">
+                    <rect height="9" width="16"/>
+                    <line x1="0" x2="16" y1="0" y2="9"/>
+                    <line x1="16" x2="0" y1="0" y2="9"/>
+                    <text class="sld-label" id="idload4_95_N_95_LABEL" x="-5.0" y="-6.5">load4</text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

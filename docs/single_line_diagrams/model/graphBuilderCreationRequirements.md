@@ -1,4 +1,4 @@
-## GraphBuilder creation requirements
+## Requirements for implementing a custom GraphBuilder
 
 Implementing a GraphBuilder is the way to build the graph to be rendered by SingleLineDiagram.
 This shall implement builder for `VoltageLevelGraph`, `SubstationGraph` and `ZoneGraph`.
@@ -38,8 +38,34 @@ See `test.raw.TestAddExternalComponent`.
 
 ### SubstationGraph
 
-<h4 style="color:red">TODO</h4>
+A `SubstationGraph` is made of the `VoltageLevelGraph` of each `VoltageLevel` of the substation, plus the edges
+(the future "snake lines") that connect nodes belonging to different `VoltageLevelGraph`.
+
+The graph shall be built:
+
+* using `SubstationGraph.create` to create the graph, then `SubstationGraph.addVoltageLevel` to add each `VoltageLevelGraph`
+  (built as described in [VoltageLevelGraph](#voltagelevelgraph), giving the `SubstationGraph` as `parentGraph`);
+* connecting the `VoltageLevelGraph` together:
+  * a `Line` or a `TieLine` internal to the substation but crossing two `VoltageLevel` is represented by connecting, with
+    `SubstationGraph.addLineEdge`, the two `FeederNode` (one per side) already created in their respective `VoltageLevelGraph`;
+  * a two-winding or three-winding transformer crossing two (resp. three) `VoltageLevel` of the substation is represented
+    by creating, with `NodeFactory.createMiddle2WTNode` (resp. `NodeFactory.createMiddle3WTNode`), a middle node connected
+    to the `FeederNode` of each side, already created in their respective `VoltageLevelGraph`.
+
+![substationGraphExample](../../_static/img/sld/model/substationGraphExample.svg){align=center class="forced-white-background"}
 
 ### ZoneGraph
 
-<h4 style="color:red">TODO</h4>
+A `ZoneGraph` is made of the `SubstationGraph` of each substation of the zone, plus the edges that connect nodes
+belonging to different `SubstationGraph` (lines and HVDC lines between substations of the zone).
+
+The graph shall be built:
+
+* using `ZoneGraph.create` to create the graph, then `ZoneGraph.addSubstation` to add each `SubstationGraph`
+  (built as described in [SubstationGraph](#substationgraph), giving the `ZoneGraph` as `parentGraph`);
+* connecting the `SubstationGraph` together:
+  * a `Line` or a `TieLine` between two substations of the zone is represented by connecting, with `ZoneGraph.addLineEdge`,
+    the two `FeederNode` (one per side) already created in their respective `VoltageLevelGraph`;
+  * an HVDC line between two substations of the zone is represented similarly, connecting the two converter station
+    `FeederNode`.
+
