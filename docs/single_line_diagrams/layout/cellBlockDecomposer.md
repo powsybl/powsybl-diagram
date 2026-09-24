@@ -26,12 +26,14 @@ A `Block` is identified by a `Block.Type`:
   Several blocks (of any type, except `LEGPRIMARY` alone, which would be a `LEGPARALLEL`) sharing the same extremities,
   merged together. Such blocks instantiate `BodyParallelBlock`.
 * `SERIAL`\
-  A chain of composed of blocks, each one starting where the previous one ends. Such blocks instantiate `SerialBlock`.
+  A chain composed of blocks, each one starting where the previous one ends. Such blocks instantiate `SerialBlock`.
 * `UNDEFINED`\
   A fallback block gathering the remaining blocks when the algorithm could not identify any further merge
   (see [Step 2: merge the blocks](#step-2-merge-the-blocks) below). Such blocks instantiate `UndefinedBlock`.
 
-Note: All primaryBlocks are leavex of the hierarchyleaves 
+```{note}
+All primaryBlocks are leaves of the hierarchy 
+```
 
 The `Block` type hierarchy, showing which types are primary/parallel/composed and which interfaces/classes they map to:
 
