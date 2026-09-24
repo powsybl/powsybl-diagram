@@ -7,7 +7,7 @@ hidden: true
 ---
 
 bsCluster.md
-positionFromExtension.md
+positionPredefined.md
 positionByClustering.md
 subsection.md
 ```

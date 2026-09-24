@@ -10,6 +10,7 @@ graphRefiner.md
 cellDetector.md
 cellBlockDecomposer.md
 positionFinder.md
+sldParameters.md
 zoneLayouts.md
 ```
 
@@ -41,9 +42,9 @@ graph cleaning (see [Graph Refiner](graphRefiner.md)) to the block/position comp
   marked as stackable, so that the corresponding feeders can later be stacked on top of each other instead of being
   spread out horizontally.
  
-  | ![feederStackedDefault](../../_static/img/sld/layout/feederStackedDefault.svg){class="forced-white-background svg-height"} | ![feederStackedChanged](../../_static/img/sld/layout/feederStackedChanged.svg){class="forced-white-background svg-height"} |
-  |:--------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------:|
-  |                                                   Default value (`true`)                                                   |                                                  Value changed (`false`)                                                   |
+| ![feederStackedDefault](../../_static/img/sld/layout/feederStackedDefault.svg){class="forced-white-background svg-height"} | ![feederStackedChanged](../../_static/img/sld/layout/feederStackedChanged.svg){class="forced-white-background svg-height"} |
+|:--------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------:|
+|                                                   Default value (`true`)                                                   |                                                  Value changed (`false`)                                                   |
   
 
 * `removeUnnecessaryFictitiousNodes` (default `true`): whether the `GraphRefiner` should remove the redundant
@@ -122,7 +123,7 @@ With this layout, the elements of the graph are arranged according to the data i
 
 ### Choosing a `VoltageLevelLayout`
 
-The `voltageLevelLayoutFactoryCreator` attribute in the [`SldParameters`](../sld_parameters.md) class is the customization parameter to use to choose a specific `VoltageLevelLayout`.
+The `voltageLevelLayoutFactoryCreator` attribute in the [`SldParameters`](sldParameters.md) class is the customization parameter to use to choose a specific `VoltageLevelLayout`.
 
 The `VoltageLevelLayoutFactoryCreator` creates a `VoltageLevelLayoutFactory` which in turn creates a `VoltageLevelLayout`.
 
@@ -211,7 +212,7 @@ With this layout, the `VoltageLevelGraph` are stacked vertically, ordered as the
 
 ### Choosing a `SubstationLayout`
 
-The `substationLayoutFactory` attribute in the [`SldParameters`](../sld_parameters.md) class is the customization
+The `substationLayoutFactory` attribute in the [`SldParameters`](sldParameters.md) class is the customization
 parameter to use to choose a specific `SubstationLayout`: it takes a `SubstationLayoutFactory`, for example a
 `HorizontalSubstationLayoutFactory` (the default) or a `VerticalSubstationLayoutFactory`.
 
