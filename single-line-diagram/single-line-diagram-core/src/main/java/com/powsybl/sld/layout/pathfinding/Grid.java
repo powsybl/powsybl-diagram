@@ -82,9 +82,7 @@ public class Grid {
     }
 
     private Node getNode(double x, double y) {
-        if (!isInBounds(x, y)) {
-            throw new PowsyblException("Point (" + x + ", " + y + ") is outside the " + width + "x" + height + " grid");
-        }
+        checkInBounds(x, y);
         return getNodeAt((int) x, (int) y);
     }
 
@@ -96,13 +94,15 @@ public class Grid {
         return y * width + x;
     }
 
-    // Make sure we are not out of bounds
-    private static int clamp(double value, int size) {
-        return (int) Math.clamp(value, 0, size - 1.0);
+    public void setAvailability(double x, double y, boolean available) {
+        checkInBounds(x, y);
+        nodeAvailability.set(getNodeIndex((int) x, (int) y), available);
     }
 
-    public void setAvailability(double x, double y, boolean available) {
-        nodeAvailability.set(getNodeIndex(clamp(x, width), clamp(y, height)), available);
+    private void checkInBounds(double x, double y) {
+        if (!isInBounds(x, y)) {
+            throw new PowsyblException("Point (" + x + ", " + y + ") is outside the " + width + "x" + height + " grid");
+        }
     }
 
     public void setAvailability(Point point, boolean available) {
