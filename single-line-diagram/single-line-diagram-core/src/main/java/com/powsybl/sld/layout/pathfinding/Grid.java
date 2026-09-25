@@ -58,6 +58,9 @@ public class Grid {
     private final int height;
 
     public Grid(int width, int height) {
+        if (width <= 0 || height <= 0) {
+            throw new PowsyblException("Grid dimensions must be positive: " + width + "x" + height);
+        }
         long cellCount = (long) width * height;
         if (cellCount > Integer.MAX_VALUE) {
             throw new PowsyblException("Diagram is too large to be laid out: " + width + "x" + height);
@@ -79,14 +82,17 @@ public class Grid {
     }
 
     private Node getNode(double x, double y) {
-        return getNodeAt(clamp(x, width), clamp(y, height));
+        if (!isInBounds(x, y)) {
+            throw new PowsyblException("Point (" + x + ", " + y + ") is outside the " + width + "x" + height + " grid");
+        }
+        return getNodeAt((int) x, (int) y);
     }
 
     private Node getNodeAt(int x, int y) {
-        return processedNodes.computeIfAbsent(index(x, y), i -> new Node(new Point(x, y), 0));
+        return processedNodes.computeIfAbsent(getNodeIndex(x, y), i -> new Node(new Point(x, y), 0));
     }
 
-    private int index(int x, int y) {
+    private int getNodeIndex(int x, int y) {
         return y * width + x;
     }
 
@@ -96,7 +102,7 @@ public class Grid {
     }
 
     public void setAvailability(double x, double y, boolean available) {
-        nodeAvailability.set(index(clamp(x, width), clamp(y, height)), available);
+        nodeAvailability.set(getNodeIndex(clamp(x, width), clamp(y, height)), available);
     }
 
     public void setAvailability(Point point, boolean available) {
@@ -113,7 +119,7 @@ public class Grid {
 
     public boolean isAvailable(Point point) {
         return isInBounds(point.getX(), point.getY())
-                && nodeAvailability.get(index((int) point.getX(), (int) point.getY()));
+                && nodeAvailability.get(getNodeIndex((int) point.getX(), (int) point.getY()));
     }
 
     private boolean isInBounds(double x, double y) {
@@ -134,7 +140,7 @@ public class Grid {
         if (isInBounds(x, y)) {
             int nodeX = (int) x;
             int nodeY = (int) y;
-            if (nodeAvailability.get(index(nodeX, nodeY))) {
+            if (nodeAvailability.get(getNodeIndex(nodeX, nodeY))) {
                 neighbors.add(getNodeAt(nodeX, nodeY));
             }
         }
