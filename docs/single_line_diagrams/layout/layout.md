@@ -79,10 +79,6 @@ graph cleaning (see [Graph Refiner](graphRefiner.md)) to the block/position comp
 |:--------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------:|
 |                                                                 Default value (`false`)                                                                  |                                              Value changed (`true`)                                               |
 
-  Setting `exceptionIfPatternNotHandled` to `true` on this exact same pattern does not produce a second diagram: it
-  throws a `PowsyblException` instead, with a message such as
-  `Blocks detection impossible for cell EXTERN null UNDEFINED [BUS bbs1 bbs1, SWITCH d1 d1, ...]`.
-
 * `handleShunts` (default `false`): whether `PositionFinder` implementations should take `ShuntCell` into account
   when computing the `List<Subsection>` (see [Subsection](subsection.md)). Below, `loadA` and `loadB` are linked by a
   shunt jumper, while `loadMid` is an unrelated feeder attached in between them on the busbar. With the default
