@@ -310,6 +310,7 @@ public class SvgWriter {
         EdgeStyleInfo edgeStyleInfo = edge.getEdgeStyleInfo(BranchEdge.Side.ONE);
 
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+        writeId(writer, edge);
         writeStyleClasses(writer, edgeStyleInfo.styleClasses(), StyleProvider.EDGE_PATH_CLASS);
         writeStyleAttribute(writer, edgeStyleInfo.style());
 
