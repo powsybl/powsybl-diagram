@@ -75,7 +75,9 @@ graph cleaning (see [Graph Refiner](graphRefiner.md)) to the block/position comp
   algorithm cannot fully merge the blocks of a cell (see [CellBlockDecomposer](cellBlockDecomposer.md)); when `false`,
   the remaining blocks are simply gathered into an `UndefinedBlock` and the diagram building continues.
 
-  ![exceptionIfPatternNotHandledDefault](../../_static/img/sld/layout/exceptionIfPatternNotHandledDefault.svg){class="forced-white-background svg-height"}
+| ![exceptionIfPatternNotHandledDefault](../../_static/img/sld/layout/exceptionIfPatternNotHandledDefault.svg){class="forced-white-background svg-height"} | `PowsyblException: Blocks detection impossible for cell EXTERN null UNDEFINED [BUS bbs1 bbs1, SWITCH d1 d1, ...]` |
+|:--------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------:|
+|                                                                 Default value (`false`)                                                                  |                                              Value changed (`true`)                                               |
 
   Setting `exceptionIfPatternNotHandled` to `true` on this exact same pattern does not produce a second diagram: it
   throws a `PowsyblException` instead, with a message such as
