@@ -386,6 +386,12 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         feederNodes.stream()
                 .filter(feederNode -> !isHookReplacement((FeederNode) feederNode))
                 .forEach(this::insertFeederHookNode);
+        List<Node> internalNodes = nodesByType.computeIfAbsent(Node.NodeType.INTERNAL, nodeType -> new ArrayList<>());
+        internalNodes
+            .stream()
+            .filter(node -> node.getComponentType().equals(SldComponentTypeName.THREE_WINDINGS_TRANSFORMER))
+            .toList()
+            .forEach(this::insert3WtInternalNode);
     }
 
     private boolean isHookReplacement(FeederNode feederNode) {
@@ -417,6 +423,27 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
             // Transfer the neighbours of the feeder node to that new forkNode
             transferEdges(feederNode, forkNode);
+
+            addEdge(forkNode, hookNode);
+            addEdge(hookNode, feederNode);
+        }
+    }
+
+    private void insert3WtInternalNode(Node feederNode) {
+        // Create a new hook node to insert before feeder node
+        Node hookNode = NodeFactory.createConnectivityNode(this, feederNode.getId());
+
+        List<Node> adjacentNodes = feederNode.getAdjacentNodes().stream().filter(
+            //remove the two other 3WT external legs
+            node -> !node.getComponentType().equals(SldComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG)
+        ).toList();
+        if (adjacentNodes.size() == 1) {
+            // Update edges: create the 2 new ones and remove the old one
+            Node singleNeighbor = adjacentNodes.getFirst();
+            insertNode(singleNeighbor, hookNode, feederNode);
+        } else {
+            // Create an extra fork node, otherwise the hook-node is a node with several neighbors (fork node)
+            Node forkNode = NodeFactory.createConnectivityNode(this, feederNode.getId() + "_fork");
 
             addEdge(forkNode, hookNode);
             addEdge(hookNode, feederNode);

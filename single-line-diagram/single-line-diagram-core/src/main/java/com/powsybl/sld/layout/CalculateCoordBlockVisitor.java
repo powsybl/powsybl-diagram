@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.blocks.BlockVisitor;
 import com.powsybl.sld.model.blocks.BodyParallelBlock;
@@ -18,6 +19,7 @@ import com.powsybl.sld.model.blocks.SerialBlock;
 import com.powsybl.sld.model.blocks.UndefinedBlock;
 import com.powsybl.sld.model.coordinate.Coord;
 import com.powsybl.sld.model.coordinate.Position;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.Node.NodeType;
 
@@ -64,15 +66,15 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
         List<Node> blockNodes = block.getNodes();
         int sign = block.getOrientation() == UP ? 1 : -1;
         double y0 = block.getCoord().get(Y) + sign * block.getCoord().getSpan(Y) / 2;
-        double yPxStep = sign * block.getCoord().getSpan(Y) / (blockNodes.size() - 1);
-        double swStep = sign * block.getCoord().getSpan(Y) / (blockNodes.size());
-
         boolean increasePrimaryBlockHeight = layoutParameters.isThreeWindingsIncreasePrimaryBlockHeight(blockNodes.stream());
+        int numberOfElements = blockNodes.size() - 1 + (increasePrimaryBlockHeight ? 1 : 0);
+        double yPxStep = sign * block.getCoord().getSpan(Y) / numberOfElements;
+        double addedArrowSpacing = 0;
 
         for (int i = 0; i < blockNodes.size(); i++) {
             Node n = blockNodes.get(i);
-            double currentSwStep = increasePrimaryBlockHeight && n.getType() == NodeType.SWITCH || n.getType() == NodeType.FEEDER ? swStep : 0;
-            n.setCoordinates(block.getCoord().get(X), y0 - yPxStep * i + currentSwStep);
+            addedArrowSpacing += (increasePrimaryBlockHeight && n.getType() == NodeType.INTERNAL && i < blockNodes.size() - 1 && blockNodes.get(i + 1) instanceof Middle3WTNode) ? yPxStep : 0;
+            n.setCoordinates(block.getCoord().get(X), y0 - yPxStep * i - addedArrowSpacing);
         }
     }
 

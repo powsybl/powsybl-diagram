@@ -1028,23 +1028,45 @@ public class DefaultSVGWriter implements SVGWriter {
                                      VoltageLevelGraph graph, Edge edge,
                                      GraphMetadata metadata, LabelProvider initProvider,
                                      StyleProvider styleProvider) {
-        if (edge.getNode1() instanceof FeederNode) {
+        if (edge.getNode1() instanceof FeederNode node1) {
             if (!(edge.getNode2() instanceof FeederNode)) {
-                insertFeederInfos(prefixId, pol, root, graph, (FeederNode) edge.getNode1(), metadata, initProvider, styleProvider);
+                insertFeederInfos(prefixId, pol, root, graph, node1, metadata, initProvider, styleProvider);
             }
-        } else if (edge.getNode2() instanceof FeederNode) {
+        } else if (edge.getNode2() instanceof FeederNode node2) {
             Collections.reverse(pol);
-            insertFeederInfos(prefixId, pol, root, graph, (FeederNode) edge.getNode2(), metadata, initProvider, styleProvider);
+            insertFeederInfos(prefixId, pol, root, graph, node2, metadata, initProvider, styleProvider);
         } else {
             if (edge.getNode1() instanceof Middle3WTNode middle3wtNode) {
-                if (!(edge.getNode2() instanceof FeederNode)) {
+                if (!(edge.getNode2() instanceof FeederNode) && isNotInternalNode(edge.getNode2())) {
                     insertFeederInfos(prefixId, pol, root, middle3wtNode, metadata, initProvider, styleProvider);
                 }
             } else if (edge.getNode2() instanceof Middle3WTNode middle3wtNode) {
-                Collections.reverse(pol);
-                insertFeederInfos(prefixId, pol, root, middle3wtNode, metadata, initProvider, styleProvider);
+                if (isNotInternalNode(edge.getNode1())) {
+                    Collections.reverse(pol);
+                    insertFeederInfos(prefixId, pol, root, middle3wtNode, metadata, initProvider, styleProvider);
+                }
+            } else {
+                getAdjacentMiddle3WTNode(edge.getNode1()).ifPresentOrElse(
+                    middle3WTNode -> insertFeederInfos(prefixId, pol, root, middle3WTNode, metadata, initProvider, styleProvider),
+                    () -> getAdjacentMiddle3WTNode(edge.getNode2()).ifPresent(middle3WTNode -> {
+                        Collections.reverse(pol);
+                        insertFeederInfos(prefixId, pol, root, middle3WTNode, metadata, initProvider, styleProvider);
+                    })
+                );
             }
         }
+    }
+
+    private static boolean isNotInternalNode(Node node) {
+        return node.getType() != NodeType.INTERNAL
+            || !NODE.equals(node.getComponentType());
+    }
+
+    private static Optional<Middle3WTNode> getAdjacentMiddle3WTNode(Node node) {
+        return node.getAdjacentNodes().stream()
+            .filter(Middle3WTNode.class::isInstance)
+            .map(Middle3WTNode.class::cast)
+            .findFirst();
     }
 
     private void drawPolyLine(Element root, VoltageLevelGraph graph, StyleProvider styleProvider,
