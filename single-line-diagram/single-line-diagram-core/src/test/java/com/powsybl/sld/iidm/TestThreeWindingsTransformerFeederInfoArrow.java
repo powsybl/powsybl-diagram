@@ -128,6 +128,18 @@ class TestThreeWindingsTransformerFeederInfoArrow extends AbstractTestCaseIidm {
         assertEquals(toString("/Test3WTMultiSwitchFeederInfoArrowVoltageLevel.svg"), toSVG(g, "/Test3WTSwitchFeederInfoArrowVoltageLevel.svg"));
     }
 
+    @Test
+    void testVoltageLevelGraph3WTMultiplesSwitchesWithInternalNodes() {
+        layoutParameters.setThreeWindingsTransformerFeederInfoMode(LayoutParameters.ThreeWindingsTransformerFeederInfoMode.FULL_3WT);
+        svgParameters.setShowInternalNodes(true);
+        network = get3WtWithSwitchNetwork(2);
+        NetworkGraphBuilder graphBuilder2 = new NetworkGraphBuilder(network);
+        VoltageLevelGraph g = graphBuilder2.buildVoltageLevelGraph("vl3");
+        voltageLevelGraphLayout(g);
+
+        assertEquals(toString("/Test3WTMultiSwitchFeederInfoArrowVoltageLevelInternalNodes.svg"), toSVG(g, "/Test3WTSwitchFeederInfoArrowVoltageLevel.svg"));
+    }
+
     private Network get3WtWithSwitchNetwork(int consecutiveSwitchesOn3WTLeg) {
         Network network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
