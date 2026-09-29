@@ -379,19 +379,21 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
      * Insert fictitious node(s) before feeders in order for the feeder to be properly displayed:
      * feeders need at least one inserted fictitious node to have enough space to display the feeder arrows.
      */
-    public void insertHookNodesAtFeeders() {
+    public void insertHookNodesAtFeeders(LayoutParameters layoutParameters) {
         // Each feeder node needs a fictitious node to have enough place for the feeder infos (arrows)
         // FeederNode linked to Middle3WTNode do not need any fictitious node inserted, because of the fictitious Middle3WTNode
         List<Node> feederNodes = nodesByType.computeIfAbsent(Node.NodeType.FEEDER, nodeType -> new ArrayList<>());
         feederNodes.stream()
                 .filter(feederNode -> !isHookReplacement((FeederNode) feederNode))
                 .forEach(this::insertFeederHookNode);
-        List<Node> internalNodes = nodesByType.computeIfAbsent(Node.NodeType.INTERNAL, nodeType -> new ArrayList<>());
-        internalNodes
-            .stream()
-            .filter(node -> node.getComponentType().equals(SldComponentTypeName.THREE_WINDINGS_TRANSFORMER))
-            .toList()
-            .forEach(this::insert3WtInternalNode);
+        if (layoutParameters.isThreeWindingsIncreasePrimaryBlockHeight(nodes.stream())) {
+            List<Node> internalNodes = nodesByType.computeIfAbsent(Node.NodeType.INTERNAL, nodeType -> new ArrayList<>());
+            internalNodes
+                .stream()
+                .filter(node -> node.getComponentType().equals(SldComponentTypeName.THREE_WINDINGS_TRANSFORMER))
+                .toList()
+                .forEach(this::insert3WtInternalNode);
+        }
     }
 
     private boolean isHookReplacement(FeederNode feederNode) {
