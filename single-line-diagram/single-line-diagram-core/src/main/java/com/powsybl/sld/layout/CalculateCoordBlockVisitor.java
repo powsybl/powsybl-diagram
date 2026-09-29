@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.blocks.BlockVisitor;
 import com.powsybl.sld.model.blocks.BodyParallelBlock;
