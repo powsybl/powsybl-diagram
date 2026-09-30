@@ -1,10 +1,10 @@
-## Requirements for implementing a custom GraphBuilder
+# Requirements for implementing a custom GraphBuilder
 
 Implementing a GraphBuilder is the way to build the graph to be rendered by SingleLineDiagram.
 This shall implement builder for `VoltageLevelGraph`, `SubstationGraph` and `ZoneGraph`.
 Here are some hints that are to be considered.
 
-### VoltageLevelGraph
+## VoltageLevelGraph
 
 A `VoltageLevelGraph` is made of nodes that extend the `model.nodes.Node` class.
 The `Node` holds an `NodeType` enum that can take the following values:
@@ -21,7 +21,7 @@ The graph shall be built:
   If new nodes are needed, ensure to add the created node to the graph appropriately.
 * connecting them with `VoltageLevelGraph.addEdge`
 
-#### Components
+### Components
 
 Each node has a `componentTypeName` that is related to a `ComponentLibrary`.
 
@@ -36,7 +36,7 @@ See `test.raw.TestAddExternalComponent`.
     * The `BUS_CONNECTION` component is the one that will be inserted if the component connected to the bus doesn't have this ability.
       Therefore, ensure the `ComponentLibrary` contains the `BUS_CONNECTION` component.
 
-### SubstationGraph
+## SubstationGraph
 
 A `SubstationGraph` is made of the `VoltageLevelGraph` of each `VoltageLevel` of the substation, plus the edges
 (the future "snake lines") that connect nodes belonging to different `VoltageLevelGraph`.
@@ -54,7 +54,7 @@ The graph shall be built:
 
 ![substationGraphExample](../../_static/img/sld/model/substationGraphExample.svg){align=center class="forced-white-background"}
 
-### ZoneGraph
+## ZoneGraph
 
 A `ZoneGraph` is made of the `SubstationGraph` of each substation of the zone, plus the edges that connect nodes
 belonging to different `SubstationGraph` (lines and HVDC lines between substations of the zone).

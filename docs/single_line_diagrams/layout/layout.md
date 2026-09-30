@@ -14,7 +14,7 @@ sldParameters.md
 zoneLayouts.md
 ```
 
-A layout represents the way in which the elements of a graph are arranged.
+A layout is the way in which the elements of a graph are arranged.
 
 It is possible to use your own graph layout implementation, but there are also existing layouts in powsybl-diagram, ready to use.
 
@@ -178,6 +178,53 @@ VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator = VoltageLevel
 SldParameters sldParameters = new SldParameters().setVoltageLevelLayoutFactoryCreator(voltageLevelLayoutFactoryCreator);
 ```
 
+### Creating and using your own `VoltageLevelLayout`
+
+A `VoltageLevelLayout` only has to implement the `Layout` interface, i.e. implement a `run(LayoutParameters layoutParameters)`
+method, in charge of computing the coordinates of the nodes of the `VoltageLevelGraph` it was built from
+(typically by iterating over `graph.getNodes()` and setting `node.setX(...)` / `node.setY(...)`, as done for instance
+by `RandomVoltageLevelLayout`). The `AbstractVoltageLevelLayout` class can be extended to get direct access to the
+underlying `VoltageLevelGraph` (through `getGraph()`), but this is not mandatory.
+
+You will also need a `VoltageLevelLayoutFactory`, whose only purpose is to create your `VoltageLevelLayout` instances
+from a `VoltageLevelGraph`:
+
+```java
+public class MyVoltageLevelLayout implements Layout {
+    // ...
+    @Override
+    public void run(LayoutParameters layoutParameters) {
+        // compute the coordinates of the nodes of the graph
+    }
+}
+
+public class MyVoltageLevelLayoutFactory implements VoltageLevelLayoutFactory {
+    @Override
+    public Layout create(VoltageLevelGraph graph) {
+        return new MyVoltageLevelLayout(graph);
+    }
+}
+```
+
+Once your `VoltageLevelLayoutFactory` is ready, you can use it in the [`SldParameters`](sldParameters.md) class,
+either directly:
+
+```java
+SldParameters sldParameters = new SldParameters().setVoltageLevelLayoutFactoryCreator(network -> new MyVoltageLevelLayoutFactory());
+```
+
+or by wrapping it into a `VoltageLevelLayoutFactoryCreator`, which gives you access to the `Network` if your factory
+needs it:
+
+```java
+VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator = network -> new MyVoltageLevelLayoutFactory();
+SldParameters sldParameters = new SldParameters().setVoltageLevelLayoutFactoryCreator(voltageLevelLayoutFactoryCreator);
+```
+
+```{note}
+The following voltage level layout factories are available: `SmartVoltageLevelLayoutFactory` (the default), `CgmesVoltageLevelLayoutFactory`, `RandomVoltageLevelLayoutFactory`, `PositionVoltageLevelLayoutFactory`
+```
+
 ## Layouts for substations
 
 A substation layout arranges, relative to one another, the `VoltageLevelGraph` of the different `VoltageLevel` of a
@@ -216,6 +263,43 @@ parameter to use to choose a specific `SubstationLayout`: it takes a `Substation
 
 ```java
 SldParameters sldParameters = new SldParameters().setSubstationLayoutFactory(new VerticalSubstationLayoutFactory());
+```
+
+### Creating and using your own `SubstationLayout`
+
+Similarly, a `SubstationLayout` also has to implement the `Layout` interface. Its `run(LayoutParameters layoutParameters)`
+method is in charge of positioning the different `VoltageLevelGraph` of the `SubstationGraph` relative to one another
+(each of them being already laid out thanks to its own `VoltageLevelLayout`), and of computing the coordinates of the
+snake lines connecting them.
+
+The corresponding `SubstationLayoutFactory` creates your `SubstationLayout` instances from a `SubstationGraph` and the
+`VoltageLevelLayoutFactory` used to lay out each `VoltageLevelGraph`:
+
+```java
+public class MySubstationLayout implements Layout {
+    // ...
+    @Override
+    public void run(LayoutParameters layoutParameters) {
+        // position the voltage level graphs relative to each other and compute the snake lines
+    }
+}
+
+public class MySubstationLayoutFactory implements SubstationLayoutFactory {
+    @Override
+    public Layout create(SubstationGraph graph, VoltageLevelLayoutFactory vLayoutFactory) {
+        return new MySubstationLayout(graph, vLayoutFactory);
+    }
+}
+```
+
+Your `SubstationLayoutFactory` can then be set in the [`SldParameters`](sldParameters.md) class:
+
+```java
+SldParameters sldParameters = new SldParameters().setSubstationLayoutFactory(new MySubstationLayoutFactory());
+```
+
+```{note}
+The following substation layout factories are available `HorizontalSubstationLayoutFactory` (the default) or a `VerticalSubstationLayoutFactory`
 ```
 
 ## Layouts for multi-substation graphs
