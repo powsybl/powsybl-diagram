@@ -8,6 +8,7 @@
 package com.powsybl.sld.cgmes.layout;
 
 import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.regulation.RegulationMode;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 
 import java.time.ZonedDateTime;
@@ -307,7 +308,7 @@ public final class Networks {
                 .setBus("Bus2")
                 .setBmin(0.0002)
                 .setBmax(0.0008)
-                .setRegulationMode(StaticVarCompensator.RegulationMode.VOLTAGE)
+                .setRegulationMode(RegulationMode.VOLTAGE)
                 .setRegulating(true)
                 .setVoltageSetpoint(390.0)
                 .setReactivePowerSetpoint(1.0)
