@@ -154,7 +154,7 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-grid" id="idGRID_95_VL1">
+        <g class="sld-grid" id="idVL1_95_GRID">
             <line x1="40.0" x2="40.0" y1="80.0" y2="424.0"/>
             <line x1="90.0" x2="90.0" y1="80.0" y2="424.0"/>
             <line x1="140.0" x2="140.0" y1="80.0" y2="424.0"/>
@@ -165,7 +165,7 @@
             <line x1="40.0" x2="140.0" y1="292.0" y2="292.0"/>
             <line x1="40.0" x2="140.0" y1="362.0" y2="362.0"/>
         </g>
-        <g class="sld-grid" id="idGRID_95_VL2">
+        <g class="sld-grid" id="idVL2_95_GRID">
             <line x1="180.0" x2="180.0" y1="80.0" y2="252.0"/>
             <line x1="230.0" x2="230.0" y1="80.0" y2="252.0"/>
             <line x1="180.0" x2="230.0" y1="222.0" y2="222.0"/>
