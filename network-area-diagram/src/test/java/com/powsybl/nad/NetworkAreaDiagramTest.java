@@ -104,6 +104,16 @@ class NetworkAreaDiagramTest extends AbstractTest {
     }
 
     @Test
+    @SuppressWarnings({"deprecation", "removal"})
+    void testGetNextDepthVoltageLevelsWithNetworkReturnsSameResult() {
+        Network network = EurostagTutorialExample1Factory.createWithTieLine();
+        List<VoltageLevel> voltageLevels = List.of(network.getVoltageLevel("VLHV1"));
+
+        assertEquals(VoltageLevelFilter.getNextDepthVoltageLevels(voltageLevels),
+                VoltageLevelFilter.getNextDepthVoltageLevels(network, voltageLevels));
+    }
+
+    @Test
     void testVoltageFilteredDiagramTwoBounds() {
         Network network = IeeeCdfNetworkFactory.create14();
         Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
