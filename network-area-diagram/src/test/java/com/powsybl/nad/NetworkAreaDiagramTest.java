@@ -16,6 +16,7 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.BasicForceLayoutFactory;
@@ -88,6 +89,18 @@ class NetworkAreaDiagramTest extends AbstractTest {
 
         ids = NetworkAreaDiagram.getDisplayedVoltageLevels(network, List.of("VLHV1"), 2);
         assertEquals("VLGEN, VLHV1, VLHV2, VLLOAD", String.join(", ", ids));
+    }
+
+    @Test
+    void testGetNextDepthVoltageLevels() {
+        Network network = EurostagTutorialExample1Factory.createWithTieLine();
+        List<String> ids = VoltageLevelFilter.getNextDepthVoltageLevels(List.of(network.getVoltageLevel("VLHV1")))
+                .stream()
+                .map(VoltageLevel::getId)
+                .sorted()
+                .toList();
+
+        assertEquals(List.of("VLGEN", "VLHV2"), ids);
     }
 
     @Test
