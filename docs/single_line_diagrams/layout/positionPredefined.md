@@ -1,19 +1,22 @@
-# PositionFromExtension: Position from an explicit configuration
+# PositionPredefined: Position from predefined information
 
 ## Context
 
-`PositionFromExtension` implements [PositionFinder](positionFinder.md) and takes the information from the `iidm` extension to organize `BSClusters`. When building the `VoltageLevelGraph`, `NetworkGraphBuilder` retrieves and sets:
+`PositionPredefined` implements [PositionFinder](positionFinder.md) and uses predefined information to organize `BSClusters` (see [BSCluster](bsCluster.md)). When building the `VoltageLevelGraph`, `NetworkGraphBuilder` retrieves and sets:
 
 * `BusNode.busbarIndex` and `BusNode.sectionIndex`,
-* `FeederNode.order` which is used to define `ExternCells::getOrder`
+* `FeederNode.order` which is used to define `ExternCells::getOrder`,
+* node directions and orders, when they are available.
 
 ## Algorithm
 
 ### Principle
 
-The algorithm considers that the positional information given (by the **iidm** extension) is coherent. Sorting orders are 
-defined based on this information and are used when building `VerticalBusSets` and `BSClusters`. These objects can then 
-be arranged relying on the consistency inherited from the given coherent orders.
+The algorithm uses the positional information given by the **IIDM** extensions. Missing or incoherent busbar or section
+indices (zero or negative values) are replaced before sorting: a bus node sharing a cell with an already positioned bus
+node reuses that section and receives the next busbar index; otherwise, it receives a new section. Cells inherit the
+lowest node order and a direction present on one of their nodes. An external cell with no direction defaults to `TOP`.
+The resulting sorting orders are used when building `VerticalBusSets` and `BSClusters`.
 
 The algorithm may not sound straightforward, but that approach eases the elaboration of the next step (building of 
 `List<Substation>`), and naturally addresses the constraints raised by non horizontally symmetrical arrangements of 
@@ -21,8 +24,8 @@ The algorithm may not sound straightforward, but that approach eases the elabora
 
 ### Steps
 
-* `PositionFromExtension::indexBusPosition` builds the `Map<BusNode, Integer> busToNb`
-* `PositionFromExtension::organizeBusSets`:
+* `PositionPredefined::indexBusPosition` builds the `Map<BusNode, Integer> busToNb` and replaces missing or incoherent busbar and section indices with appropriate values,
+* `PositionPredefined::organizeBusSets`:
     * builds `List<BSCluster>bsClusters` by providing the list of initial `VerticalBusSet` sorted by the comparator `VBSCOMPARATOR`
     * merges `bsClusters` sequentially by merging the first `BSCluster` of the list with the second until only one remain.
 
@@ -30,8 +33,8 @@ The algorithm may not sound straightforward, but that approach eases the elabora
 
 This sorting order helps `busbarIndex` reflect the **vertical view** of the structure.
 
-The algorithm relies on the fact that `PositionFromExtension::indexBusPosition` sorts the `BusNodes` by their `busbarIndex` 
-(first, and then by their `sectionIndex`). In `PositionFromExtension`, this order will never be modified later on, 
+The algorithm relies on the fact that `PositionPredefined::indexBusPosition` sorts the `BusNodes` by their `busbarIndex`
+(first, and then by their `sectionIndex`). In `PositionPredefined`, this order will never be modified later on,
 ensuring the lower the `busbarIndex` is, the higher it will be vertically laid out.
 
 For example,
