@@ -52,7 +52,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
     public Graph buildGraph() {
         Graph graph = new Graph();
         List<VoltageLevel> voltageLevelsVisible = getVoltageLevels();
-        List<VoltageLevel> voltageLevelsInvisible = VoltageLevelFilter.getNextDepthVoltageLevels(network, voltageLevelsVisible)
+        List<VoltageLevel> voltageLevelsInvisible = VoltageLevelFilter.getNextDepthVoltageLevels(voltageLevelsVisible)
                 .stream()
                 .sorted(Comparator.comparing(VoltageLevel::getId))
                 .toList();
