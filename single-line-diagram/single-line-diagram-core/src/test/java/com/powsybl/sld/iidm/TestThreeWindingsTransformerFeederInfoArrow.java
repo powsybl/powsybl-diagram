@@ -44,7 +44,7 @@ class TestThreeWindingsTransformerFeederInfoArrow extends AbstractTestCaseIidm {
     void test3WTVoltageLevelGraphFeederInfoInside() {
         layoutParameters.setThreeWindingsTransformerFeederInfoMode(LayoutParameters.ThreeWindingsTransformerFeederInfoMode.ONLY_INSIDE_VOLTAGE_LEVEL);
 
-        // Build voltage level graph and run layout with INSIDE_VOLTAGE_LEVEL mode (default)
+        // Build voltage level graph and run layout with ONLY_INSIDE_VOLTAGE_LEVEL mode (default)
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VL_132");
         voltageLevelGraphLayout(g);
 
@@ -53,7 +53,7 @@ class TestThreeWindingsTransformerFeederInfoArrow extends AbstractTestCaseIidm {
     }
 
     @Test
-    void testVoltageLevelGraphWithFeederInfos() {
+    void testVoltageLevelGraphWithAllFeederInfosOnEvery3WTLeg() {
 
         layoutParameters.setSpaceForFeederInfos(90);
         DefaultLabelProvider labelProvider = getDefaultDiagramLabelProvider();
