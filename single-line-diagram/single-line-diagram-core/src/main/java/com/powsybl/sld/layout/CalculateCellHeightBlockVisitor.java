@@ -52,6 +52,11 @@ public final class CalculateCellHeightBlockVisitor implements BlockVisitor {
         blockHeight = 0;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Set the height of the block based on the number of nodes and the layout parameters.
+     */
     @Override
     public void visit(BodyPrimaryBlock block) {
         // we do not consider the exact height of components as the maximum height will

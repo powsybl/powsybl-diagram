@@ -826,6 +826,18 @@ public class DefaultSVGWriter implements SVGWriter {
                 + matrix2[4] + "," + matrix2[5] + ")";
     }
 
+    /**
+     * Inserts all the information related to the given feeder.
+     *
+     * @param prefixId       The prefix of the element, to use during the insertion process.
+     * @param points         A list of points representing the positions of the elements of the feeder.
+     * @param root           The root element of the document where all the information of the SLD is written.
+     * @param graph          The graph of the voltage level.
+     * @param feederNode     An EquipmentNode object representing the node associated with the feeders.
+     * @param metadata       The metadata of the graph that reflects the svg written for the SLD.
+     * @param labelProvider  Used to retrieve feeder-related information for processing.
+     * @param styleProvider  Used for styling and formatting during the insertion process.
+     */
     protected void insertFeederInfos(String prefixId,
                                       List<Point> points,
                                       Element root,
@@ -842,11 +854,22 @@ public class DefaultSVGWriter implements SVGWriter {
         insertFeederInfosFromFeederList(prefixId, points, root, labelProvider.getFeederInfos(feederNode), feederNode, metadata, styleProvider);
     }
 
+    /**
+     * Inserts feeder information from the given list of feeders into the specified root element.
+     *
+     * @param prefixId       The prefix of the element, to use during the insertion process.
+     * @param points         A list of points representing the positions of the elements of the feeder.
+     * @param root           The root element of the document where all the information of the SLD is written.
+     * @param feederInfos    A list of FeederInfo objects containing the feeder information to be processed.
+     * @param equipmentNode     An EquipmentNode object representing the node associated with the feeders.
+     * @param metadata       The metadata of the graph that reflects the svg written for the SLD.
+     * @param styleProvider  Used for styling and formatting during the insertion process.
+     */
     private void insertFeederInfosFromFeederList(String prefixId, List<Point> points, Element root, List<FeederInfo> feederInfos,
-                                                 EquipmentNode feederNode, GraphMetadata metadata, StyleProvider styleProvider) {
+                                                 EquipmentNode equipmentNode, GraphMetadata metadata, StyleProvider styleProvider) {
         double shiftFeederInfo = 0;
         for (FeederInfo feederInfo : feederInfos) {
-            drawFeederInfo(prefixId, feederNode, points, root, feederInfo, shiftFeederInfo, metadata, styleProvider);
+            drawFeederInfo(prefixId, equipmentNode, points, root, feederInfo, shiftFeederInfo, metadata, styleProvider);
             addInfoComponentMetadata(metadata, feederInfo.getComponentType());
 
             double height = componentLibrary.getSize(feederInfo.getComponentType()).height();
@@ -864,6 +887,19 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
+    /**
+     * Draws information about a feeder node, including its visual representation and associated metadata.
+     * It first chooses a side before calling {@link #drawFeederInfo(String, EquipmentNode, String, List, Element, FeederInfo, double, GraphMetadata, StyleProvider)}
+     *
+     * @param prefixId      A prefix string used to uniquely identify the feeder element.
+     * @param node          The equipment node representing the feeder.
+     * @param points        A list of points that help in determining the position or structure of the drawing.
+     * @param root          The document root element to which the feeder information is appended.
+     * @param feederInfo    Information about the feeder.
+     * @param shift         A numeric value representing any positional adjustment for the drawing.
+     * @param metadata      The metadata of the graph that reflects the svg written for the SLD.
+     * @param styleProvider An object that supplies style information required for rendering the feeder.
+     */
     private void drawFeederInfo(String prefixId, EquipmentNode node, List<Point> points, Element root,
                                 FeederInfo feederInfo, double shift, GraphMetadata metadata,
                                 StyleProvider styleProvider) {
@@ -874,7 +910,21 @@ public class DefaultSVGWriter implements SVGWriter {
         drawFeederInfo(prefixId, node, side, points, root, feederInfo, shift, metadata, styleProvider);
     }
 
-    private void drawFeederInfo(String prefixId, EquipmentNode feederNode, String side, List<Point> points, Element root,
+    /**
+     * Draws information about a feeder node, including its visual representation and associated metadata.
+     * Performs the necessary transformations and writes class information about the feeder.
+     *
+     * @param prefixId      A prefix string used to uniquely identify the feeder element.
+     * @param equipmentNode The equipment node representing the feeder.
+     * @param side          The side of the feeder.
+     * @param points        A list of points that help in determining the position or structure of the drawing.
+     * @param root          The document root element to which the feeder information is appended.
+     * @param feederInfo    Information about the feeder.
+     * @param shift         A numeric value representing any positional adjustment for the drawing.
+     * @param metadata      The metadata of the graph that reflects the svg written for the SLD.
+     * @param styleProvider An object that supplies style information required for rendering the feeder.
+     */
+    private void drawFeederInfo(String prefixId, EquipmentNode equipmentNode, String side, List<Point> points, Element root,
                                 FeederInfo feederInfo, double shift, GraphMetadata metadata,
                                 StyleProvider styleProvider) {
 
@@ -886,11 +936,11 @@ public class DefaultSVGWriter implements SVGWriter {
 
         transformFeederInfo(points, size, shift, g);
 
-        String svgId = escapeId(feederNode.getId() + "_" + feederInfo.getComponentType());
+        String svgId = escapeId(equipmentNode.getId() + "_" + feederInfo.getComponentType());
         g.setAttribute("id", svgId);
         String componentType = feederInfo.getComponentType();
 
-        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNode.getEquipmentId(), side, componentType, feederInfo.getUserDefinedId()));
+        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, equipmentNode.getEquipmentId(), side, componentType, feederInfo.getUserDefinedId()));
 
         // we draw the feeder info
         double rotationAngle = points.get(0).getY() > points.get(1).getY() ? 180 : 0;
@@ -1034,9 +1084,9 @@ public class DefaultSVGWriter implements SVGWriter {
      * @param pol            A list of points representing the positions of the elements of the given edge.
      * @param root           The root element of the document where all the information of the SLD is written.
      * @param edge           The edge of the graph connecting two nodes, used to determine insertion logic.
-     * @param metadata       the metadata of the graph that reflects the svg written for the SLD.
-     * @param initProvider   used to retrieve feeder-related information for processing.
-     * @param styleProvider  used for styling and formatting during the insertion process.
+     * @param metadata       The metadata of the graph that reflects the svg written for the SLD.
+     * @param initProvider   Used to retrieve feeder-related information for processing.
+     * @param styleProvider  Used for styling and formatting during the insertion process.
      */
     private void insert3WtInfos(String prefixId, List<Point> pol, Element root, Edge edge, GraphMetadata metadata, LabelProvider initProvider, StyleProvider styleProvider) {
         Consumer<Middle3WTNode> threeWtInserter = middle3WTNode -> insertFeederInfosFromFeederList(
@@ -1063,11 +1113,25 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
+    /**
+     * Determines whether the given node is not an internal node.
+     *
+     * @param node the node to check
+     * @return true if the node is either not of type INTERNAL or its component type
+     *         is not equal to NODE; false otherwise
+     */
     private static boolean isNotInternalNode(Node node) {
         return node.getType() != NodeType.INTERNAL
             || !NODE.equals(node.getComponentType());
     }
 
+    /**
+     * Retrieves the first adjacent node of the given node that is an instance of Middle3WTNode.
+     *
+     * @param node the node whose adjacent nodes will be checked
+     * @return an {@code Optional} containing the first adjacent node that is an instance of Middle3WTNode,
+     *         or an empty {@code Optional} if no such adjacent node is found
+     */
     private static Optional<Middle3WTNode> getAdjacentMiddle3WTNode(Node node) {
         return node.getAdjacentNodes().stream()
             .filter(Middle3WTNode.class::isInstance)

@@ -55,5 +55,11 @@ public interface LabelProvider {
 
     Map<String, Side> getBusInfoSides(VoltageLevelGraph graph);
 
+    /**
+     * Retrieves a list of feeder information associated with the specified Middle3WTNode.
+     *
+     * @param twtNode the Middle3WTNode for which to retrieve feeder information
+     * @return a list of FeederInfo objects associated with the specified node
+     */
     List<FeederInfo> getFeederInfos(Middle3WTNode twtNode);
 }

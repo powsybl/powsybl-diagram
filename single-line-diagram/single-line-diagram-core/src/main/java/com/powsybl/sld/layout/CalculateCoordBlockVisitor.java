@@ -46,6 +46,11 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
         return new CalculateCoordBlockVisitor(layoutParameters, layoutContext);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Set the coordinates of the nodes in the block based on the block's orientation and layout parameters.
+     */
     @Override
     public void visit(BodyPrimaryBlock block) {
         List<Node> blockNodes = block.getNodes();
@@ -61,6 +66,15 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
         }
     }
 
+    /**
+     * Sets the vertical orientation coordinates for the nodes in the specified block.
+     * The method adjusts the vertical positioning of nodes based on the block's orientation
+     * and layout parameters. It ensures proper spacing and alignment of nodes, factoring
+     * in optional height adjustments for specific block configurations.
+     *
+     * @param block the primary block for which the vertical orientation coordinates are to be set.
+     *              This block contains nodes whose vertical positions need to be calculated and updated.
+     */
     private void setVerticalOrientationCoord(BodyPrimaryBlock block) {
         List<Node> blockNodes = block.getNodes();
         int sign = block.getOrientation() == UP ? 1 : -1;
@@ -77,6 +91,16 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
         }
     }
 
+    /**
+     * Sets the horizontal orientation coordinates for the nodes in the specified primary block.
+     * This method calculates the horizontal positions of the nodes based on the block's dimensions,
+     * orientation, and layout parameters. Adjustments are made for specific block configurations,
+     * such as internal cells or switches with three windings.
+     *
+     * @param block the primary block whose nodes' horizontal orientation coordinates are to be set.
+     *              The block provides the necessary information, such as its coordinates, span, and
+     *              nodes, to determine and update the positions of its nodes.
+     */
     private void setHorizontalOrientationCoord(BodyPrimaryBlock block) {
         List<Node> blockNodes = block.getNodes();
         double x0 = block.getCoord().get(X) - block.getCoord().getSpan(X) / 2;

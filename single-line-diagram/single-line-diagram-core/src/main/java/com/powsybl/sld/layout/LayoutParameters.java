@@ -323,10 +323,26 @@ public class LayoutParameters {
         return this;
     }
 
+    /**
+     * Retrieves the mode that defines how feeders for three winding transformers
+     * should display power and current flow arrows in the layout.
+     *
+     * @return The current {@code ThreeWindingsTransformerFeederInfoMode}, which determines whether
+     *         the arrows are displayed only inside the corresponding voltage level,
+     *         only outside the voltage level, or on all three sides.
+     */
     public ThreeWindingsTransformerFeederInfoMode getThreeWindingsTransformerFeederInfoMode() {
         return threeWindingsTransformerFeederInfoMode;
     }
 
+    /**
+     * Sets the mode for displaying feeder information related to three-winding transformers in the layout.
+     *
+     * @param threeWindingsTransformerFeederInfoMode the {@code ThreeWindingsTransformerFeederInfoMode} that specifies
+     *                                               where the feeder information (e.g., power and current flow arrows)
+     *                                               should be displayed for three-winding transformers.
+     * @return the current {@code LayoutParameters} instance for method chaining.
+     */
     public LayoutParameters setThreeWindingsTransformerFeederInfoMode(ThreeWindingsTransformerFeederInfoMode threeWindingsTransformerFeederInfoMode) {
         this.threeWindingsTransformerFeederInfoMode = Objects.requireNonNull(threeWindingsTransformerFeederInfoMode);
         return this;
@@ -336,12 +352,37 @@ public class LayoutParameters {
         FIRST, LAST, MIDDLE, NONE
     }
 
+    /**
+     * Defines the feeder on which to display arrows for power / current flow on three winding transformers.
+     */
     public enum ThreeWindingsTransformerFeederInfoMode {
+        /**
+         * Represents a mode where power and current flow arrows for three winding transformers
+         * are displayed only within the associated voltage level, that is only the internal feeder of the 3WT
+         */
         ONLY_INSIDE_VOLTAGE_LEVEL,
+        /**
+         * Represents a mode in which power and current flow arrows for three winding transformers
+         * are displayed only on the outside feeders of the 3WT.
+         */
         ONLY_OUTSIDE_VOLTAGE_LEVEL,
+        /**
+         * Represents a mode where power and current flow arrows for three winding transformers
+         * are displayed on both the internal and external feeders of the 3WT. This corresponds to
+         * both {@link #ONLY_INSIDE_VOLTAGE_LEVEL} and {@link #ONLY_OUTSIDE_VOLTAGE_LEVEL} at the same time.
+         */
         FULL_3WT
     }
 
+    /**
+     * Determines whether the primary block height should be increased for a three-winding transformer layout.
+     * This is based on the presence of nodes of type {@code Middle3WTNode} in the provided stream,
+     * and the value of the {@code ThreeWindingsTransformerFeederInfoMode}.
+     *
+     * @param nodes A stream of {@code Node} objects representing the elements of the transformer layout.
+     * @return {@code true} if the primary block height should be increased,
+     *         {@code false} otherwise.
+     */
     public boolean isThreeWindingsIncreasePrimaryBlockHeight(Stream<Node> nodes) {
         return nodes.anyMatch(Middle3WTNode.class::isInstance)
             && getThreeWindingsTransformerFeederInfoMode() != ThreeWindingsTransformerFeederInfoMode.ONLY_OUTSIDE_VOLTAGE_LEVEL;

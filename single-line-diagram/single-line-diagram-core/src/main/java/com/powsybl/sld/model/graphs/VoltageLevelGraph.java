@@ -376,8 +376,11 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     /**
-     * Insert fictitious node(s) before feeders in order for the feeder to be properly displayed:
+     * Insert fictitious node(s) before feeders and 3WT in order for them to be properly displayed:
      * feeders need at least one inserted fictitious node to have enough space to display the feeder arrows.
+     * 3WT need one inserted fictitious node for the internal feeder to properly display the feeder arrows.
+     *
+     * @param layoutParameters the layout parameters, used to determine if nodes should be inserted for three windings transformers
      */
     public void insertHookNodesAtFeeders(LayoutParameters layoutParameters) {
         // Each feeder node needs a fictitious node to have enough place for the feeder infos (arrows)
@@ -431,6 +434,14 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         }
     }
 
+    /**
+     * Inserts an internal node into the graph in the context of
+     * handling three-windings transformer (3WT) internal feeder arrows.
+     *
+     * @param feederNode the feeder node associated with the 3WT transformer.
+     *                   This is the node where the new hook node and, if necessary,
+     *                   a fork node will be inserted to facilitate proper connectivity.
+     */
     private void insert3WtInternalNode(Node feederNode) {
         // Create a new hook node to insert before feeder node
         Node hookNode = NodeFactory.createConnectivityNode(this, feederNode.getId());

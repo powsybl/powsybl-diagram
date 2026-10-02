@@ -69,6 +69,14 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         return feederInfos;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Retrieves info on the {@link Middle3WTNode} depending on the display of the arrows (see {@link LayoutParameters.ThreeWindingsTransformerFeederInfoMode}).
+     *
+     * @param twtNode the Middle3WTNode for which to retrieve feeder information
+     * @return a list of FeederInfo objects associated with the specified node
+     */
     public List<FeederInfo> getFeederInfos(Middle3WTNode twtNode) {
         List<FeederInfo> infos = new ArrayList<>();
         ThreeWindingsTransformer twt = network.getThreeWindingsTransformer(twtNode.getEquipmentId());
@@ -99,6 +107,13 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         return measures;
     }
 
+    /**
+     * Retrieves a list of feeder information objects for a three-windings transformer from the given node and feeder.
+     *
+     * @param node the FeederNode containing the equipment ID of the transformer.
+     * @param feeder the FeederTwLeg specifying the side and voltage level details for retrieving feeder information.
+     * @return a list of FeederInfo objects representing the information of the associated feeders for the three-windings transformer.
+     */
     private List<FeederInfo> get3WTFeederInfos(FeederNode node, FeederTwLeg feeder) {
         List<FeederInfo> feederInfos = new ArrayList<>();
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());

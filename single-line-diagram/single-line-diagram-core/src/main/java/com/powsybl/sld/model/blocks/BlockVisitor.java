@@ -12,6 +12,12 @@ package com.powsybl.sld.model.blocks;
 
 public interface BlockVisitor {
 
+    /**
+     * Visits a given BodyPrimaryBlock instance to perform specific operations or processing.
+     *
+     * @param block the BodyPrimaryBlock instance to be visited. This block contains layout
+     *              and structural information related to the {@link com.powsybl.sld.model.blocks.Block.Type#BODYPRIMARY} type.
+     */
     void visit(BodyPrimaryBlock block);
 
     void visit(LegPrimaryBlock block);
