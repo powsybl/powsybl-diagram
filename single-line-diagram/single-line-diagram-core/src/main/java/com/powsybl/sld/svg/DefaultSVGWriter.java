@@ -1022,28 +1022,44 @@ public class DefaultSVGWriter implements SVGWriter {
             Collections.reverse(pol);
             insertFeederInfos(prefixId, pol, root, graph, node2, metadata, initProvider, styleProvider);
         } else {
-            Consumer<Middle3WTNode> threeWtInserter = middle3WTNode -> insertFeederInfosFromFeederList(
-                prefixId, pol, root, initProvider.getFeederInfos(middle3WTNode),
-                middle3WTNode, metadata, styleProvider
-            );
-            if (edge.getNode1() instanceof Middle3WTNode middle3wtNode) {
-                if (!(edge.getNode2() instanceof FeederNode) && isNotInternalNode(edge.getNode2())) {
-                    threeWtInserter.accept(middle3wtNode);
-                }
-            } else if (edge.getNode2() instanceof Middle3WTNode middle3wtNode) {
-                if (isNotInternalNode(edge.getNode1())) {
-                    Collections.reverse(pol);
-                    threeWtInserter.accept(middle3wtNode);
-                }
-            } else {
-                getAdjacentMiddle3WTNode(edge.getNode1()).ifPresentOrElse(
-                    threeWtInserter,
-                    () -> getAdjacentMiddle3WTNode(edge.getNode2()).ifPresent(middle3WTNode -> {
-                        Collections.reverse(pol);
-                        threeWtInserter.accept(middle3WTNode);
-                    })
-                );
+            insert3WtInfos(prefixId, pol, root, edge, metadata, initProvider, styleProvider);
+        }
+    }
+
+    /**
+     * Inserts 3-winding transformer (3WT) information into the graph structure based on the given edge and node connections.
+     * This method determines the appropriate 3WT-related insertion based on edge connections and node types.
+     *
+     * @param prefixId       The prefix of the element, to use during the insertion process.
+     * @param pol            A list of points representing the positions of the elements of the given edge.
+     * @param root           The root element of the document where all the information of the SLD is written.
+     * @param edge           The edge of the graph connecting two nodes, used to determine insertion logic.
+     * @param metadata       the metadata of the graph that reflects the svg written for the SLD.
+     * @param initProvider   used to retrieve feeder-related information for processing.
+     * @param styleProvider  used for styling and formatting during the insertion process.
+     */
+    private void insert3WtInfos(String prefixId, List<Point> pol, Element root, Edge edge, GraphMetadata metadata, LabelProvider initProvider, StyleProvider styleProvider) {
+        Consumer<Middle3WTNode> threeWtInserter = middle3WTNode -> insertFeederInfosFromFeederList(
+            prefixId, pol, root, initProvider.getFeederInfos(middle3WTNode),
+            middle3WTNode, metadata, styleProvider
+        );
+        if (edge.getNode1() instanceof Middle3WTNode middle3wtNode) {
+            if (!(edge.getNode2() instanceof FeederNode) && isNotInternalNode(edge.getNode2())) {
+                threeWtInserter.accept(middle3wtNode);
             }
+        } else if (edge.getNode2() instanceof Middle3WTNode middle3wtNode) {
+            if (isNotInternalNode(edge.getNode1())) {
+                Collections.reverse(pol);
+                threeWtInserter.accept(middle3wtNode);
+            }
+        } else {
+            getAdjacentMiddle3WTNode(edge.getNode1()).ifPresentOrElse(
+                threeWtInserter,
+                () -> getAdjacentMiddle3WTNode(edge.getNode2()).ifPresent(middle3WTNode -> {
+                    Collections.reverse(pol);
+                    threeWtInserter.accept(middle3WTNode);
+                })
+            );
         }
     }
 
