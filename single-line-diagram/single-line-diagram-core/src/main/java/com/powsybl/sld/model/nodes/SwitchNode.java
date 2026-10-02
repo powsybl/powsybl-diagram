@@ -34,6 +34,10 @@ public class SwitchNode extends EquipmentNode {
 
     private final SwitchKind kind;
 
+    private Integer iidmNode1;
+
+    private Integer iidmNode2;
+
     public SwitchNode(String id, String name, String componentType, boolean fictitious, SwitchKind kind, boolean open) {
         super(NodeType.SWITCH, id, name, id, componentType, fictitious);
         this.kind = Objects.requireNonNull(kind);
@@ -58,6 +62,28 @@ public class SwitchNode extends EquipmentNode {
 
     public void setOpen(boolean open) {
         this.open = open;
+    }
+
+    /**
+     * The first of the two nodes of the node/breaker view this switch connects.
+     */
+    public Optional<Integer> getIidmNode1() {
+        return Optional.ofNullable(iidmNode1);
+    }
+
+    public void setIidmNode1(int iidmNode1) {
+        this.iidmNode1 = iidmNode1;
+    }
+
+    /**
+     * The second of the two nodes of the node/breaker view this switch connects.
+     */
+    public Optional<Integer> getIidmNode2() {
+        return Optional.ofNullable(iidmNode2);
+    }
+
+    public void setIidmNode2(int iidmNode2) {
+        this.iidmNode2 = iidmNode2;
     }
 
     @Override

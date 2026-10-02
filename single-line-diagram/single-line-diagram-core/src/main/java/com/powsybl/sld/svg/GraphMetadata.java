@@ -38,14 +38,20 @@ import java.util.*;
 public class GraphMetadata extends AbstractMetadata<GraphMetadata> {
 
     //v 1.0 adds metadata versionning, please note further changes as a comment when version is bumped
-    private static final String METADATA_VERSION = "1.0";
+    //v 1.1 adds optional node metadata describing the network topology behind a node:
+    //      "iidmNode", the node of the node/breaker view a node stands on,
+    //      "iidmNode1"/"iidmNode2", the two nodes a switch connects,
+    //      "order", the connectable position order of a feeder,
+    //      "busbarIndex"/"sectionIndex", the position of a busbar section
+    private static final String METADATA_VERSION = "1.1";
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     // On some systems, the export order is determined by the order of the 1st encountered JsonCreator's attributes
     // and "unescapedId" is put in last place. But on other systems, the export order is determined by the getters' order
     // and "unescapedId" is put in 1st place, which leads to comparison errors in the unit tests.
     // To prevent this discrepancy, the order is manually fixed.
-    @JsonPropertyOrder(value = {"unescapedId", "id", "vid", "nextVId", "componentType", "open", "direction", "vlabel", "equipmentId", "labels"})
+    @JsonPropertyOrder(value = {"unescapedId", "id", "vid", "nextVId", "componentType", "open", "direction", "vlabel", "equipmentId",
+        "iidmNode", "iidmNode1", "iidmNode2", "order", "busbarIndex", "sectionIndex", "labels"})
     public static class NodeMetadata {
 
         private final String unescapedId;
@@ -66,6 +72,18 @@ public class GraphMetadata extends AbstractMetadata<GraphMetadata> {
 
         private final String equipmentId;
 
+        private final Integer iidmNode;
+
+        private final Integer iidmNode1;
+
+        private final Integer iidmNode2;
+
+        private final Integer order;
+
+        private final Integer busbarIndex;
+
+        private final Integer sectionIndex;
+
         private final List<NodeLabelMetadata> labels;
 
         /**
@@ -84,7 +102,12 @@ public class GraphMetadata extends AbstractMetadata<GraphMetadata> {
             this(null, escapedId, vId, nextVId, componentType, open, direction, vLabel, equipmentId, labels);
         }
 
-        @JsonCreator
+        /**
+         * @deprecated use the constructor taking the node's network topology
+         *             ({@code iidmNode}, {@code iidmNode1}, {@code iidmNode2},
+         *             {@code order}, {@code busbarIndex}, {@code sectionIndex}) instead.
+         */
+        @Deprecated(since = "5.6.0", forRemoval = true)
         public NodeMetadata(@JsonProperty("unescapedId") String unescapedId,
                             @JsonProperty("id") String escapedId,
                             @JsonProperty("vid") String vId,
@@ -95,6 +118,50 @@ public class GraphMetadata extends AbstractMetadata<GraphMetadata> {
                             @JsonProperty("vlabel") boolean vLabel,
                             @JsonProperty("equipmentId") String equipmentId,
                             @JsonProperty("labels") List<NodeLabelMetadata> labels) {
+            this(unescapedId, escapedId, vId, nextVId, componentType, open, direction, vLabel, equipmentId, null, labels);
+        }
+
+        /**
+         * For the nodes carrying no network topology beyond the node they stand on.
+         */
+        public NodeMetadata(String unescapedId,
+                            String escapedId,
+                            String vId,
+                            String nextVId,
+                            String componentType,
+                            boolean open,
+                            Direction direction,
+                            boolean vLabel,
+                            String equipmentId,
+                            Integer iidmNode,
+                            List<NodeLabelMetadata> labels) {
+            this(unescapedId, escapedId, vId, nextVId, componentType, open, direction, vLabel, equipmentId, iidmNode,
+                    null, null, null, null, null, labels);
+        }
+
+        @JsonCreator
+        public NodeMetadata(@JsonProperty("unescapedId") String unescapedId,
+                            @JsonProperty("id") String escapedId,
+                            @JsonProperty("vid") String vId,
+                            @JsonProperty("nextVId") String nextVId,
+                            @JsonProperty("componentType") String componentType,
+                            @JsonProperty("open") boolean open,
+                            @JsonProperty("direction") Direction direction,
+                            @JsonProperty("vlabel") boolean vLabel,
+                            @JsonProperty("equipmentId") String equipmentId,
+                            @JsonProperty("iidmNode") Integer iidmNode,
+                            @JsonProperty("iidmNode1") Integer iidmNode1,
+                            @JsonProperty("iidmNode2") Integer iidmNode2,
+                            @JsonProperty("order") Integer order,
+                            @JsonProperty("busbarIndex") Integer busbarIndex,
+                            @JsonProperty("sectionIndex") Integer sectionIndex,
+                            @JsonProperty("labels") List<NodeLabelMetadata> labels) {
+            this.iidmNode = iidmNode;
+            this.iidmNode1 = iidmNode1;
+            this.iidmNode2 = iidmNode2;
+            this.order = order;
+            this.busbarIndex = busbarIndex;
+            this.sectionIndex = sectionIndex;
             this.unescapedId = unescapedId;
             this.id = Objects.requireNonNull(escapedId);
             this.vId = Objects.requireNonNull(vId);
@@ -146,6 +213,30 @@ public class GraphMetadata extends AbstractMetadata<GraphMetadata> {
 
         public String getEquipmentId() {
             return equipmentId;
+        }
+
+        public Integer getIidmNode() {
+            return iidmNode;
+        }
+
+        public Integer getIidmNode1() {
+            return iidmNode1;
+        }
+
+        public Integer getIidmNode2() {
+            return iidmNode2;
+        }
+
+        public Integer getOrder() {
+            return order;
+        }
+
+        public Integer getBusbarIndex() {
+            return busbarIndex;
+        }
+
+        public Integer getSectionIndex() {
+            return sectionIndex;
         }
 
         public List<NodeLabelMetadata> getLabels() {

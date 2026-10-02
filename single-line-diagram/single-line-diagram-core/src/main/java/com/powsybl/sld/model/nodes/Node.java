@@ -74,6 +74,10 @@ public interface Node {
 
     void removeOrder();
 
+    Optional<Integer> getIidmNode();
+
+    void setIidmNode(int iidmNode);
+
     Direction getDirection();
 
     void setDirection(Direction direction);
