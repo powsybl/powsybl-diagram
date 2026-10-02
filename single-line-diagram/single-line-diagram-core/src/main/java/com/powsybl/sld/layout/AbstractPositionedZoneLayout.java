@@ -119,13 +119,15 @@ public abstract class AbstractPositionedZoneLayout extends AbstractZoneLayout {
     private void computePathFindingGrid(LayoutParameters layoutParameters) {
         int width = (int) getGraph().getWidth();
         int height = (int) getGraph().getHeight();
-        pathFinderGrid = new Grid(width, height);
+        // The hallways run one snakeLinePadding past the substations, so the grid needs to be slightly larger to hold them.
+        int snakeLinePadding = layoutParameters.getZoneLayoutSnakeLinePadding();
+        pathFinderGrid = new Grid(width + snakeLinePadding, height + snakeLinePadding);
 
         // Horizontal hallways lines
-        computeHorizontalHallwaysAvailability(width, layoutParameters);
+        computeHorizontalHallwaysAvailability(width + snakeLinePadding, layoutParameters);
 
         // Vertical hallways lines
-        computeVerticalHallwaysAvailability(height, layoutParameters);
+        computeVerticalHallwaysAvailability(height + snakeLinePadding, layoutParameters);
 
         // Make unavailable all voltagelevels
         computeSubstationsAvailability(layoutParameters);

@@ -7,9 +7,9 @@
  */
 package com.powsybl.sld.layout.pathfinding;
 
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.coordinate.*;
 
-import java.io.*;
 import java.util.*;
 
 /**
@@ -19,14 +19,12 @@ public class Grid {
 
     public static class Node {
         private final Point point;
-        private boolean available;
         private int cost;
         private double distance;
         private Node parent;
 
-        public Node(Point p, boolean available, double distance) {
+        public Node(Point p, double distance) {
             this.point = p;
-            this.available = available;
             this.distance = distance;
             this.parent = null;
         }
@@ -48,19 +46,28 @@ public class Grid {
         }
     }
 
-    private final Node[][] nodes;
+    /**
+     * Availability of every cell, one bit each (too expensive to store width*height full objects).
+     */
+    private final BitSet nodeAvailability;
+
+    /** Cells the path-finding walked through, created on demand to carry their search state. */
+    private final Map<Integer, Node> processedNodes = new HashMap<>();
+
     private final int width;
     private final int height;
 
     public Grid(int width, int height) {
+        if (width <= 0 || height <= 0) {
+            throw new PowsyblException("Grid dimensions must be positive: " + width + "x" + height);
+        }
+        long cellCount = (long) width * height;
+        if (cellCount > Integer.MAX_VALUE) {
+            throw new PowsyblException("Diagram is too large to be laid out: " + width + "x" + height);
+        }
         this.width = width;
         this.height = height;
-        this.nodes = new Node[width][height];
-        for (int x = 0; x < nodes.length; ++x) {
-            for (int y = 0; y < nodes[0].length; ++y) {
-                nodes[x][y] = new Node(new Point(x, y), false, 0);
-            }
-        }
+        this.nodeAvailability = new BitSet((int) cellCount);
     }
 
     public void updateNode(Point point, int cost, double distance, Node parent) {
@@ -75,14 +82,27 @@ public class Grid {
     }
 
     private Node getNode(double x, double y) {
-        // Make sure we are not out of bounds
-        double nodeX = Math.max(0, Math.min(x, width - 1.0));
-        double nodeY = Math.max(0, Math.min(y, height - 1.0));
-        return nodes[(int) nodeX][(int) nodeY];
+        checkInBounds(x, y);
+        return getNodeAt((int) x, (int) y);
+    }
+
+    private Node getNodeAt(int x, int y) {
+        return processedNodes.computeIfAbsent(getNodeIndex(x, y), i -> new Node(new Point(x, y), 0));
+    }
+
+    private int getNodeIndex(int x, int y) {
+        return y * width + x;
     }
 
     public void setAvailability(double x, double y, boolean available) {
-        getNode(x, y).available = available;
+        checkInBounds(x, y);
+        nodeAvailability.set(getNodeIndex((int) x, (int) y), available);
+    }
+
+    private void checkInBounds(double x, double y) {
+        if (!isInBounds(x, y)) {
+            throw new PowsyblException("Point (" + x + ", " + y + ") is outside the " + width + "x" + height + " grid");
+        }
     }
 
     public void setAvailability(Point point, boolean available) {
@@ -98,29 +118,32 @@ public class Grid {
     }
 
     public boolean isAvailable(Point point) {
-        return point.getX() >= 0 && point.getX() < width && point.getY() >= 0 && point.getY() < height && nodes[(int) point.getX()][(int) point.getY()].available;
+        return isInBounds(point.getX(), point.getY())
+                && nodeAvailability.get(getNodeIndex((int) point.getX(), (int) point.getY()));
+    }
+
+    private boolean isInBounds(double x, double y) {
+        return x >= 0 && x < width && y >= 0 && y < height;
     }
 
     protected List<Node> getNeighbors(Point point) {
         // Considering only adjacent points
         List<Node> neighbors = new ArrayList<>();
-        Node right = getNode(point.getX() + 1.0, point.getY());
-        Node left = getNode(point.getX() - 1.0, point.getY());
-        Node up = getNode(point.getX(), point.getY() + 1.0);
-        Node down = getNode(point.getX(), point.getY() - 1.0);
-        if (isAvailable(right)) {
-            neighbors.add(right);
-        }
-        if (isAvailable(left)) {
-            neighbors.add(left);
-        }
-        if (isAvailable(up)) {
-            neighbors.add(up);
-        }
-        if (isAvailable(down)) {
-            neighbors.add(down);
-        }
+        addIfAvailable(neighbors, point.getX() + 1.0, point.getY());
+        addIfAvailable(neighbors, point.getX() - 1.0, point.getY());
+        addIfAvailable(neighbors, point.getX(), point.getY() + 1.0);
+        addIfAvailable(neighbors, point.getX(), point.getY() - 1.0);
         return neighbors;
+    }
+
+    private void addIfAvailable(List<Node> neighbors, double x, double y) {
+        if (isInBounds(x, y)) {
+            int nodeX = (int) x;
+            int nodeY = (int) y;
+            if (nodeAvailability.get(getNodeIndex(nodeX, nodeY))) {
+                neighbors.add(getNodeAt(nodeX, nodeY));
+            }
+        }
     }
 
     public static boolean isRightAngle(Point previous, Point current, Point next) {
