@@ -12,11 +12,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.powsybl.diagram.components.ComponentSize;
 import com.powsybl.sld.library.SldComponentTypeName;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -47,6 +50,7 @@ public class LayoutParameters {
     private boolean removeFictitiousSwitchNodes = false;
     private int zoneLayoutSnakeLinePadding = 90;
     private boolean displayTeePointsInVoltageLevels = false;
+    private ThreeWindingsTransformerFeederInfoMode threeWindingsTransformerFeederInfoMode = ThreeWindingsTransformerFeederInfoMode.ONLY_OUTSIDE_VOLTAGE_LEVEL;
 
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
@@ -74,7 +78,8 @@ public class LayoutParameters {
                             @JsonProperty("componentsOnBusbars") List<String> componentsOnBusbars,
                             @JsonProperty("removeFictitiousSwitchNodes") boolean removeFictitiousSwitchNodes,
                             @JsonProperty("zoneLayoutSnakeLinePadding") int zoneLayoutSnakeLinePadding,
-                            @JsonProperty("displayTeePointsInVoltageLevels") boolean displayTeePointsInVoltageLevels) {
+                            @JsonProperty("displayTeePointsInVoltageLevels") boolean displayTeePointsInVoltageLevels,
+                            @JsonProperty("threeWindingsTransformerFeederInfoMode") ThreeWindingsTransformerFeederInfoMode threeWindingsTransformerFeederInfoMode) {
 
         this.verticalSpaceBus = verticalSpaceBus;
         this.horizontalBusPadding = horizontalBusPadding;
@@ -96,6 +101,7 @@ public class LayoutParameters {
         this.removeFictitiousSwitchNodes = removeFictitiousSwitchNodes;
         this.zoneLayoutSnakeLinePadding = zoneLayoutSnakeLinePadding;
         this.displayTeePointsInVoltageLevels = displayTeePointsInVoltageLevels;
+        this.threeWindingsTransformerFeederInfoMode = threeWindingsTransformerFeederInfoMode;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -121,6 +127,7 @@ public class LayoutParameters {
         componentsSize = other.componentsSize;
         zoneLayoutSnakeLinePadding = other.zoneLayoutSnakeLinePadding;
         displayTeePointsInVoltageLevels = other.displayTeePointsInVoltageLevels;
+        threeWindingsTransformerFeederInfoMode = other.threeWindingsTransformerFeederInfoMode;
     }
 
     public double getVerticalSpaceBus() {
@@ -316,8 +323,69 @@ public class LayoutParameters {
         return this;
     }
 
+    /**
+     * Retrieves the mode that defines how feeders for three winding transformers
+     * should display power and current flow arrows in the layout.
+     *
+     * @return The current {@code ThreeWindingsTransformerFeederInfoMode}, which determines whether
+     *         the arrows are displayed only inside the corresponding voltage level,
+     *         only outside the voltage level, or on all three sides.
+     */
+    public ThreeWindingsTransformerFeederInfoMode getThreeWindingsTransformerFeederInfoMode() {
+        return threeWindingsTransformerFeederInfoMode;
+    }
+
+    /**
+     * Sets the mode for displaying feeder information related to three-winding transformers in the layout.
+     *
+     * @param threeWindingsTransformerFeederInfoMode the {@code ThreeWindingsTransformerFeederInfoMode} that specifies
+     *                                               where the feeder information (e.g., power and current flow arrows)
+     *                                               should be displayed for three-winding transformers.
+     * @return the current {@code LayoutParameters} instance for method chaining.
+     */
+    public LayoutParameters setThreeWindingsTransformerFeederInfoMode(ThreeWindingsTransformerFeederInfoMode threeWindingsTransformerFeederInfoMode) {
+        this.threeWindingsTransformerFeederInfoMode = Objects.requireNonNull(threeWindingsTransformerFeederInfoMode);
+        return this;
+    }
+
     public enum Alignment {
         FIRST, LAST, MIDDLE, NONE
+    }
+
+    /**
+     * Defines the feeder on which to display arrows for power / current flow on three winding transformers.
+     */
+    public enum ThreeWindingsTransformerFeederInfoMode {
+        /**
+         * Represents a mode where power and current flow arrows for three winding transformers
+         * are displayed only within the associated voltage level, that is only the internal feeder of the 3WT
+         */
+        ONLY_INSIDE_VOLTAGE_LEVEL,
+        /**
+         * Represents a mode in which power and current flow arrows for three winding transformers
+         * are displayed only on the outside feeders of the 3WT.
+         */
+        ONLY_OUTSIDE_VOLTAGE_LEVEL,
+        /**
+         * Represents a mode where power and current flow arrows for three winding transformers
+         * are displayed on both the internal and external feeders of the 3WT. This corresponds to
+         * both {@link #ONLY_INSIDE_VOLTAGE_LEVEL} and {@link #ONLY_OUTSIDE_VOLTAGE_LEVEL} at the same time.
+         */
+        FULL_3WT
+    }
+
+    /**
+     * Determines whether the primary block height should be increased for a three-winding transformer layout.
+     * This is based on the presence of nodes of type {@code Middle3WTNode} in the provided stream,
+     * and the value of the {@code ThreeWindingsTransformerFeederInfoMode}.
+     *
+     * @param nodes A stream of {@code Node} objects representing the elements of the transformer layout.
+     * @return {@code true} if the primary block height should be increased,
+     *         {@code false} otherwise.
+     */
+    public boolean isThreeWindingsIncreasePrimaryBlockHeight(Stream<Node> nodes) {
+        return nodes.anyMatch(Middle3WTNode.class::isInstance)
+            && getThreeWindingsTransformerFeederInfoMode() != ThreeWindingsTransformerFeederInfoMode.ONLY_OUTSIDE_VOLTAGE_LEVEL;
     }
 
     public record Padding(double left, double top, double right, double bottom) {

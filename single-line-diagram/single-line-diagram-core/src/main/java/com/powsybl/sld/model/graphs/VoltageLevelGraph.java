@@ -376,16 +376,27 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     /**
-     * Insert fictitious node(s) before feeders in order for the feeder to be properly displayed:
+     * Insert fictitious node(s) before feeders and 3WT in order for them to be properly displayed:
      * feeders need at least one inserted fictitious node to have enough space to display the feeder arrows.
+     * 3WT need one inserted fictitious node for the internal feeder to properly display the feeder arrows.
+     *
+     * @param layoutParameters the layout parameters, used to determine if nodes should be inserted for three windings transformers
      */
-    public void insertHookNodesAtFeeders() {
+    public void insertHookNodesAtFeeders(LayoutParameters layoutParameters) {
         // Each feeder node needs a fictitious node to have enough place for the feeder infos (arrows)
         // FeederNode linked to Middle3WTNode do not need any fictitious node inserted, because of the fictitious Middle3WTNode
         List<Node> feederNodes = nodesByType.computeIfAbsent(Node.NodeType.FEEDER, nodeType -> new ArrayList<>());
         feederNodes.stream()
                 .filter(feederNode -> !isHookReplacement((FeederNode) feederNode))
                 .forEach(this::insertFeederHookNode);
+        if (layoutParameters.isThreeWindingsIncreasePrimaryBlockHeight(nodes.stream())) {
+            List<Node> internalNodes = nodesByType.computeIfAbsent(Node.NodeType.INTERNAL, nodeType -> new ArrayList<>());
+            internalNodes
+                .stream()
+                .filter(node -> node.getComponentType().equals(SldComponentTypeName.THREE_WINDINGS_TRANSFORMER))
+                .toList()
+                .forEach(this::insert3WtInternalNode);
+        }
     }
 
     private boolean isHookReplacement(FeederNode feederNode) {
@@ -417,6 +428,35 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
             // Transfer the neighbours of the feeder node to that new forkNode
             transferEdges(feederNode, forkNode);
+
+            addEdge(forkNode, hookNode);
+            addEdge(hookNode, feederNode);
+        }
+    }
+
+    /**
+     * Inserts an internal node into the graph in the context of
+     * handling three-windings transformer (3WT) internal feeder arrows.
+     *
+     * @param feederNode the feeder node associated with the 3WT transformer.
+     *                   This is the node where the new hook node and, if necessary,
+     *                   a fork node will be inserted to facilitate proper connectivity.
+     */
+    private void insert3WtInternalNode(Node feederNode) {
+        // Create a new hook node to insert before feeder node
+        Node hookNode = NodeFactory.createConnectivityNode(this, feederNode.getId());
+
+        List<Node> adjacentNodes = feederNode.getAdjacentNodes().stream().filter(
+            //remove the two other 3WT external legs
+            node -> !node.getComponentType().equals(SldComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG)
+        ).toList();
+        if (adjacentNodes.size() == 1) {
+            // Update edges: create the 2 new ones and remove the old one
+            Node singleNeighbor = adjacentNodes.getFirst();
+            insertNode(singleNeighbor, hookNode, feederNode);
+        } else {
+            // Create an extra fork node, otherwise the hook-node is a node with several neighbors (fork node)
+            Node forkNode = NodeFactory.createConnectivityNode(this, feederNode.getId() + "_fork");
 
             addEdge(forkNode, hookNode);
             addEdge(hookNode, feederNode);

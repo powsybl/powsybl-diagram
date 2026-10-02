@@ -18,7 +18,9 @@ import com.powsybl.sld.model.blocks.SerialBlock;
 import com.powsybl.sld.model.blocks.UndefinedBlock;
 import com.powsybl.sld.model.coordinate.Coord;
 import com.powsybl.sld.model.coordinate.Position;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.Node.NodeType;
 
 import java.util.List;
 
@@ -44,6 +46,11 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
         return new CalculateCoordBlockVisitor(layoutParameters, layoutContext);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Set the coordinates of the nodes in the block based on the block's orientation and layout parameters.
+     */
     @Override
     public void visit(BodyPrimaryBlock block) {
         List<Node> blockNodes = block.getNodes();
@@ -53,21 +60,60 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
         }
 
         if (block.getPosition().getOrientation().isVertical()) {
-            int sign = block.getOrientation() == UP ? 1 : -1;
-            double y0 = block.getCoord().get(Y) + sign * block.getCoord().getSpan(Y) / 2;
-            double yPxStep = sign * block.getCoord().getSpan(Y) / (blockNodes.size() - 1);
-            for (int i = 0; i < blockNodes.size(); i++) {
-                blockNodes.get(i).setCoordinates(block.getCoord().get(X), y0 - yPxStep * i);
-            }
+            setVerticalOrientationCoord(block);
         } else {
-            double x0 = block.getCoord().get(X) - block.getCoord().getSpan(X) / 2;
-            if (layoutContext.isInternCell() && !layoutContext.isFlat()) {
-                x0 += layoutParameters.getCellWidth() / 2;
-            }
-            double xPxStep = block.getCoord().getSpan(X) / (blockNodes.size() - 1);
-            for (int i = 0; i < blockNodes.size(); i++) {
-                blockNodes.get(i).setCoordinates(x0 + xPxStep * i, block.getCoord().get(Y));
-            }
+            setHorizontalOrientationCoord(block);
+        }
+    }
+
+    /**
+     * Sets the vertical orientation coordinates for the nodes in the specified block.
+     * The method adjusts the vertical positioning of nodes based on the block's orientation
+     * and layout parameters. It ensures proper spacing and alignment of nodes, factoring
+     * in optional height adjustments for specific block configurations.
+     *
+     * @param block the primary block for which the vertical orientation coordinates are to be set.
+     *              This block contains nodes whose vertical positions need to be calculated and updated.
+     */
+    private void setVerticalOrientationCoord(BodyPrimaryBlock block) {
+        List<Node> blockNodes = block.getNodes();
+        int sign = block.getOrientation() == UP ? 1 : -1;
+        double y0 = block.getCoord().get(Y) + sign * block.getCoord().getSpan(Y) / 2;
+        boolean increasePrimaryBlockHeight = layoutParameters.isThreeWindingsIncreasePrimaryBlockHeight(blockNodes.stream());
+        int numberOfElements = blockNodes.size() - 1 + (increasePrimaryBlockHeight ? 1 : 0);
+        double yPxStep = sign * block.getCoord().getSpan(Y) / numberOfElements;
+        double addedArrowSpacing = 0;
+
+        for (int i = 0; i < blockNodes.size(); i++) {
+            Node n = blockNodes.get(i);
+            addedArrowSpacing += (increasePrimaryBlockHeight && n.getType() == NodeType.INTERNAL && i < blockNodes.size() - 1 && blockNodes.get(i + 1) instanceof Middle3WTNode) ? yPxStep : 0;
+            n.setCoordinates(block.getCoord().get(X), y0 - yPxStep * i - addedArrowSpacing);
+        }
+    }
+
+    /**
+     * Sets the horizontal orientation coordinates for the nodes in the specified primary block.
+     * This method calculates the horizontal positions of the nodes based on the block's dimensions,
+     * orientation, and layout parameters. Adjustments are made for specific block configurations,
+     * such as internal cells or switches with three windings.
+     *
+     * @param block the primary block whose nodes' horizontal orientation coordinates are to be set.
+     *              The block provides the necessary information, such as its coordinates, span, and
+     *              nodes, to determine and update the positions of its nodes.
+     */
+    private void setHorizontalOrientationCoord(BodyPrimaryBlock block) {
+        List<Node> blockNodes = block.getNodes();
+        double x0 = block.getCoord().get(X) - block.getCoord().getSpan(X) / 2;
+        if (layoutContext.isInternCell() && !layoutContext.isFlat()) {
+            x0 += layoutParameters.getCellWidth() / 2;
+        }
+        double xPxStep = block.getCoord().getSpan(X) / (blockNodes.size() - 1);
+        double swStep = block.getCoord().getSpan(X) / (blockNodes.size());
+        for (int i = 0; i < blockNodes.size(); i++) {
+            Node n = blockNodes.get(i);
+            double currentSwStep = layoutParameters.isThreeWindingsIncreasePrimaryBlockHeight(n.getAdjacentNodes().stream())
+                && n.getType() == NodeType.SWITCH ? swStep : 0;
+            n.setCoordinates(x0 + currentSwStep + xPxStep * i, block.getCoord().get(Y));
         }
     }
 
