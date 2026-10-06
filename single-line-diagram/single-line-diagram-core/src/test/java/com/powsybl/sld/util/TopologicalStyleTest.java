@@ -30,6 +30,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -91,7 +92,7 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
     }
 
     @Test
-    void test() throws IOException {
+    void test() {
         // building graphs
         VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId());
         VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId());
@@ -189,6 +190,17 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
                 new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters),
                 new TopologicalStyleProvider(network, svgParameters, true),
                 new DefaultSVGLegendWriter(network, svgParameters)));
+    }
+
+    @Test
+    void defaultStyleProviderThrowsWhenNetworkIsNull() {
+        network = null;
+        assertThatCode(this::getDefaultDiagramStyleProvider).isInstanceOf(NullPointerException.class);
+    }
+
+    @Test
+    void defaultStyleProviderDoesNotThrowWhenNetworkIsSet() {
+        assertThatCode(this::getDefaultDiagramStyleProvider).doesNotThrowAnyException();
     }
 
 }
