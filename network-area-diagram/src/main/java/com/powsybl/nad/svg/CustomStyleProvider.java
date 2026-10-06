@@ -34,6 +34,11 @@ import java.util.stream.Stream;
  * are the color, the size and a dash pattern for the three legs of the transformer.
  *
  * <p>
+ * The injectionStyles map is indexed by the injection equipment ID and defines the style for injection elements (e.g. generators, loads).
+ * In the map, the style is declared in an InjectionStyles record: stroke, strokeWidth and dash are the color,
+ * the size and a dash pattern for the injection connector
+ *
+ * <p>
  * Note that the edge size is a string, it can be specified in pixel (e.g, 4px).
  * A dash pattern is a string with a sequence of comma and/or white space separated lengths and percentages, that specify the lengths of alternating dashes and gaps in the edge.
  * Elements that do not have a style specified in the parameters will be displayed with a default style.
@@ -45,6 +50,7 @@ public class CustomStyleProvider extends AbstractStyleProvider {
     final Map<String, BusNodeStyles> busNodesStyles;
     final Map<String, EdgeStyles> edgesStyles;
     final Map<String, ThreeWtStyles> threeWtsStyles;
+    final Map<String, InjectionStyles> injectionStyles;
 
     public record BusNodeStyles(String fill, String edge, String edgeWidth) {
     }
@@ -57,14 +63,29 @@ public class CustomStyleProvider extends AbstractStyleProvider {
                                 String dash2, String edge3, String width3, String dash3) {
     }
 
+    /**
+     * Defines the style of an injection element.
+     *
+     * @param stroke        the color of the injection connector
+     * @param strokeWidth   the width of the injection connector
+     * @param dash          the dash pattern of the injection connector
+     *
+     * <p>For example:
+     * <pre> {@code Map.of("GEN_1", new InjectionStyles("red", "4px", "5"))}
+     * </pre>
+     */
+    public record InjectionStyles(String stroke, String strokeWidth, String dash) {
+    }
+
     private record EdgeStyle(String stroke, String strokeWidth, String dash) {
     }
 
     public CustomStyleProvider(Map<String, BusNodeStyles> busNodesStyles, Map<String, EdgeStyles> edgesStyles,
-                               Map<String, ThreeWtStyles> threeWtsStyles) {
+                               Map<String, ThreeWtStyles> threeWtsStyles, Map<String, InjectionStyles> injectionStyles) {
         this.busNodesStyles = Objects.requireNonNull(busNodesStyles);
         this.edgesStyles = Objects.requireNonNull(edgesStyles);
         this.threeWtsStyles = Objects.requireNonNull(threeWtsStyles);
+        this.injectionStyles = Objects.requireNonNull(injectionStyles);
     }
 
     @Override
@@ -128,6 +149,13 @@ public class CustomStyleProvider extends AbstractStyleProvider {
         ThreeWtEdge.Side side = threeWtEdge.getSide();
         return Optional.ofNullable(threeWtsStyles.get(threeWtEdge.getEquipmentId()))
                 .map(styles -> formatEdgeStyle(getThreeWtStyle(styles, side)))
+                .orElse(null);
+    }
+
+    @Override
+    public String getInjectionStyle(Injection injection) {
+        return Optional.ofNullable(injectionStyles.get(injection.getEquipmentId()))
+                .map(styles -> formatEdgeStyle(new EdgeStyle(styles.stroke(), styles.strokeWidth(), styles.dash())))
                 .orElse(null);
     }
 
