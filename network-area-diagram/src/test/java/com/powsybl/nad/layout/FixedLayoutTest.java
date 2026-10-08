@@ -63,6 +63,16 @@ class FixedLayoutTest {
         visibleSide = graphWithoutInvisibleEdges.getVoltageLevelNode(edge, BranchEdge.Side.ONE).isVisible()
                 ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
         assertFalse(edge.isVisible(visibleSide));
+
+        LayoutParameters layoutParametersWithVisibleNodes = new LayoutParameters()
+                .setEdgesToInvisibleNodesDisplayed(false);
+        Graph graphWithVisibleNodes = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER,
+                layoutParametersWithVisibleNodes).buildGraph();
+        new BasicFixedLayout().run(graphWithVisibleNodes, layoutParametersWithVisibleNodes);
+        graphWithVisibleNodes.getBranchEdges().forEach(branchEdge -> {
+            assertTrue(branchEdge.isVisible(BranchEdge.Side.ONE));
+            assertTrue(branchEdge.isVisible(BranchEdge.Side.TWO));
+        });
     }
 
     @Test
