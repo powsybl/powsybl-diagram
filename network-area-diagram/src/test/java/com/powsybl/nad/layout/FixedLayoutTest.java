@@ -11,6 +11,7 @@ import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
+import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
 import org.junit.jupiter.api.Test;
@@ -23,15 +24,46 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Luma Zamarreno {@literal <zamarrenolm at aia.es>}
  */
 class FixedLayoutTest {
+
+    @Test
+    void testEdgesToInvisibleNodesDisplayed() {
+        Network network = Networks.createTwoVoltageLevels();
+        VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelsFilter(network, List.of("vl1"));
+        LayoutParameters layoutParameters = new LayoutParameters();
+        Graph graph = new NetworkGraphBuilder(network, filter, layoutParameters).buildGraph();
+        new BasicFixedLayout().run(graph, layoutParameters);
+
+        BranchEdge edge = graph.getBranchEdges().stream()
+                .filter(branchEdge -> !graph.getVoltageLevelNode(branchEdge, BranchEdge.Side.ONE).isVisible()
+                        || !graph.getVoltageLevelNode(branchEdge, BranchEdge.Side.TWO).isVisible())
+                .findFirst().orElseThrow();
+        BranchEdge.Side visibleSide = graph.getVoltageLevelNode(edge, BranchEdge.Side.ONE).isVisible()
+                ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
+        assertTrue(edge.isVisible(visibleSide));
+
+        layoutParameters.setEdgesToInvisibleNodesDisplayed(false);
+        Graph graphWithoutInvisibleEdges = new NetworkGraphBuilder(network, filter, layoutParameters).buildGraph();
+        new BasicFixedLayout().run(graphWithoutInvisibleEdges, layoutParameters);
+        edge = graphWithoutInvisibleEdges.getBranchEdges().stream()
+                .filter(branchEdge -> !graphWithoutInvisibleEdges.getVoltageLevelNode(branchEdge, BranchEdge.Side.ONE).isVisible()
+                        || !graphWithoutInvisibleEdges.getVoltageLevelNode(branchEdge, BranchEdge.Side.TWO).isVisible())
+                .findFirst().orElseThrow();
+        visibleSide = graphWithoutInvisibleEdges.getVoltageLevelNode(edge, BranchEdge.Side.ONE).isVisible()
+                ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
+        assertFalse(edge.isVisible(visibleSide));
+    }
 
     @Test
     void testCurrentLimits() {
