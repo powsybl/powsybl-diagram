@@ -4,14 +4,15 @@ The `LayoutParameters` class gathers parameters to customize the layout of the g
 
 All parameters have default values.
 
-| Name                           | Type      | Default value   |
-|--------------------------------|-----------|-----------------|
-| $maxSteps$                     | `int`     | 1000            |
-| $timeoutSeconds$               | `double`  | 15              |
-| $textNodesForceLayout$         | `boolean` | false           |
-| $textNodeFixedShift$           | `Point`   | Point(100, -40) |
-| $textNodeEdgeConnectionYShift$ | `double`  | 25              |
-| $injectionsAdded$              | `boolean` | false           |
+| Name                             | Type      | Default value   |
+|----------------------------------|-----------|-----------------|
+| $maxSteps$                       | `int`     | 1000            |
+| $timeoutSeconds$                 | `double`  | 15              |
+| $textNodesForceLayout$           | `boolean` | false           |
+| $textNodeFixedShift$             | `Point`   | Point(100, -40) |
+| $textNodeEdgeConnectionYShift$   | `double`  | 25              |
+| $injectionsAdded$                | `boolean` | false           |
+| $edgesToInvisibleNodesDisplayed$ | `boolean` | true            |
 
 Users can customize one or several parameters according to their needs. 
 
@@ -45,6 +46,22 @@ LayoutParameters layoutParameters = new LayoutParameters().setMaxSteps(100);
 NB1: for a very simple network like the one displayed above, the difference in speed is not significant. 
 
 NB2: the maximum number of iterations is not always reached as there are typically other stopping criteria in layout algorithms.
+
+### The `edgesToInvisibleNodesDisplayed` parameter
+
+When a voltage-level filter is used, the voltage levels directly connected to the displayed voltage levels are kept in the graph but are not displayed. The `edgesToInvisibleNodesDisplayed` parameter controls whether the edges connected to those invisible voltage levels are drawn.
+
+With `edgesToInvisibleNodesDisplayed = true` (default value):
+
+![edgesToInvisibleNodesDisplayed](/_static/img/nad/edges-to-invisible-nodes.svg)
+
+With `edgesToInvisibleNodesDisplayed = false`:
+
+```java
+LayoutParameters layoutParameters = new LayoutParameters().setEdgesToInvisibleNodesDisplayed(false);
+```
+
+![edgesToInvisibleNodesNotDisplayed](/_static/img/nad/edges-without-invisible-nodes.svg)
 
 ### The `timeoutSeconds` parameter
 
@@ -131,4 +148,3 @@ The represented injections are listed in the table below.
 | ![shuntCompensatorInductorInjection](/_static/img/nad/nad_icons/inductor.svg)   | [Shunt compensator (inductor)](inv:powsyblcore:*:*#shunt-compensator)  |
 | ![staticVarCompensatorInjection](/_static/img/nad/nad_icons/svc.svg)            | [Static VAR Compensator](inv:powsyblcore:*:*#static-var-compensator)   |
 | ![unknownComponentInjection](/_static/img/nad/nad_icons/unknown-component.svg)  | Unknown component                                                      |
-
