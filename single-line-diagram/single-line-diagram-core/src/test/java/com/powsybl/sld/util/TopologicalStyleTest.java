@@ -91,7 +91,7 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
     }
 
     @Test
-    void test() throws IOException {
+    void test() {
         // building graphs
         VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId());
         VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId());
