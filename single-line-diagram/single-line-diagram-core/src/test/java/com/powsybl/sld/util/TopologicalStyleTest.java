@@ -30,9 +30,10 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -195,12 +196,11 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
     @Test
     void defaultStyleProviderThrowsWhenNetworkIsNull() {
         network = null;
-        assertThatCode(this::getDefaultDiagramStyleProvider).isInstanceOf(NullPointerException.class);
+        assertThrows(NullPointerException.class, this::getDefaultDiagramStyleProvider);
     }
 
     @Test
     void defaultStyleProviderDoesNotThrowWhenNetworkIsSet() {
-        assertThatCode(this::getDefaultDiagramStyleProvider).doesNotThrowAnyException();
+        assertDoesNotThrow(this::getDefaultDiagramStyleProvider);
     }
-
 }
