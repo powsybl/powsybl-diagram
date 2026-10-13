@@ -313,21 +313,21 @@
             <g>
                 <circle class="nad-vl180to300 nad-winding" cx="-188.13" cy="-334.32" r="20.00"/>
                 <circle class="nad-vl300to500 nad-winding" cx="-184.62" cy="-314.63" r="20.00"/>
-                <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(0.18,0.98,-0.98,0.18,-162.11,-359.28)" class="nad-pst-arrow"/>
+                <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(0.18,0.98,-0.98,0.18,-162.11,-359.28)" class="nad-vl180to300 nad-vl300to500 nad-pst-arrow"/>
             </g>
         </g>
         <g id="54" class="nad-hvdc-edge">
             <polyline class="nad-vl300to500 nad-edge-path" points="-105.17,-100.92 21.70,-12.48"/>
             <polyline class="nad-vl300to500 nad-edge-path" points="148.57,75.96 21.70,-12.48"/>
             <g>
-                <polyline points="-7.01,-32.49 50.41,7.54" class="nad-hvdc"/>
+                <polyline points="-7.01,-32.49 50.41,7.54" class="nad-vl300to500 nad-hvdc"/>
             </g>
         </g>
         <g id="57" class="nad-hvdc-edge">
             <polyline class="nad-vl300to500 nad-edge-path" points="-154.01,-76.33 -158.07,63.85"/>
             <polyline class="nad-vl300to500 nad-edge-path" points="-162.13,204.03 -158.07,63.85"/>
             <g>
-                <polyline points="-157.06,28.86 -159.09,98.84" class="nad-hvdc"/>
+                <polyline points="-157.06,28.86 -159.09,98.84" class="nad-vl300to500 nad-hvdc"/>
             </g>
         </g>
         <g id="60">
