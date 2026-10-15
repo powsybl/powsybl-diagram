@@ -13,6 +13,7 @@ import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.CustomStyleProvider.BusNodeStyles;
 import com.powsybl.nad.svg.CustomStyleProvider.EdgeStyles;
+import com.powsybl.nad.svg.CustomStyleProvider.InjectionStyles;
 import com.powsybl.nad.svg.CustomStyleProvider.ThreeWtStyles;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import org.junit.jupiter.api.BeforeEach;
@@ -55,7 +56,26 @@ class CustomStyleProviderTest extends AbstractTest {
     @Test
     void testCustomStyleProvider() {
         Network network = Networks.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
+        styleProvider = createCustomStyleProvider();
+        assertSvgEquals("/custom_style_provider.svg", network);
+    }
 
+    @Test
+    void testCustomStyleProviderEmpty() {
+        Network network = Networks.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
+        styleProvider = new CustomStyleProvider(new HashMap<>(), new HashMap<>(), new HashMap<>(), new HashMap<>());
+        assertSvgEquals("/custom_style_provider_empty.svg", network);
+    }
+
+    @Test
+    void testInjectionWithCustomStyleProvider() {
+        Network network = Networks.createNodeBreakerNetworkWithBranchStatus("test", "test");
+        getLayoutParameters().setInjectionsAdded(true);
+        styleProvider = createCustomStyleProvider();
+        assertSvgEquals("/nad_custom_style_provider_injections.svg", network);
+    }
+
+    private CustomStyleProvider createCustomStyleProvider() {
         Map<String, BusNodeStyles> busNodesStyles = new HashMap<>();
         busNodesStyles.put("VL1_10", new BusNodeStyles("yellow", null, null));
         busNodesStyles.put("VL2_30", new BusNodeStyles("red", "black", "4px"));
@@ -74,16 +94,11 @@ class CustomStyleProviderTest extends AbstractTest {
                         "pink", "6px", null
                 )
         );
-
-        styleProvider = new CustomStyleProvider(busNodesStyles, edgesStyles, threeWtsStyles);
-        assertSvgEquals("/custom_style_provider.svg", network);
-    }
-
-    @Test
-    void testCustomStyleProviderEmpty() {
-        Network network = Networks.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
-        styleProvider = new CustomStyleProvider(new HashMap<>(), new HashMap<>(), new HashMap<>());
-        assertSvgEquals("/custom_style_provider_empty.svg", network);
+        Map<String, InjectionStyles> injectionStyles = new HashMap<>();
+        injectionStyles.put("G", new InjectionStyles("green", "8px", null));
+        injectionStyles.put("L1", new InjectionStyles("blue", "8px", "10"));
+        injectionStyles.put("L2", new InjectionStyles("red", "5px", "4 4"));
+        return new CustomStyleProvider(busNodesStyles, edgesStyles, threeWtsStyles, injectionStyles);
     }
 
 }
