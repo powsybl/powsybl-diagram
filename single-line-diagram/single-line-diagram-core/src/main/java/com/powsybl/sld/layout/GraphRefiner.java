@@ -60,7 +60,7 @@ public class GraphRefiner {
         Predicate<Node> nodesOnBus = getNodesOnBusPredicate(graph, layoutParameters.getComponentsOnBusbars());
         graph.insertBusConnections(nodesOnBus);
         graph.insertHookNodesAtBuses();
-        graph.insertHookNodesAtFeeders();
+        graph.insertHookNodesAtFeeders(layoutParameters);
 
         graph.substituteNodesMirroringGroundDisconnectionComponent();
     }
