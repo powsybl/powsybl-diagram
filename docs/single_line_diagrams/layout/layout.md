@@ -11,6 +11,7 @@ cellDetector.md
 cellBlockDecomposer.md
 positionFinder.md
 sldParameters.md
+layoutParameters.md
 zoneLayouts.md
 ```
 
