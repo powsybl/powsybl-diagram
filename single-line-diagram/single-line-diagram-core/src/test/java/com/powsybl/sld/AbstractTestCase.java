@@ -73,7 +73,8 @@ public abstract class AbstractTestCase {
 
     protected static String normalizeLineSeparator(String str) {
         return str.replace("\r\n", "\n")
-                .replace("\r", "\n");
+                .replace("\r", "\n")
+                .stripTrailing();
     }
 
     public abstract void setUp() throws IOException;

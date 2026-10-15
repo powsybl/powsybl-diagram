@@ -228,7 +228,7 @@
     "vlabel" : false,
     "equipmentId" : "B11_B12_1",
     "labels" : [ {
-      "id" : "idB11_95_B12_95_1_95_TWO_95_S_95_LABEL",
+      "id" : "B11_B12_1_TWO_S_LABEL",
       "positionName" : "S_LABEL"
     } ]
   }, {
@@ -261,7 +261,7 @@
     "vlabel" : false,
     "equipmentId" : "LD1",
     "labels" : [ {
-      "id" : "idLD1_95_N_95_LABEL",
+      "id" : "LD1_N_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -294,7 +294,7 @@
     "vlabel" : false,
     "equipmentId" : "G",
     "labels" : [ {
-      "id" : "idG_95_N_95_LABEL",
+      "id" : "G_N_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -315,7 +315,7 @@
     "vlabel" : false,
     "equipmentId" : "L12",
     "labels" : [ {
-      "id" : "idL12_95_ONE_95_N_95_LABEL",
+      "id" : "L12_ONE_N_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -328,7 +328,7 @@
     "vlabel" : false,
     "equipmentId" : "T3_12",
     "labels" : [ {
-      "id" : "idT3_95_12_95_THREE_95_N_95_LABEL",
+      "id" : "T3_12_THREE_N_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -361,7 +361,7 @@
     "vlabel" : false,
     "equipmentId" : "B11",
     "labels" : [ {
-      "id" : "idB11_95_NW_95_LABEL",
+      "id" : "B11_NW_LABEL",
       "positionName" : "NW_LABEL"
     } ]
   }, {
@@ -395,7 +395,7 @@
     "vlabel" : false,
     "equipmentId" : "T3_12",
     "labels" : [ {
-      "id" : "idT3_95_12_95_TWO_95_N_95_LABEL",
+      "id" : "T3_12_TWO_N_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -441,7 +441,7 @@
     "vlabel" : false,
     "equipmentId" : "B12",
     "labels" : [ {
-      "id" : "idB12_95_NW_95_LABEL",
+      "id" : "B12_NW_LABEL",
       "positionName" : "NW_LABEL"
     } ]
   }, {
@@ -461,7 +461,7 @@
     "vlabel" : false,
     "equipmentId" : "T12",
     "labels" : [ {
-      "id" : "idT12_95_ONE_95_N_95_LABEL",
+      "id" : "T12_ONE_N_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -545,7 +545,7 @@
     "vlabel" : false,
     "equipmentId" : "T3_12",
     "labels" : [ {
-      "id" : "idT3_95_12_95_ONE_95_N_95_LABEL",
+      "id" : "T3_12_ONE_N_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -586,7 +586,7 @@
     "vlabel" : false,
     "equipmentId" : "B11_B12_1",
     "labels" : [ {
-      "id" : "idB11_95_B12_95_1_95_ONE_95_S_95_LABEL",
+      "id" : "B11_B12_1_ONE_S_LABEL",
       "positionName" : "S_LABEL"
     } ]
   } ],

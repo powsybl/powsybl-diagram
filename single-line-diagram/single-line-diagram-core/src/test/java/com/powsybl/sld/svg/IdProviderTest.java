@@ -66,7 +66,7 @@ class IdProviderTest extends AbstractTestCaseIidm {
     @Test
     void testDefaultIdProvider() {
         // Id provider
-        idProvider = new DefaultIdProvider(svgParameters.getPrefixId());
+        idProvider = new IntIdProvider(svgParameters.getPrefixId());
 
         // write SVG and compare to reference
         assertEquals(toString("/TestDefaultIdProvider.svg"), toSVG(g, "/TestDefaultIdProvider.svg", componentLibrary,
@@ -78,13 +78,24 @@ class IdProviderTest extends AbstractTestCaseIidm {
 
     @Test
     void testDefaultIdProviderDoesNotCollideWhenIdsContainSeparators() {
-        DefaultIdProvider defaultIdProvider = new DefaultIdProvider(svgParameters.getPrefixId());
+        IntIdProvider intIdProvider = new IntIdProvider(svgParameters.getPrefixId());
 
-        String equipmentId = defaultIdProvider.getOrCreateSvgId("ALDJF_subType_AER");
-        String equipmentSubtype = defaultIdProvider.getOrCreateSvgId("ALDJF", "AER");
+        String equipmentId = intIdProvider.getOrCreateSvgId("ALDJF_subType_AER");
+        String equipmentSubtype = intIdProvider.getOrCreateSvgId("ALDJF", "AER");
 
         assertNotEquals(equipmentId, equipmentSubtype);
-        assertEquals(equipmentId, defaultIdProvider.getOrCreateSvgId("ALDJF_subType_AER"));
-        assertEquals(equipmentSubtype, defaultIdProvider.getOrCreateSvgId("ALDJF", "AER"));
+        assertEquals(equipmentId, intIdProvider.getOrCreateSvgId("ALDJF_subType_AER"));
+        assertEquals(equipmentSubtype, intIdProvider.getOrCreateSvgId("ALDJF", "AER"));
+    }
+
+    @Test
+    void testLegacyIdProviderKeepsTypedKeysStable() {
+        LegacyIdProvider legacyIdProvider = new LegacyIdProvider(svgParameters.getPrefixId());
+
+        String equipmentId = legacyIdProvider.getOrCreateSvgId("ALDJF_subType_AER");
+        String equipmentSubtype = legacyIdProvider.getOrCreateSvgId("ALDJF", "AER");
+
+        assertEquals(equipmentId, legacyIdProvider.getOrCreateSvgId("ALDJF_subType_AER"));
+        assertEquals(equipmentSubtype, legacyIdProvider.getOrCreateSvgId("ALDJF", "AER"));
     }
 }

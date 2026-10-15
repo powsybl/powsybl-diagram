@@ -78,16 +78,31 @@ public class DefaultSVGWriter implements SVGWriter {
     protected final SvgParameters svgParameters;
     private final IdProvider idProvider;
 
+    /**
+     * Creates a writer using the legacy SVG identifier format.
+     *
+     * @param componentLibrary component library used to render the diagram
+     * @param layoutParameters layout parameters used by the renderer
+     * @param svgParameters SVG rendering parameters
+     */
     public DefaultSVGWriter(SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
         this(componentLibrary, layoutParameters, svgParameters, new LegacyIdProvider(svgParameters.getPrefixId()));
     }
 
+    /**
+     * Creates a writer with an explicit identifier provider.
+     *
+     * @param componentLibrary component library used to render the diagram
+     * @param layoutParameters layout parameters used by the renderer
+     * @param svgParameters SVG rendering parameters
+     * @param idProvider provider used to generate SVG identifiers
+     */
     public DefaultSVGWriter(SldComponentLibrary componentLibrary, LayoutParameters layoutParameters,
                             SvgParameters svgParameters, IdProvider idProvider) {
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = svgParameters;
-        this.idProvider = idProvider;
+        this.idProvider = Objects.requireNonNull(idProvider);
     }
 
     /**
@@ -307,7 +322,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         Element gridRoot = document.createElement(GROUP);
 
-        String gridId = idProvider.getOrCreateSvgId(graph.getVoltageLevelInfos().id(), "GRID");
+        String gridId = idProvider.getOrCreateSvgId("GRID", graph.getVoltageLevelInfos().id());
         gridRoot.setAttribute("id", gridId);
         gridRoot.setAttribute(CLASS, StyleClassConstants.GRID_STYLE_CLASS);
 
@@ -495,7 +510,9 @@ public class DefaultSVGWriter implements SVGWriter {
             }
             g.appendChild(label);
 
-            nodeLabelsMetadata.add(new GraphMetadata.NodeLabelMetadata(svgId, labelPosition.positionName(), nodeLabel.userDefinedId()));
+            nodeLabelsMetadata.add(new GraphMetadata.NodeLabelMetadata(
+                idProvider.getUnescapedSvgId(node.getId(), labelPosition.positionName()),
+                labelPosition.positionName(), nodeLabel.userDefinedId()));
         }
     }
 
@@ -894,7 +911,7 @@ public class DefaultSVGWriter implements SVGWriter {
         g.setAttribute("id", svgId);
 
         // Metadata
-        metadata.addBusInfoMetadata(new GraphMetadata.BusInfoMetadata(svgId, "busNode.getId()", busInfo.getUserDefinedId()));
+        metadata.addBusInfoMetadata(new GraphMetadata.BusInfoMetadata(svgId, busNode.getId(), busInfo.getUserDefinedId()));
 
         // Append indicator to SVG
         insertBusInfoSVGIntoDocumentSVG(busInfo, g);

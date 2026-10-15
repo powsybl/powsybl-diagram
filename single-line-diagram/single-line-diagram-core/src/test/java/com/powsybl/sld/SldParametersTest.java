@@ -14,6 +14,7 @@ import com.powsybl.sld.svg.*;
 import com.powsybl.sld.svg.styles.*;
 import org.junit.jupiter.api.*;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 /**
@@ -24,7 +25,7 @@ class SldParametersTest {
     @Test
     void test() {
         LayoutParameters layoutParameters = new LayoutParameters();
-        SvgParameters svgParameters = new SvgParameters();
+        SvgParameters svgParameters = new SvgParameters().setPrefixId("prefix");
         SldComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
         StyleProviderFactory styleProviderFactory = new NominalVoltageStyleProviderFactory();
         SubstationLayoutFactory substationLayoutFactory = new VerticalSubstationLayoutFactory();
@@ -49,5 +50,6 @@ class SldParametersTest {
         assertSame(sldParameters0.getSubstationLayoutFactory(), substationLayoutFactory);
         assertSame(sldParameters0.getZoneLayoutFactory(), zoneLayoutFactory);
         assertSame(sldParameters0.getZoneLayoutPathFinderFactory(), zoneLayoutPathFinderFactory);
+        assertInstanceOf(LegacyIdProvider.class, sldParameters0.createIdProvider());
     }
 }

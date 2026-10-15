@@ -12,6 +12,19 @@ package com.powsybl.sld.svg;
  */
 public interface IdProvider {
 
+    /**
+     * Returns the unescaped identifier corresponding to an equipment subtype.
+     * This is used when metadata must preserve a human-readable identifier
+     * while the SVG document uses an escaped identifier.
+     *
+     * @param equipmentId equipment identifier
+     * @param subType subtype or label position
+     * @return the unescaped identifier
+     */
+    default String getUnescapedSvgId(String equipmentId, String subType) {
+        return getOrCreateSvgId(equipmentId, subType);
+    }
+
     String getOrCreateSvgId(String equipmentId);
 
     String getOrCreateSvgId(String equipmentId, String subType);

@@ -14,7 +14,7 @@ import java.util.Map;
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  * @author Charly Bion {@literal <charly.bion at rte-france.com>}
  */
-public class DefaultIdProvider implements IdProvider {
+public class IntIdProvider implements IdProvider {
 
     private interface IdKey {
     }
@@ -32,7 +32,7 @@ public class DefaultIdProvider implements IdProvider {
     private final Map<IdKey, String> idMap = new HashMap<>();
     private int count;
 
-    public DefaultIdProvider(String prefixId) {
+    public IntIdProvider(String prefixId) {
         this.prefixId = prefixId;
         this.count = 0;
     }
