@@ -7,52 +7,31 @@
  */
 package com.powsybl.sld.svg;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  * @author Charly Bion {@literal <charly.bion at rte-france.com>}
  */
-public class IntIdProvider implements IdProvider {
+public class IntIdProvider extends AbstractIdProvider {
 
-    private interface IdKey {
-    }
-
-    private record EquipmentKey(String equipmentId) implements IdKey {
-    }
-
-    private record EquipmentSubtypeKey(String equipmentId, String subtype) implements IdKey {
-    }
-
-    private record WireKey(String containerId, String id1, String id2) implements IdKey {
-    }
-
-    private final String prefixId;
-    private final Map<IdKey, String> idMap = new HashMap<>();
     private int count;
 
     public IntIdProvider(String prefixId) {
-        this.prefixId = prefixId;
+        super(prefixId);
         this.count = 0;
     }
 
     @Override
-    public String getOrCreateSvgId(String equipmentId) {
-        return getOrCreateId(new EquipmentKey(equipmentId));
+    protected String createEquipmentId(String equipmentId) {
+        return prefixId + count++;
     }
 
     @Override
-    public String getOrCreateSvgId(String equipmentId, String subType) {
-        return getOrCreateId(new EquipmentSubtypeKey(equipmentId, subType));
+    protected String createEquipmentSubtypeId(String equipmentId, String subType) {
+        return prefixId + count++;
     }
 
     @Override
-    public String getOrCreateSvgId(String containerId, String id1, String id2) {
-        return getOrCreateId(new WireKey(containerId, id1, id2));
-    }
-
-    private String getOrCreateId(IdKey key) {
-        return idMap.computeIfAbsent(key, ignored -> prefixId + count++);
+    protected String createWireId(String containerId, String id1, String id2) {
+        return prefixId + count++;
     }
 }
