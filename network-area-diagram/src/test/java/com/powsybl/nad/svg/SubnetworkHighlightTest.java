@@ -507,7 +507,7 @@ class SubnetworkHighlightTest extends AbstractTest {
             .newVoltageRegulation()
                 .withRegulating(false)
                 .withMode(RegulationMode.REACTIVE_POWER)
-                .withTargetValue(123)
+                .withTargetValue(100)
                 .withTerminal(cs1.getTerminal())
                 .add()
             .add();
