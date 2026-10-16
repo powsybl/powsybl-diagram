@@ -102,7 +102,7 @@ public final class SingleLineDiagram {
         drawVoltageLevel(network, voltageLevelId, svgFile, new SldParameters());
     }
 
-    private static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile, SldParameters sldParameters) {
+    public static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile, SldParameters sldParameters) {
         VoltageLevelGraph voltageLevelGraph = new NetworkGraphBuilder(network, sldParameters.getLayoutParameters()).buildVoltageLevelGraph(voltageLevelId);
         DefaultSVGWriter svgWriter = preDraw(voltageLevelGraph, sldParameters, network);
         draw(network, voltageLevelGraph, svgFile, svgWriter,
@@ -125,10 +125,11 @@ public final class SingleLineDiagram {
     }
 
     public static void drawSubstation(Network network, String id, Path svgFile) {
-        drawSubstation(network, id, svgFile, new SldParameters());
+        SldParameters sldParameters = new SldParameters();
+        drawSubstation(network, id, svgFile, sldParameters);
     }
 
-    private static void drawSubstation(Network network, String substationId, Path svgFile, SldParameters sldParameters) {
+    public static void drawSubstation(Network network, String substationId, Path svgFile, SldParameters sldParameters) {
         SubstationGraph substationGraph = new NetworkGraphBuilder(network, sldParameters.getLayoutParameters()).buildSubstationGraph(substationId);
         DefaultSVGWriter svgWriter = preDraw(substationGraph, sldParameters, network);
         draw(network, substationGraph, svgFile, svgWriter,
@@ -213,12 +214,21 @@ public final class SingleLineDiagram {
     }
 
     public static void draw(Graph graph, Writer writerForSvg, Writer metadataWriter, SldComponentLibrary componentLibrary,
-                            LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider,
-                            StyleProvider styleProvider, SVGLegendWriter legendWriter) {
+                            LayoutParameters layoutParameters, SvgParameters svgParameters,
+                            LabelProvider labelProvider, StyleProvider styleProvider,
+                            SVGLegendWriter legendWriter) {
+        draw(graph, writerForSvg, metadataWriter, componentLibrary, layoutParameters, svgParameters, labelProvider,
+            styleProvider, new LegacyIdProvider(svgParameters.getPrefixId()), legendWriter);
+    }
+
+    public static void draw(Graph graph, Writer writerForSvg, Writer metadataWriter, SldComponentLibrary componentLibrary,
+                            LayoutParameters layoutParameters, SvgParameters svgParameters,
+                            LabelProvider labelProvider, StyleProvider styleProvider, IdProvider idProvider,
+                            SVGLegendWriter legendWriter) {
         Objects.requireNonNull(componentLibrary);
         Objects.requireNonNull(layoutParameters);
         Objects.requireNonNull(svgParameters);
-        DefaultSVGWriter svgWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
+        DefaultSVGWriter svgWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters, idProvider);
         draw(graph, writerForSvg, metadataWriter, svgWriter, labelProvider, styleProvider, legendWriter);
     }
 
@@ -232,6 +242,7 @@ public final class SingleLineDiagram {
                 sldParameters.getSubstationLayoutFactory(), voltageLevelLayoutFactory).run(layoutParameters);
             case null, default -> throw new PowsyblException("First argument is an instance of an unexpected class");
         }
-        return new DefaultSVGWriter(sldParameters.getComponentLibrary(), sldParameters.getLayoutParameters(), sldParameters.getSvgParameters());
+        return new DefaultSVGWriter(sldParameters.getComponentLibrary(), sldParameters.getLayoutParameters(), sldParameters.getSvgParameters(),
+            sldParameters.createIdProvider());
     }
 }
