@@ -217,7 +217,7 @@
                 <g class="sld-wire sld-vl300to500 sld-disconnected" id="_95_vl1_95_d2b_95_b2">
                     <polyline points="115.0,337.0,115.0,320.0"/>
                 </g>
-                <g class="sld-wire sld-vl300to500 sld-disconnected" id="_95_vl1_95_d2b_95_INTERNAL_95_vl1_95_batt2">
+                <g class="sld-wire sld-vl300to500 sld-disconnected sld-feeder-disconnected-connected" id="_95_vl1_95_d2b_95_INTERNAL_95_vl1_95_batt2">
                     <polyline points="115.0,337.0,115.0,364.0"/>
                 </g>
                 <g class="sld-wire sld-vl300to500 sld-disconnected sld-feeder-disconnected-connected" id="_95_vl1_95_INTERNAL_95_vl1_95_batt2_95_batt2">
