@@ -38,7 +38,8 @@ import java.util.*;
 public class GraphMetadata extends AbstractMetadata<GraphMetadata> {
 
     //v 1.0 adds metadata versionning, please note further changes as a comment when version is bumped
-    //v 1.1 adds optional node metadata describing the network topology behind a node:
+    //v 1.1 adds display side info for 3WT (inside, outside, or all the sides)
+    //v 1.2 adds optional node metadata describing the network topology behind a node:
     //      "iidmNode", the node of the node/breaker view a node stands on,
     //      "iidmNode1"/"iidmNode2", the two nodes a switch connects,
     //      "order", the connectable position order of a feeder,

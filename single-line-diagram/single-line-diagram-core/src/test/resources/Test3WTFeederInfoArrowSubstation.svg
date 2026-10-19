@@ -211,7 +211,7 @@
                 <g class="sld-feeder-info sld-out sld-reactive-power" id="id3WT_95_ONE_95_ARROW_95_REACTIVE" transform="translate(110.0,399.0)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                    <text class="sld-label" x="15.0" y="5.0">400</text>
+                    <text class="sld-label" x="15.0" y="5.0">800</text>
                 </g>
                 <g class="sld-feeder-info sld-in sld-active-power" id="id3WT_95_ONE_95_ARROW_95_ACTIVE" transform="translate(110.0,379.0)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>

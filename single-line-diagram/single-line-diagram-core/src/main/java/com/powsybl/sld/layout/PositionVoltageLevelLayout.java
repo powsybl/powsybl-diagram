@@ -54,6 +54,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
     public void run(LayoutParameters layoutParam) {
         LOGGER.info("Running voltage level layout");
 
+        getGraph().clearCells();
         graphAdapter.run(getGraph(), layoutParam);
         cellDetector.detectCells(getGraph());
         blockOrganizer.organize(getGraph(), layoutParam);

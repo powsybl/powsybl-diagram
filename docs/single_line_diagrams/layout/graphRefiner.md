@@ -9,6 +9,6 @@ A preliminary step is done inside the `GraphRefiner` class. It performs some pre
 * An _optional_ call to `Graph.removeFictitiousSwitchNode()` to simplify the graph by removing the fictitious switch nodes;
 * A _systematic_ call to `Graph.extendBusesConnectedToBuses()` to add 2 connectivity nodes between 2 buses that are connected to each other;
 * A _systematic_ call to `Graph.insertBusConnections` to create a connection between a bus node and its adjacent nodes;
-* A _systematic_ call to `Graph.insertHookNodesAtBuses()` to TODO
-* A _systematic_ call to `Graph.insertHookNodesAtFeeders()` to TODO
+* A _systematic_ call to `Graph.insertHookNodesAtBuses()` to insert a fictitious node between each bus connection and its adjacent node, so that a bus connection is never directly adjacent to a `FEEDER` or to an `EquipmentNode`, which is required by the block decomposition algorithm (see [Structure the cells into `Blocks`](cellBlockDecomposer.md));
+* A _systematic_ call to `Graph.insertHookNodesAtFeeders()` to insert a fictitious "hook" node just before each feeder, so that there is always enough room to display the feeder information (e.g. the arrows showing the active power flow);
 * A _systematic_ call to `Graph.substituteNodesMirroringGroundDisconnectionComponent()` to deal with ground disconnector displaying.

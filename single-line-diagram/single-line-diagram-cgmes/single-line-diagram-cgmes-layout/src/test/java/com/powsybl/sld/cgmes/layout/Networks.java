@@ -8,6 +8,7 @@
 package com.powsybl.sld.cgmes.layout;
 
 import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.regulation.RegulationMode;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 
 import java.time.ZonedDateTime;
@@ -166,10 +167,13 @@ public final class Networks {
                 .setBus(BUS_21_ID)
                 .setConnectableBus(BUS_21_ID)
                 .setTargetP(100)
-                .setTargetV(380)
-                .setVoltageRegulatorOn(true)
                 .setMaxP(100)
                 .setMinP(0)
+                .setLocalTargetV(380)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         network.newLine()
                 .setId(LINE_ID)
@@ -307,10 +311,12 @@ public final class Networks {
                 .setBus("Bus2")
                 .setBmin(0.0002)
                 .setBmax(0.0008)
-                .setRegulationMode(StaticVarCompensator.RegulationMode.VOLTAGE)
-                .setRegulating(true)
-                .setVoltageSetpoint(390.0)
-                .setReactivePowerSetpoint(1.0)
+                .setLocalTargetQ(1.0)
+                .setLocalTargetV(390.0)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         return voltageLevel2;
     }
@@ -329,10 +335,13 @@ public final class Networks {
                 .setBus("Bus3")
                 .setConnectableBus("Bus3")
                 .setTargetP(100)
-                .setTargetV(380)
-                .setVoltageRegulatorOn(true)
                 .setMaxP(100)
                 .setMinP(0)
+                .setLocalTargetV(380)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         return voltageLevel3;
     }
@@ -515,10 +524,13 @@ public final class Networks {
                 .setId("Generator")
                 .setNode(generatorNode)
                 .setTargetP(100)
-                .setTargetV(380)
-                .setVoltageRegulatorOn(true)
                 .setMaxP(100)
                 .setMinP(0)
+                .setLocalTargetV(380)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         voltageLevel1.getNodeBreakerView().newDisconnector()
                 .setId("Disconnector1")

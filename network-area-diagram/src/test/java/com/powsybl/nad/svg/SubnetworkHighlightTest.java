@@ -10,6 +10,7 @@ package com.powsybl.nad.svg;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.regulation.RegulationMode;
 import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
@@ -396,11 +397,13 @@ class SubnetworkHighlightTest extends AbstractTest {
             .endStep()
             .setTapPosition(1)
             .setLoadTapChangingCapabilities(true)
-            .setRegulating(true)
-            .setRegulationMode(RatioTapChanger.RegulationMode.VOLTAGE)
-            .setRegulationValue(158.0)
-            .setTargetDeadband(0)
-            .setRegulationTerminal(nhv2Nload.getTerminal2())
+            .newVoltageRegulation()
+                .withRegulating(true)
+                .withMode(RegulationMode.VOLTAGE)
+                .withTargetValue(158.0)
+                .withTargetDeadband(0)
+                .withTerminal(nhv2Nload.getTerminal2())
+                .add()
             .add();
     }
 
@@ -418,10 +421,13 @@ class SubnetworkHighlightTest extends AbstractTest {
             .setConnectableBus(ngen.getId())
             .setMinP(-9999.99)
             .setMaxP(9999.99)
-            .setVoltageRegulatorOn(true)
-            .setTargetV(24.5)
             .setTargetP(607.0)
-            .setTargetQ(301.0)
+            .setLocalTargetQ(301.0)
+            .setLocalTargetV(24.5)
+            .newVoltageRegulation()
+                .withRegulating(true)
+                .withMode(RegulationMode.VOLTAGE)
+                .add()
             .add();
         generator.newMinMaxReactiveLimits()
             .setMinQ(-9999.99)
@@ -471,8 +477,11 @@ class SubnetworkHighlightTest extends AbstractTest {
             .setConnectableBus("BUS_3")
             .setBus("BUS_3")
             .setLossFactor(1.1f)
-            .setVoltageSetpoint(405.0)
-            .setVoltageRegulatorOn(true)
+            .setLocalTargetV(405.0)
+            .newVoltageRegulation()
+                .withRegulating(true)
+                .withMode(RegulationMode.VOLTAGE)
+                .add()
             .add();
         cs1.getTerminal()
             .setP(100.0)
@@ -494,9 +503,13 @@ class SubnetworkHighlightTest extends AbstractTest {
             .setName("Converter2")
             .setBus(nload.getId())
             .setLossFactor(1.1f)
-            .setReactivePowerSetpoint(123)
-            .setVoltageRegulatorOn(false)
-            .setRegulatingTerminal(cs1.getTerminal())
+            .setLocalTargetQ(123)
+            .newVoltageRegulation()
+                .withRegulating(false)
+                .withMode(RegulationMode.REACTIVE_POWER)
+                .withTargetValue(100)
+                .withTerminal(cs1.getTerminal())
+                .add()
             .add();
         cs2.newMinMaxReactiveLimits()
             .setMinQ(0.0)
