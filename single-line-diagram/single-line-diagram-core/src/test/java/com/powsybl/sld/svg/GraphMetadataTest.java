@@ -177,6 +177,37 @@ class GraphMetadataTest {
         assertTrue(metadata3.getWireMetadata("wid2").snakeLine());
     }
 
+    @Test
+    void testNodeTopologyMetadata() throws IOException {
+        GraphMetadata metadata = new GraphMetadata(new LayoutParameters(), new SvgParameters());
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "bbs", "vid1", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false,
+            "bbs", 0, null, null, null, 1, 2, Collections.emptyList()));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "b", "vid1", null, BREAKER, false, Direction.UNDEFINED, false,
+            "b", null, 0, 1, null, null, null, Collections.emptyList()));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "l", "vid1", null, LINE, false, Direction.TOP, false,
+            "l", 1, null, null, 3, null, null, Collections.emptyList()));
+
+        ObjectMapper objectMapper = JsonUtil.createObjectMapper();
+        GraphMetadata metadata2 = objectMapper.readValue(objectMapper.writeValueAsString(metadata), GraphMetadata.class);
+
+        GraphMetadata.NodeMetadata busbarSection = metadata2.getNodeMetadata("bbs");
+        assertEquals(0, busbarSection.getIidmNode());
+        assertEquals(1, busbarSection.getBusbarIndex());
+        assertEquals(2, busbarSection.getSectionIndex());
+        assertNull(busbarSection.getOrder());
+
+        GraphMetadata.NodeMetadata breaker = metadata2.getNodeMetadata("b");
+        assertNull(breaker.getIidmNode());
+        assertEquals(0, breaker.getIidmNode1());
+        assertEquals(1, breaker.getIidmNode2());
+
+        GraphMetadata.NodeMetadata line = metadata2.getNodeMetadata("l");
+        assertEquals(1, line.getIidmNode());
+        assertEquals(3, line.getOrder());
+        assertNull(line.getIidmNode1());
+        assertNull(line.getBusbarIndex());
+    }
+
     private void checkMetadata(GraphMetadata metadata) {
         assertEquals(5, metadata.getNodeMetadata().size());
         assertEquals("STATION_EXAMPLE", metadata.getNodeMetadata("idSTATION_95_EXAMPLE").getUnescapedId());

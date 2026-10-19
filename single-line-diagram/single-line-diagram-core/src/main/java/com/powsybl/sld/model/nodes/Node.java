@@ -74,6 +74,15 @@ public interface Node {
 
     void removeOrder();
 
+    /**
+     * The node of the IIDM voltage level node/breaker view this node stands on. Empty for a switch, which
+     * stands between two nodes (see {@link SwitchNode#getIidmNode1()} and {@link SwitchNode#getIidmNode2()}),
+     * and for a graph not built from a network.
+     */
+    Optional<Integer> getIidmNode();
+
+    void setIidmNode(int iidmNode);
+
     Direction getDirection();
 
     void setDirection(Direction direction);
