@@ -348,7 +348,6 @@ public class DefaultSVGWriter implements SVGWriter {
                 UNDEFINED,
                 false,
                 null,
-                null,
                 Collections.emptyList()));
 
         root.appendChild(gridRoot);
@@ -559,7 +558,6 @@ public class DefaultSVGWriter implements SVGWriter {
                 false,
                 UNDEFINED,
                 true,
-                null,
                 null,
                 Collections.emptyList()));
     }

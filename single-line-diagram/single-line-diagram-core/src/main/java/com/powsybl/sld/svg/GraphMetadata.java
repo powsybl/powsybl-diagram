@@ -42,9 +42,9 @@ public class GraphMetadata extends AbstractMetadata<GraphMetadata> {
     //v 1.2 adds optional node metadata describing the network topology behind a node:
     //      "iidmNode", the node of the node/breaker view a node stands on,
     //      "iidmNode1"/"iidmNode2", the two nodes a switch connects,
-    //      "order", the connectable position order of a feeder,
-    //      "busbarIndex"/"sectionIndex", the position of a busbar section
-    private static final String METADATA_VERSION = "1.1";
+    //      "order", the order of a feeder in the diagram,
+    //      "busbarIndex"/"sectionIndex", the position of a busbar section in the diagram
+    private static final String METADATA_VERSION = "1.2";
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     // On some systems, the export order is determined by the order of the 1st encountered JsonCreator's attributes
@@ -103,28 +103,6 @@ public class GraphMetadata extends AbstractMetadata<GraphMetadata> {
             this(null, escapedId, vId, nextVId, componentType, open, direction, vLabel, equipmentId, labels);
         }
 
-        /**
-         * @deprecated use the constructor taking the node's network topology
-         *             ({@code iidmNode}, {@code iidmNode1}, {@code iidmNode2},
-         *             {@code order}, {@code busbarIndex}, {@code sectionIndex}) instead.
-         */
-        @Deprecated(since = "5.6.0", forRemoval = true)
-        public NodeMetadata(@JsonProperty("unescapedId") String unescapedId,
-                            @JsonProperty("id") String escapedId,
-                            @JsonProperty("vid") String vId,
-                            @JsonProperty("nextVId") String nextVId,
-                            @JsonProperty("componentType") String componentType,
-                            @JsonProperty("open") boolean open,
-                            @JsonProperty("direction") Direction direction,
-                            @JsonProperty("vlabel") boolean vLabel,
-                            @JsonProperty("equipmentId") String equipmentId,
-                            @JsonProperty("labels") List<NodeLabelMetadata> labels) {
-            this(unescapedId, escapedId, vId, nextVId, componentType, open, direction, vLabel, equipmentId, null, labels);
-        }
-
-        /**
-         * For the nodes carrying no network topology beyond the node they stand on.
-         */
         public NodeMetadata(String unescapedId,
                             String escapedId,
                             String vId,
@@ -134,10 +112,9 @@ public class GraphMetadata extends AbstractMetadata<GraphMetadata> {
                             Direction direction,
                             boolean vLabel,
                             String equipmentId,
-                            Integer iidmNode,
                             List<NodeLabelMetadata> labels) {
-            this(unescapedId, escapedId, vId, nextVId, componentType, open, direction, vLabel, equipmentId, iidmNode,
-                    null, null, null, null, null, labels);
+            this(unescapedId, escapedId, vId, nextVId, componentType, open, direction, vLabel, equipmentId,
+                    null, null, null, null, null, null, labels);
         }
 
         @JsonCreator
@@ -157,12 +134,6 @@ public class GraphMetadata extends AbstractMetadata<GraphMetadata> {
                             @JsonProperty("busbarIndex") Integer busbarIndex,
                             @JsonProperty("sectionIndex") Integer sectionIndex,
                             @JsonProperty("labels") List<NodeLabelMetadata> labels) {
-            this.iidmNode = iidmNode;
-            this.iidmNode1 = iidmNode1;
-            this.iidmNode2 = iidmNode2;
-            this.order = order;
-            this.busbarIndex = busbarIndex;
-            this.sectionIndex = sectionIndex;
             this.unescapedId = unescapedId;
             this.id = Objects.requireNonNull(escapedId);
             this.vId = Objects.requireNonNull(vId);
@@ -172,6 +143,12 @@ public class GraphMetadata extends AbstractMetadata<GraphMetadata> {
             this.direction = direction;
             this.vLabel = vLabel;
             this.equipmentId = equipmentId;
+            this.iidmNode = iidmNode;
+            this.iidmNode1 = iidmNode1;
+            this.iidmNode2 = iidmNode2;
+            this.order = order;
+            this.busbarIndex = busbarIndex;
+            this.sectionIndex = sectionIndex;
             this.labels = Objects.requireNonNull(labels);
         }
 

@@ -1,5 +1,5 @@
 {
-  "metadataVersion" : "1.1",
+  "metadataVersion" : "1.2",
   "components" : [ {
     "type" : "BUSBAR_SECTION",
     "size" : {
@@ -685,6 +685,7 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "trf6",
+    "iidmNode" : 29,
     "labels" : [ ]
   }, {
     "id" : "iddgen1",
@@ -703,6 +704,7 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "trf7",
+    "iidmNode" : 31,
     "labels" : [ ]
   }, {
     "id" : "idtrf8",
@@ -711,6 +713,7 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "trf8",
+    "iidmNode" : 33,
     "labels" : [ ]
   }, {
     "id" : "iddgen2",

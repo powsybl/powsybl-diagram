@@ -1,5 +1,5 @@
 {
-  "metadataVersion" : "1.1",
+  "metadataVersion" : "1.2",
   "components" : [ {
     "type" : "BUSBAR_SECTION",
     "size" : {

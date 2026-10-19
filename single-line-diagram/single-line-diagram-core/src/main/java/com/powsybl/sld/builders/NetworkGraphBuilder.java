@@ -527,7 +527,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 });
             }
 
-            nodesByNumber.put(terminal.getNodeBreakerView().getNode(), middleNode);
+            int iidmNode = terminal.getNodeBreakerView().getNode();
+            middleNode.setIidmNode(iidmNode);
+            nodesByNumber.put(iidmNode, middleNode);
         }
 
         @Override
@@ -552,7 +554,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 teeNode.setDirection(Direction.valueOf(feeder.getDirection().toString()));
             }
 
-            nodesByNumber.put(line.getTerminal(vlOwnSide.getId()).getNodeBreakerView().getNode(), teeNode);
+            int iidmNode = line.getTerminal(vlOwnSide.getId()).getNodeBreakerView().getNode();
+            teeNode.setIidmNode(iidmNode);
+            nodesByNumber.put(iidmNode, teeNode);
         }
     }
 
