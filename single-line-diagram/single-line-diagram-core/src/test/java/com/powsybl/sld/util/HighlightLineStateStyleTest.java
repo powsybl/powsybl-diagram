@@ -35,7 +35,7 @@ class HighlightLineStateStyleTest extends AbstractTestCaseIidm {
     public void setUp() throws IOException {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
-        substation = network.newSubstation().setId("substation").setCountry(Country.FR).add();
+        substation = network.newSubstation().setId("substation").add();
         vl = Networks.createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380);
         // bbs - disconnector - breaker - load
         Networks.createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);

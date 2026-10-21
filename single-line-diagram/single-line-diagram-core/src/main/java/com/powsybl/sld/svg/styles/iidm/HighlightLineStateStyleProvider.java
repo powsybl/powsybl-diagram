@@ -99,17 +99,14 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
     }
 
     private Optional<String> getFeederBlockEdgeStyle(Graph graph, Edge edge) {
-        Node n1 = edge.getNode1();
-        Node n2 = edge.getNode2();
-        Node fictitious;
-        if (n1.isFictitious()) {
-            fictitious = n1;
-        } else if (n2.isFictitious()) {
-            fictitious = n2;
-        } else {
+        Node fictitious = edge.getNodes().stream()
+                .filter(Node::isFictitious)
+                .findFirst()
+                .orElse(null);
+        if (fictitious == null) {
             return Optional.empty();
         }
-        Node adjacentNode = fictitious == n1 ? n2 : n1;
+        Node adjacentNode = edge.getOppositeNode(fictitious);
         if (adjacentNode instanceof FeederNode || adjacentNode.isFictitious()) {
             return Optional.empty();
         }
