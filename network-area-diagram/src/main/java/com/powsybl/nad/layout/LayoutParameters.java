@@ -21,6 +21,7 @@ public class LayoutParameters {
     private double textNodeEdgeConnectionYShift = 25;
     private boolean injectionsAdded = false;
     private double scaleFactor = 1;
+    private boolean edgesToInvisibleNodesDisplayed = true;
 
     public LayoutParameters() {
     }
@@ -33,6 +34,7 @@ public class LayoutParameters {
         this.textNodeEdgeConnectionYShift = other.textNodeEdgeConnectionYShift;
         this.injectionsAdded = other.injectionsAdded;
         this.scaleFactor = other.scaleFactor;
+        this.edgesToInvisibleNodesDisplayed = other.edgesToInvisibleNodesDisplayed;
     }
 
     public boolean isTextNodesForceLayout() {
@@ -95,6 +97,15 @@ public class LayoutParameters {
 
     public LayoutParameters setScaleFactor(double scaleFactor) {
         this.scaleFactor = scaleFactor;
+        return this;
+    }
+
+    public boolean isEdgesToInvisibleNodesDisplayed() {
+        return edgesToInvisibleNodesDisplayed;
+    }
+
+    public LayoutParameters setEdgesToInvisibleNodesDisplayed(boolean edgesToInvisibleNodesDisplayed) {
+        this.edgesToInvisibleNodesDisplayed = edgesToInvisibleNodesDisplayed;
         return this;
     }
 }

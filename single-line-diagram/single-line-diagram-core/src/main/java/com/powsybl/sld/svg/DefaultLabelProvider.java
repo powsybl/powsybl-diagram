@@ -69,6 +69,25 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         return feederInfos;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Retrieves info on the {@link Middle3WTNode} depending on the display of the arrows (see {@link LayoutParameters.ThreeWindingsTransformerFeederInfoMode}).
+     *
+     * @param twtNode the Middle3WTNode for which to retrieve feeder information
+     * @return a list of FeederInfo objects associated with the specified node
+     */
+    public List<FeederInfo> getFeederInfos(Middle3WTNode twtNode) {
+        List<FeederInfo> infos = new ArrayList<>();
+        ThreeWindingsTransformer twt = network.getThreeWindingsTransformer(twtNode.getEquipmentId());
+        boolean onlyOutside = layoutParameters.getThreeWindingsTransformerFeederInfoMode() == LayoutParameters.ThreeWindingsTransformerFeederInfoMode.ONLY_OUTSIDE_VOLTAGE_LEVEL;
+        if (twt != null && !onlyOutside) {
+            twt.getTerminal(ThreeSides.ONE);
+            infos.addAll(this.buildFeederInfos(twt.getTerminal(ThreeSides.ONE), true));
+        }
+        return infos;
+    }
+
     private List<FeederInfo> getInjectionFeederInfos(FeederNode node) {
         List<FeederInfo> measures = new ArrayList<>();
         Injection<?> injection = (Injection<?>) network.getIdentifiable(node.getEquipmentId());
@@ -88,6 +107,13 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         return measures;
     }
 
+    /**
+     * Retrieves a list of feeder information objects for a three-windings transformer from the given node and feeder.
+     *
+     * @param node the FeederNode containing the equipment ID of the transformer.
+     * @param feeder the FeederTwLeg specifying the side and voltage level details for retrieving feeder information.
+     * @return a list of FeederInfo objects representing the information of the associated feeders for the three-windings transformer.
+     */
     private List<FeederInfo> get3WTFeederInfos(FeederNode node, FeederTwLeg feeder) {
         List<FeederInfo> feederInfos = new ArrayList<>();
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
@@ -191,7 +217,11 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     }
 
     private List<FeederInfo> get3WTFeederInfos(ThreeWindingsTransformer transformer, ThreeSides side, boolean insideVoltageLevel) {
-        List<FeederInfo> feederInfoList = buildFeederInfos(transformer.getTerminal(side), insideVoltageLevel);
+        List<FeederInfo> feederInfoList = new ArrayList<>();
+        boolean outsideOrFull = layoutParameters.getThreeWindingsTransformerFeederInfoMode() != LayoutParameters.ThreeWindingsTransformerFeederInfoMode.ONLY_INSIDE_VOLTAGE_LEVEL;
+        if (outsideOrFull || insideVoltageLevel) {
+            feederInfoList = buildFeederInfos(transformer.getTerminal(side), insideVoltageLevel);
+        }
         if (this.displayPermanentLimitPercentage) {
             feederInfoList.add(new ValueFeederInfo(VALUE_PERMANENT_LIMIT_PERCENTAGE, LabelDirection.NONE, getPermanentLimitPercentageMax(transformer), valueFormatter::formatPercentage));
         }

@@ -30,8 +30,10 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -191,4 +193,14 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
                 new DefaultSVGLegendWriter(network, svgParameters)));
     }
 
+    @Test
+    void defaultStyleProviderThrowsWhenNetworkIsNull() {
+        network = null;
+        assertThrows(NullPointerException.class, this::getDefaultDiagramStyleProvider);
+    }
+
+    @Test
+    void defaultStyleProviderDoesNotThrowWhenNetworkIsSet() {
+        assertDoesNotThrow(this::getDefaultDiagramStyleProvider);
+    }
 }
