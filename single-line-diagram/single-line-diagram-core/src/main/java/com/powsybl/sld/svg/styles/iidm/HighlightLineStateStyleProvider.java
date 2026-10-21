@@ -94,8 +94,27 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
         } else if (n1 instanceof Internal2WTNode || n2 instanceof Internal2WTNode) {
             return getHighlightFeederStateStyleForInternal2WT(n1, n2);
         } else {
+            return getFeederBlockEdgeStyle(graph, edge);
+        }
+    }
+
+    private Optional<String> getFeederBlockEdgeStyle(Graph graph, Edge edge) {
+        Node fictitious = edge.getNodes().stream()
+                .filter(Node::isFictitious)
+                .findFirst()
+                .orElse(null);
+        if (fictitious == null) {
             return Optional.empty();
         }
+        Node adjacentNode = edge.getOppositeNode(fictitious);
+        if (adjacentNode instanceof FeederNode || adjacentNode.isFictitious()) {
+            return Optional.empty();
+        }
+        return fictitious.getAdjacentNodes().stream()
+                .filter(FeederNode.class::isInstance)
+                .map(FeederNode.class::cast)
+                .findFirst()
+                .flatMap(feeder -> getHighlightFeederStateStyle(graph, feeder));
     }
 
     protected Optional<String> getHighlightFeederStateStyle(Graph graph, FeederNode n) {
