@@ -8,7 +8,11 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
-import com.powsybl.sld.model.cells.*;
+import com.powsybl.sld.model.cells.ArchCell;
+import com.powsybl.sld.model.cells.CellVisitor;
+import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.cells.InternCell;
+import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Coord;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
@@ -70,7 +74,7 @@ public final class CalculateCoordCellVisitor implements CellVisitor {
         Position position = block.getPosition();
         setCoordX(block.getCoord(), position);
 
-        double spanY = getRootSpanYCoord(position, layoutParameters, layoutContext.getMaxInternCellHeight(), layoutContext.isInternCell());
+        double spanY = getRootSpanYCoord(position, layoutParameters, layoutContext.maxInternCellHeight(), layoutContext.isInternCell());
         double valueY = getRootYCoord(position, layoutParameters, spanY, layoutContext);
         block.getCoord().set(Y, valueY, spanY);
 
@@ -101,22 +105,18 @@ public final class CalculateCoordCellVisitor implements CellVisitor {
     }
 
     private double getRootYCoord(Position position, LayoutParameters layoutParam, double spanY, LayoutContext layoutContext) {
-        double dyToBus = 0;
+        double dyToBus;
         if (layoutContext.isInternCell() && !layoutContext.isFlat()) {
             dyToBus = spanY / 2 + layoutParam.getInternCellHeight() * (1 + position.get(V)) / 2.;
         } else {
             dyToBus = spanY / 2 + layoutParam.getStackHeight();
         }
-        switch (layoutContext.getDirection()) {
-            case BOTTOM:
-                return layoutContext.getLastBusY() + dyToBus;
-            case TOP:
-                return layoutContext.getFirstBusY() - dyToBus;
-            case MIDDLE:
-                return layoutContext.getFirstBusY() + (position.get(V) - 1) * layoutParam.getVerticalSpaceBus();
-            default:
-                return 0;
-        }
+        return switch (layoutContext.direction()) {
+            case BOTTOM -> layoutContext.lastBusY() + dyToBus;
+            case TOP -> layoutContext.firstBusY() - dyToBus;
+            case MIDDLE -> layoutContext.firstBusY() + (position.get(V) - 1) * layoutParam.getVerticalSpaceBus();
+            default -> 0;
+        };
     }
 
     public void coordShuntCase(BodyPrimaryBlock block, int hLeft, int hRight) {

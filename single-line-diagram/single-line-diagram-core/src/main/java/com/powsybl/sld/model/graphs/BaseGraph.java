@@ -6,11 +6,11 @@
  */
 package com.powsybl.sld.model.graphs;
 
-import java.util.List;
-
 import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.MiddleTwtNode;
+
+import java.util.List;
 
 /**
  * @author Slimane Amar {@literal <slimane.amar at rte-france.com>}

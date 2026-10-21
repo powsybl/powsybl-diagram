@@ -6,15 +6,14 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
+import com.powsybl.iidm.network.StaticVarCompensator;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
+import com.powsybl.triplestore.api.TripleStore;
+
 import java.util.Map;
 import java.util.Objects;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
-import com.powsybl.iidm.network.StaticVarCompensator;
-import com.powsybl.triplestore.api.TripleStore;
-
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class SvcDiagramDataExporter extends AbstractInjectionDiagramDataExporter {

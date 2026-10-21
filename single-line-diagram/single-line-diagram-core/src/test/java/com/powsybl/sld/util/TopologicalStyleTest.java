@@ -12,11 +12,17 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
+import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.svg.DefaultLabelProvider;
+import com.powsybl.sld.svg.DefaultSVGLegendWriter;
+import com.powsybl.sld.svg.styles.BusHighlightStyleProviderFactory;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
+import com.powsybl.sld.svg.styles.StyleProvider;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +30,10 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -84,7 +93,7 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
     }
 
     @Test
-    void test() throws IOException {
+    void test() {
         // building graphs
         VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId());
         VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId());
@@ -146,6 +155,52 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
         substationGraphLayout(graph);
 
-        assertEquals(toString("/topological_style_substation.svg"), toSVG(graph, "/topological_style_substation.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+        assertEquals(toString("/topological_style_substation.svg"),
+            toSVG(graph, "/topological_style_substation.svg", componentLibrary, layoutParameters, svgParameters,
+                getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+    }
+
+    @Test
+    void testBusHighlight() {
+        SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
+        substationGraphLayout(graph);
+        BusHighlightStyleProviderFactory styleFactory = new BusHighlightStyleProviderFactory();
+        StyleProvider styleProvider = styleFactory.create(network, svgParameters);
+        assertTrue(styleProvider.getCssFilenames().contains("busHighlight.css"));
+        assertEquals(toString("/bus_highlight_style_substation.svg"),
+            toSVG(graph, "/bus_highlight_style_substation.svg", componentLibrary, layoutParameters, svgParameters,
+                getDefaultDiagramLabelProvider(), styleProvider, getDefaultSVGLegendWriter()));
+
+        styleProvider = new TopologicalStyleProvider(network, false);
+        assertFalse(styleProvider.getCssFilenames().contains("busHighlight.css"));
+    }
+
+    @Test
+    void testBusHighlightSubstationUnifiedVoltageLevelColors() {
+        svgParameters.setUnifyVoltageLevelColors(true);
+
+        // build graph
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
+
+        // Run layout
+        new VerticalSubstationLayoutFactory().create(g, new SmartVoltageLevelLayoutFactory(network)).run(layoutParameters);
+
+        // write SVG and compare to reference
+        assertEquals(toString("/TestBusHighlightSubstationUnifiedColors.svg"),
+            toSVG(g, "/TestBusHighlightSubstationUnifiedColors.svg", componentLibrary, layoutParameters, svgParameters,
+                new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters),
+                new TopologicalStyleProvider(network, svgParameters, true),
+                new DefaultSVGLegendWriter(network, svgParameters)));
+    }
+
+    @Test
+    void defaultStyleProviderThrowsWhenNetworkIsNull() {
+        network = null;
+        assertThrows(NullPointerException.class, this::getDefaultDiagramStyleProvider);
+    }
+
+    @Test
+    void defaultStyleProviderDoesNotThrowWhenNetworkIsSet() {
+        assertDoesNotThrow(this::getDefaultDiagramStyleProvider);
     }
 }

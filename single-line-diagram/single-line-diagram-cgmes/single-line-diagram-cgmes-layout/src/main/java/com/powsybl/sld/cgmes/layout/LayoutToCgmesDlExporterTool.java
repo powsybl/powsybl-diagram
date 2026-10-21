@@ -14,7 +14,12 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.AbstractSingleLineDiagramCommand;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLExporter;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLUtils;
-import com.powsybl.sld.layout.*;
+import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.SubstationLayoutFactory;
+import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
+import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.position.clustering.PositionByClustering;
 import com.powsybl.sld.layout.position.predefined.PositionPredefined;
 import com.powsybl.tools.Command;
@@ -119,7 +124,7 @@ public class LayoutToCgmesDlExporterTool implements Tool {
         Network network = Network.read(inputFile);
 
         context.getOutputStream().println("Generating layout for the network ...");
-        LayoutToCgmesExtensionsConverter lTranslator = new LayoutToCgmesExtensionsConverter(sFactory, vFactory, new LayoutParameters().setCgmesUseNames(true));
+        LayoutToCgmesExtensionsConverter lTranslator = new LayoutToCgmesExtensionsConverter(sFactory, vFactory, new LayoutParameters());
 
         String diagramName = toolOptions.getValue(DIAGRAM_NAME).orElse(null);
         lTranslator.convertLayout(network, diagramName);

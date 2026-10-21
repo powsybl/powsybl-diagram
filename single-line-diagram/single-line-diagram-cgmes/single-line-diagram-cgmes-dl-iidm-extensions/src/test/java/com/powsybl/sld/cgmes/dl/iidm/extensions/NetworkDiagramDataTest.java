@@ -6,11 +6,14 @@
  */
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
-import com.powsybl.iidm.network.Network;
 import com.powsybl.diagram.test.Networks;
+import com.powsybl.iidm.network.Network;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
@@ -18,10 +21,10 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class NetworkDiagramDataTest {
 
-    protected static String DIAGRAM_NAME = "diagram";
-    protected static String SUBSTATION1_NAME = "substation1";
-    protected static String SUBSTATION2_NAME = "substation2";
-    protected static String DIAGRAM_NAME2 = "diagram2";
+    protected static final String DIAGRAM_NAME = "diagram";
+    protected static final String SUBSTATION1_NAME = "substation1";
+    protected static final String SUBSTATION2_NAME = "substation2";
+    protected static final String DIAGRAM_NAME2 = "diagram2";
 
     @Test
     void test() {

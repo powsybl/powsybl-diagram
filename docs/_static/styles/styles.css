@@ -16,6 +16,9 @@
     background-color : white
 }
 
+.svg-height {
+    height : 500px
+}
 
 table.docutils {
     display: block;

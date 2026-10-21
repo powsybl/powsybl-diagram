@@ -11,7 +11,8 @@ import com.powsybl.sld.model.nodes.Node;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.powsybl.sld.model.blocks.Block.Extremity.*;
+import static com.powsybl.sld.model.blocks.Block.Extremity.END;
+import static com.powsybl.sld.model.blocks.Block.Extremity.START;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -32,8 +33,8 @@ abstract class AbstractParallelBlock<T extends Block> extends AbstractComposedBl
             }
         }
 
-        Node node0s = subBlocks.get(0).getExtremityNode(START);
-        Node node0e = subBlocks.get(0).getExtremityNode(END);
+        Node node0s = subBlocks.getFirst().getExtremityNode(START);
+        Node node0e = subBlocks.getFirst().getExtremityNode(END);
         for (Block b : this.subBlocks) {
             b.setParentBlock(this);
             if (b.getExtremityNode(START) != node0s && b.getExtremityNode(END) != node0e) {

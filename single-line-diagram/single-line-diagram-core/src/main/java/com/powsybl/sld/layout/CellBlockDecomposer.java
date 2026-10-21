@@ -7,17 +7,28 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.model.blocks.*;
-import com.powsybl.sld.model.cells.*;
+import com.powsybl.sld.model.blocks.Block;
+import com.powsybl.sld.model.blocks.BodyParallelBlock;
+import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
+import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
+import com.powsybl.sld.model.blocks.LegParallelBlock;
+import com.powsybl.sld.model.blocks.LegPrimaryBlock;
+import com.powsybl.sld.model.blocks.PrimaryBlock;
+import com.powsybl.sld.model.blocks.SerialBlock;
+import com.powsybl.sld.model.blocks.UndefinedBlock;
+import com.powsybl.sld.model.cells.BusCell;
+import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -56,7 +67,7 @@ final class CellBlockDecomposer {
                 .forEach(n -> nodeRemainingSlots.put(n, n.getCardinality(voltageLevelGraph)));
         elaborateLegPrimaryBlock(busCell, nodeRemainingSlots, blocks);
         elaborateFeederPrimaryBlock(busCell, nodeRemainingSlots, blocks);
-        rElaborateBodyPrimaryBlocks(busCell, blocks.get(0).getEndingNode(), nodeRemainingSlots, blocks); // the first block is a LegPrimaryBlock, the endingNode is a good start
+        rElaborateBodyPrimaryBlocks(busCell, blocks.getFirst().getEndingNode(), nodeRemainingSlots, blocks); // the first block is a LegPrimaryBlock, the endingNode is a good start
 
         return blocks;
     }
@@ -81,7 +92,7 @@ final class CellBlockDecomposer {
                 }
             }
         }
-        busCell.blocksSetting(blocks.get(0), legPrimaryBlocks, feederPrimaryBlocks);
+        busCell.blocksSetting(blocks.getFirst(), legPrimaryBlocks, feederPrimaryBlocks);
     }
 
     /**
@@ -138,7 +149,7 @@ final class CellBlockDecomposer {
             if (blocksBundle.isEmpty()) {
                 i++;
             } else {
-                blocksBundle.add(0, blocks.get(i));
+                blocksBundle.addFirst(blocks.get(i));
                 blocks.removeAll(blocksBundle);
                 blocksBundlesToMerge.add(blocksBundle);
             }
@@ -156,7 +167,7 @@ final class CellBlockDecomposer {
      *
      * @param block1 layout.block
      * @param block2 layout.block
-     * @return true if the two blocks are similar : same start and end
+     * @return The node of {@code block1} equals to the node at the start of {@code block2} if the two blocks are similar (same start and end), else null
      */
     private static Node checkParallelCriteria(Block block1, Block block2) {
         Node s1 = block1.getExtremityNode(Block.Extremity.START);
@@ -229,7 +240,7 @@ final class CellBlockDecomposer {
                 if (checkRemainingSlots(nodeRemainingSlots, node, 1)) {
                     List<Node> primaryPattern = pileUp2adjNodes(entryNode, node, nodeRemainingSlots);
                     blocks.add(BodyPrimaryBlock.createBodyPrimaryBlockInBusCell(primaryPattern));
-                    Node lastNode = primaryPattern.get(primaryPattern.size() - 1);
+                    Node lastNode = primaryPattern.getLast();
                     rElaborateBodyPrimaryBlocks(busCell, lastNode, nodeRemainingSlots, blocks);
                 }
             }
@@ -261,6 +272,6 @@ final class CellBlockDecomposer {
 
     private static Node getNextNode(Node currentNode, Node parentCurrentNode) {
         List<Node> adjacentNodes = currentNode.getAdjacentNodes();
-        return adjacentNodes.get(adjacentNodes.get(0).equals(parentCurrentNode) ? 1 : 0);
+        return adjacentNodes.get(adjacentNodes.getFirst().equals(parentCurrentNode) ? 1 : 0);
     }
 }

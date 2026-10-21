@@ -35,7 +35,7 @@ public final class FeederPrimaryBlock extends AbstractPrimaryBlock {
     }
 
     public Node getConnectedNode() {
-        return nodes.get(0);
+        return nodes.getFirst();
     }
 
     @Override

@@ -14,7 +14,6 @@ import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -64,7 +63,7 @@ class TestCase4NotParallelel extends AbstractTestCaseIidm {
         Networks.createSwitch(vl, "db1", "db1", SwitchKind.DISCONNECTOR, false, false, false, 6, 1);
         Networks.createSwitch(vl, "db2", "db2", SwitchKind.DISCONNECTOR, false, false, false, 6, 2);
         Networks.createSwitch(vl, "ss1", "ss1", SwitchKind.DISCONNECTOR, false, false, false, 1, 0);
-        Networks.createGenerator(vl, "gc", "gc", "gc", 30, ConnectablePosition.Direction.TOP, 7, 0, 20, false, 10, 10);
+        Networks.createGenerator(vl, "gc", "gc", "gc", 30, ConnectablePosition.Direction.TOP, 7, 0, 20, 10, 10);
         Networks.createSwitch(vl, "bc", "bc", SwitchKind.BREAKER, false, false, false, 7, 8);
         Networks.createSwitch(vl, "dc1", "dc1", SwitchKind.DISCONNECTOR, false, false, false, 8, 1);
     }

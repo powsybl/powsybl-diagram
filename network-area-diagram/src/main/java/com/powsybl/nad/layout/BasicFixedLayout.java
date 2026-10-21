@@ -23,7 +23,7 @@ public class BasicFixedLayout extends AbstractLayout {
         jgraphtGraph.vertexSet().forEach(node -> {
             Point p = getInitialNodePositions().get(node.getEquipmentId());
             if (p != null) {
-                node.setPosition(p.getX(), p.getY());
+                node.setPosition(p.x(), p.y());
             }
         });
 

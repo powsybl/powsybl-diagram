@@ -6,16 +6,14 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion.exporters;
 
+import com.powsybl.diagram.test.Networks;
+import com.powsybl.iidm.network.StaticVarCompensator;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
-import com.powsybl.diagram.test.Networks;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
-import com.powsybl.iidm.network.StaticVarCompensator;
-
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class SvcDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTest {
@@ -29,7 +27,7 @@ class SvcDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTes
         network = Networks.createNetworkWithStaticVarCompensator();
         svc = network.getStaticVarCompensator("Svc");
         InjectionDiagramData<StaticVarCompensator> svcDiagramData = new InjectionDiagramData<>(svc);
-        InjectionDiagramData.InjectionDiagramDetails details = svcDiagramData.new InjectionDiagramDetails(point, rotation);
+        InjectionDiagramData.InjectionDiagramDetails details = new InjectionDiagramData.InjectionDiagramDetails(point, rotation);
         details.addTerminalPoint(terminalPoint1);
         details.addTerminalPoint(terminalPoint2);
         svcDiagramData.addData(basename, details);

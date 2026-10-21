@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 class TypeOfEdgeInfoTest extends AbstractTest {
 
     Network network;
+    DefaultLabelProvider labelProvider;
 
     @BeforeEach
     void setup() {
@@ -29,7 +30,6 @@ class TypeOfEdgeInfoTest extends AbstractTest {
         setSvgParameters(new SvgParameters()
                 .setInsertNameDesc(true)
                 .setSvgWidthAndHeightAdded(true)
-                .setVoltageLevelDetails(false)
                 .setFixedWidth(800)
                 .setEdgeStartShift(2));
         network = Networks.createTwoVoltageLevels();
@@ -47,19 +47,41 @@ class TypeOfEdgeInfoTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-        return new DefaultLabelProvider(network, getSvgParameters());
+        return labelProvider;
     }
 
     @Test
     void testReactivePowerInfoLabel() {
-        getSvgParameters().setEdgeInfoDisplayed(SvgParameters.EdgeInfoEnum.REACTIVE_POWER);
+        labelProvider = new DefaultLabelProvider.Builder()
+            .setInfoSideExternal(EdgeInfoEnum.REACTIVE_POWER)
+            .setInfoSideInternal(EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide1(EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide2(EdgeInfoEnum.EMPTY)
+            .setVoltageLevelDetails(false)
+            .build(network, getSvgParameters());
         assertSvgEquals("/edge_info_reactive_power.svg", network);
     }
 
     @Test
     void testCurrentInfoLabel() {
-        getSvgParameters().setEdgeInfoDisplayed(SvgParameters.EdgeInfoEnum.CURRENT);
+        labelProvider = new DefaultLabelProvider.Builder()
+            .setInfoSideExternal(EdgeInfoEnum.CURRENT)
+            .setInfoSideInternal(EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide1(EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide2(EdgeInfoEnum.EMPTY)
+            .build(network, getSvgParameters());
         assertSvgEquals("/edge_info_current.svg", network);
+    }
+
+    @Test
+    void testMultipleInfoLabel() {
+        labelProvider = new DefaultLabelProvider.Builder()
+            .setInfoSideExternal(EdgeInfoEnum.CURRENT)
+            .setInfoSideInternal(EdgeInfoEnum.REACTIVE_POWER)
+            .setInfoMiddleSide1(EdgeInfoEnum.NAME)
+            .setInfoMiddleSide2(EdgeInfoEnum.ACTIVE_POWER)
+            .build(network, getSvgParameters());
+        assertSvgEquals("/edge_info_multiple.svg", network);
     }
 
 }

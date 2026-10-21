@@ -1,4 +1,3 @@
-
 /**
  * Copyright (c) 2022, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -14,15 +13,11 @@ public enum Direction {
     TOP, BOTTOM, MIDDLE, UNDEFINED;
 
     public Orientation toOrientation() {
-        switch (this) {
-            case TOP:
-                return Orientation.UP;
-            case BOTTOM:
-                return Orientation.DOWN;
-            case MIDDLE:
-                return Orientation.MIDDLE;
-            default:
-                return Orientation.UNDEFINED;
-        }
+        return switch (this) {
+            case TOP -> Orientation.UP;
+            case BOTTOM -> Orientation.DOWN;
+            case MIDDLE -> Orientation.MIDDLE;
+            default -> Orientation.UNDEFINED;
+        };
     }
 }

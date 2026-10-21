@@ -6,28 +6,26 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion.importers;
 
-import java.util.Objects;
-
+import com.powsybl.iidm.network.BusbarSection;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Substation;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
+import com.powsybl.triplestore.api.PropertyBag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
-import com.powsybl.iidm.network.BusbarSection;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.triplestore.api.PropertyBag;
+import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class BusbarDiagramDataImporter {
 
     private static final Logger LOG = LoggerFactory.getLogger(BusbarDiagramDataImporter.class);
 
-    private Network network;
+    private final Network network;
 
     public BusbarDiagramDataImporter(Network network) {
         this.network = Objects.requireNonNull(network);
@@ -43,9 +41,9 @@ public class BusbarDiagramDataImporter {
                 busbarIidmDiagramData = new NodeDiagramData<>(busbar);
             }
             String diagramName = busbarDiagramData.get("diagramName");
-            NodeDiagramData<BusbarSection>.NodeDiagramDataDetails diagramDetails = busbarIidmDiagramData.getData(diagramName);
+            NodeDiagramData.NodeDiagramDataDetails diagramDetails = busbarIidmDiagramData.getData(diagramName);
             if (diagramDetails == null) {
-                diagramDetails = busbarIidmDiagramData.new NodeDiagramDataDetails();
+                diagramDetails = new NodeDiagramData.NodeDiagramDataDetails();
             }
             if (busbarDiagramData.asInt("seq") == 1) {
                 diagramDetails.setPoint1(new DiagramPoint(busbarDiagramData.asDouble("x"), busbarDiagramData.asDouble("y"), busbarDiagramData.asInt("seq")));

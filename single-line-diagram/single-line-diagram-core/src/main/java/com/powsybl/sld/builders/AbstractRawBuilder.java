@@ -17,9 +17,10 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.*;
+import java.util.stream.Stream;
 
-import static com.powsybl.sld.model.nodes.NodeSide.*;
+import static com.powsybl.sld.model.nodes.NodeSide.ONE;
+import static com.powsybl.sld.model.nodes.NodeSide.TWO;
 
 /**
  * @author Thomas Adam {@literal <tadam at neverhack.com>}
@@ -52,8 +53,8 @@ public abstract class AbstractRawBuilder implements BaseRawBuilder {
         Direction direction1 = directions.get(0);
         Direction direction2 = directions.get(1);
         Map<VoltageLevelRawBuilder, FeederNode> feederLineNodes = new HashMap<>();
-        FeederNode feederLineNode1 = vl1.createFeederLineNode(id, vl2.getVoltageLevelInfos().getId(), ONE, order1, direction1);
-        FeederNode feederLineNode2 = vl2.createFeederLineNode(id, vl1.getVoltageLevelInfos().getId(), TWO, order2, direction2);
+        FeederNode feederLineNode1 = vl1.createFeederLineNode(id, vl2.getVoltageLevelInfos().id(), ONE, order1, direction1);
+        FeederNode feederLineNode2 = vl2.createFeederLineNode(id, vl1.getVoltageLevelInfos().id(), TWO, order2, direction2);
         feederLineNodes.put(vl1, feederLineNode1);
         feederLineNodes.put(vl2, feederLineNode2);
 
@@ -88,19 +89,15 @@ public abstract class AbstractRawBuilder implements BaseRawBuilder {
         FeederNode feederLccNode1;
         FeederNode feederLccNode2;
         switch (type) {
-            case LCC: {
+            case LCC -> {
                 feederLccNode1 = NodeFactory.createLccConverterStation(vl1.getGraph(), id + "_" + ONE, id, id, ONE, vl2.getVoltageLevelInfos());
                 feederLccNode2 = NodeFactory.createLccConverterStation(vl2.getGraph(), id + "_" + TWO, id, id, TWO, vl1.getVoltageLevelInfos());
-                break;
             }
-            case VSC: {
+            case VSC -> {
                 feederLccNode1 = NodeFactory.createVscConverterStation(vl1.getGraph(), id + "_" + ONE, id, id, ONE, vl2.getVoltageLevelInfos());
                 feederLccNode2 = NodeFactory.createVscConverterStation(vl2.getGraph(), id + "_" + TWO, id, id, TWO, vl1.getVoltageLevelInfos());
-                break;
             }
-            default: {
-                throw new AssertionError();
-            }
+            default -> throw new AssertionError();
         }
         feederLccNode1.setLabel(id);
         feederLccNode1.setOrder(order1);

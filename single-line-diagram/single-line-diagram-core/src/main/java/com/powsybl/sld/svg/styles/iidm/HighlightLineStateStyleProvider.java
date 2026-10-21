@@ -7,12 +7,26 @@
  */
 package com.powsybl.sld.svg.styles.iidm;
 
-import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.Branch;
+import com.powsybl.iidm.network.Bus;
+import com.powsybl.iidm.network.BusbarSection;
+import com.powsybl.iidm.network.Injection;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.ThreeSides;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.iidm.network.TwoSides;
+import com.powsybl.iidm.network.TwoWindingsTransformer;
 import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.Edge;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.FeederType;
+import com.powsybl.sld.model.nodes.Internal2WTNode;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.NodeSide;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.styles.EmptyStyleProvider;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
@@ -27,7 +41,12 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
 
     private final Network network;
 
+    /**
+     *
+     * @param network the IIDM network (must not be {@code null})
+     */
     public HighlightLineStateStyleProvider(Network network) {
+        Objects.requireNonNull(network);
         this.network = network;
     }
 
@@ -83,8 +102,7 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
         if (n.getFeeder().getFeederType() == FeederType.INJECTION) {
             Injection<?> injection = (Injection<?>) network.getIdentifiable(n.getEquipmentId());
             return injection.getTerminal().isConnected() ? Optional.empty() : Optional.of(StyleClassConstants.FEEDER_DISCONNECTED_CONNECTED);
-        } else if (n.getFeeder() instanceof FeederWithSides) {
-            FeederWithSides feederWs = (FeederWithSides) n.getFeeder();
+        } else if (n.getFeeder() instanceof FeederWithSides feederWs) {
             Map<NodeSide, Boolean> connectionStatus = connectionStatus(n);
             NodeSide side = null;
             NodeSide otherSide = null;
@@ -96,7 +114,7 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
                     otherSide = getOtherSide(side);
                 }
             } else if (feederWs.getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
-                String idVl = graph.getVoltageLevelInfos(n).getId();
+                String idVl = graph.getVoltageLevelInfos(n).id();
                 ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(n.getEquipmentId());
                 if (transformer != null) {
                     side = getTransformerSide(idVl, transformer);

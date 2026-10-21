@@ -6,16 +6,15 @@
  */
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.diagram.test.Networks;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class BusDiagramDataTest extends AbstractNodeDiagramDataTest {
@@ -27,7 +26,7 @@ class BusDiagramDataTest extends AbstractNodeDiagramDataTest {
 
         NodeDiagramData<Bus> busDiagramData = NodeDiagramData.getOrCreateDiagramData(bus);
         assertNotNull(busDiagramData);
-        NodeDiagramData.NodeDiagramDataDetails busDiagramDetails = busDiagramData.new NodeDiagramDataDetails();
+        NodeDiagramData.NodeDiagramDataDetails busDiagramDetails = new NodeDiagramData.NodeDiagramDataDetails();
 
         busDiagramDetails.setPoint1(new DiagramPoint(0, 10, 1));
         busDiagramDetails.setPoint2(new DiagramPoint(10, 0, 2));

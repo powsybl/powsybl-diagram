@@ -19,7 +19,11 @@ import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.Node;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -34,7 +38,7 @@ public final class WireConnection {
 
     private final AnchorPoint anchorPoint2;
 
-    private WireConnection(AnchorPoint anchorPoint1, AnchorPoint anchorPoint2) {
+    WireConnection(AnchorPoint anchorPoint1, AnchorPoint anchorPoint2) {
         this.anchorPoint1 = Objects.requireNonNull(anchorPoint1);
         this.anchorPoint2 = Objects.requireNonNull(anchorPoint2);
     }
@@ -54,25 +58,41 @@ public final class WireConnection {
         Objects.requireNonNull(node1);
         Objects.requireNonNull(node2);
 
-        List<AnchorPoint> anchorPoints1 = node1 instanceof BusNode ? getBusNodeAnchorPoint(graph, (BusNode) node1, node2) : getAnchorPoints(componentLibrary, node1);
-        List<AnchorPoint> anchorPoints2 = node2 instanceof BusNode ? getBusNodeAnchorPoint(graph, (BusNode) node2, node1) : getAnchorPoints(componentLibrary, node2);
+        List<AnchorPoint> anchorPoints1 = node1 instanceof BusNode busNode1 ? getBusNodeAnchorPoint(graph, busNode1, node2) : getAnchorPoints(componentLibrary, node1);
+        List<AnchorPoint> anchorPoints2 = node2 instanceof BusNode busNode2 ? getBusNodeAnchorPoint(graph, busNode2, node1) : getAnchorPoints(componentLibrary, node2);
         return searchBestAnchorPoints(node1.getCoordinates(), node2.getCoordinates(), anchorPoints1, anchorPoints2);
     }
 
     private static List<AnchorPoint> getBusNodeAnchorPoint(VoltageLevelGraph graph, BusNode busNode, Node otherNode) {
         Direction direction = graph.getDirection(otherNode);
-        boolean undefinedMiddleDirection = direction == Direction.UNDEFINED
-                && otherNode.getCoordinates().getY() == busNode.getCoordinates().getY()
-                && (otherNode.getCoordinates().getX() < busNode.getCoordinates().getX()
-                || otherNode.getCoordinates().getX() > busNode.getCoordinates().getX() + busNode.getPxWidth());
-        if (direction == Direction.MIDDLE || undefinedMiddleDirection) {
-            return Arrays.asList(
-                    new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL),
-                    new AnchorPoint(busNode.getPxWidth(), 0, AnchorOrientation.HORIZONTAL)
-            );
+        if (busNode.getOrientation().isHorizontal()) {
+            boolean undefinedMiddleDirection = direction == Direction.UNDEFINED
+                    && otherNode.getCoordinates().getY() == busNode.getCoordinates().getY()
+                    && (otherNode.getCoordinates().getX() < busNode.getCoordinates().getX()
+                    || otherNode.getCoordinates().getX() > busNode.getCoordinates().getX() + busNode.getPxWidth());
+            if (direction == Direction.MIDDLE || undefinedMiddleDirection) {
+                return Arrays.asList(
+                        new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL),
+                        new AnchorPoint(busNode.getPxWidth(), 0, AnchorOrientation.HORIZONTAL)
+                );
+            } else {
+                return Collections.singletonList(
+                        new AnchorPoint(otherNode.getX() - busNode.getX(), 0, AnchorOrientation.VERTICAL));
+            }
         } else {
-            return Collections.singletonList(
-                    new AnchorPoint(otherNode.getX() - busNode.getX(), 0, AnchorOrientation.VERTICAL));
+            boolean undefinedMiddleDirection = direction == Direction.UNDEFINED
+                    && otherNode.getCoordinates().getX() == busNode.getCoordinates().getX()
+                    && (otherNode.getCoordinates().getY() < busNode.getCoordinates().getY()
+                    || otherNode.getCoordinates().getY() > busNode.getCoordinates().getY() + busNode.getPxWidth());
+            if (direction == Direction.MIDDLE || undefinedMiddleDirection) {
+                return Arrays.asList(
+                        new AnchorPoint(0, 0, AnchorOrientation.VERTICAL),
+                        new AnchorPoint(0, busNode.getPxWidth(), AnchorOrientation.VERTICAL)
+                );
+            } else {
+                return Collections.singletonList(
+                        new AnchorPoint(0, otherNode.getY() - busNode.getY(), AnchorOrientation.HORIZONTAL));
+            }
         }
     }
 
@@ -89,8 +109,8 @@ public final class WireConnection {
     private static WireConnection searchBestAnchorPoints(Point coord1, Point coord2,
                                                          List<AnchorPoint> anchorPoints1,
                                                          List<AnchorPoint> anchorPoints2) {
-        AnchorPoint betterAnchorPoint1 = anchorPoints1.get(0);
-        AnchorPoint betterAnchorPoint2 = anchorPoints2.get(0);
+        AnchorPoint betterAnchorPoint1 = anchorPoints1.getFirst();
+        AnchorPoint betterAnchorPoint2 = anchorPoints2.getFirst();
 
         double currentDistance = coord1.getShiftedPoint(betterAnchorPoint1).distanceSquare(
             coord2.getShiftedPoint(betterAnchorPoint2));
@@ -154,31 +174,32 @@ public final class WireConnection {
         double yB = pointB.getY();
 
         switch (anchorPointA.getOrientation()) {
-            case VERTICAL:
+            case VERTICAL -> {
                 if (anchorPointB.getOrientation() == AnchorOrientation.VERTICAL) {
                     double mid = (yA + yB) / 2;
                     pol.addAll(Point.createPointsList(xA, mid, xB, mid));
                 } else {
                     pol.add(new Point(xA, yB));
                 }
-                break;
-            case HORIZONTAL:
+            }
+            case HORIZONTAL -> {
                 if (anchorPointB.getOrientation() == AnchorOrientation.HORIZONTAL) {
                     double mid = (xA + xB) / 2;
                     pol.addAll(Point.createPointsList(mid, yA, mid, yB));
                 } else {
                     pol.add(new Point(xB, yA));
                 }
-                break;
-            case NONE:
+            }
+            case NONE -> {
                 if (anchorPointB.getOrientation() == AnchorOrientation.HORIZONTAL) {
                     pol.add(new Point(xA, yB));
                 } else {
                     pol.add(new Point(xB, yA));
                 }
-                break;
-            default:
-                break;
+            }
+            default -> {
+                // Do nothing
+            }
         }
     }
 }

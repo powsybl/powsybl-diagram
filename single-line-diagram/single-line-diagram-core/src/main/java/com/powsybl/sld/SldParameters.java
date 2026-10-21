@@ -11,19 +11,15 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.layout.pathfinding.DijkstraPathFinder;
 import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
-import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
-import com.powsybl.sld.svg.DefaultLabelProvider;
-import com.powsybl.sld.svg.LabelProvider;
-import com.powsybl.sld.svg.LabelProviderFactory;
-import com.powsybl.sld.svg.SvgParameters;
+import com.powsybl.sld.library.SldComponentLibrary;
+import com.powsybl.sld.svg.*;
 import com.powsybl.sld.svg.styles.DefaultStyleProviderFactory;
 import com.powsybl.sld.svg.styles.StyleProviderFactory;
 
 import java.util.Objects;
 
 /**
- *
  * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 public class SldParameters {
@@ -32,6 +28,7 @@ public class SldParameters {
     private LayoutParameters layoutParameters = new LayoutParameters();
     private SldComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
     private LabelProviderFactory labelProviderFactory = DefaultLabelProvider::new;
+    private LegendWriterFactory legendWriterFactory = DefaultSVGLegendWriter::new;
     private StyleProviderFactory styleProviderFactory = new DefaultStyleProviderFactory();
     private VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator = VoltageLevelLayoutFactoryCreator.newSmartVoltageLevelLayoutFactoryCreator();
     private SubstationLayoutFactory substationLayoutFactory = new HorizontalSubstationLayoutFactory();
@@ -86,6 +83,15 @@ public class SldParameters {
 
     public VoltageLevelLayoutFactory createVoltageLevelLayoutFactory(Network network) {
         return voltageLevelLayoutFactoryCreator.create(network);
+    }
+
+    public SVGLegendWriter createLegendWriter(Network network) {
+        return legendWriterFactory.create(network, svgParameters);
+    }
+
+    public SldParameters setLegendWriterFactory(LegendWriterFactory legendWriterFactory) {
+        this.legendWriterFactory = Objects.requireNonNull(legendWriterFactory);
+        return this;
     }
 
     public SldParameters setVoltageLevelLayoutFactoryCreator(VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator) {

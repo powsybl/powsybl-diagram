@@ -6,9 +6,16 @@
  */
 package com.powsybl.sld.builders;
 
-import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.graphs.Graph;
+import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelInfos;
+import com.powsybl.sld.model.graphs.ZoneGraph;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
@@ -26,7 +33,7 @@ public class RawGraphBuilder implements GraphBuilder {
         if (parentBuilder != null) {
             parentBuilder.addVlBuilder(vlBuilder);
         }
-        vlBuilders.put(voltageLevelInfos.getId(), vlBuilder);
+        vlBuilders.put(voltageLevelInfos.id(), vlBuilder);
         return vlBuilder;
     }
 
@@ -79,7 +86,7 @@ public class RawGraphBuilder implements GraphBuilder {
         SubstationGraph ssGraph = sGraphBuilder.getGraph();
         sGraphBuilder.voltageLevelBuilders.stream()
                 .map(VoltageLevelRawBuilder::getGraph)
-                .sorted(Comparator.comparingDouble(vlGraph -> -vlGraph.getVoltageLevelInfos().getNominalVoltage()))
+                .sorted(Comparator.comparingDouble(vlGraph -> -vlGraph.getVoltageLevelInfos().nominalVoltage()))
                 .forEach(ssGraph::addVoltageLevel);
         if (parentGraph != null) {
             parentGraph.addSubstation(ssGraph);

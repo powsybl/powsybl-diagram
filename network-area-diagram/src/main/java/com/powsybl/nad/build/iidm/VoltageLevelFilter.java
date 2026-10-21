@@ -19,26 +19,16 @@ import java.util.stream.Collectors;
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-public class VoltageLevelFilter implements Predicate<VoltageLevel> {
+public record VoltageLevelFilter(Set<VoltageLevel> voltageLevels) implements Predicate<VoltageLevel> {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(VoltageLevelFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(VoltageLevelFilter.class);
 
     public static final Predicate<VoltageLevel> NO_FILTER = voltageLevel -> true;
 
     private static final String UNKNOWN_VOLTAGE_LEVEL = "Unknown voltage level id '";
 
-    private final Set<VoltageLevel> voltageLevels;
-
-    public VoltageLevelFilter(Set<VoltageLevel> voltageLevels) {
-        this.voltageLevels = voltageLevels;
-    }
-
     public int getNbVoltageLevels() {
         return voltageLevels.size();
-    }
-
-    public Set<VoltageLevel> getVoltageLevels() {
-        return voltageLevels;
     }
 
     @Override
@@ -113,10 +103,18 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         return new VoltageLevelFilter(network.getVoltageLevelStream().filter(voltageLevelPredicate).collect(Collectors.toSet()));
     }
 
-    public static Collection<VoltageLevel> getNextDepthVoltageLevels(Network network, List<VoltageLevel> voltageLevels) {
-        List<String> voltageLevelIds = voltageLevels.stream().map(VoltageLevel::getId).collect(Collectors.toList());
-        VoltageLevelFilter voltageLevelFilter = createVoltageLevelsDepthFilter(network, voltageLevelIds, 1);
-        Set<VoltageLevel> voltageLevelSet = new HashSet<>(voltageLevelFilter.getVoltageLevels());
+    /**
+     * Returns the voltage levels directly connected to the given voltage levels.
+     *
+     * <p>The voltage levels provided as input are excluded from the returned collection, even if
+     * they are reachable through another voltage level.</p>
+     *
+     * @param voltageLevels the voltage levels from which the topology traversal starts
+     * @return the voltage levels at the next topological depth
+     */
+    public static Collection<VoltageLevel> getNextDepthVoltageLevels(List<VoltageLevel> voltageLevels) {
+        Set<VoltageLevel> voltageLevelSet = new HashSet<>();
+        traverseVoltageLevels(new HashSet<>(voltageLevels), 1, voltageLevelSet, NO_FILTER);
         voltageLevels.forEach(voltageLevelSet::remove);
         return voltageLevelSet;
     }
@@ -149,7 +147,7 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         private final Set<VoltageLevel> visitedVoltageLevels;
         private final Predicate<VoltageLevel> voltageLevelPredicate;
 
-        public VlVisitor(Set<VoltageLevel> nextDepthVoltageLevels, Set<VoltageLevel> visitedVoltageLevels, Predicate<VoltageLevel> voltageLevelPredicate) {
+        VlVisitor(Set<VoltageLevel> nextDepthVoltageLevels, Set<VoltageLevel> visitedVoltageLevels, Predicate<VoltageLevel> voltageLevelPredicate) {
             this.nextDepthVoltageLevels = nextDepthVoltageLevels;
             this.visitedVoltageLevels = visitedVoltageLevels;
             this.voltageLevelPredicate = voltageLevelPredicate;
@@ -196,9 +194,9 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         }
 
         @Override
-        public void visitDanglingLine(DanglingLine danglingLine) {
-            if (danglingLine.isPaired()) {
-                danglingLine.getTieLine().ifPresent(tieline -> visitBranch(tieline, tieline.getSide(danglingLine.getTerminal())));
+        public void visitBoundaryLine(BoundaryLine boundaryLine) {
+            if (boundaryLine.isPaired()) {
+                boundaryLine.getTieLine().ifPresent(tieline -> visitBranch(tieline, tieline.getSide(boundaryLine.getTerminal())));
             }
         }
     }

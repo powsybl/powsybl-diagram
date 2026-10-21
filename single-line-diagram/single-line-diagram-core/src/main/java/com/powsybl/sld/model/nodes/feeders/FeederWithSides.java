@@ -6,12 +6,12 @@
  */
 package com.powsybl.sld.model.nodes.feeders;
 
-import java.io.IOException;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 import com.powsybl.sld.model.nodes.FeederType;
 import com.powsybl.sld.model.nodes.NodeSide;
+
+import java.io.IOException;
 
 /**
  * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}

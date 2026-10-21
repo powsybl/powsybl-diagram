@@ -9,7 +9,12 @@ package com.powsybl.sld.layout.position.clustering;
 import com.powsybl.sld.layout.position.BSCluster;
 import com.powsybl.sld.model.coordinate.Side;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 
 /**
  * Manages the links between a list of BSClusterSides.
@@ -23,7 +28,7 @@ final class Links {
     private final Map<BSClusterSide, List<Link>> bsClusterSideToLink = new HashMap<>();
     private int linkCounter = 0;
 
-    public Links(List<BSCluster> bsClusters) {
+    Links(List<BSCluster> bsClusters) {
         bsClusters.forEach(this::addClusterSidesTwins);
     }
 
@@ -75,6 +80,6 @@ final class Links {
     }
 
     BSCluster getFinalBsCluster() {
-        return bsClusterSides.get(0).getCluster();
+        return bsClusterSides.getFirst().getCluster();
     }
 }

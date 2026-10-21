@@ -6,7 +6,11 @@
  */
 package com.powsybl.sld.layout.position.clustering;
 
-import com.powsybl.sld.layout.position.*;
+import com.powsybl.sld.layout.position.AbstractPositionFinder;
+import com.powsybl.sld.layout.position.BSCluster;
+import com.powsybl.sld.layout.position.HorizontalBusList;
+import com.powsybl.sld.layout.position.Subsection;
+import com.powsybl.sld.layout.position.VerticalBusSet;
 import com.powsybl.sld.model.cells.BusCell;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.cells.ExternCell;
@@ -19,7 +23,15 @@ import com.powsybl.sld.model.nodes.BusNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,29 +42,28 @@ import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 
 /**
  * PositionByClustering finds adequate positions for the busBars with the following principles:
- * All the connections to the BusBar of the leg of an ExternCell, or each leg of an InternCell shall be stackable
- * (ie could be displayed with disconnectors to busbar vertically aligned).
- * This implies that the busBars of a leg shall be spread in different vertical structuralPosition,
- * (and in many case having the same horizontal structuralPosition).
- * The first step consists in building LegBusSets that contains busBars that shall be vertically aligned (considering
- * they have legs of cell that impose it).
- * Then BSClusters are initiated by building one BSCluster per LegBusSet.
- * The BSClusters are then merged 2 by 2 starting by BSClusters that have the strongest Link.
- * We differentiate the side of a BSCluster using BSClusterSide is considered. This is similar
- * to what si done with LegBusSet but the assessment of the strength of the link considers both sides of the
- * cluster.
- * Therefore, with cluster A and B, there are 4 BSClusterSide A-Right A-Left B-Right and B-Left. The links that
- * are considered are (A-Right, B-Left), (A-Right, B-Right), (B-Right, B-Left), (B-Right, B-Right). When merging,
- * alignment is required (meaning that clusters could be reversed to ensure the connection sides between the
- * 2 clusters are respected : 1st cluster-Right is merged with 2nd cluster-left).
- * </li>
+ * <ul>
+ *     <li>All the connections to the BusBar of the leg of an ExternCell, or each leg of an InternCell shall be stackable
+ *     (ie could be displayed with disconnectors to busbar vertically aligned).
+ *     This implies that the busBars of a leg shall be spread in different vertical structuralPosition,
+ *     (and in many case having the same horizontal structuralPosition).</li>
+ *     <li>The first step consists in building LegBusSets that contains busBars that shall be vertically aligned (considering
+ *     they have legs of cell that impose it).
+ *     Then BSClusters are initiated by building one BSCluster per LegBusSet.
+ *     The BSClusters are then merged 2 by 2 starting by BSClusters that have the strongest Link.</li>
+ *     <li>We differentiate the side of a BSCluster using BSClusterSide is considered. This is similar
+ *     to what is done with LegBusSet, but the assessment of the strength of the link considers both sides of the
+ *     cluster.
+ *     Therefore, with clusters A and B, there are 4 BSClusterSide: A-Right, A-Left, B-Right, and B-Left. The links that
+ *     are considered are (A-Right, B-Left), (A-Right, B-Right), (B-Right, B-Left), (B-Right, B-Right). When merging,
+ *     alignment is required (meaning that clusters could be reversed to ensure the connection sides between the
+ *     2 clusters are respected: 1st cluster-Right is merged with the 2nd cluster-left).</li>
  * </ul>
+ *
+ * Note: We assume that it is possible to stack all cells and be able to organize the voltage level accordingly
  *
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
-
-// WE ASSUME THAT IT IS POSSIBLE TO STACK ALL CELLS AND BE ABLE TO ORGANIZE THE VOLTAGELEVEL ACCORDINGLY
-
 public class PositionByClustering extends AbstractPositionFinder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionByClustering.class);
@@ -63,7 +74,7 @@ public class PositionByClustering extends AbstractPositionFinder {
         int i = 1;
         for (BusNode n : busNodes.stream()
                 .sorted(Comparator.comparing(BusNode::getId))
-                .collect(Collectors.toList())) {
+                .toList()) {
             busToNb.put(n, i);
             n.setBusBarIndexSectionIndex(0, 0);
             i++;
@@ -94,7 +105,7 @@ public class PositionByClustering extends AbstractPositionFinder {
         }
         List<HorizontalBusList> sortedHbl = horizontalBusLists.stream()
                 .sorted(Comparator.comparingInt(HorizontalBusList::getStartingIndex)
-                        .thenComparing(hl -> hl.getBusNodes().get(0).getId())) // cope with randomness
+                        .thenComparing(hl -> hl.getBusNodes().getFirst().getId())) // cope with randomness
                 .collect(Collectors.toList());
         int clusterLength = sortedHbl.stream()
                 .mapToInt(HorizontalBusList::getEndingIndex)

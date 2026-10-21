@@ -20,7 +20,7 @@ public final class DijkstraPathFinder implements PathFinder {
     public List<Point> findShortestPath(Grid grid, Point start, Point goal) {
         Set<Point> visited = new HashSet<>();
         PriorityQueue<Grid.Node> queue = new PriorityQueue<>(Comparator.comparingDouble(node -> node.getCost() + node.getDistance()));
-        queue.add(new Grid.Node(start, true, start.distance(goal)));
+        queue.add(new Grid.Node(start, start.distance(goal)));
 
         while (!queue.isEmpty()) {
             Grid.Node current = queue.poll();
@@ -78,10 +78,10 @@ public final class DijkstraPathFinder implements PathFinder {
         }
 
         List<Point> smoothedPath = new ArrayList<>();
-        smoothedPath.add(path.get(0));
+        smoothedPath.add(path.getFirst());
 
         for (int i = 1; i < path.size() - 1; i++) {
-            Point prev = smoothedPath.get(smoothedPath.size() - 1);
+            Point prev = smoothedPath.getLast();
             Point current = path.get(i);
             Point next = path.get(i + 1);
 
@@ -90,7 +90,7 @@ public final class DijkstraPathFinder implements PathFinder {
             }
         }
 
-        smoothedPath.add(path.get(path.size() - 1));
+        smoothedPath.add(path.getLast());
 
         return smoothedPath;
     }

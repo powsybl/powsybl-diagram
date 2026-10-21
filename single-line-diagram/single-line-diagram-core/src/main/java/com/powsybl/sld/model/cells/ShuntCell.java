@@ -17,10 +17,14 @@ import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.Node;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -33,11 +37,11 @@ public final class ShuntCell extends AbstractCell {
 
     private ShuntCell(int cellNumber, List<Node> nodes) {
         super(cellNumber, CellType.SHUNT, nodes);
-        if (!(nodes.get(0) instanceof ConnectivityNode) || !(nodes.get(nodes.size() - 1) instanceof ConnectivityNode)) {
+        if (!(nodes.getFirst() instanceof ConnectivityNode) || !(nodes.getLast() instanceof ConnectivityNode)) {
             throw new PowsyblException("the first and last nodes of a shunt cell shall be ConnectivityNode");
         }
-        ((ConnectivityNode) nodes.get(0)).setShunt(true);
-        ((ConnectivityNode) nodes.get(nodes.size() - 1)).setShunt(true);
+        ((ConnectivityNode) nodes.getFirst()).setShunt(true);
+        ((ConnectivityNode) nodes.getLast()).setShunt(true);
     }
 
     /**
@@ -52,7 +56,7 @@ public final class ShuntCell extends AbstractCell {
         ConnectivityNode iNode1 = vlGraph.insertConnectivityNode(shuntNodes.get(0), shuntNodes.get(1), "Shunt " + cellNumber + ".1");
         extended.add(1, iNode1);
 
-        ConnectivityNode iNode2 = vlGraph.insertConnectivityNode(extended.get(extended.size() - 1), extended.get(extended.size() - 2), "Shunt " + cellNumber + ".2");
+        ConnectivityNode iNode2 = vlGraph.insertConnectivityNode(extended.getLast(), extended.get(extended.size() - 2), "Shunt " + cellNumber + ".2");
         extended.add(extended.size() - 1, iNode2);
 
         ShuntCell shuntCell = new ShuntCell(cellNumber, extended);
@@ -114,7 +118,7 @@ public final class ShuntCell extends AbstractCell {
         if (side == Side.UNDEFINED) {
             return null;
         }
-        return side == Side.LEFT ? nodes.get(0) : nodes.get(nodes.size() - 1);
+        return side == Side.LEFT ? nodes.getFirst() : nodes.getLast();
     }
 
     public Position getSidePosition(Side side) {

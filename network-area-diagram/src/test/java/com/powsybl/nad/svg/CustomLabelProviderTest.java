@@ -30,15 +30,9 @@ class CustomLabelProviderTest extends AbstractTest {
     @BeforeEach
     void setup() {
         setLayoutParameters(new LayoutParameters());
-
-        //Note: sets SvgParameters EdgeNameDisplayed, VoltageLevelDetails, and BusLegend explicitly to false, to demonstrate that
-        // the custom label provider ignores them when rendering edge names, the VL descriptions, and VL details.
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
-                .setFixedWidth(800)
-                .setEdgeNameDisplayed(false)
-                .setVoltageLevelDetails(false)
-                .setBusLegend(false));
+                .setFixedWidth(800));
     }
 
     @Override
@@ -56,25 +50,26 @@ class CustomLabelProviderTest extends AbstractTest {
         Network network = Networks.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
 
         Map<String, CustomLabelProvider.BranchLabels> branchLabels = new HashMap<>();
-        branchLabels.put("L12", new CustomLabelProvider.BranchLabels("L1_1", "L1", "L1_2", EdgeInfo.Direction.IN, EdgeInfo.Direction.IN));
-        branchLabels.put("T12", new CustomLabelProvider.BranchLabels("TWT1_1", "TWT1", "TWT1_2", null, null));
-        branchLabels.put("L11", new CustomLabelProvider.BranchLabels(null, "L2", null, EdgeInfo.Direction.IN, EdgeInfo.Direction.IN));
-        branchLabels.put("T11", new CustomLabelProvider.BranchLabels(null, "TWT2", "TWT2_2", null, EdgeInfo.Direction.OUT));
+        branchLabels.put("L12", new CustomLabelProvider.BranchLabels(null, "L1_1", null, "L1", null, "L1_2", EdgeInfo.Direction.IN, null, EdgeInfo.Direction.IN));
+        branchLabels.put("T12", new CustomLabelProvider.BranchLabels(null, "TWT1_1", null, "TWT1", null, "TWT1_2", null, null, null));
+        branchLabels.put("L11", new CustomLabelProvider.BranchLabels(null, null, null, "L2", null, null, EdgeInfo.Direction.IN, null, EdgeInfo.Direction.IN));
+        branchLabels.put("T11", new CustomLabelProvider.BranchLabels(null, null, null, "TWT2", null, "TWT2_2", null, null, EdgeInfo.Direction.OUT));
 
         Map<String, CustomLabelProvider.ThreeWtLabels> threeWtLabels = new HashMap<>();
 
-        Map<String, String> busDescriptions = new HashMap<>();
-        busDescriptions.put("VL1_10", "VL1 10");
-        busDescriptions.put("VL2_30", "VL2 30");
+        Map<String, VoltageLevelLegend> vlDescriptions = new HashMap<>();
+        var vl1Legend = new VoltageLevelLegend(
+                List.of("VL1 description1", "VL1 description2"),
+                List.of(),
+                Map.of("VL1_10", "VL1 10"));
+        var vl2Legend = new VoltageLevelLegend(
+                List.of("VL2 description1"),
+                List.of("VL2 details1", "VL2 details2"),
+                Map.of("VL2_30", "VL2 30"));
+        vlDescriptions.put("VL1", vl1Legend);
+        vlDescriptions.put("VL2", vl2Legend);
 
-        Map<String, List<String>> vlDescriptions = new HashMap<>();
-        vlDescriptions.put("VL1", List.of("VL1 description1", "VL1 description2"));
-        vlDescriptions.put("VL2", List.of("VL2 description1"));
-
-        Map<String, List<String>> vlDetails = new HashMap<>();
-        vlDetails.put("VL2", List.of("VL2 details1", "VL2 details2"));
-
-        labelProvider = new CustomLabelProvider(branchLabels, threeWtLabels, new HashMap<>(), busDescriptions, vlDescriptions, vlDetails);
+        labelProvider = new CustomLabelProvider(branchLabels, threeWtLabels, new HashMap<>(), vlDescriptions);
 
         assertSvgEquals("/custom_label_provider.svg", network);
     }
@@ -85,28 +80,32 @@ class CustomLabelProviderTest extends AbstractTest {
 
         Map<String, CustomLabelProvider.BranchLabels> branchLabels = new HashMap<>();
         Map<String, CustomLabelProvider.ThreeWtLabels> threeWtLabels = new HashMap<>();
-        threeWtLabels.put("3WT", new CustomLabelProvider.ThreeWtLabels("SIDE1", "SIDE2", "SIDE3", EdgeInfo.Direction.IN, EdgeInfo.Direction.OUT, EdgeInfo.Direction.IN));
+        threeWtLabels.put("3WT", new CustomLabelProvider.ThreeWtLabels(null, "SIDE1", null, "SIDE2", null, "SIDE3", EdgeInfo.Direction.IN, EdgeInfo.Direction.OUT, EdgeInfo.Direction.IN));
 
         Map<String, CustomLabelProvider.InjectionLabels> injLabels = new HashMap<>();
-        injLabels.put("GEN_132", new CustomLabelProvider.InjectionLabels("G132", EdgeInfo.Direction.IN));
-        injLabels.put("LOAD_33", new CustomLabelProvider.InjectionLabels("L33", EdgeInfo.Direction.OUT));
+        injLabels.put("GEN_132", new CustomLabelProvider.InjectionLabels(null, "G132", EdgeInfo.Direction.IN));
+        injLabels.put("LOAD_33", new CustomLabelProvider.InjectionLabels(null, "L33", EdgeInfo.Direction.OUT));
 
-        Map<String, String> busDescriptions = new HashMap<>();
-        busDescriptions.put("VL_132_0", "VL1 132");
-        busDescriptions.put("VL_33_0", "VL2 33");
-        busDescriptions.put("VL_11_0", "VL2 11");
+        Map<String, VoltageLevelLegend> vlDescriptions = new HashMap<>();
+        var vl132Legend = new VoltageLevelLegend(
+                List.of("VL 132 description1", "VL1 132 description2"),
+                List.of("VL 132 details1"),
+                Map.of("VL_132_0", "VL1 132"));
+        var vl33Legend = new VoltageLevelLegend(
+                List.of("VL 33 description1"),
+                List.of("VL 33 details1", "VL 33 details2"),
+                Map.of("VL_33_0", "VL2 33")
+        );
+        var vl11Legend = new VoltageLevelLegend(
+                List.of("VL 11 description1"),
+                List.of("VL 1 details1"),
+                Map.of("VL_11_0", "VL2 11")
+        );
+        vlDescriptions.put("VL_132", vl132Legend);
+        vlDescriptions.put("VL_33", vl33Legend);
+        vlDescriptions.put("VL_11", vl11Legend);
 
-        Map<String, List<String>> vlDescriptions = new HashMap<>();
-        vlDescriptions.put("VL_132", List.of("VL 132 description1", "VL1 132 description2"));
-        vlDescriptions.put("VL_33", List.of("VL 33 description1"));
-        vlDescriptions.put("VL_11", List.of("VL 11 description1"));
-
-        Map<String, List<String>> vlDetails = new HashMap<>();
-        vlDetails.put("VL_132", List.of("VL 132 details1"));
-        vlDetails.put("VL_33", List.of("VL 33 details1", "VL 33 details2"));
-        vlDetails.put("VL_11", List.of("VL 1 details1"));
-
-        labelProvider = new CustomLabelProvider(branchLabels, threeWtLabels, injLabels, busDescriptions, vlDescriptions, vlDetails);
+        labelProvider = new CustomLabelProvider(branchLabels, threeWtLabels, injLabels, vlDescriptions);
         getLayoutParameters().setInjectionsAdded(true);
 
         assertSvgEquals("/custom_label_provider_3wt.svg", network);

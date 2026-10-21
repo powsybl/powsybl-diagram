@@ -9,7 +9,11 @@ package com.powsybl.sld.svg.styles;
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.Feeder;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.NodeSide;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.BusInfo;
@@ -49,7 +53,7 @@ public class NominalVoltageStyleProvider extends AbstractVoltageStyleProvider {
 
     @Override
     public List<String> getNodeStyles(VoltageLevelInfos vlInfo, Node node) {
-        return baseVoltagesConfig.getBaseVoltageName(vlInfo.getNominalVoltage(), BASE_VOLTAGE_PROFILE)
+        return baseVoltagesConfig.getBaseVoltageName(vlInfo.nominalVoltage(), BASE_VOLTAGE_PROFILE)
                 .map(bvName -> List.of(StyleClassConstants.STYLE_PREFIX + bvName))
                 .orElse(Collections.emptyList());
     }

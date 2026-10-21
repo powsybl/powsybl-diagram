@@ -17,6 +17,8 @@ public final class SldComponentTypeName extends ComponentTypeName {
     public static final String ARROW_ACTIVE = "ARROW_ACTIVE";
     public static final String ARROW_REACTIVE = "ARROW_REACTIVE";
     public static final String ARROW_CURRENT = "ARROW_CURRENT";
+    public static final String VALUE_CURRENT = "VALUE_CURRENT";
+    public static final String VALUE_PERMANENT_LIMIT_PERCENTAGE = "VALUE_PERMANENT_LIMIT_PERCENTAGE";
     public static final String BUSBAR_SECTION = "BUSBAR_SECTION";
     public static final String BREAKER = "BREAKER";
     public static final String DISCONNECTOR = "DISCONNECTOR";
@@ -43,8 +45,10 @@ public final class SldComponentTypeName extends ComponentTypeName {
             THREE_WINDINGS_TRANSFORMER_PST_2, THREE_WINDINGS_TRANSFORMER_PST_3);
     public static final String VSC_CONVERTER_STATION = "VSC_CONVERTER_STATION";
     public static final String LCC_CONVERTER_STATION = "LCC_CONVERTER_STATION";
-    public static final String DANGLING_LINE = "DANGLING_LINE";
+    public static final String BOUNDARY_LINE = "BOUNDARY_LINE";
     public static final String TIE_LINE = "TIE_LINE";
     public static final String PHASE_SHIFT_TRANSFORMER = "PHASE_SHIFT_TRANSFORMER";
     public static final String PHASE_SHIFT_TRANSFORMER_LEG = "PHASE_SHIFT_TRANSFORMER_LEG";
+    public static final String TEE_POINT = "TEE_POINT";
+    public static final String TEE_POINT_LEG = "TEE_POINT_LEG";
 }

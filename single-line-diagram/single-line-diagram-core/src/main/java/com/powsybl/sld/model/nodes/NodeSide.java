@@ -14,7 +14,7 @@ public enum NodeSide {
     TWO(2),
     THREE(3);
 
-    int intValue;
+    final int intValue;
 
     NodeSide(int intValue) {
         this.intValue = intValue;

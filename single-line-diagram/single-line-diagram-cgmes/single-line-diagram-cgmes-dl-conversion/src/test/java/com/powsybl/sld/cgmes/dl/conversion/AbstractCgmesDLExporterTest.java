@@ -6,28 +6,26 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
+import com.powsybl.cgmes.model.CgmesNamespace;
+import com.powsybl.cgmes.model.CgmesSubset;
+import com.powsybl.commons.datasource.DataSource;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
+import com.powsybl.triplestore.api.PropertyBag;
+import com.powsybl.triplestore.api.TripleStore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
-
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.cgmes.model.CgmesNamespace;
-import com.powsybl.cgmes.model.CgmesSubset;
-import com.powsybl.commons.datasource.DataSource;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.triplestore.api.PropertyBag;
-import com.powsybl.triplestore.api.TripleStore;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public abstract class AbstractCgmesDLExporterTest {
@@ -145,9 +143,9 @@ public abstract class AbstractCgmesDLExporterTest {
                         Arrays.asList("DiagramObject", "sequenceNumber", "xPosition", "yPosition"),
                         Arrays.asList("DiagramObject"), Collections.emptyList());
         assertEquals(diagramObjectId, properties.get("DiagramObject"));
-        assertEquals(expectedPoint.getSeq(), properties.asInt("sequenceNumber"));
-        assertEquals(expectedPoint.getX(), properties.asDouble("xPosition"), 0);
-        assertEquals(expectedPoint.getY(), properties.asDouble("yPosition"), 0);
+        assertEquals(expectedPoint.seq(), properties.asInt("sequenceNumber"));
+        assertEquals(expectedPoint.x(), properties.asDouble("xPosition"), 0);
+        assertEquals(expectedPoint.y(), properties.asDouble("yPosition"), 0);
     }
 
 }

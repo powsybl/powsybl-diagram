@@ -7,17 +7,16 @@
  */
 package com.powsybl.nad.layout;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro at soft.it>}
@@ -36,8 +35,8 @@ class LayoutWithFixedTextNodePositionsTest {
     }
 
     private void checkShift(Point point1, Point point2, double shiftX, double shiftY) {
-        assertEquals(point2.getX() - point1.getX(), shiftX, 0);
-        assertEquals(point2.getY() - point1.getY(), shiftY, 0);
+        assertEquals(point2.x() - point1.x(), shiftX, 0);
+        assertEquals(point2.y() - point1.y(), shiftY, 0);
     }
 
     @Test
@@ -46,11 +45,11 @@ class LayoutWithFixedTextNodePositionsTest {
         basicForceLayout.run(graph, layoutParameters);
         graph.getVoltageLevelTextPairs().forEach(textPair -> {
             checkShift(textPair.getFirst().getPosition(), textPair.getSecond().getPosition(),
-                       layoutParameters.getTextNodeFixedShift().getX(),
-                       layoutParameters.getTextNodeFixedShift().getY());
+                       layoutParameters.getTextNodeFixedShift().x(),
+                       layoutParameters.getTextNodeFixedShift().y());
             checkShift(textPair.getFirst().getPosition(), textPair.getSecond().getEdgeConnection(),
-                       layoutParameters.getTextNodeFixedShift().getX(),
-                       layoutParameters.getTextNodeFixedShift().getY() + layoutParameters.getTextNodeEdgeConnectionYShift());
+                       layoutParameters.getTextNodeFixedShift().x(),
+                       layoutParameters.getTextNodeFixedShift().y() + layoutParameters.getTextNodeEdgeConnectionYShift());
         });
     }
 
@@ -65,11 +64,11 @@ class LayoutWithFixedTextNodePositionsTest {
         graph.getVoltageLevelTextPairs().forEach(textPair -> {
             boolean fixedPosition = voltageLevelId.equals(textPair.getFirst().getEquipmentId());
             checkShift(textPair.getFirst().getPosition(), textPair.getSecond().getPosition(),
-                       fixedPosition ? topLeftPosition.getX() : layoutParameters.getTextNodeFixedShift().getX(),
-                       fixedPosition ? topLeftPosition.getY() : layoutParameters.getTextNodeFixedShift().getY());
+                       fixedPosition ? topLeftPosition.x() : layoutParameters.getTextNodeFixedShift().x(),
+                       fixedPosition ? topLeftPosition.y() : layoutParameters.getTextNodeFixedShift().y());
             checkShift(textPair.getFirst().getPosition(), textPair.getSecond().getEdgeConnection(),
-                       fixedPosition ? edgeConnection.getX() : layoutParameters.getTextNodeFixedShift().getX(),
-                       fixedPosition ? edgeConnection.getY() : layoutParameters.getTextNodeFixedShift().getY() + layoutParameters.getTextNodeEdgeConnectionYShift());
+                       fixedPosition ? edgeConnection.x() : layoutParameters.getTextNodeFixedShift().x(),
+                       fixedPosition ? edgeConnection.y() : layoutParameters.getTextNodeFixedShift().y() + layoutParameters.getTextNodeEdgeConnectionYShift());
         });
     }
 }

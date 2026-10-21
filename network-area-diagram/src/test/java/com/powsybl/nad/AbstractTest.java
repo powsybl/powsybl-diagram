@@ -9,13 +9,17 @@ package com.powsybl.nad;
 import com.google.common.io.ByteStreams;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.nad.build.iidm.IntIdProvider;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
+import com.powsybl.nad.layout.AbstractLayout;
 import com.powsybl.nad.layout.BasicForceLayout;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.library.DefaultComponentLibrary;
 import com.powsybl.nad.library.NadComponentLibrary;
 import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.routing.EdgeRouting;
+import com.powsybl.nad.routing.StraightEdgeRouting;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
@@ -29,6 +33,8 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -50,6 +56,10 @@ public abstract class AbstractTest {
         return new DefaultComponentLibrary();
     }
 
+    protected EdgeRouting getEdgeRouting() {
+        return new StraightEdgeRouting();
+    }
+
     protected void assertFileEquals(String resourceNameExpected, Path generatedFile) {
         try {
             assertStringEquals(resourceNameExpected, Files.readString(generatedFile));
@@ -63,10 +73,18 @@ public abstract class AbstractTest {
     }
 
     protected void assertSvgEquals(String resourceName, Network network, Predicate<VoltageLevel> voltageLevelFilter) {
-        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, getLayoutParameters()).buildGraph();
-        new BasicForceLayout().run(graph, getLayoutParameters());
+        assertSvgEquals(resourceName, network, voltageLevelFilter, new BasicForceLayout());
+    }
+
+    protected void assertSvgEquals(String resourceName, Network network, Predicate<VoltageLevel> voltageLevelFilter, AbstractLayout layout) {
+        StyleProvider styleProvider = getStyleProvider(network);
+        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, getLabelProvider(network), getLayoutParameters(), new IntIdProvider()).buildGraph();
+        layout.run(graph, getLayoutParameters());
+        assertFalse(graph.isStyleApplied());
+        NetworkGraphBuilder.applyStyle(graph, styleProvider);
+        assertTrue(graph.isStyleApplied());
         StringWriter writer = new StringWriter();
-        new SvgWriter(getSvgParameters(), getStyleProvider(network), getLabelProvider(network), getComponentLibrary()).writeSvg(graph, writer);
+        new SvgWriter(getSvgParameters(), getComponentLibrary(), getEdgeRouting()).writeSvg(graph, writer);
         assertStringEquals(resourceName, writer.toString());
     }
 

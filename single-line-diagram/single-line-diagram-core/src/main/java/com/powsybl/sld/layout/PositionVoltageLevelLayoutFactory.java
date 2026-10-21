@@ -53,7 +53,9 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
         ImplicitCellDetector cellDetector = new ImplicitCellDetector();
 
         // For building blocks from cells
-        BlockOrganizer blockOrganizer = new BlockOrganizer(positionFinder, positionVoltageLevelLayoutFactoryParameters.isFeederStacked(), positionVoltageLevelLayoutFactoryParameters.isExceptionIfPatternNotHandled(), positionVoltageLevelLayoutFactoryParameters.isHandleShunts(), positionVoltageLevelLayoutFactoryParameters.getBusInfoMap());
+        BlockOrganizer blockOrganizer = new BlockOrganizer(positionFinder, positionVoltageLevelLayoutFactoryParameters.isFeederStacked(),
+            positionVoltageLevelLayoutFactoryParameters.isExceptionIfPatternNotHandled(), positionVoltageLevelLayoutFactoryParameters.isHandleShunts(),
+            positionVoltageLevelLayoutFactoryParameters.getBusInfoMap());
 
         return new PositionVoltageLevelLayout(graph, graphRefiner, cellDetector, blockOrganizer);
     }

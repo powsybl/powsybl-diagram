@@ -7,6 +7,8 @@
  */
 package com.powsybl.nad.model;
 
+import com.powsybl.nad.build.iidm.IdProvider;
+
 import java.util.Collections;
 
 /**
@@ -14,8 +16,8 @@ import java.util.Collections;
  */
 public class BoundaryBusNode extends BusNode {
 
-    public BoundaryBusNode(String diagramId, String equipmentId) {
-        super(diagramId, equipmentId, Collections.emptyList());
+    public BoundaryBusNode(IdProvider idProvider, String equipmentId) {
+        super(idProvider.createSvgId(equipmentId), equipmentId, Collections.emptyList(), "");
     }
 
 }

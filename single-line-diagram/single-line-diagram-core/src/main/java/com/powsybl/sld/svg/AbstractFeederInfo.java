@@ -15,7 +15,7 @@ import java.util.Optional;
  * <li>a string on its right</li>
  * <li>a string on its left</li>
  * </ul>
- * Each of these two element part is optional
+ * Each of these two element parts is optional
  *
  * @author Giovanni Ferrari {@literal <giovanni.ferrari at techrain.eu>}
  * @author Thomas Adam {@literal <tadam at silicom.fr>}

@@ -12,8 +12,8 @@ import com.powsybl.iidm.network.extensions.OperatingStatus;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
-import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.feeders.FeederTeePointLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
@@ -21,8 +21,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.function.BiFunction;
 
+import static com.powsybl.diagram.util.PermanentLimitPercentageMax.getPermanentLimitPercentageMax;
 import static com.powsybl.sld.library.SldComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
 
@@ -35,6 +36,11 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     private static final String PLANNED_OUTAGE_BRANCH_NODE_DECORATOR = "LOCK";
     private static final String FORCED_OUTAGE_BRANCH_NODE_DECORATOR = "FLASH";
 
+    private boolean displayCurrent = false;
+    private boolean displayArrowForCurrent = true;
+    private boolean displayPermanentLimitPercentage = false;
+    private boolean displayWithAbs = false;
+
     protected final Network network;
 
     public DefaultLabelProvider(Network net, SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
@@ -46,32 +52,40 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     public List<FeederInfo> getFeederInfos(FeederNode node) {
         Objects.requireNonNull(node);
 
-        List<FeederInfo> feederInfos = new ArrayList<>();
         Feeder feeder = node.getFeeder();
 
-        switch (feeder.getFeederType()) {
-            case INJECTION:
-                feederInfos = getInjectionFeederInfos(node);
-                break;
-            case BRANCH:
-                feederInfos = getBranchFeederInfos(node, (FeederWithSides) feeder);
-                break;
-            case TWO_WINDINGS_TRANSFORMER_LEG:
-                feederInfos = get2WTFeederInfos(node, (FeederTwLeg) feeder);
-                break;
-            case THREE_WINDINGS_TRANSFORMER_LEG:
-                feederInfos = get3WTFeederInfos(node, (FeederTwLeg) feeder);
-                break;
-            case HVDC:
-                feederInfos = getHvdcFeederInfos(node, (FeederWithSides) feeder);
-                break;
-            default:
-                break;
-        }
+        List<FeederInfo> feederInfos = switch (feeder.getFeederType()) {
+            case INJECTION -> getInjectionFeederInfos(node);
+            case BRANCH -> getBranchFeederInfos(node, ((FeederWithSides) feeder).getSide());
+            case TWO_WINDINGS_TRANSFORMER_LEG -> getBranchFeederInfos(node, ((FeederTwLeg) feeder).getSide());
+            case THREE_WINDINGS_TRANSFORMER_LEG -> get3WTFeederInfos(node, (FeederTwLeg) feeder);
+            case TEE_POINT_LEG -> getTeePointFeederInfos(node, (FeederTeePointLeg) feeder);
+            case HVDC -> getHvdcFeederInfos(node, (FeederWithSides) feeder);
+            default -> new ArrayList<>();
+        };
         if (node.getDirection() == BOTTOM && !svgParameters.isFeederInfoSymmetry()) {
             Collections.reverse(feederInfos);
         }
         return feederInfos;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * Retrieves info on the {@link Middle3WTNode} depending on the display of the arrows (see {@link LayoutParameters.ThreeWindingsTransformerFeederInfoMode}).
+     *
+     * @param twtNode the Middle3WTNode for which to retrieve feeder information
+     * @return a list of FeederInfo objects associated with the specified node
+     */
+    public List<FeederInfo> getFeederInfos(Middle3WTNode twtNode) {
+        List<FeederInfo> infos = new ArrayList<>();
+        ThreeWindingsTransformer twt = network.getThreeWindingsTransformer(twtNode.getEquipmentId());
+        boolean onlyOutside = layoutParameters.getThreeWindingsTransformerFeederInfoMode() == LayoutParameters.ThreeWindingsTransformerFeederInfoMode.ONLY_OUTSIDE_VOLTAGE_LEVEL;
+        if (twt != null && !onlyOutside) {
+            twt.getTerminal(ThreeSides.ONE);
+            infos.addAll(this.buildFeederInfos(twt.getTerminal(ThreeSides.ONE), true));
+        }
+        return infos;
     }
 
     private List<FeederInfo> getInjectionFeederInfos(FeederNode node) {
@@ -83,35 +97,32 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         return measures;
     }
 
-    private List<FeederInfo> getBranchFeederInfos(FeederNode node, FeederWithSides feeder) {
+    private List<FeederInfo> getBranchFeederInfos(FeederNode node, NodeSide nodeSide) {
         List<FeederInfo> measures = new ArrayList<>();
         Branch<?> branch = network.getBranch(node.getEquipmentId());
         if (branch != null) {
-            TwoSides side = TwoSides.valueOf(feeder.getSide().name());
-            measures = buildFeederInfos(branch, side);
+            TwoSides side = TwoSides.valueOf(nodeSide.name());
+            measures = getBranchFeederInfos(branch, side);
         }
         return measures;
     }
 
+    /**
+     * Retrieves a list of feeder information objects for a three-windings transformer from the given node and feeder.
+     *
+     * @param node the FeederNode containing the equipment ID of the transformer.
+     * @param feeder the FeederTwLeg specifying the side and voltage level details for retrieving feeder information.
+     * @return a list of FeederInfo objects representing the information of the associated feeders for the three-windings transformer.
+     */
     private List<FeederInfo> get3WTFeederInfos(FeederNode node, FeederTwLeg feeder) {
         List<FeederInfo> feederInfos = new ArrayList<>();
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             ThreeSides side = ThreeSides.valueOf(feeder.getSide().name());
-            boolean insideVoltageLevel = feeder.getOwnVoltageLevelInfos().getId().equals(feeder.getVoltageLevelInfos().getId());
-            feederInfos = buildFeederInfos(transformer, side, insideVoltageLevel);
+            boolean insideVoltageLevel = feeder.getOwnVoltageLevelInfos().id().equals(feeder.getVoltageLevelInfos().id());
+            feederInfos = get3WTFeederInfos(transformer, side, insideVoltageLevel);
         }
         return feederInfos;
-    }
-
-    private List<FeederInfo> get2WTFeederInfos(FeederNode node, FeederTwLeg feeder) {
-        List<FeederInfo> measures = new ArrayList<>();
-        TwoWindingsTransformer transformer = network.getTwoWindingsTransformer(node.getEquipmentId());
-        if (transformer != null) {
-            TwoSides side = TwoSides.valueOf(feeder.getSide().name());
-            measures = buildFeederInfos(transformer, side);
-        }
-        return measures;
     }
 
     private List<FeederInfo> getHvdcFeederInfos(FeederNode node, FeederWithSides feeder) {
@@ -122,6 +133,11 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
             measures = buildFeederInfos(hvdcLine, side);
         }
         return measures;
+    }
+
+    private List<FeederInfo> getTeePointFeederInfos(FeederNode node, FeederTeePointLeg feeder) {
+        boolean insideVoltageLevel = feeder.getOwnVoltageLevelInfos().id().equals(feeder.getVoltageLevelInfos().id());
+        return buildFeederInfos(network.getLine(node.getEquipmentId()).getTerminal1(), insideVoltageLevel);
     }
 
     @Override
@@ -155,17 +171,6 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         return nodeDecorators;
     }
 
-    @Override
-    public List<BusLegendInfo> getBusLegendInfos(VoltageLevelGraph graph) {
-        VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().getId());
-        return vl.getBusView().getBusStream()
-                .map(b -> new BusLegendInfo(b.getId(), List.of(
-                    new BusLegendInfo.Caption(valueFormatter.formatVoltage(b.getV(), "kV"), "v"),
-                    new BusLegendInfo.Caption(valueFormatter.formatAngleInDegrees(b.getAngle()), "angle")
-                )))
-                .collect(Collectors.toList());
-    }
-
     private <T extends Identifiable<T>> void addOperatingStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Direction direction, Identifiable<T> identifiable) {
         if (identifiable != null) {
             OperatingStatus<T> operatingStatus = identifiable.getExtension(OperatingStatus.class);
@@ -180,29 +185,17 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     }
 
     private NodeDecorator getOperatingStatusDecorator(Node node, Direction direction, String decoratorType) {
-        if (node instanceof Middle3WTNode middle3WTNode) {
-            return new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition(middle3WTNode, direction));
-        } else if (node instanceof BusNode) {
-            return new NodeDecorator(decoratorType, getBusDecoratorPosition());
-        } else if (node instanceof FeederNode) {
-            return new NodeDecorator(decoratorType, getFeederDecoratorPosition(direction, decoratorType));
-        } else if (node instanceof Internal2WTNode) {
-            return new NodeDecorator(decoratorType, getInternal2WTDecoratorPosition(node.getOrientation()));
-        } else {
-            return new NodeDecorator(decoratorType, getGenericDecoratorPosition());
-        }
-    }
-
-    private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeSides side, boolean insideVoltageLevel) {
-        return this.buildFeederInfos(transformer.getTerminal(side), insideVoltageLevel);
+        return switch (node) {
+            case Middle3WTNode middle3WTNode -> new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition(middle3WTNode, direction));
+            case BusNode ignored -> new NodeDecorator(decoratorType, getBusDecoratorPosition());
+            case FeederNode ignored -> new NodeDecorator(decoratorType, getFeederDecoratorPosition(direction, decoratorType));
+            case Internal2WTNode ignored -> new NodeDecorator(decoratorType, getInternal2WTDecoratorPosition(node.getOrientation()));
+            case null, default -> new NodeDecorator(decoratorType, getGenericDecoratorPosition());
+        };
     }
 
     private List<FeederInfo> buildFeederInfos(Injection<?> injection) {
         return this.buildFeederInfos(injection.getTerminal());
-    }
-
-    private List<FeederInfo> buildFeederInfos(Branch<?> branch, TwoSides side) {
-        return this.buildFeederInfos(branch.getTerminal(side));
     }
 
     private List<FeederInfo> buildFeederInfos(HvdcLine hvdcLine, NodeSide side) {
@@ -215,6 +208,26 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         return buildFeederInfos(terminal, true);
     }
 
+    private List<FeederInfo> getBranchFeederInfos(Branch<?> branch, TwoSides side) {
+        List<FeederInfo> feederInfoList = buildFeederInfos(branch.getTerminal(side), true);
+        if (this.displayPermanentLimitPercentage) {
+            feederInfoList.add(new ValueFeederInfo(VALUE_PERMANENT_LIMIT_PERCENTAGE, LabelDirection.NONE, getPermanentLimitPercentageMax(branch), valueFormatter::formatPercentage));
+        }
+        return feederInfoList;
+    }
+
+    private List<FeederInfo> get3WTFeederInfos(ThreeWindingsTransformer transformer, ThreeSides side, boolean insideVoltageLevel) {
+        List<FeederInfo> feederInfoList = new ArrayList<>();
+        boolean outsideOrFull = layoutParameters.getThreeWindingsTransformerFeederInfoMode() != LayoutParameters.ThreeWindingsTransformerFeederInfoMode.ONLY_INSIDE_VOLTAGE_LEVEL;
+        if (outsideOrFull || insideVoltageLevel) {
+            feederInfoList = buildFeederInfos(transformer.getTerminal(side), insideVoltageLevel);
+        }
+        if (this.displayPermanentLimitPercentage) {
+            feederInfoList.add(new ValueFeederInfo(VALUE_PERMANENT_LIMIT_PERCENTAGE, LabelDirection.NONE, getPermanentLimitPercentageMax(transformer), valueFormatter::formatPercentage));
+        }
+        return feederInfoList;
+    }
+
     private List<FeederInfo> buildFeederInfos(Terminal terminal, boolean insideVoltageLevel) {
         List<FeederInfo> feederInfoList = new ArrayList<>();
         double terminalP = terminal.getP();
@@ -225,11 +238,32 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
             terminalQ = -terminalQ;
             terminalI = -terminalI;
         }
-        feederInfoList.add(new DirectionalFeederInfo(ARROW_ACTIVE, terminalP, svgParameters.getActivePowerUnit(), valueFormatter::formatPower));
-        feederInfoList.add(new DirectionalFeederInfo(ARROW_REACTIVE, terminalQ, svgParameters.getReactivePowerUnit(), valueFormatter::formatPower));
-        if (this.svgParameters.isDisplayCurrentFeederInfo()) {
-            feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminalI, svgParameters.getCurrentUnit(), valueFormatter::formatPower));
+        BiFunction<Double, String, String> formatter = displayWithAbs ? valueFormatter::formatPowerWithAbs : valueFormatter::formatPower;
+        feederInfoList.add(new ValueFeederInfo(ARROW_ACTIVE, terminalP, svgParameters.getActivePowerUnit(), formatter));
+        feederInfoList.add(new ValueFeederInfo(ARROW_REACTIVE, terminalQ, svgParameters.getReactivePowerUnit(), formatter));
+        if (this.displayCurrent) {
+            if (this.displayArrowForCurrent) {
+                feederInfoList.add(new ValueFeederInfo(ARROW_CURRENT, terminalI, svgParameters.getCurrentUnit(), valueFormatter::formatCurrent));
+            } else {
+                feederInfoList.add(new ValueFeederInfo(VALUE_CURRENT, LabelDirection.NONE, terminalI, svgParameters.getCurrentUnit(), valueFormatter::formatCurrent));
+            }
         }
         return feederInfoList;
+    }
+
+    public void setDisplayCurrent(boolean displayCurrent) {
+        this.displayCurrent = displayCurrent;
+    }
+
+    public void setDisplayArrowForCurrent(boolean displayArrowForCurrent) {
+        this.displayArrowForCurrent = displayArrowForCurrent;
+    }
+
+    public void setDisplayPermanentLimitPercentage(boolean displayPermanentLimitPercentage) {
+        this.displayPermanentLimitPercentage = displayPermanentLimitPercentage;
+    }
+
+    public void setDisplayWithAbs(boolean displayWithAbs) {
+        this.displayWithAbs = displayWithAbs;
     }
 }

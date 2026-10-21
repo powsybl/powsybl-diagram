@@ -18,7 +18,8 @@ import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultLabelProvider;
-import com.powsybl.sld.svg.LabelProvider;
+import com.powsybl.sld.svg.DefaultSVGLegendWriter;
+import com.powsybl.sld.svg.SVGLegendWriter;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import com.powsybl.sld.svg.styles.StyleProvidersList;
 import com.powsybl.sld.svg.styles.iidm.HighlightLineStateStyleProvider;
@@ -39,20 +40,24 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
 
     @Override
     public String toSVG(Graph g, String filename) {
-        return toSVG(g, filename, componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
+        return toSVG(g, filename, componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter());
     }
 
     @Override
     public String toMetadata(Graph g, String filename) {
-        return toMetadata(g, filename, componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
+        return toMetadata(g, filename, componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter());
     }
 
-    protected LabelProvider getDefaultDiagramLabelProvider() {
+    protected DefaultLabelProvider getDefaultDiagramLabelProvider() {
         return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
     }
 
     protected StyleProvider getDefaultDiagramStyleProvider() {
         return new StyleProvidersList(new TopologicalStyleProvider(network), new HighlightLineStateStyleProvider(network));
+    }
+
+    protected SVGLegendWriter getDefaultSVGLegendWriter() {
+        return new DefaultSVGLegendWriter(network, svgParameters);
     }
 
     @Override

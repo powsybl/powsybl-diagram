@@ -6,10 +6,10 @@
  */
 package com.powsybl.sld.model.blocks;
 
-import java.util.List;
-
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
+
+import java.util.List;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}

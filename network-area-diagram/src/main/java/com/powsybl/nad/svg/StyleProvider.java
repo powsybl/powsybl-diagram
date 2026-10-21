@@ -24,10 +24,9 @@ public interface StyleProvider {
     String DISCONNECTED_CLASS = CLASSES_PREFIX + "disconnected";
     String BRANCH_EDGES_CLASS = CLASSES_PREFIX + "branch-edges";
     String INJECTIONS_CLASS = CLASSES_PREFIX + "injections";
-    String INJECTION_FRAME_CLASS = CLASSES_PREFIX + "injection-frame";
     String HVDC_EDGE_CLASS = CLASSES_PREFIX + "hvdc-edge";
     String THREE_WT_EDGES_CLASS = CLASSES_PREFIX + "3wt-edges";
-    String DANGLING_LINE_EDGE_CLASS = CLASSES_PREFIX + "dangling-line-edge";
+    String BOUNDARY_LINE_EDGE_CLASS = CLASSES_PREFIX + "boundary-line-edge";
     String TIE_LINE_EDGE_CLASS = CLASSES_PREFIX + "tie-line-edge";
     String TEXT_EDGES_CLASS = CLASSES_PREFIX + "text-edges";
     String EDGE_INFOS_CLASS = CLASSES_PREFIX + "edge-infos";
@@ -42,6 +41,7 @@ public interface StyleProvider {
     String EDGE_PATH_CLASS = CLASSES_PREFIX + "edge-path";
     String WINDING_CLASS = CLASSES_PREFIX + "winding";
     String BUSNODE_CLASS = CLASSES_PREFIX + "busnode";
+    String BUS_DESCR_CLASS = CLASSES_PREFIX + "bus-descr";
     String LABEL_BOX_CLASS = CLASSES_PREFIX + "label-box";
     String LEGEND_SQUARE_CLASS = CLASSES_PREFIX + "legend-square";
     String PST_ARROW_CLASS = CLASSES_PREFIX + "pst-arrow";
@@ -63,7 +63,7 @@ public interface StyleProvider {
 
     List<String> getHighlightSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side);
 
-    List<String> getEdgeInfoStyleClasses(EdgeInfo info);
+    List<String> getEdgeInfoStyleClasses(String infoType);
 
     List<String> getThreeWtEdgeStyleClasses(ThreeWtEdge threeWtedge);
 

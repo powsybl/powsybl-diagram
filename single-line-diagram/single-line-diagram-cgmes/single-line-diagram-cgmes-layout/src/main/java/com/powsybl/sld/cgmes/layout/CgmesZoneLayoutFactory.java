@@ -22,14 +22,18 @@ import java.util.Objects;
 public class CgmesZoneLayoutFactory implements ZoneLayoutFactory {
 
     private final Network network;
+    private final double cgmesScaleFactor;
+    private final String cgmesDiagramName;
 
-    public CgmesZoneLayoutFactory(Network network) {
+    public CgmesZoneLayoutFactory(Network network, String cgmesDiagramName, double cgmesScaleFactor) {
         this.network = Objects.requireNonNull(network);
+        this.cgmesDiagramName = cgmesDiagramName;
+        this.cgmesScaleFactor = cgmesScaleFactor;
     }
 
     @Override
     public Layout create(ZoneGraph graph, ZoneLayoutPathFinderFactory pathFinderFactory, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
-        return new CgmesZoneLayout(graph, network);
+        return new CgmesZoneLayout(graph, network, cgmesDiagramName, cgmesScaleFactor);
     }
 
 }

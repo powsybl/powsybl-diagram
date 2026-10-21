@@ -20,7 +20,6 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -82,11 +81,7 @@ public class SingleLineDiagramTool implements Tool {
     }
 
     private Path getSvgFile(Path outputDir, String id) {
-        try {
-            return outputDir.resolve(URLEncoder.encode(id, StandardCharsets.UTF_8.name()) + ".svg");
-        } catch (UnsupportedEncodingException e) {
-            throw new PowsyblException(e);
-        }
+        return outputDir.resolve(URLEncoder.encode(id, StandardCharsets.UTF_8) + ".svg");
     }
 
     private void generateSvg(ToolRunningContext context, Path outputDir, String vlOrSubstationId, Network network, SldParameters sldParameters) {

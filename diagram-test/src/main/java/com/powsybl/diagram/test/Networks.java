@@ -10,12 +10,13 @@ import com.powsybl.commons.extensions.Extendable;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.*;
+import com.powsybl.iidm.network.regulation.RegulationMode;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Optional;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public final class Networks {
@@ -121,10 +122,13 @@ public final class Networks {
                 .setBus("Bus")
                 .setConnectableBus("Bus")
                 .setTargetP(100)
-                .setTargetV(380)
-                .setVoltageRegulatorOn(true)
                 .setMaxP(100)
                 .setMinP(0)
+                .setLocalTargetV(380)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         return network;
     }
@@ -248,10 +252,12 @@ public final class Networks {
                 .setBus("Bus")
                 .setBmin(0.0002)
                 .setBmax(0.0008)
-                .setRegulationMode(StaticVarCompensator.RegulationMode.VOLTAGE)
-                .setRegulating(true)
-                .setVoltageSetpoint(390.0)
-                .setReactivePowerSetpoint(1.0)
+                .setLocalTargetQ(1.0)
+                .setLocalTargetV(390.0)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         return network;
     }
@@ -385,7 +391,7 @@ public final class Networks {
         return network;
     }
 
-    public static Network createNetworkWithDanglingLine() {
+    public static Network createNetworkWithBoundaryLine() {
         Network network = Network.create(NETWORK_ID, "test");
         network.setCaseDate(ZonedDateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
@@ -400,8 +406,8 @@ public final class Networks {
         voltageLevel.getBusBreakerView().newBus()
                 .setId("Bus")
                 .add();
-        voltageLevel.newDanglingLine()
-                .setId("DanglingLine")
+        voltageLevel.newBoundaryLine()
+                .setId("BoundaryLine")
                 .setBus("Bus")
                 .setR(10.0)
                 .setX(1.0)
@@ -438,8 +444,11 @@ public final class Networks {
                 .setConnectableBus("Bus1")
                 .setBus("Bus1")
                 .setLossFactor(0.011f)
-                .setVoltageSetpoint(405.0)
-                .setVoltageRegulatorOn(true)
+                .setLocalTargetV(405.0)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         Substation substation2 = network.newSubstation()
                 .setId(SUBSTATION_2_ID)
@@ -459,8 +468,7 @@ public final class Networks {
                 .setConnectableBus("Bus2")
                 .setBus("Bus2")
                 .setLossFactor(0.011f)
-                .setReactivePowerSetpoint(123)
-                .setVoltageRegulatorOn(false)
+                .setLocalTargetQ(123)
                 .add();
         network.newHvdcLine()
                 .setId("HvdcLine")
@@ -597,10 +605,13 @@ public final class Networks {
                 .setId("Generator1")
                 .setNode(gN1)
                 .setTargetP(100)
-                .setTargetV(380)
-                .setVoltageRegulatorOn(true)
                 .setMaxP(100)
                 .setMinP(0)
+                .setLocalTargetV(380)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
 
         voltageLevel1.getNodeBreakerView().newBreaker()
@@ -614,38 +625,42 @@ public final class Networks {
     public static Network createNetworkWithPhaseShiftTransformer() {
         Network network = Networks.createNetworkWithTwoWindingsTransformer();
         Optional<TwoWindingsTransformer> twt = network.getTwoWindingsTransformerStream().findFirst();
-        twt.ifPresent(twoWindingsTransformer -> twoWindingsTransformer.newPhaseTapChanger()
-                .setTapPosition(1)
-                .setRegulationTerminal(twoWindingsTransformer.getTerminal2())
-                .setRegulationMode(PhaseTapChanger.RegulationMode.CURRENT_LIMITER)
-                .setRegulating(false)
-                .setRegulationValue(200)
-                .beginStep()
-                .setAlpha(-20.0)
-                .setRho(1.0)
-                .setR(0.0)
-                .setX(0.0)
-                .setG(0.0)
-                .setB(0.0)
-                .endStep()
-                .beginStep()
-                .setAlpha(0.0)
-                .setRho(1.0)
-                .setR(0.0)
-                .setX(0.0)
-                .setG(0.0)
-                .setB(0.0)
-                .endStep()
-                .beginStep()
-                .setAlpha(20.0)
-                .setRho(1.0)
-                .setR(0.0)
-                .setX(0.0)
-                .setG(0.0)
-                .setB(0.0)
-                .endStep()
-                .add());
+        twt.ifPresent(Networks::addPhaseTapChanger);
         return network;
+    }
+
+    private static void addPhaseTapChanger(TwoWindingsTransformer twoWindingsTransformer) {
+        twoWindingsTransformer.newPhaseTapChanger()
+            .setTapPosition(1)
+            .setRegulationTerminal(twoWindingsTransformer.getTerminal2())
+            .setRegulationMode(PhaseTapChanger.RegulationMode.CURRENT_LIMITER)
+            .setRegulating(false)
+            .setRegulationValue(200)
+            .beginStep()
+            .setAlpha(-20.0)
+            .setRho(1.0)
+            .setR(0.0)
+            .setX(0.0)
+            .setG(0.0)
+            .setB(0.0)
+            .endStep()
+            .beginStep()
+            .setAlpha(0.0)
+            .setRho(1.0)
+            .setR(0.0)
+            .setX(0.0)
+            .setG(0.0)
+            .setB(0.0)
+            .endStep()
+            .beginStep()
+            .setAlpha(20.0)
+            .setRho(1.0)
+            .setR(0.0)
+            .setX(0.0)
+            .setG(0.0)
+            .setB(0.0)
+            .endStep()
+            .add();
     }
 
     public static Network createNetworkWithBridge() {
@@ -794,10 +809,13 @@ public final class Networks {
                 .setConnectableBus("b1")
                 .setBus("b1")
                 .setTargetP(101.3664)
-                .setTargetV(390)
                 .setMinP(0)
                 .setMaxP(150)
-                .setVoltageRegulatorOn(true)
+                .setLocalTargetV(390)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         VoltageLevel vl2 = s.newVoltageLevel()
                 .setId("vl2")
@@ -808,7 +826,7 @@ public final class Networks {
         vl2.getBusBreakerView().newBus()
                 .setId("b2")
                 .add();
-        vl2.newDanglingLine()
+        vl2.newBoundaryLine()
                 .setId("dl1")
                 .setConnectableBus("b2")
                 .setBus("b2")
@@ -953,10 +971,13 @@ public final class Networks {
                 .setConnectableBus("b1")
                 .setBus("b1")
                 .setTargetP(101.3664)
-                .setTargetV(390)
                 .setMinP(0)
                 .setMaxP(150)
-                .setVoltageRegulatorOn(true)
+                .setLocalTargetV(390)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         VoltageLevel vl2 = s.newVoltageLevel()
                 .setId("vl2")
@@ -966,7 +987,7 @@ public final class Networks {
         vl2.getBusBreakerView().newBus()
                 .setId("b2")
                 .add();
-        vl2.newDanglingLine()
+        vl2.newBoundaryLine()
                 .setId("dl1")
                 .setConnectableBus("b2")
                 .setBus("b2")
@@ -1038,7 +1059,7 @@ public final class Networks {
         createSwitch(vl1, "dload1", "dload1", SwitchKind.DISCONNECTOR, false, false, true, 0, 5);
         createSwitch(vl1, "bload1", "bload1", SwitchKind.BREAKER, true, false, true, 4, 5);
 
-        createGenerator(vl1, "gen1", "gen1", "gen1", 2, ConnectablePosition.Direction.BOTTOM, 6, 0, 20, false, 10, 10);
+        createGenerator(vl1, "gen1", "gen1", "gen1", 2, ConnectablePosition.Direction.BOTTOM, 6, 0, 20, 10, 10);
         createSwitch(vl1, "dgen1", "dgen1", SwitchKind.DISCONNECTOR, false, false, true, 2, 7);
         createSwitch(vl1, "bgen1", "bgen1", SwitchKind.BREAKER, true, false, true, 6, 7);
 
@@ -1046,7 +1067,7 @@ public final class Networks {
         createSwitch(vl1, "dload2", "dload2", SwitchKind.DISCONNECTOR, false, false, true, 1, 9);
         createSwitch(vl1, "bload2", "bload2", SwitchKind.BREAKER, true, false, true, 8, 9);
 
-        createGenerator(vl1, "gen2", "gen2", "gen2", 12, ConnectablePosition.Direction.BOTTOM, 10, 0, 20, false, 10, 10);
+        createGenerator(vl1, "gen2", "gen2", "gen2", 12, ConnectablePosition.Direction.BOTTOM, 10, 0, 20, 10, 10);
         createSwitch(vl1, "dgen2", "dgen2", SwitchKind.DISCONNECTOR, false, false, true, 3, 11);
         createSwitch(vl1, "bgen2", "bgen2", SwitchKind.BREAKER, true, false, true, 10, 11);
 
@@ -1065,7 +1086,7 @@ public final class Networks {
         createSwitch(vl2, "dload3", "dload3", SwitchKind.DISCONNECTOR, false, false, true, 0, 3);
         createSwitch(vl2, "bload3", "bload3", SwitchKind.BREAKER, true, false, true, 2, 3);
 
-        createGenerator(vl2, "gen4", "gen4", "gen4", 2, ConnectablePosition.Direction.BOTTOM, 4, 0, 20, false, 10, 10);
+        createGenerator(vl2, "gen4", "gen4", "gen4", 2, ConnectablePosition.Direction.BOTTOM, 4, 0, 20, 10, 10);
         createSwitch(vl2, "dgen4", "dgen4", SwitchKind.DISCONNECTOR, false, false, true, 1, 5);
         createSwitch(vl2, "bgen4", "bgen4", SwitchKind.BREAKER, true, false, true, 4, 5);
 
@@ -1239,7 +1260,7 @@ public final class Networks {
         createSwitch(vl1, "D11", "D11", SwitchKind.DISCONNECTOR, false, false, false, 10, 11);
         createSwitch(vl1, "BR12", "BR12", SwitchKind.BREAKER, false, false, false, 11, 12);
 
-        createGenerator(vl1, "G", "G", "G", null, ConnectablePosition.Direction.TOP, 22, 50, 100, false, 100, 400);
+        createGenerator(vl1, "G", "G", "G", null, ConnectablePosition.Direction.TOP, 22, 50, 100, 100, 400);
 
         createSwitch(vl1, "D21", "D21", SwitchKind.DISCONNECTOR, false, false, false, 20, 21);
         createSwitch(vl1, "BR22", "BR22", SwitchKind.BREAKER, false, false, false, 21, 22);
@@ -1363,8 +1384,11 @@ public final class Networks {
                 .setMaxP(100.0)
                 .setMinP(50.0)
                 .setTargetP(100.0)
-                .setTargetV(400.0)
-                .setVoltageRegulatorOn(true)
+                .setLocalTargetV(400.0)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
 
         network.newLine()
@@ -1518,6 +1542,7 @@ public final class Networks {
 
     public static Network createNetworkWithSvcVscScDl() {
         Network network = Network.create("testCase1", "test");
+        network.setCaseDate(ZonedDateTime.of(2023, 5, 31, 10, 41, 0, 0, ZoneId.of("CET")));
         Substation substation = network.newSubstation().setId("s").setCountry(Country.FR).add();
         VoltageLevel vl = substation.newVoltageLevel().setId("vl").setTopologyKind(TopologyKind.NODE_BREAKER).setNominalV(380).add();
         VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView();
@@ -1531,9 +1556,11 @@ public final class Networks {
                 .setNode(2)
                 .setBmin(0.0002)
                 .setBmax(0.0008)
-                .setRegulationMode(StaticVarCompensator.RegulationMode.VOLTAGE)
-                .setRegulating(true)
-                .setVoltageSetpoint(390)
+                .setLocalTargetV(390)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         svc.getTerminal()
                 .setP(100.0)
@@ -1543,8 +1570,11 @@ public final class Networks {
                 .setName(CONVERTER_1_ID)
                 .setNode(1)
                 .setLossFactor(0.011f)
-                .setVoltageSetpoint(405.0)
-                .setVoltageRegulatorOn(true)
+                .setLocalTargetV(405.0)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         vsc.getTerminal()
                 .setP(100.0)
@@ -1559,9 +1589,9 @@ public final class Networks {
                 .setMaximumSectionCount(1)
                 .add()
                 .add();
-        DanglingLine dl1 = vl.newDanglingLine()
+        BoundaryLine dl1 = vl.newBoundaryLine()
                 .setId("dl1")
-                .setName("Dangling line 1")
+                .setName("Boundary line 1")
                 .setNode(5)
                 .setP0(1)
                 .setQ0(1)
@@ -1591,8 +1621,11 @@ public final class Networks {
                 .setName(CONVERTER_2_ID)
                 .setNode(1)
                 .setLossFactor(0.011f)
-                .setVoltageSetpoint(405.0)
-                .setVoltageRegulatorOn(true)
+                .setLocalTargetV(405.0)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         vsc2.getTerminal()
                 .setP(300.0)
@@ -1781,7 +1814,7 @@ public final class Networks {
         return network;
     }
 
-     /**
+    /**
      * <PRE>
      *         l
      *         |
@@ -1919,14 +1952,14 @@ public final class Networks {
 
     public static void createGenerator(VoltageLevel vl, String id, Integer feederOrder,
                                        ConnectablePosition.Direction direction, int node,
-                                       double minP, double maxP, boolean voltageRegulator,
+                                       double minP, double maxP,
                                        double targetP, double targetQ) {
-        createGenerator(vl, id, id, id, feederOrder, direction, node, minP, maxP, voltageRegulator, targetP, targetQ);
+        createGenerator(vl, id, id, id, feederOrder, direction, node, minP, maxP, targetP, targetQ);
     }
 
     public static void createGenerator(VoltageLevel vl, String id, String name, String feederName, Integer feederOrder,
                                        ConnectablePosition.Direction direction, int node,
-                                       double minP, double maxP, boolean voltageRegulator,
+                                       double minP, double maxP,
                                        double targetP, double targetQ) {
         Generator gen = vl.newGenerator()
                 .setId(id)
@@ -1934,9 +1967,12 @@ public final class Networks {
                 .setNode(node)
                 .setMinP(minP)
                 .setMaxP(maxP)
-                .setVoltageRegulatorOn(voltageRegulator)
                 .setTargetP(targetP)
-                .setTargetQ(targetQ)
+                .setLocalTargetQ(targetQ)
+                .newVoltageRegulation()
+                    .withRegulating(false)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         addFeederPosition(gen, feederName, feederOrder, direction);
     }
@@ -1952,7 +1988,7 @@ public final class Networks {
                 .setMinP(minP)
                 .setMaxP(maxP)
                 .setTargetP(targetP)
-                .setTargetQ(targetQ)
+                .setLocalTargetQ(targetQ)
                 .add();
         addFeederPosition(battery, feederName, feederOrder, direction);
     }
@@ -2160,11 +2196,13 @@ public final class Networks {
         Network network = createBusBreakerNetworkWithInternalBranches("tieLineWithinVoltageLevel", "test");
         network.getLine("L11").remove();
         String tieLineId = "B11_B12_1";
-        DanglingLine b11xnode1 = network.getVoltageLevel("VL1").newDanglingLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setPairingKey(XNODE_1_ID).add();
-        DanglingLine xnode1b12 = network.getVoltageLevel("VL1").newDanglingLine().setId("XNODE1_B12").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B12").setPairingKey(XNODE_1_ID).add();
-        network.newTieLine().setId(tieLineId).setDanglingLine1(b11xnode1.getId()).setDanglingLine2(xnode1b12.getId()).add();
-        network.getTieLine(tieLineId).getDanglingLine1().getTerminal().setP(302.4440612792969).setQ(98.74027252197266);
-        network.getTieLine(tieLineId).getDanglingLine2().getTerminal().setP(-300.43389892578125).setQ(-137.18849182128906);
+        BoundaryLine b11xnode1 = network.getVoltageLevel("VL1")
+            .newBoundaryLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setPairingKey(XNODE_1_ID).add();
+        BoundaryLine xnode1b12 = network.getVoltageLevel("VL1")
+            .newBoundaryLine().setId("XNODE1_B12").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B12").setPairingKey(XNODE_1_ID).add();
+        network.newTieLine().setId(tieLineId).setBoundaryLine1(b11xnode1.getId()).setBoundaryLine2(xnode1b12.getId()).add();
+        network.getTieLine(tieLineId).getBoundaryLine1().getTerminal().setP(302.4440612792969).setQ(98.74027252197266);
+        network.getTieLine(tieLineId).getBoundaryLine2().getTerminal().setP(-300.43389892578125).setQ(-137.18849182128906);
 
         return network;
 
@@ -2174,11 +2212,13 @@ public final class Networks {
         Network network = createBusBreakerNetworkWithInternalBranches("tieLineWithinSubstation", "test");
         network.getLine("L12").remove();
         String tieLineId = "B11_B21_1";
-        DanglingLine b11xnode1 = network.getVoltageLevel("VL1").newDanglingLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setPairingKey(XNODE_1_ID).add();
-        DanglingLine xnode1b21 = network.getVoltageLevel("VL2").newDanglingLine().setId("XNODE1_B21").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B21").setPairingKey(XNODE_1_ID).add();
-        network.newTieLine().setId(tieLineId).setDanglingLine1(b11xnode1.getId()).setDanglingLine2(xnode1b21.getId()).add();
-        network.getTieLine(tieLineId).getDanglingLine1().getTerminal().setP(302.4440612792969).setQ(98.74027252197266);
-        network.getTieLine(tieLineId).getDanglingLine2().getTerminal().setP(-300.43389892578125).setQ(-137.18849182128906);
+        BoundaryLine b11xnode1 = network.getVoltageLevel("VL1")
+            .newBoundaryLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setPairingKey(XNODE_1_ID).add();
+        BoundaryLine xnode1b21 = network.getVoltageLevel("VL2")
+            .newBoundaryLine().setId("XNODE1_B21").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B21").setPairingKey(XNODE_1_ID).add();
+        network.newTieLine().setId(tieLineId).setBoundaryLine1(b11xnode1.getId()).setBoundaryLine2(xnode1b21.getId()).add();
+        network.getTieLine(tieLineId).getBoundaryLine1().getTerminal().setP(302.4440612792969).setQ(98.74027252197266);
+        network.getTieLine(tieLineId).getBoundaryLine2().getTerminal().setP(-300.43389892578125).setQ(-137.18849182128906);
 
         return network;
 
@@ -2242,8 +2282,11 @@ public final class Networks {
                 .setConnectableBus(busId)
                 .setBus(busId)
                 .setLossFactor(0.011f)
-                .setVoltageSetpoint(405.0)
-                .setVoltageRegulatorOn(true)
+                .setLocalTargetV(405.0)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         vlId = String.format(vlFormat, subB.getId(), 230.0);
         busId = String.format(busIdFormat, vlId);
@@ -2252,8 +2295,7 @@ public final class Networks {
                 .setConnectableBus(busId)
                 .setBus(busId)
                 .setLossFactor(0.011f)
-                .setReactivePowerSetpoint(123)
-                .setVoltageRegulatorOn(false)
+                .setLocalTargetQ(123)
                 .add();
         network.newHvdcLine()
                 .setId("HvdcLine (Vsc)")
@@ -2266,10 +2308,10 @@ public final class Networks {
                 .setActivePowerSetpoint(280)
                 .add();
 
-        // Dangling Line
+        // Boundary Line
         vlId = String.format(vlFormat, subC.getId(), 66.0);
         busId = String.format(busIdFormat, vlId);
-        subC66.getVoltageLevel().newDanglingLine()
+        subC66.getVoltageLevel().newBoundaryLine()
                 .setId("C66 - D")
                 .setBus(busId)
                 .setR(10.0)
@@ -2283,7 +2325,7 @@ public final class Networks {
 
         vlId = String.format(vlFormat, subD.getId(), 66.0);
         busId = String.format(busIdFormat, vlId);
-        subD66.getVoltageLevel().newDanglingLine()
+        subD66.getVoltageLevel().newBoundaryLine()
                 .setId("D66 - D")
                 .setBus(busId)
                 .setR(10.0)
@@ -2299,12 +2341,14 @@ public final class Networks {
         String xnodeId = XNODE_1_ID;
         vlId = String.format(vlFormat, subA.getId(), 230.0);
         busId = String.format(busIdFormat, vlId);
-        DanglingLine a230xnode1 = network.getVoltageLevel(vlId).newDanglingLine().setId("A230_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setPairingKey(xnodeId).add();
+        BoundaryLine a230xnode1 = network.getVoltageLevel(vlId)
+            .newBoundaryLine().setId("A230_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setPairingKey(xnodeId).add();
         vlId = String.format(vlFormat, subB.getId(), 230.0);
         busId = String.format(busIdFormat, vlId);
         String tieLineId = "A230_B230";
-        DanglingLine xnode1b230 = network.getVoltageLevel(vlId).newDanglingLine().setId("XNODE1_B230").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setPairingKey(xnodeId).add();
-        network.newTieLine().setId(tieLineId).setDanglingLine1(a230xnode1.getId()).setDanglingLine2(xnode1b230.getId()).add();
+        BoundaryLine xnode1b230 = network.getVoltageLevel(vlId)
+            .newBoundaryLine().setId("XNODE1_B230").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setPairingKey(xnodeId).add();
+        network.newTieLine().setId(tieLineId).setBoundaryLine1(a230xnode1.getId()).setBoundaryLine2(xnode1b230.getId()).add();
 
         return network;
     }
@@ -2318,7 +2362,8 @@ public final class Networks {
 
         Networks.createBusBarSection(vl, "bbs", 0, 1, 1);
 
-        Networks.createLine(network, "line", "line", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 2, 4, vl.getId(), vl2.getId(), "fn1", 1, ConnectablePosition.Direction.TOP, "fn2", 0, ConnectablePosition.Direction.TOP);
+        Networks.createLine(network, "line", "line", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 2, 4,
+            vl.getId(), vl2.getId(), "fn1", 1, ConnectablePosition.Direction.TOP, "fn2", 0, ConnectablePosition.Direction.TOP);
         Networks.createSwitch(vl, "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
         Networks.createSwitch(vl, "b1", SwitchKind.BREAKER, false, false, false, 1, 2);
         Networks.createSwitch(vl, "gd1", SwitchKind.DISCONNECTOR, false, true, false, 2, 3);
@@ -2425,7 +2470,7 @@ public final class Networks {
      * </pre>
      */
     public static Network createTeePointNetwork() {
-        Network network = Network.create("testCase1", "test");
+        Network network = Network.create("testCaseTeePoint1", "test");
         VoltageLevel vl = network.newVoltageLevel()
                 .setId("vl")
                 .setNominalV(50)
@@ -2472,7 +2517,167 @@ public final class Networks {
         return network;
     }
 
-    public static Network createDanglingConnectablesNetwork() {
+    public static Network createTeePointNodeBreakerNetwork() {
+        Network network = Network.create("testCaseTeePoint2", "test");
+        Substation substation = createSubstation(network, "subst1", "subst1", Country.FR);
+
+        VoltageLevel vl = substation.newVoltageLevel()
+                .setId("vl-tee-point")
+                .setNominalV(50)
+                .setTopologyKind(TopologyKind.NODE_BREAKER)
+                .setFictitious(true)
+                .add();
+
+        VoltageLevel vl1 = substation.newVoltageLevel()
+                .setId("vl1")
+                .setNominalV(10)
+                .setTopologyKind(TopologyKind.NODE_BREAKER)
+                .add();
+
+        VoltageLevel vl2 = substation.newVoltageLevel()
+                .setId("vl2")
+                .setNominalV(30)
+                .setTopologyKind(TopologyKind.NODE_BREAKER)
+                .add();
+
+        VoltageLevel vl3 = substation.newVoltageLevel()
+                .setId("vl3")
+                .setNominalV(10)
+                .setTopologyKind(TopologyKind.NODE_BREAKER)
+                .add();
+
+        createInternalConnection(vl, 1, 0);
+        createInternalConnection(vl, 2, 0);
+        createInternalConnection(vl, 3, 0);
+
+        createLine(network, "L1", "L1", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,
+                1, 10, vl.getId(), vl1.getId(),
+                "L1", 0, ConnectablePosition.Direction.TOP,
+                "L1", 1, ConnectablePosition.Direction.TOP);
+
+        createLine(network, "L2", "L2", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,
+                2, 20, vl.getId(), vl2.getId(),
+                "L2", 1, ConnectablePosition.Direction.BOTTOM,
+                "L2", 0, ConnectablePosition.Direction.TOP);
+
+        createLine(network, "L3", "L3", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,
+                3, 30, vl.getId(), vl3.getId(),
+                "L3", 2, ConnectablePosition.Direction.TOP,
+                "L3", 0, ConnectablePosition.Direction.TOP);
+
+        createBusBarSection(vl1, "bbs1", 21, 0, 1);
+        createBusBarSection(vl2, "bbs2", 31, 0, 2);
+        createBusBarSection(vl3, "bbs3", 41, 0, 3);
+
+        createSwitch(vl1, "br1", SwitchKind.BREAKER, true, false, false, 21, 10);
+        createSwitch(vl2, "br2", SwitchKind.BREAKER, true, false, false, 31, 20);
+        createSwitch(vl3, "br3", SwitchKind.BREAKER, true, false, false, 41, 30);
+
+        return network;
+    }
+
+    public static Network createTeePointBusBreakerNetwork() {
+        Network network = Network.create("TeePointBusBreaker", "test");
+        network.setCaseDate(ZonedDateTime.parse("2018-03-05T13:30:30.486+01:00"));
+        Substation substation = network.newSubstation()
+                .setId("SUB1")
+                .setCountry(Country.FR)
+                .add();
+        VoltageLevel vl1 = substation.newVoltageLevel()
+                .setId("VL_132")
+                .setNominalV(132.0)
+                .setLowVoltageLimit(118.8)
+                .setHighVoltageLimit(145.2)
+                .setTopologyKind(TopologyKind.BUS_BREAKER)
+                .add();
+        Bus bus132 = vl1.getBusBreakerView().newBus()
+                .setId("BUS_132")
+                .add();
+        bus132.setV(133.584).setAngle(-9.62);
+        vl1.newGenerator()
+                .setId("GEN_132")
+                .setBus("BUS_132")
+                .setMinP(0.0)
+                .setMaxP(140)
+                .setTargetP(7.2)
+                .setLocalTargetV(135)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
+                .add();
+
+        VoltageLevel vltee = substation.newVoltageLevel()
+                .setId("VL_TEE")
+                .setFictitious(true)
+                .setNominalV(11.0)
+                .setLowVoltageLimit(9.9)
+                .setHighVoltageLimit(12.1)
+                .setTopologyKind(TopologyKind.BUS_BREAKER)
+                .add();
+        Bus busTee0 = vltee.getBusBreakerView().newBus()
+                .setId("BUS_TEE_0")
+                .add();
+
+        Substation substation2 = network.newSubstation()
+                .setId("SUB2")
+                .setCountry(Country.FR)
+                .add();
+        VoltageLevel vl2 = substation2.newVoltageLevel()
+                .setId("VL_2")
+                .setFictitious(true)
+                .setNominalV(11.0)
+                .setLowVoltageLimit(9.9)
+                .setHighVoltageLimit(12.1)
+                .setTopologyKind(TopologyKind.BUS_BREAKER)
+                .add();
+        Bus bus2 = vl2.getBusBreakerView().newBus()
+                .setId("BUS_2")
+                .add();
+        bus2.setV(11.781).setAngle(-15.24);
+        Load load11 = vl2.newLoad()
+                .setId("LOAD_11")
+                .setBus("BUS_2")
+                .setP0(0.0)
+                .setQ0(-10.6)
+                .add();
+        load11.getTerminal()
+                .setP(0.0)
+                .setQ(-10.6);
+
+        Substation substation3 = network.newSubstation()
+                .setId("SUB3")
+                .setCountry(Country.FR)
+                .add();
+        VoltageLevel vl3 = substation3.newVoltageLevel()
+                .setId("VL_3")
+                .setFictitious(true)
+                .setNominalV(11.0)
+                .setLowVoltageLimit(9.9)
+                .setHighVoltageLimit(12.1)
+                .setTopologyKind(TopologyKind.BUS_BREAKER)
+                .add();
+        Bus bus3 = vl3.getBusBreakerView().newBus()
+                .setId("BUS_3")
+                .add();
+        bus3.setV(34.881).setAngle(-15.24);
+        Load load33 = vl3.newLoad()
+                .setId("LOAD_33")
+                .setBus("BUS_3")
+                .setP0(11.2)
+                .setQ0(7.5)
+                .add();
+        load33.getTerminal()
+                .setP(11.2)
+                .setQ(7.5);
+
+        Networks.createLine(bus132, busTee0);
+        Networks.createLine(busTee0, bus2);
+        Networks.createLine(busTee0, bus3);
+        return network;
+    }
+
+    public static Network createBoundaryConnectablesNetwork() {
         Network network = Network.create("testDLoad", "testDLoad");
         VoltageLevel vl = network.newVoltageLevel()
                 .setId("vl")
@@ -2487,7 +2692,33 @@ public final class Networks {
         createLoad(vl, "load", 1, ConnectablePosition.Direction.TOP, 2, 0, 0);
         createLoad(vl, "dLoad1", 2, ConnectablePosition.Direction.BOTTOM, 3, 0, 0);
         createLoad(vl, "dLoad2", 0, ConnectablePosition.Direction.TOP, 4, 10, 0);
-        createGenerator(vl, "dGen", null, ConnectablePosition.Direction.TOP, 5, 50, 100, false, 100, 400);
+        createGenerator(vl, "dGen", null, ConnectablePosition.Direction.TOP, 5, 50, 100, 100, 400);
+        return network;
+    }
+
+    public static Network createBusbarLoadNetwork() {
+        Network network = Network.create("test", "test");
+        Substation s = Networks.createSubstation(network, SUBSTATION_ID, "s", Country.FR);
+        VoltageLevel vl = Networks.createVoltageLevel(s, VOLTAGELEVEL_1_ID, "vl", TopologyKind.NODE_BREAKER, 400.0);
+        //BBS node1
+        vl.getNodeBreakerView().newBusbarSection()
+                .setId("BBS1")
+                .setNode(1)
+                .add();
+        //LOAD node2
+        vl.newLoad()
+                .setId("L1")
+                .setNode(2)
+                .setP0(10.0)
+                .setQ0(2.0)
+                .add();
+        // breaker between node 1 and node 2
+        vl.getNodeBreakerView().newBreaker()
+                .setId("B1")
+                .setNode1(1)
+                .setNode2(2)
+                .setOpen(false)
+                .add();
         return network;
     }
 

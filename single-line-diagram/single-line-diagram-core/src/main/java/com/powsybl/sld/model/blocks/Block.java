@@ -41,7 +41,7 @@ public interface Block {
     }
 
     enum Extremity {
-        START, END;
+        START, END
     }
 
     void replaceEndingNode(Node newEndingNode);

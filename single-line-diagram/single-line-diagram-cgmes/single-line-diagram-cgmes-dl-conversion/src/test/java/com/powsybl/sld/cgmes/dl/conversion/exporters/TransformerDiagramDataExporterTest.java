@@ -6,17 +6,15 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion.exporters;
 
+import com.powsybl.diagram.test.Networks;
+import com.powsybl.iidm.network.TwoWindingsTransformer;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
-import com.powsybl.diagram.test.Networks;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class TransformerDiagramDataExporterTest extends AbstractCouplingDeviceDiagramDataExporterTest {
@@ -29,7 +27,7 @@ class TransformerDiagramDataExporterTest extends AbstractCouplingDeviceDiagramDa
         network = Networks.createNetworkWithTwoWindingsTransformer();
         twt = network.getTwoWindingsTransformer("Transformer");
         CouplingDeviceDiagramData<TwoWindingsTransformer> twtDiagramData = new CouplingDeviceDiagramData<>(twt);
-        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails details = twtDiagramData.new CouplingDeviceDiagramDetails(point, rotation);
+        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails details = new CouplingDeviceDiagramData.CouplingDeviceDiagramDetails(point, rotation);
         details.addTerminalPoint(DiagramTerminal.TERMINAL1, terminal1Point1);
         details.addTerminalPoint(DiagramTerminal.TERMINAL1, terminal1Point2);
         details.addTerminalPoint(DiagramTerminal.TERMINAL2, terminal2Point1);

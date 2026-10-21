@@ -6,16 +6,14 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion.exporters;
 
+import com.powsybl.diagram.test.Networks;
+import com.powsybl.iidm.network.ShuntCompensator;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
-import com.powsybl.diagram.test.Networks;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
-import com.powsybl.iidm.network.ShuntCompensator;
-
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class ShuntDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTest {
@@ -29,7 +27,7 @@ class ShuntDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterT
         network = Networks.createNetworkWithShuntCompensator();
         shunt = network.getShuntCompensator("Shunt");
         InjectionDiagramData<ShuntCompensator> shuntDiagramData = new InjectionDiagramData<>(shunt);
-        InjectionDiagramData.InjectionDiagramDetails details = shuntDiagramData.new InjectionDiagramDetails(point, rotation);
+        InjectionDiagramData.InjectionDiagramDetails details = new InjectionDiagramData.InjectionDiagramDetails(point, rotation);
         details.addTerminalPoint(terminalPoint1);
         details.addTerminalPoint(terminalPoint2);
         shuntDiagramData.addData(basename, details);

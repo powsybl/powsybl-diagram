@@ -16,9 +16,10 @@ import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
-import com.powsybl.sld.svg.LabelProvider;
-import com.powsybl.sld.svg.DirectionalFeederInfo;
+import com.powsybl.sld.svg.BusLegendInfo;
 import com.powsybl.sld.svg.FeederInfo;
+import com.powsybl.sld.svg.LabelProvider;
+import com.powsybl.sld.svg.ValueFeederInfo;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,7 +64,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
 
     @Override
     public List<String> getNodeDecoratorStyles(LabelProvider.NodeDecorator nodeDecorator, Node node, SldComponentLibrary componentLibrary) {
-        return componentLibrary.getComponentStyleClass(nodeDecorator.getType())
+        return componentLibrary.getComponentStyleClass(nodeDecorator.type())
                 .map(List::of)
                 .orElse(Collections.emptyList());
     }
@@ -90,11 +91,20 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
+    public List<String> getBusLegendCaptionStyles(BusLegendInfo.Caption caption) {
+        return switch (caption.type()) {
+            case "v" -> List.of(StyleClassConstants.VOLTAGE);
+            case "angle" -> List.of(StyleClassConstants.ANGLE);
+            default -> Collections.emptyList();
+        };
+    }
+
+    @Override
     public List<String> getFeederInfoStyles(FeederInfo info) {
         List<String> styles = new ArrayList<>();
         styles.add(StyleClassConstants.FEEDER_INFO);
-        if (info instanceof DirectionalFeederInfo) {
-            styles.add(((DirectionalFeederInfo) info).getDirection() == LabelProvider.LabelDirection.OUT ? StyleClassConstants.OUT_CLASS : StyleClassConstants.IN_CLASS);
+        if (info instanceof ValueFeederInfo vfi && vfi.getDirection() != LabelProvider.LabelDirection.NONE) {
+            styles.add(vfi.getDirection() == LabelProvider.LabelDirection.OUT ? StyleClassConstants.OUT_CLASS : StyleClassConstants.IN_CLASS);
         }
         return styles;
     }

@@ -6,9 +6,9 @@
  */
 package com.powsybl.sld.model.nodes;
 
-import java.io.IOException;
-
 import com.fasterxml.jackson.core.JsonGenerator;
+
+import java.io.IOException;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}

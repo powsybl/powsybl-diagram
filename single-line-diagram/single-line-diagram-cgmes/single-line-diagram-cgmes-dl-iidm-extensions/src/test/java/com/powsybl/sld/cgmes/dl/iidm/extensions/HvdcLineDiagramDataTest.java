@@ -6,10 +6,10 @@
  */
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.HvdcLine;
 import com.powsybl.iidm.network.LccConverterStation;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.VscConverterStation;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class HvdcLineDiagramDataTest extends AbstractLineDiagramDataTest {

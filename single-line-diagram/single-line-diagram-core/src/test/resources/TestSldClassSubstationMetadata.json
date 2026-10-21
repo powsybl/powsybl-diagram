@@ -1,4 +1,5 @@
 {
+  "metadataVersion" : "1.1",
   "components" : [ {
     "type" : "BUSBAR_SECTION",
     "size" : {
@@ -535,7 +536,6 @@
     "equipmentId" : "l",
     "componentType" : "ARROW_ACTIVE"
   } ],
-  "busLegendInfos" : [ ],
   "busInfos" : [ ],
   "layoutParams" : {
     "verticalSpaceBus" : 25.0,
@@ -566,10 +566,9 @@
     "busbarsAlignment" : "FIRST",
     "componentsOnBusbars" : [ "DISCONNECTOR" ],
     "removeFictitiousSwitchNodes" : false,
-    "cgmesScaleFactor" : 1.0,
-    "cgmesDiagramName" : null,
-    "cgmesUseNames" : true,
-    "zoneLayoutSnakeLinePadding" : 90
+    "zoneLayoutSnakeLinePadding" : 90,
+    "displayTeePointsInVoltageLevels" : false,
+    "threeWindingsTransformerFeederInfoMode" : "ONLY_OUTSIDE_VOLTAGE_LEVEL"
   },
   "svgParams" : {
     "prefixId" : "",
@@ -579,6 +578,7 @@
     "powerValuePrecision" : 0,
     "angleValuePrecision" : 1,
     "currentValuePrecision" : 0,
+    "percentageValuePrecision" : 0,
     "activePowerUnit" : "",
     "reactivePowerUnit" : "",
     "currentUnit" : "",
@@ -591,6 +591,7 @@
     "angleLabelShift" : 15.0,
     "labelCentered" : false,
     "labelDiagonal" : false,
+    "busLabelDiagonal" : false,
     "tooltipEnabled" : false,
     "svgWidthAndHeightAdded" : false,
     "cssLocation" : "INSERTED_IN_SVG",
@@ -599,9 +600,11 @@
     "drawStraightWires" : false,
     "showGrid" : false,
     "showInternalNodes" : false,
-    "displayCurrentFeederInfo" : false,
     "displayEquipmentNodesLabel" : false,
     "displayConnectivityNodesId" : false,
     "unifyVoltageLevelColors" : false
-  }
+  },
+  "networkId" : "TestSingleLineDiagramClass",
+  "networkName" : "TestSingleLineDiagramClass",
+  "networkDate" : "2017-01-15T18:45+01:00"
 }

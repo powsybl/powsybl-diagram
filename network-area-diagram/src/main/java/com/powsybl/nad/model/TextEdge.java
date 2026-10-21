@@ -18,8 +18,8 @@ public class TextEdge extends AbstractEdge {
 
     private Point[] points;
 
-    public TextEdge(String diagramId) {
-        super(diagramId, null, null, TEXT_EDGE);
+    public TextEdge(String svgId) {
+        super(svgId, null, null, TEXT_EDGE);
     }
 
     public void setPoints(Point... points) {

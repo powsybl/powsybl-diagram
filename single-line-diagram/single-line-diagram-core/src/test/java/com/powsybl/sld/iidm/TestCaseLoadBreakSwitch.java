@@ -34,7 +34,7 @@ class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
         vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
         Networks.createBusBarSection(vl, "bbs", "bbs", 0, 1, 1);
         Networks.createBusBarSection(vl, "bbs2", "bbs2", 1, 2, 2);
-        Networks.createGenerator(vl, "G", "G", "G", 0, ConnectablePosition.Direction.TOP, 2, 50, 100, false, 100, 400);
+        Networks.createGenerator(vl, "G", "G", "G", 0, ConnectablePosition.Direction.TOP, 2, 50, 100, 100, 400);
         Networks.createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.BOTTOM, 3, 10, 10);
         Networks.createSwitch(vl, "d", "d", SwitchKind.LOAD_BREAK_SWITCH, false, false, false, 0, 2);
         Networks.createSwitch(vl, "b", "b", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 1, 3);
@@ -60,6 +60,8 @@ class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write Json and compare to reference
-        assertEquals(toString("/TestCaseLoadBreakSwitch.svg"), toSVG(g, "/TestCaseLoadBreakSwitch.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
+        assertEquals(toString("/TestCaseLoadBreakSwitch.svg"),
+            toSVG(g, "/TestCaseLoadBreakSwitch.svg", componentLibrary, layoutParameters, svgParameters,
+                getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network), getDefaultSVGLegendWriter()));
     }
 }

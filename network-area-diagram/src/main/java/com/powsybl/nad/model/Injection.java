@@ -7,7 +7,13 @@
  */
 package com.powsybl.nad.model;
 
+import com.powsybl.nad.build.iidm.IdProvider;
+import com.powsybl.nad.svg.EdgeInfo;
+import com.powsybl.nad.svg.SvgEdgeInfo;
+
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -25,17 +31,24 @@ public class Injection extends AbstractIdentifiable {
         GENERATOR_WIND,
         GENERATOR_THERMAL,
         GENERATOR_SOLAR,
-        BATTERY
+        BATTERY,
+        LCC,
+        VSC
     }
 
     private final Type type;
     private double angle;
     private Point injectionPoint;
     private Point busNodePoint;
+    private Point arrowPoint;
+    private final SvgEdgeInfo svgEdgeInfo;
+    private List<String> styleClasses = Collections.emptyList();
+    private String style;
 
-    public Injection(String diagramId, String equipmentId, String nameOrId, Type type) {
-        super(diagramId, equipmentId, nameOrId);
+    public Injection(IdProvider idProvider, String equipmentId, String nameOrId, Type type, EdgeInfo edgeInfo) {
+        super(idProvider.createSvgId(equipmentId), equipmentId, nameOrId);
         this.type = type;
+        this.svgEdgeInfo = edgeInfo != null ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo) : null;
     }
 
     public Type getType() {
@@ -71,9 +84,37 @@ public class Injection extends AbstractIdentifiable {
         return injectionPoint;
     }
 
+    public Point getArrowPoint() {
+        return arrowPoint;
+    }
+
+    public void setArrowPoint(Point arrowPoint) {
+        this.arrowPoint = arrowPoint;
+    }
+
     public Point getIconOrigin(double circleRadius) {
         double edgeDistance = busNodePoint.distance(injectionPoint);
         Point circleCenter = busNodePoint.atDistance(edgeDistance + circleRadius, injectionPoint);
         return circleCenter.shift(-circleRadius, -circleRadius);
+    }
+
+    public Optional<SvgEdgeInfo> getSvgEdgeInfo() {
+        return Optional.ofNullable(svgEdgeInfo);
+    }
+
+    public List<String> getStyleClasses() {
+        return styleClasses;
+    }
+
+    public void setStyleClasses(List<String> styleClasses) {
+        this.styleClasses = styleClasses;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
     }
 }

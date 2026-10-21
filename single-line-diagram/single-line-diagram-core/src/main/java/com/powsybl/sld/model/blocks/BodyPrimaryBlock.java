@@ -11,8 +11,9 @@ import com.powsybl.sld.model.nodes.Node;
 import java.util.List;
 
 import static com.powsybl.sld.model.blocks.Block.Type.BODYPRIMARY;
-import static com.powsybl.sld.model.coordinate.Orientation.*;
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Orientation.RIGHT;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}

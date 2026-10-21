@@ -6,15 +6,20 @@
  */
 package com.powsybl.nad.build.iidm;
 
-import com.powsybl.iidm.network.Identifiable;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
+@FunctionalInterface
 public interface IdProvider {
 
-    String createId(Identifiable<?> identifiable);
-
-    String createId(ThreeWindingsTransformer.Leg leg);
+    /**
+     * Creates a new unique id for a svg tag related to the given network element id,
+     * knowing that:
+     * <ul>
+     *     <li>calling twice on the same object should result in two different ids,</li>
+     *     <li>using the object fields to create an id should be limited to debug mode.</li>
+     * </ul>
+     * @return a unique id
+     */
+    String createSvgId(String idNetworkElement);
 }

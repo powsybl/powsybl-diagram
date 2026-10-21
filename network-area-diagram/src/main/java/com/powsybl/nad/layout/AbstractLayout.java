@@ -93,10 +93,10 @@ public abstract class AbstractLayout implements Layout {
     protected void fixedTextNodeLayout(Pair<VoltageLevelNode, TextNode> nodes, LayoutParameters layoutParameters) {
         TextPosition fixedTextPosition = textNodesWithFixedPosition.get(nodes.getFirst().getEquipmentId());
         Point textShift = fixedTextPosition != null ? fixedTextPosition.topLeftPosition() : layoutParameters.getTextNodeFixedShift();
-        Point textPosition = nodes.getFirst().getPosition().shift(textShift.getX(), textShift.getY());
+        Point textPosition = nodes.getFirst().getPosition().shift(textShift.x(), textShift.y());
         Point connectionShift = fixedTextPosition != null ? fixedTextPosition.edgeConnection() :
-                new Point(layoutParameters.getTextNodeFixedShift().getX(), layoutParameters.getTextNodeFixedShift().getY() + layoutParameters.getTextNodeEdgeConnectionYShift());
-        Point edgeConnection = nodes.getFirst().getPosition().shift(connectionShift.getX(), connectionShift.getY());
+                new Point(layoutParameters.getTextNodeFixedShift().x(), layoutParameters.getTextNodeFixedShift().y() + layoutParameters.getTextNodeEdgeConnectionYShift());
+        Point edgeConnection = nodes.getFirst().getPosition().shift(connectionShift.x(), connectionShift.y());
         nodes.getSecond().setPosition(textPosition);
         nodes.getSecond().setEdgeConnection(edgeConnection);
     }
@@ -105,15 +105,17 @@ public abstract class AbstractLayout implements Layout {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(layoutParameters);
         graph.getBranchEdgeStream().forEach(edge -> {
-            setEdgeVisibility(graph.getNode1(edge), edge, BranchEdge.Side.ONE);
-            setEdgeVisibility(graph.getNode2(edge), edge, BranchEdge.Side.TWO);
+            VoltageLevelNode node1 = graph.getVoltageLevelNode(edge, BranchEdge.Side.ONE);
+            VoltageLevelNode node2 = graph.getVoltageLevelNode(edge, BranchEdge.Side.TWO);
+            setEdgeVisibility(node1, node2, edge, layoutParameters.isEdgesToInvisibleNodesDisplayed());
         });
     }
 
-    private void setEdgeVisibility(Node node, BranchEdge branchEdge, BranchEdge.Side side) {
-        if (node instanceof VoltageLevelNode && !((VoltageLevelNode) node).isVisible()) {
-            branchEdge.setVisible(side, false);
-        }
+    private void setEdgeVisibility(VoltageLevelNode node1, VoltageLevelNode node2, BranchEdge branchEdge, boolean isEdgesToInvisibleNodesDisplayed) {
+        boolean side1Visible = node1.isVisible() && (isEdgesToInvisibleNodesDisplayed || node2.isVisible());
+        boolean side2Visible = node2.isVisible() && (isEdgesToInvisibleNodesDisplayed || node1.isVisible());
+        branchEdge.setVisible(BranchEdge.Side.ONE, side1Visible);
+        branchEdge.setVisible(BranchEdge.Side.TWO, side2Visible);
     }
 
     private void computeSize(Graph graph) {

@@ -6,15 +6,14 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
+import com.powsybl.iidm.network.TwoWindingsTransformer;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
+import com.powsybl.triplestore.api.TripleStore;
+
 import java.util.Map;
 import java.util.Objects;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-import com.powsybl.triplestore.api.TripleStore;
-
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class TransformerDiagramDataExporter extends AbstractCouplingDeviceDiagramDataExporter {

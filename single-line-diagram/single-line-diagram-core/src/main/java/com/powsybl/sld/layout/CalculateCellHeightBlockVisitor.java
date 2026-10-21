@@ -7,14 +7,14 @@
 
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.model.blocks.*;
+import com.powsybl.sld.model.nodes.Node;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.DoubleBinaryOperator;
 
-import com.powsybl.sld.model.blocks.*;
-import com.powsybl.sld.model.nodes.Node;
-
-import static com.powsybl.sld.model.nodes.Node.NodeType.*;
+import static com.powsybl.sld.model.nodes.Node.NodeType.BUS;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -52,6 +52,11 @@ public final class CalculateCellHeightBlockVisitor implements BlockVisitor {
         blockHeight = 0;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Set the height of the block based on the number of nodes and the layout parameters.
+     */
     @Override
     public void visit(BodyPrimaryBlock block) {
         // we do not consider the exact height of components as the maximum height will
@@ -66,6 +71,9 @@ public final class CalculateCellHeightBlockVisitor implements BlockVisitor {
                 .count();
 
         this.blockHeight = (nbNodes - 1) * componentHeight;
+        if (layoutParameters.isThreeWindingsIncreasePrimaryBlockHeight(block.getNodeStream())) {
+            this.blockHeight += layoutParameters.getFeederSpan();
+        }
     }
 
     @Override

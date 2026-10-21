@@ -1,0 +1,4 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" style="fill:none;stroke:black;stroke-width:1">
+<path d="M32 22V18A8 8 0 0 0 16 18v4a3.24 3.24 0 0 0-3 3.21v9.54A3.23 3.23 0 0 0 16.23 38H31.77A3.23 3.23 0 0 0 35 34.77V25.23A3.24 3.24 0 0 0 32 22ZM24 12a6 6 0 0 1 6 6v4H18V18A6 6 0 0 1 24 12Zm9 22.77A1.23 1.23 0 0 1 31.77 36H16.23A1.23 1.23 0 0 1 15 34.77V25.23A1.23 1.23 0 0 1 16.23 24H31.77A1.23 1.23 0 0 1 33 25.23Z"/>
+</svg>

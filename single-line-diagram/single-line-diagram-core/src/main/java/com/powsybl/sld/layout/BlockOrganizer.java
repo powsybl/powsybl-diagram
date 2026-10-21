@@ -12,7 +12,11 @@ import com.powsybl.sld.layout.position.PositionFinder;
 import com.powsybl.sld.layout.position.Subsection;
 import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
-import com.powsybl.sld.model.cells.*;
+import com.powsybl.sld.model.cells.ArchCell;
+import com.powsybl.sld.model.cells.BusCell;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Node;
@@ -27,7 +31,8 @@ import static com.powsybl.sld.library.SldComponentTypeName.BUS_CONNECTION;
 import static com.powsybl.sld.model.blocks.Block.Extremity.END;
 import static com.powsybl.sld.model.blocks.Block.Extremity.START;
 import static com.powsybl.sld.model.cells.Cell.CellType.INTERN;
-import static com.powsybl.sld.model.nodes.Node.NodeType.*;
+import static com.powsybl.sld.model.nodes.Node.NodeType.FEEDER;
+import static com.powsybl.sld.model.nodes.Node.NodeType.INTERNAL;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}

@@ -25,7 +25,7 @@ public class VoltageLevelDiagramDataImporter {
 
     private static final Logger LOG = LoggerFactory.getLogger(VoltageLevelDiagramDataImporter.class);
 
-    private Network network;
+    private final Network network;
     Map<String, Map<String, Integer>> mapCnodeInode;
 
     public VoltageLevelDiagramDataImporter(Network network, Map<String, Map<String, Integer>> mapCnodeInode) {

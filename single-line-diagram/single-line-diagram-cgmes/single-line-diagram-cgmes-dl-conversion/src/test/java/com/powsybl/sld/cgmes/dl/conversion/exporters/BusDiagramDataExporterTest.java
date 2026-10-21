@@ -6,17 +6,15 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion.exporters;
 
+import com.powsybl.diagram.test.Networks;
+import com.powsybl.iidm.network.Bus;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
+import com.powsybl.triplestore.api.PropertyBags;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
-import com.powsybl.diagram.test.Networks;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
-import com.powsybl.iidm.network.Bus;
-import com.powsybl.triplestore.api.PropertyBags;
-
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class BusDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTest {
@@ -30,7 +28,7 @@ class BusDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTest
         network = Networks.createNetworkWithBus();
         bus = network.getVoltageLevel("VoltageLevel").getBusBreakerView().getBus("Bus");
         NodeDiagramData<Bus> busDiagramData = new NodeDiagramData<>(bus);
-        NodeDiagramData.NodeDiagramDataDetails details = busDiagramData.new NodeDiagramDataDetails();
+        NodeDiagramData.NodeDiagramDataDetails details = new NodeDiagramData.NodeDiagramDataDetails();
         details.setPoint1(point1);
         details.setPoint2(point2);
         busDiagramData.addData(basename, details);
