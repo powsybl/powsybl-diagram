@@ -7,6 +7,7 @@
 package com.powsybl.nad.svg;
 
 import com.powsybl.iidm.network.Battery;
+import com.powsybl.iidm.network.EnergySource;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ShuntCompensator;
 import com.powsybl.iidm.network.VoltageLevel;
@@ -62,6 +63,15 @@ class FourSubstationsNetworkTest extends AbstractTest {
         Network network = createNetwork();
         externalInfo = EdgeInfoEnum.NAME;
         assertSvgEquals("/four_substations_labels_on_edge.svg", network);
+    }
+
+    @Test
+    void testGeneratorTypes() {
+        Network network = createNetwork();
+        network.getGenerator("GH2").setId("GN1").setEnergySource(EnergySource.NUCLEAR);
+        network.getGenerator("GH3").setId("GS1").setEnergySource(EnergySource.SOLAR);
+        network.getGenerator("GTH2").setId("GW1").setEnergySource(EnergySource.WIND);
+        assertSvgEquals("/four_substations_generator_types.svg", network);
     }
 
     private Network createNetwork() {
