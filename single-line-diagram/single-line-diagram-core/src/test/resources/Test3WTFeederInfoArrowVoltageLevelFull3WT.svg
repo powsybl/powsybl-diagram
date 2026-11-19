@@ -202,12 +202,12 @@
                 <g class="sld-wire sld-vl120to180 sld-bus-0" id="_95_VL_95_132_95_INTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_45_3WT_95_INTERNAL_95_VL_95_132_95_3WT">
                     <polyline points="140.0,258.0,140.0,180.66666666666669"/>
                 </g>
-                <g class="sld-feeder-info sld-in sld-active-power" id="id3WT" transform="translate(135.0,195.66666666666669)">
+                <g class="sld-feeder-info sld-in sld-active-power" id="id3WT_95_ARROW_95_ACTIVE" transform="translate(135.0,195.66666666666669)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">-2,800</text>
                 </g>
-                <g class="sld-feeder-info sld-out sld-reactive-power" id="id3WT" transform="translate(135.0,215.66666666666669)">
+                <g class="sld-feeder-info sld-out sld-reactive-power" id="id3WT_95_ARROW_95_REACTIVE" transform="translate(135.0,215.66666666666669)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">800</text>

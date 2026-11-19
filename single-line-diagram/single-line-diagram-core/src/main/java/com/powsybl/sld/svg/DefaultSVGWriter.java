@@ -73,8 +73,6 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final int CIRCLE_RADIUS_NODE_INFOS_SIZE = 10;
     private static final Set<String> DEFAULT_LABEL_POSITIONS = Set.of("NW_LABEL", "NW_LABEL2", "N_LABEL", "S_LABEL",
             "LABEL", "N_LABEL2", "S_LABEL2", "LABEL2", "NW", "default", "DECORATOR");
-    private static final Set<String> DEFAULT_FEEDER_INFO_TYPES = Set.of(ARROW_ACTIVE, ARROW_REACTIVE, ARROW_CURRENT,
-            VALUE_CURRENT, VALUE_PERMANENT_LIMIT_PERCENTAGE);
     protected static final String WIDTH = "width";
     protected static final String HEIGHT = "height";
 
@@ -904,11 +902,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         String svgId = equipmentNode.getFeederSvgId(feederInfo.getComponentType());
         if (svgId == null) {
-            svgId = DEFAULT_FEEDER_INFO_TYPES.contains(feederInfo.getComponentType())
-                    ? equipmentNode.getFeederSvgId() : graph.getIdProvider().createSvgId(equipmentNode.getId(), feederInfo.getComponentType());
-            if (svgId == null) {
-                svgId = equipmentNode.getSvgId();
-            }
+            svgId = graph.getIdProvider().createSvgId(equipmentNode.getId(), feederInfo.getComponentType());
         }
         g.setAttribute("id", svgId);
         String componentType = feederInfo.getComponentType();
