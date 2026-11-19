@@ -21,7 +21,11 @@ public class BasicFixedLayout extends AbstractLayout {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
 
         jgraphtGraph.vertexSet().forEach(node -> {
-            Point p = getInitialNodePositions().get(node.getEquipmentId());
+            Point p = getMovableNodesInitialPositions().get(node.getEquipmentId());
+            if (p != null) {
+                node.setPosition(p.x(), p.y());
+            }
+            p = getFixedNodesPositions().get(node.getEquipmentId());
             if (p != null) {
                 node.setPosition(p.x(), p.y());
             }

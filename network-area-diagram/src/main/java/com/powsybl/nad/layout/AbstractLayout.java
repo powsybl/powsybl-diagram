@@ -18,8 +18,8 @@ import java.util.stream.Stream;
  */
 public abstract class AbstractLayout implements Layout {
 
-    private Map<String, Point> initialNodePositions = Collections.emptyMap();
-    private Set<String> nodesWithFixedPosition = Collections.emptySet();
+    private Map<String, Point> movableNodesInitialPositions = Collections.emptyMap();
+    private Map<String, Point> fixedNodesPositions = Collections.emptyMap();
     private final Map<String, TextPosition> textNodesWithFixedPosition = new HashMap<>();
 
     @Override
@@ -35,24 +35,24 @@ public abstract class AbstractLayout implements Layout {
     }
 
     @Override
-    public Map<String, Point> getInitialNodePositions() {
-        return initialNodePositions;
+    public Map<String, Point> getMovableNodesInitialPositions() {
+        return movableNodesInitialPositions;
     }
 
     @Override
-    public void setInitialNodePositions(Map<String, Point> initialNodePositions) {
+    public void setMovableNodesInitialPositions(Map<String, Point> initialNodePositions) {
         Objects.requireNonNull(initialNodePositions);
-        this.initialNodePositions = initialNodePositions;
+        this.movableNodesInitialPositions = initialNodePositions;
     }
 
     @Override
-    public void setNodesWithFixedPosition(Set<String> nodesWithFixedPosition) {
-        this.nodesWithFixedPosition = nodesWithFixedPosition;
+    public void setFixedNodesPositions(Map<String, Point> nodesWithFixedPosition) {
+        this.fixedNodesPositions = nodesWithFixedPosition;
     }
 
     @Override
-    public Set<String> getNodesWithFixedPosition() {
-        return nodesWithFixedPosition;
+    public Map<String, Point> getFixedNodesPositions() {
+        return fixedNodesPositions;
     }
 
     @Override
@@ -61,11 +61,6 @@ public abstract class AbstractLayout implements Layout {
         Objects.requireNonNull(topLeft);
         Objects.requireNonNull(edgeConnection);
         textNodesWithFixedPosition.put(voltageLevelId, new TextPosition(topLeft, edgeConnection));
-    }
-
-    public void setFixedNodePositions(Map<String, Point> fixedNodePositions) {
-        setInitialNodePositions(fixedNodePositions);
-        setNodesWithFixedPosition(fixedNodePositions.keySet());
     }
 
     protected abstract void nodesLayout(Graph graph, LayoutParameters layoutParameters);
