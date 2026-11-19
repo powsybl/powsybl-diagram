@@ -36,15 +36,6 @@ public final class ShuntCell extends AbstractCell {
 
     private final Map<Side, ExternCell> sideCells = new EnumMap<>(Side.class);
 
-    private ShuntCell(int cellNumber, List<Node> nodes) {
-        super(cellNumber, CellType.SHUNT, nodes);
-        if (!(nodes.getFirst() instanceof ConnectivityNode) || !(nodes.getLast() instanceof ConnectivityNode)) {
-            throw new PowsyblException("the first and last nodes of a shunt cell shall be ConnectivityNode");
-        }
-        ((ConnectivityNode) nodes.getFirst()).setShunt(true);
-        ((ConnectivityNode) nodes.getLast()).setShunt(true);
-    }
-
     private ShuntCell(int cellNumber, List<Node> nodes, IdProvider idProvider) {
         super(cellNumber, CellType.SHUNT, nodes, idProvider);
         if (!(nodes.getFirst() instanceof ConnectivityNode) || !(nodes.getLast() instanceof ConnectivityNode)) {

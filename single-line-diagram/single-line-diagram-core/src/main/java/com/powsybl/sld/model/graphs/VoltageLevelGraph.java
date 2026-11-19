@@ -60,12 +60,6 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
  */
 public class VoltageLevelGraph extends AbstractBaseGraph {
 
-    private static final List<String> LABEL_POSITIONS = List.of("NW_LABEL", "NW_LABEL2", "N_LABEL", "S_LABEL",
-            "LABEL", "N_LABEL2", "S_LABEL2", "LABEL2", "NW", "default", "DECORATOR");
-
-    private static final List<String> FEEDER_INFO_TYPES = List.of("ARROW_ACTIVE", "ARROW_REACTIVE", "ARROW_CURRENT",
-            "VALUE_CURRENT", "VALUE_PERMANENT_LIMIT_PERCENTAGE");
-
     private static final Logger LOGGER = LoggerFactory.getLogger(VoltageLevelGraph.class);
 
     private final VoltageLevelInfos voltageLevelInfos;

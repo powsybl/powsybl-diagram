@@ -82,7 +82,7 @@ public abstract class AbstractNode implements Node {
         this.fictitious = fictitious;
         Objects.requireNonNull(idProvider);
         this.svgId = idProvider.createSvgId(id);
-        LABEL_POSITIONS.forEach(position -> labelSvgIds.put(position, idProvider.createSvgId(id, position)));
+        LABEL_POSITIONS.forEach(pos -> labelSvgIds.put(pos, idProvider.createSvgId(id, pos)));
         if (type == NodeType.FEEDER) {
             this.feederSvgId = idProvider.createSvgId(id, componentType);
             feederSvgIds.put(componentType, feederSvgId);

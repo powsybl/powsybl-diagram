@@ -26,11 +26,6 @@ public final class ArchCell extends AbstractBusCell {
 
     private final Block pillar;
 
-    private ArchCell(int cellNumber, Collection<Node> nodes, Block pillar) {
-        super(cellNumber, ARCH, nodes);
-        this.pillar = pillar;
-    }
-
     private ArchCell(int cellNumber, Collection<Node> nodes, Block pillar, IdProvider idProvider) {
         super(cellNumber, ARCH, nodes, idProvider);
         this.pillar = pillar;

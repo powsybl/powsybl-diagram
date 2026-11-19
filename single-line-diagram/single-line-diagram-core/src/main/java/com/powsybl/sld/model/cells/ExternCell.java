@@ -35,11 +35,6 @@ public final class ExternCell extends AbstractBusCell {
 
     private final List<ShuntCell> shuntCells = new ArrayList<>();
 
-    private ExternCell(int cellNumber, Collection<Node> nodes, List<ShuntCell> shuntCells) {
-        super(cellNumber, EXTERN, nodes);
-        shuntCells.forEach(this::addShuntCell);
-    }
-
     private ExternCell(int cellNumber, Collection<Node> nodes, List<ShuntCell> shuntCells, IdProvider idProvider) {
         super(cellNumber, EXTERN, nodes, idProvider);
         shuntCells.forEach(this::addShuntCell);

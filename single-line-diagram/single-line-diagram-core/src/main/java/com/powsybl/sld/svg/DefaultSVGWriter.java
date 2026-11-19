@@ -995,8 +995,6 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected void drawEdges(Element root, VoltageLevelGraph graph, GraphMetadata metadata,
                              LabelProvider initProvider, StyleProvider styleProvider, Collection<Edge> edges) {
-        String voltageLevelId = graph.getVoltageLevelInfos().id();
-
         for (Edge edge : edges) {
             String wireId = edge.getSvgId();
 
