@@ -217,18 +217,10 @@ public final class SingleLineDiagram {
                             LayoutParameters layoutParameters, SvgParameters svgParameters,
                             LabelProvider labelProvider, StyleProvider styleProvider,
                             SVGLegendWriter legendWriter) {
-        draw(graph, writerForSvg, metadataWriter, componentLibrary, layoutParameters, svgParameters, labelProvider,
-            styleProvider, new LegacyIdProvider(svgParameters.getPrefixId()), legendWriter);
-    }
-
-    public static void draw(Graph graph, Writer writerForSvg, Writer metadataWriter, SldComponentLibrary componentLibrary,
-                            LayoutParameters layoutParameters, SvgParameters svgParameters,
-                            LabelProvider labelProvider, StyleProvider styleProvider, IdProvider idProvider,
-                            SVGLegendWriter legendWriter) {
         Objects.requireNonNull(componentLibrary);
         Objects.requireNonNull(layoutParameters);
         Objects.requireNonNull(svgParameters);
-        DefaultSVGWriter svgWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters, idProvider);
+        DefaultSVGWriter svgWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         draw(graph, writerForSvg, metadataWriter, svgWriter, labelProvider, styleProvider, legendWriter);
     }
 
@@ -242,7 +234,6 @@ public final class SingleLineDiagram {
                 sldParameters.getSubstationLayoutFactory(), voltageLevelLayoutFactory).run(layoutParameters);
             case null, default -> throw new PowsyblException("First argument is an instance of an unexpected class");
         }
-        return new DefaultSVGWriter(sldParameters.getComponentLibrary(), sldParameters.getLayoutParameters(), sldParameters.getSvgParameters(),
-            sldParameters.createIdProvider());
+        return new DefaultSVGWriter(sldParameters.getComponentLibrary(), sldParameters.getLayoutParameters(), sldParameters.getSvgParameters());
     }
 }

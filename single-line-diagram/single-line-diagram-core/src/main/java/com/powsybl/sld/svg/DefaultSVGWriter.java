@@ -82,33 +82,18 @@ public class DefaultSVGWriter implements SVGWriter {
 
     protected final LayoutParameters layoutParameters;
     protected final SvgParameters svgParameters;
-    private final IdProvider idProvider;
 
     /**
-     * Creates a writer using the legacy SVG identifier format.
+     * Creates a writer that uses the identifier provider of the graph being rendered.
      *
      * @param componentLibrary component library used to render the diagram
      * @param layoutParameters layout parameters used by the renderer
      * @param svgParameters SVG rendering parameters
      */
     public DefaultSVGWriter(SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-        this(componentLibrary, layoutParameters, svgParameters, new LegacyIdProvider(svgParameters.getPrefixId()));
-    }
-
-    /**
-     * Creates a writer with an explicit identifier provider.
-     *
-     * @param componentLibrary component library used to render the diagram
-     * @param layoutParameters layout parameters used by the renderer
-     * @param svgParameters SVG rendering parameters
-     * @param idProvider provider used to generate SVG identifiers
-     */
-    public DefaultSVGWriter(SldComponentLibrary componentLibrary, LayoutParameters layoutParameters,
-                            SvgParameters svgParameters, IdProvider idProvider) {
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = svgParameters;
-        this.idProvider = Objects.requireNonNull(idProvider);
     }
 
     /**
@@ -424,7 +409,7 @@ public class DefaultSVGWriter implements SVGWriter {
             drawNodeLabel(g, graph, busNode, nodeLabels, nodeLabelsMetadata);
             drawNodeDecorators(g, graph, busNode, initProvider, styleProvider);
 
-            insertBusInfo(g, busNode, metadata, initProvider, styleProvider, graph.getIdProvider());
+            insertBusInfo(g, busNode, metadata, initProvider, styleProvider, graph);
 
             root.appendChild(g);
 
@@ -514,7 +499,7 @@ public class DefaultSVGWriter implements SVGWriter {
             if (svgId == null) {
                 svgId = DEFAULT_LABEL_POSITIONS.contains(labelPosition.positionName())
                         ? node.getSvgId()
-                        : idProvider.createSvgId(node.getId(), labelPosition.positionName());
+                        : graph.getIdProvider().createSvgId(node.getId(), labelPosition.positionName());
             }
             label.setAttribute("id", svgId);
             if (labelPosition.isCentered()) {
@@ -834,7 +819,7 @@ public class DefaultSVGWriter implements SVGWriter {
         }
 
         insertFeederInfosFromFeederList(points, root, labelProvider.getFeederInfos(feederNode), feederNode, metadata,
-                styleProvider, graph.getIdProvider());
+                styleProvider, graph);
     }
 
     /**
@@ -849,10 +834,10 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     private void insertFeederInfosFromFeederList(List<Point> points, Element root, List<FeederInfo> feederInfos,
                                                  EquipmentNode equipmentNode, GraphMetadata metadata, StyleProvider styleProvider,
-                                                 IdProvider idProvider) {
+                                                 Graph graph) {
         double shiftFeederInfo = 0;
         for (FeederInfo feederInfo : feederInfos) {
-            drawFeederInfo(equipmentNode, points, root, feederInfo, shiftFeederInfo, metadata, styleProvider, idProvider);
+            drawFeederInfo(equipmentNode, points, root, feederInfo, shiftFeederInfo, metadata, styleProvider, graph);
             addInfoComponentMetadata(metadata, feederInfo.getComponentType());
 
             double height = componentLibrary.getSize(feederInfo.getComponentType()).height();
@@ -884,12 +869,12 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     private void drawFeederInfo(EquipmentNode node, List<Point> points, Element root,
                                 FeederInfo feederInfo, double shift, GraphMetadata metadata,
-                                StyleProvider styleProvider, IdProvider idProvider) {
+                                StyleProvider styleProvider, Graph graph) {
         String side = null;
         if (node instanceof FeederNode feederNode && feederNode.getFeeder() instanceof FeederWithSides feederWithSides) {
             side = feederWithSides.getSide().name();
         }
-        drawFeederInfo(node, side, points, root, feederInfo, shift, metadata, styleProvider, idProvider);
+        drawFeederInfo(node, side, points, root, feederInfo, shift, metadata, styleProvider, graph);
     }
 
     /**
@@ -907,7 +892,7 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     private void drawFeederInfo(EquipmentNode equipmentNode, String side, List<Point> points, Element root,
                                 FeederInfo feederInfo, double shift, GraphMetadata metadata,
-                                StyleProvider styleProvider, IdProvider idProvider) {
+                                StyleProvider styleProvider, Graph graph) {
 
         Element g = root.getOwnerDocument().createElement(GROUP);
         ComponentSize size = componentLibrary.getSize(feederInfo.getComponentType());
@@ -920,7 +905,7 @@ public class DefaultSVGWriter implements SVGWriter {
         String svgId = equipmentNode.getFeederSvgId(feederInfo.getComponentType());
         if (svgId == null) {
             svgId = DEFAULT_FEEDER_INFO_TYPES.contains(feederInfo.getComponentType())
-                    ? equipmentNode.getFeederSvgId() : idProvider.createSvgId(equipmentNode.getId(), feederInfo.getComponentType());
+                    ? equipmentNode.getFeederSvgId() : graph.getIdProvider().createSvgId(equipmentNode.getId(), feederInfo.getComponentType());
             if (svgId == null) {
                 svgId = equipmentNode.getSvgId();
             }
@@ -954,16 +939,16 @@ public class DefaultSVGWriter implements SVGWriter {
 
     protected void insertBusInfo(Element root, BusNode busNode,
                                  GraphMetadata metadata, LabelProvider labelProvider, StyleProvider styleProvider,
-                                 IdProvider idProvider) {
+                                 Graph graph) {
         Optional<BusInfo> busInfo = labelProvider.getBusInfo(busNode);
         busInfo.ifPresent(info -> {
-            drawBusInfo(busNode, root, info, styleProvider, metadata, idProvider);
+            drawBusInfo(busNode, root, info, styleProvider, metadata, graph);
             addInfoComponentMetadata(metadata, busInfo.get().getComponentType());
         });
     }
 
     private void drawBusInfo(BusNode busNode, Element root, BusInfo busInfo,
-                             StyleProvider styleProvider, GraphMetadata metadata, IdProvider idProvider) {
+                             StyleProvider styleProvider, GraphMetadata metadata, Graph graph) {
         Element g = root.getOwnerDocument().createElement(GROUP);
 
         // Position
@@ -980,7 +965,7 @@ public class DefaultSVGWriter implements SVGWriter {
         // Identity
         String svgId = busNode.getBusInfoSvgId(busInfo.getComponentType());
         if (svgId == null) {
-            svgId = idProvider.createSvgId(busNode.getId(), busInfo.getComponentType());
+            svgId = graph.getIdProvider().createSvgId(busNode.getId(), busInfo.getComponentType());
         }
         g.setAttribute("id", svgId);
 
@@ -1049,7 +1034,7 @@ public class DefaultSVGWriter implements SVGWriter {
             Collections.reverse(pol);
             insertFeederInfos(pol, root, graph, node2, metadata, initProvider, styleProvider);
         } else {
-            insert3WtInfos(pol, root, edge, metadata, initProvider, styleProvider);
+            insert3WtInfos(pol, root, graph, edge, metadata, initProvider, styleProvider);
         }
     }
 
@@ -1064,11 +1049,11 @@ public class DefaultSVGWriter implements SVGWriter {
      * @param initProvider   Used to retrieve feeder-related information for processing.
      * @param styleProvider  Used for styling and formatting during the insertion process.
      */
-    private void insert3WtInfos(List<Point> pol, Element root, Edge edge, GraphMetadata metadata,
+    private void insert3WtInfos(List<Point> pol, Element root, Graph graph, Edge edge, GraphMetadata metadata,
                                 LabelProvider initProvider, StyleProvider styleProvider) {
         Consumer<Middle3WTNode> threeWtInserter = middle3WTNode -> insertFeederInfosFromFeederList(
             pol, root, initProvider.getFeederInfos(middle3WTNode),
-            middle3WTNode, metadata, styleProvider, idProvider
+            middle3WTNode, metadata, styleProvider, graph
         );
         if (edge.getNode1() instanceof Middle3WTNode middle3wtNode) {
             if (!(edge.getNode2() instanceof FeederNode) && isNotInternalNode(edge.getNode2())) {

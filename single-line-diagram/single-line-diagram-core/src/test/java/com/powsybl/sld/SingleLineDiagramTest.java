@@ -12,6 +12,7 @@ import com.google.common.jimfs.Jimfs;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
+import com.powsybl.sld.svg.IntIdProvider;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,11 @@ import java.io.StringWriter;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -113,5 +118,21 @@ class SingleLineDiagramTest extends AbstractTestCaseIidm {
             SingleLineDiagram.drawMultiSubstations(network, List.of("subst", "subst2"), writer, new StringWriter(), sldParameters);
             assertEquals(toString("/TestDrawS1S2PrefixTest.svg"), normalizeLineSeparator(writer.toString()));
         }
+    }
+
+    @Test
+    void testCustomIdProviderIsSharedByGraphAndWriter() {
+        sldParameters.setIdProviderFactory(IntIdProvider::new);
+
+        StringWriter svgWriter = new StringWriter();
+        SingleLineDiagram.drawVoltageLevel(network, "VL1", svgWriter, new StringWriter(), sldParameters);
+
+        Matcher idMatcher = Pattern.compile("\\bid=\"([^\"]+)\"").matcher(svgWriter.toString());
+        Set<String> ids = new HashSet<>();
+        while (idMatcher.find()) {
+            ids.add(idMatcher.group(1));
+        }
+
+        assertEquals(ids.size(), svgWriter.toString().split("\\bid=\"").length - 1);
     }
 }

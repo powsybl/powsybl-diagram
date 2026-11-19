@@ -31,7 +31,6 @@ class IdProviderTest extends AbstractTestCaseIidm {
     LabelProvider labelProvider;
     StyleProvider styleProvider;
     SVGLegendWriter svgLegendWriter;
-    IdProvider idProvider;
 
     @Override
     @BeforeEach
@@ -52,31 +51,27 @@ class IdProviderTest extends AbstractTestCaseIidm {
 
     @Test
     void testLegacyIdProvider() {
-        // Id provider
-        idProvider = new LegacyIdProvider(svgParameters.getPrefixId());
-
         // write SVG and compare to reference
         assertEquals(toString("/TestLegacyIdProvider.svg"), toSVG(g, "/TestLegacyIdProvider.svg", componentLibrary,
-            layoutParameters, svgParameters, labelProvider, styleProvider, idProvider, svgLegendWriter));
+            layoutParameters, svgParameters, labelProvider, styleProvider, svgLegendWriter));
 
         assertEquals(toString("/TestLegacyIdProvider.json"), toMetadata(g, "/TestLegacyIdProvider.json",
-            componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, idProvider, svgLegendWriter));
+            componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, svgLegendWriter));
     }
 
     @Test
     void testDefaultIdProvider() {
-        // Id provider
-        idProvider = new IntIdProvider(svgParameters.getPrefixId());
+        IdProvider idProvider = new IntIdProvider(svgParameters.getPrefixId());
         graphBuilder = new NetworkGraphBuilder(network, layoutParameters, idProvider);
         g = graphBuilder.buildVoltageLevelGraph("VL1");
         new SmartVoltageLevelLayoutFactory(network).create(g).run(layoutParameters);
 
         // write SVG and compare to reference
         assertEquals(toString("/TestDefaultIdProvider.svg"), toSVG(g, "/TestDefaultIdProvider.svg", componentLibrary,
-            layoutParameters, svgParameters, labelProvider, styleProvider, idProvider, svgLegendWriter));
+            layoutParameters, svgParameters, labelProvider, styleProvider, svgLegendWriter));
 
         assertEquals(toString("/TestDefaultIdProvider.json"), toMetadata(g, "/TestDefaultIdProvider.json",
-            componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, idProvider, svgLegendWriter));
+            componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, svgLegendWriter));
     }
 
     @Test
