@@ -8,6 +8,7 @@ package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.svg.IdProvider;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -35,7 +36,12 @@ public class SwitchNode extends EquipmentNode {
     private final SwitchKind kind;
 
     public SwitchNode(String id, String name, String componentType, boolean fictitious, SwitchKind kind, boolean open) {
-        super(NodeType.SWITCH, id, name, id, componentType, fictitious);
+        this(id, name, componentType, fictitious, kind, open, new com.powsybl.sld.svg.LegacyIdProvider(""));
+    }
+
+    public SwitchNode(String id, String name, String componentType, boolean fictitious, SwitchKind kind, boolean open,
+                      IdProvider idProvider) {
+        super(NodeType.SWITCH, id, name, id, componentType, fictitious, idProvider);
         this.kind = Objects.requireNonNull(kind);
         setOpen(open);
     }

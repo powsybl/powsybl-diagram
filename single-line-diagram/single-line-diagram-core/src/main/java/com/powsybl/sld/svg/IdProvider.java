@@ -13,21 +13,33 @@ package com.powsybl.sld.svg;
 public interface IdProvider {
 
     /**
-     * Returns the unescaped identifier corresponding to an equipment subtype.
-     * This is used when metadata must preserve a human-readable identifier
-     * while the SVG document uses an escaped identifier.
+     * Creates a new unique identifier for an SVG object related to the given
+     * equipment identifier. The equipment identifier is contextual information
+     * only: implementations must not rely on repeated calls returning the same
+     * value.
+     *
+     * @param equipmentId equipment identifier
+     * @return a new SVG identifier
+     */
+    String createSvgId(String equipmentId);
+
+    /**
+     * Creates a new unique identifier for an SVG object related to an
+     * equipment subtype.
      *
      * @param equipmentId equipment identifier
      * @param subType subtype or label position
-     * @return the unescaped identifier
+     * @return a new SVG identifier
      */
-    default String getUnescapedSvgId(String equipmentId, String subType) {
-        return getOrCreateSvgId(equipmentId, subType);
-    }
+    String createSvgId(String equipmentId, String subType);
 
-    String getOrCreateSvgId(String equipmentId);
-
-    String getOrCreateSvgId(String equipmentId, String subType);
-
-    String getOrCreateSvgId(String containerId, String id1, String id2);
+    /**
+     * Creates a new unique identifier for an SVG object contained in a graph.
+     *
+     * @param containerId graph/container identifier
+     * @param id1 first related object identifier
+     * @param id2 second related object identifier
+     * @return a new SVG identifier
+     */
+    String createSvgId(String containerId, String id1, String id2);
 }

@@ -128,17 +128,17 @@
                 <g class="sld-wire" id="_95_VL_95_132_95_INTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_45_3WT_95_INTERNAL_95_VL_95_132_95_3WT">
                     <polyline points="140.0,338.0,140.0,234.0"/>
                 </g>
-                <g class="sld-feeder-info sld-in sld-active-power" id="id3WT_95_ARROW_95_ACTIVE" transform="translate(135.0,249.0)">
+                <g class="sld-feeder-info sld-in sld-active-power" id="id3WT" transform="translate(135.0,249.0)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">-2,800</text>
                 </g>
-                <g class="sld-feeder-info sld-out sld-reactive-power" id="id3WT_95_ARROW_95_REACTIVE" transform="translate(135.0,269.0)">
+                <g class="sld-feeder-info sld-out sld-reactive-power" id="id3WT" transform="translate(135.0,269.0)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">800</text>
                 </g>
-                <g class="sld-feeder-info sld-out sld-current" id="id3WT_95_ARROW_95_CURRENT" transform="translate(135.0,289.0)">
+                <g class="sld-feeder-info sld-out sld-current" id="id3WT" transform="translate(135.0,289.0)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">12,586</text>

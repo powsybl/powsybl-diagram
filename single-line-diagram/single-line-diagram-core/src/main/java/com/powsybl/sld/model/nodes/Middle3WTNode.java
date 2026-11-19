@@ -9,6 +9,7 @@ package com.powsybl.sld.model.nodes;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
+import com.powsybl.sld.svg.IdProvider;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -24,9 +25,16 @@ public class Middle3WTNode extends AbstractMiddleTwtNode {
 
     public Middle3WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2,
                          VoltageLevelInfos voltageLevelInfosLeg3, String componentType, boolean embeddedInVLGraph) {
+        this(id, name, voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, componentType, embeddedInVLGraph,
+                new com.powsybl.sld.svg.LegacyIdProvider(""));
+    }
+
+    public Middle3WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2,
+                         VoltageLevelInfos voltageLevelInfosLeg3, String componentType, boolean embeddedInVLGraph,
+                         IdProvider idProvider) {
         super(id, name,
             new VoltageLevelInfos[]{Objects.requireNonNull(voltageLevelInfosLeg1), Objects.requireNonNull(voltageLevelInfosLeg2), Objects.requireNonNull(voltageLevelInfosLeg3)},
-            componentType);
+            componentType, idProvider);
         this.embeddedInVlGraph = embeddedInVLGraph;
     }
 

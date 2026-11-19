@@ -9,6 +9,7 @@ package com.powsybl.sld.model.nodes;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Position;
+import com.powsybl.sld.svg.IdProvider;
 
 import java.io.IOException;
 
@@ -30,7 +31,11 @@ public class BusNode extends EquipmentNode {
     private Position position = new Position(-1, -1);
 
     public BusNode(String id, String name, boolean fictitious) {
-        super(NodeType.BUS, id, name, id, BUSBAR_SECTION, fictitious);
+        this(id, name, fictitious, new com.powsybl.sld.svg.LegacyIdProvider(""));
+    }
+
+    public BusNode(String id, String name, boolean fictitious, IdProvider idProvider) {
+        super(NodeType.BUS, id, name, id, BUSBAR_SECTION, fictitious, idProvider);
     }
 
     @Override

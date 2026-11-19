@@ -12,6 +12,8 @@ import com.powsybl.sld.model.graphs.NodeFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.NodeSide;
+import com.powsybl.sld.svg.IdProvider;
+import com.powsybl.sld.svg.LegacyIdProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +41,11 @@ public class SubstationRawBuilder extends AbstractRawBuilder {
     ZoneRawBuilder zBuilder;
 
     public SubstationRawBuilder(String id, ZoneRawBuilder parentBuilder) {
-        substationGraph = SubstationGraph.create(id, parentBuilder == null ? null : parentBuilder.getGraph());
+        this(id, parentBuilder, parentBuilder == null ? new LegacyIdProvider("") : parentBuilder.getGraph().getIdProvider());
+    }
+
+    public SubstationRawBuilder(String id, ZoneRawBuilder parentBuilder, IdProvider idProvider) {
+        substationGraph = SubstationGraph.create(id, parentBuilder == null ? null : parentBuilder.getGraph(), idProvider);
     }
 
     @Override

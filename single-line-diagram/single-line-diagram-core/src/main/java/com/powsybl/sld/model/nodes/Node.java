@@ -44,6 +44,18 @@ public interface Node {
 
     void setLabel(String label);
 
+    String getSvgId();
+
+    String getLabelSvgId(String positionName);
+
+    String getFeederSvgId();
+
+    String getFeederSvgId(String componentType);
+
+    String getBusInfoSvgId();
+
+    String getBusInfoSvgId(String componentType);
+
     List<Node> getAdjacentNodes();
 
     List<Edge> getAdjacentEdges();

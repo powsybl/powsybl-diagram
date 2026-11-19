@@ -67,6 +67,9 @@ class IdProviderTest extends AbstractTestCaseIidm {
     void testDefaultIdProvider() {
         // Id provider
         idProvider = new IntIdProvider(svgParameters.getPrefixId());
+        graphBuilder = new NetworkGraphBuilder(network, layoutParameters, idProvider);
+        g = graphBuilder.buildVoltageLevelGraph("VL1");
+        new SmartVoltageLevelLayoutFactory(network).create(g).run(layoutParameters);
 
         // write SVG and compare to reference
         assertEquals(toString("/TestDefaultIdProvider.svg"), toSVG(g, "/TestDefaultIdProvider.svg", componentLibrary,
@@ -77,25 +80,25 @@ class IdProviderTest extends AbstractTestCaseIidm {
     }
 
     @Test
-    void testDefaultIdProviderDoesNotCollideWhenIdsContainSeparators() {
+    void testIntIdProviderCreatesDistinctIdsRegardlessOfKeys() {
         IntIdProvider intIdProvider = new IntIdProvider(svgParameters.getPrefixId());
 
-        String equipmentId = intIdProvider.getOrCreateSvgId("ALDJF_subType_AER");
-        String equipmentSubtype = intIdProvider.getOrCreateSvgId("ALDJF", "AER");
+        String equipmentId = intIdProvider.createSvgId("ALDJF_subType_AER");
+        String equipmentSubtype = intIdProvider.createSvgId("ALDJF", "AER");
 
         assertNotEquals(equipmentId, equipmentSubtype);
-        assertEquals(equipmentId, intIdProvider.getOrCreateSvgId("ALDJF_subType_AER"));
-        assertEquals(equipmentSubtype, intIdProvider.getOrCreateSvgId("ALDJF", "AER"));
+        assertNotEquals(equipmentId, intIdProvider.createSvgId("ALDJF_subType_AER"));
+        assertNotEquals(equipmentSubtype, intIdProvider.createSvgId("ALDJF", "AER"));
     }
 
     @Test
     void testLegacyIdProviderKeepsTypedKeysStable() {
         LegacyIdProvider legacyIdProvider = new LegacyIdProvider(svgParameters.getPrefixId());
 
-        String equipmentId = legacyIdProvider.getOrCreateSvgId("ALDJF_subType_AER");
-        String equipmentSubtype = legacyIdProvider.getOrCreateSvgId("ALDJF", "AER");
+        String equipmentId = legacyIdProvider.createSvgId("ALDJF_subType_AER");
+        String equipmentSubtype = legacyIdProvider.createSvgId("ALDJF", "AER");
 
-        assertEquals(equipmentId, legacyIdProvider.getOrCreateSvgId("ALDJF_subType_AER"));
-        assertEquals(equipmentSubtype, legacyIdProvider.getOrCreateSvgId("ALDJF", "AER"));
+        assertEquals(equipmentId, legacyIdProvider.createSvgId("ALDJF_subType_AER"));
+        assertEquals(equipmentSubtype, legacyIdProvider.createSvgId("ALDJF", "AER"));
     }
 }

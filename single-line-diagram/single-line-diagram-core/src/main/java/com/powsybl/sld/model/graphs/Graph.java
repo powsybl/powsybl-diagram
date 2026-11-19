@@ -11,6 +11,7 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.svg.IdProvider;
 
 import java.io.Writer;
 import java.nio.file.Path;
@@ -23,6 +24,9 @@ import java.util.stream.Stream;
  * @author Slimane Amar {@literal <slimane.amar at rte-france.com>}
  */
 public interface Graph {
+
+    IdProvider getIdProvider();
+
     String getId();
 
     VoltageLevelGraph getVoltageLevel(String voltageLevelId);

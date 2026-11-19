@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.MiddleTwtNode;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.svg.IdProvider;
 import org.jgrapht.graph.Pseudograph;
 
 import java.io.IOException;
@@ -42,6 +43,11 @@ public class SubstationGraph extends AbstractBaseGraph {
         this.substationId = Objects.requireNonNull(id);
     }
 
+    protected SubstationGraph(String id, Graph parentGraph, IdProvider idProvider) {
+        super(parentGraph, idProvider);
+        this.substationId = Objects.requireNonNull(id);
+    }
+
     public static SubstationGraph create(String id, Graph parentGraph) {
         Objects.requireNonNull(id);
         return new SubstationGraph(id, parentGraph);
@@ -50,6 +56,10 @@ public class SubstationGraph extends AbstractBaseGraph {
     public static SubstationGraph create(String id) {
         Objects.requireNonNull(id);
         return new SubstationGraph(id, null);
+    }
+
+    public static SubstationGraph create(String id, Graph parentGraph, IdProvider idProvider) {
+        return new SubstationGraph(id, parentGraph, idProvider);
     }
 
     public void addVoltageLevel(VoltageLevelGraph node) {

@@ -16,6 +16,7 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.svg.IdProvider;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,6 +45,15 @@ public final class ShuntCell extends AbstractCell {
         ((ConnectivityNode) nodes.getLast()).setShunt(true);
     }
 
+    private ShuntCell(int cellNumber, List<Node> nodes, IdProvider idProvider) {
+        super(cellNumber, CellType.SHUNT, nodes, idProvider);
+        if (!(nodes.getFirst() instanceof ConnectivityNode) || !(nodes.getLast() instanceof ConnectivityNode)) {
+            throw new PowsyblException("the first and last nodes of a shunt cell shall be ConnectivityNode");
+        }
+        ((ConnectivityNode) nodes.getFirst()).setShunt(true);
+        ((ConnectivityNode) nodes.getLast()).setShunt(true);
+    }
+
     /**
      * @param vlGraph the VoltageLevelGraph
      * @param shuntNodes a list of nodes that constitute a ShuntCell: the first and last nodes are both {@link ConnectivityNode}
@@ -59,7 +69,7 @@ public final class ShuntCell extends AbstractCell {
         ConnectivityNode iNode2 = vlGraph.insertConnectivityNode(extended.getLast(), extended.get(extended.size() - 2), "Shunt " + cellNumber + ".2");
         extended.add(extended.size() - 1, iNode2);
 
-        ShuntCell shuntCell = new ShuntCell(cellNumber, extended);
+        ShuntCell shuntCell = new ShuntCell(cellNumber, extended, vlGraph.getIdProvider());
         vlGraph.addCell(shuntCell);
         return shuntCell;
     }

@@ -36,31 +36,19 @@ public class LegacyIdProvider implements IdProvider {
         this.prefixId = prefixId;
     }
 
-    /**
-     * Returns the historical unescaped form used in SLD metadata.
-     *
-     * @param equipmentId equipment identifier
-     * @param subType subtype or label position
-     * @return the unescaped legacy identifier
-     */
     @Override
-    public String getUnescapedSvgId(String equipmentId, String subType) {
-        return prefixId + equipmentId + "_" + subType;
-    }
-
-    @Override
-    public String getOrCreateSvgId(String equipmentId) {
+    public String createSvgId(String equipmentId) {
         return idMap.computeIfAbsent(new EquipmentKey(equipmentId), ignored -> IdUtil.escapeId(prefixId + equipmentId));
     }
 
     @Override
-    public String getOrCreateSvgId(String equipmentId, String subType) {
+    public String createSvgId(String equipmentId, String subType) {
         return idMap.computeIfAbsent(new EquipmentSubtypeKey(equipmentId, subType),
             ignored -> IdUtil.escapeId(prefixId + equipmentId + "_" + subType));
     }
 
     @Override
-    public String getOrCreateSvgId(String containerId, String id1, String id2) {
+    public String createSvgId(String containerId, String id1, String id2) {
         // For global unicity in all type of container (voltage level, substation, zone), we prefix with the container Id and
         // we rely on the fact that node ids are unique inside a voltage level. We also prepend with a custom prefix id to
         // allow multiple diagrams unicity.

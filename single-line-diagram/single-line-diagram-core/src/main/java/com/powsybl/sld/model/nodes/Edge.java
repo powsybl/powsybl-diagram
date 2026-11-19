@@ -9,6 +9,8 @@ package com.powsybl.sld.model.nodes;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.svg.IdProvider;
+import com.powsybl.sld.svg.LegacyIdProvider;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -21,10 +23,27 @@ import java.util.List;
  */
 public class Edge {
 
+    private final String svgId;
+
     private final List<Node> nodes;
 
     public Edge(Node node1, Node node2) {
+        this(node1, node2, new LegacyIdProvider(""));
+    }
+
+    public Edge(Node node1, Node node2, IdProvider idProvider) {
         this.nodes = Arrays.asList(node1, node2);
+        this.svgId = idProvider.createSvgId(node1.getId(), node2.getId(), "EDGE");
+    }
+
+    public Edge(Node node1, Node node2, IdProvider idProvider, String containerId) {
+        this.nodes = Arrays.asList(node1, node2);
+        this.svgId = idProvider.createSvgId(containerId, node1.getId(), node2.getId());
+    }
+
+    protected Edge(Node node1, Node node2, String svgId) {
+        this.nodes = Arrays.asList(node1, node2);
+        this.svgId = svgId;
     }
 
     public Node getNode(int index) {
@@ -41,6 +60,10 @@ public class Edge {
 
     public List<Node> getNodes() {
         return nodes;
+    }
+
+    public String getSvgId() {
+        return svgId;
     }
 
     public void writeJson(JsonGenerator generator) throws IOException {

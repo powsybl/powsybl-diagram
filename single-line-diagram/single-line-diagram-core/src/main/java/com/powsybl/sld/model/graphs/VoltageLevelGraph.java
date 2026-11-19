@@ -32,6 +32,7 @@ import com.powsybl.sld.model.nodes.Node.NodeType;
 import com.powsybl.sld.model.nodes.NodeSide;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
+import com.powsybl.sld.svg.IdProvider;
 import com.powsybl.sld.util.GraphTraversal;
 import org.jgrapht.graph.Pseudograph;
 import org.slf4j.Logger;
@@ -59,9 +60,19 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
  */
 public class VoltageLevelGraph extends AbstractBaseGraph {
 
+    private static final List<String> LABEL_POSITIONS = List.of("NW_LABEL", "NW_LABEL2", "N_LABEL", "S_LABEL",
+            "LABEL", "N_LABEL2", "S_LABEL2", "LABEL2", "NW", "default", "DECORATOR");
+
+    private static final List<String> FEEDER_INFO_TYPES = List.of("ARROW_ACTIVE", "ARROW_REACTIVE", "ARROW_CURRENT",
+            "VALUE_CURRENT", "VALUE_PERMANENT_LIMIT_PERCENTAGE");
+
     private static final Logger LOGGER = LoggerFactory.getLogger(VoltageLevelGraph.class);
 
     private final VoltageLevelInfos voltageLevelInfos;
+
+    private final String svgId;
+    private final String gridSvgId;
+    private final String labelSvgId;
 
     private final List<Node> nodes = new ArrayList<>();
 
@@ -92,7 +103,36 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     public VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos, Graph parentGraph) {
         super(parentGraph);
         this.voltageLevelInfos = Objects.requireNonNull(voltageLevelInfos);
+        this.svgId = getIdProvider().createSvgId(voltageLevelInfos.id());
+        this.gridSvgId = getIdProvider().createSvgId("GRID", voltageLevelInfos.id());
+        this.labelSvgId = getIdProvider().createSvgId("LABEL_VL", voltageLevelInfos.id());
         this.forVoltageLevelDiagram = parentGraph == null;
+    }
+
+    public VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos, Graph parentGraph, IdProvider idProvider) {
+        super(parentGraph, idProvider);
+        this.voltageLevelInfos = Objects.requireNonNull(voltageLevelInfos);
+        this.svgId = getIdProvider().createSvgId(voltageLevelInfos.id());
+        this.gridSvgId = getIdProvider().createSvgId("GRID", voltageLevelInfos.id());
+        this.labelSvgId = getIdProvider().createSvgId("LABEL_VL", voltageLevelInfos.id());
+        this.forVoltageLevelDiagram = parentGraph == null;
+    }
+
+    public String getSvgId() {
+        return svgId;
+    }
+
+    public String getGridSvgId() {
+        return gridSvgId;
+    }
+
+    public String getLabelSvgId() {
+        return labelSvgId;
+    }
+
+    @Override
+    public IdProvider getIdProvider() {
+        return idProvider;
     }
 
     @Override
@@ -252,7 +292,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
      * @param n2 second node
      */
     public Edge addEdge(Node n1, Node n2) {
-        Edge edge = new Edge(n1, n2);
+        Edge edge = new Edge(n1, n2, getIdProvider(), getId());
         edges.add(edge);
         n1.addAdjacentEdge(edge);
         n2.addAdjacentEdge(edge);

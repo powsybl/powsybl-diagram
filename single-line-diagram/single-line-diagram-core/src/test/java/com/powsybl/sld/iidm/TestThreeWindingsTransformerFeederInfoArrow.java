@@ -114,7 +114,7 @@ class TestThreeWindingsTransformerFeederInfoArrow extends AbstractTestCaseIidm {
         VoltageLevelGraph g = graphBuilder2.buildVoltageLevelGraph("vl3");
         voltageLevelGraphLayout(g);
 
-        assertEquals(toString("/Test3WTSwitchFeederInfoArrowVoltageLevel.svg"), toSVG(g, "/Test3WTSwitchFeederInfoArrowVoltageLevel.svg"));
+        assertEquals(toString("/Test3WTMultiSwitchFeederInfoArrowVoltageLevel.svg"), toSVG(g, "/Test3WTMultiSwitchFeederInfoArrowVoltageLevel.svg"));
     }
 
     @Test
@@ -125,7 +125,7 @@ class TestThreeWindingsTransformerFeederInfoArrow extends AbstractTestCaseIidm {
         VoltageLevelGraph g = graphBuilder2.buildVoltageLevelGraph("vl3");
         voltageLevelGraphLayout(g);
 
-        assertEquals(toString("/Test3WTMultiSwitchFeederInfoArrowVoltageLevel.svg"), toSVG(g, "/Test3WTSwitchFeederInfoArrowVoltageLevel.svg"));
+        assertEquals(toString("/Test3WTSwitchFeederInfoArrowVoltageLevel.svg"), toSVG(g, "/Test3WTSwitchFeederInfoArrowVoltageLevel.svg"));
     }
 
     @Test
@@ -137,7 +137,7 @@ class TestThreeWindingsTransformerFeederInfoArrow extends AbstractTestCaseIidm {
         VoltageLevelGraph g = graphBuilder2.buildVoltageLevelGraph("vl3");
         voltageLevelGraphLayout(g);
 
-        assertEquals(toString("/Test3WTMultiSwitchFeederInfoArrowVoltageLevelInternalNodes.svg"), toSVG(g, "/Test3WTSwitchFeederInfoArrowVoltageLevel.svg"));
+        assertEquals(toString("/Test3WTMultiSwitchFeederInfoArrowVoltageLevelInternalNodes.svg"), toSVG(g, "/Test3WTMultiSwitchFeederInfoArrowVoltageLevelInternalNodes.svg"));
     }
 
     private Network get3WtWithSwitchNetwork(int consecutiveSwitchesOn3WTLeg) {

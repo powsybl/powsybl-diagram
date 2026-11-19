@@ -8,6 +8,7 @@
 package com.powsybl.sld.model.nodes;
 
 import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.svg.IdProvider;
 
 import java.util.List;
 
@@ -16,7 +17,11 @@ import java.util.List;
  */
 public class Internal2WTNode extends EquipmentNode {
     public Internal2WTNode(String id, String nameOrId, String equipmentId, String componentType) {
-        super(NodeType.INTERNAL, id, nameOrId, equipmentId, componentType, false);
+        this(id, nameOrId, equipmentId, componentType, new com.powsybl.sld.svg.LegacyIdProvider(""));
+    }
+
+    public Internal2WTNode(String id, String nameOrId, String equipmentId, String componentType, IdProvider idProvider) {
+        super(NodeType.INTERNAL, id, nameOrId, equipmentId, componentType, false, idProvider);
     }
 
     @Override

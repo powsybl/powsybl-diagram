@@ -8,6 +8,7 @@ package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.svg.IdProvider;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -25,7 +26,13 @@ public class FeederNode extends EquipmentNode {
 
     public FeederNode(String id, String name, String equipmentId, String componentTypeName, boolean fictitious,
                          Feeder feeder, Orientation orientation) {
-        super(NodeType.FEEDER, id, name, equipmentId, componentTypeName, fictitious);
+        this(id, name, equipmentId, componentTypeName, fictitious, feeder, orientation,
+                new com.powsybl.sld.svg.LegacyIdProvider(""));
+    }
+
+    public FeederNode(String id, String name, String equipmentId, String componentTypeName, boolean fictitious,
+                      Feeder feeder, Orientation orientation, IdProvider idProvider) {
+        super(NodeType.FEEDER, id, name, equipmentId, componentTypeName, fictitious, idProvider);
         this.feeder = Objects.requireNonNull(feeder);
         setOrientation(orientation);
     }
