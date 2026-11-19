@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
@@ -72,7 +73,7 @@ public class Atlas2ForceLayout extends AbstractLayout {
             this.postProcessing
         );
         setInitialPositions(graph, layoutContext, scale);
-        Set<Node> fixedNodes = getNodesWithFixedPosition().stream()
+        Set<Node> fixedNodes = getFixedNodesPositions().keySet().stream()
                 .map(graph::getNode)
                 .flatMap(Optional::stream)
                 .collect(Collectors.toSet());
@@ -98,7 +99,9 @@ public class Atlas2ForceLayout extends AbstractLayout {
     /// Taken from BasicForceLayout, could be put in parent class but not exactly the same
     /// This would require to change BasicForceLayout to use LayoutAlgorithmRunner instead of ForceLayout
     private void setInitialPositions(Graph graph, LayoutContext<Node, Edge> layoutContext, double scale) {
-        Map<Node, Point> initialPoints = getInitialNodePositions().entrySet().stream()
+        Map<Node, Point> initialPoints = Stream.concat(
+                getMovableNodesInitialPositions().entrySet().stream(),
+                getFixedNodesPositions().entrySet().stream())
                 // Only accept positions for nodes in the graph
                 .filter(nodePosition -> graph.getNode(nodePosition.getKey()).isPresent())
                 .collect(Collectors.toMap(

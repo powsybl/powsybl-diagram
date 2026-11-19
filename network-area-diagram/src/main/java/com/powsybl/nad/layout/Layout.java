@@ -10,7 +10,6 @@ import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
 
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -18,13 +17,13 @@ import java.util.Set;
 public interface Layout {
     void run(Graph graph, LayoutParameters layoutParameters);
 
-    void setInitialNodePositions(Map<String, Point> initialNodePositions);
+    void setMovableNodesInitialPositions(Map<String, Point> movableNodesInitialPositions);
 
-    void setNodesWithFixedPosition(Set<String> nodesWithFixedPosition);
+    void setFixedNodesPositions(Map<String, Point> fixedNodesPositions);
 
-    Map<String, Point> getInitialNodePositions();
+    Map<String, Point> getMovableNodesInitialPositions();
 
-    Set<String> getNodesWithFixedPosition();
+    Map<String, Point> getFixedNodesPositions();
 
     void setTextNodeFixedPosition(String voltageLevelId, Point topLeft, Point edgeConnection);
 }

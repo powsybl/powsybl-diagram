@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -85,7 +86,7 @@ public class BasicForceLayout extends AbstractLayout {
 
         double scaleFactor = SCALE * layoutParameters.getScaleFactor();
         setInitialPositions(layoutContext, graph, scaleFactor);
-        Set<Node> fixedNodes = getNodesWithFixedPosition().stream()
+        Set<Node> fixedNodes = getFixedNodesPositions().keySet().stream()
                 .map(graph::getNode)
                 .flatMap(Optional::stream)
                 .collect(Collectors.toSet());
@@ -109,7 +110,9 @@ public class BasicForceLayout extends AbstractLayout {
     }
 
     private void setInitialPositions(LayoutContext<Node, Edge> layoutContext, Graph graph, double scaleFactor) {
-        Map<Node, com.powsybl.diagram.util.layout.geometry.Point> initialPoints = getInitialNodePositions().entrySet().stream()
+        Map<Node, com.powsybl.diagram.util.layout.geometry.Point> initialPoints = Stream.concat(
+                getMovableNodesInitialPositions().entrySet().stream(),
+                getFixedNodesPositions().entrySet().stream())
                 // Only accept positions for nodes in the graph
                 .filter(nodePosition -> graph.getNode(nodePosition.getKey()).isPresent())
                 .collect(Collectors.toMap(

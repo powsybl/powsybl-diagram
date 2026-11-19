@@ -27,8 +27,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.StringWriter;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -113,8 +113,10 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
         // giving initial positions for some equipment,
         // and fixing the position for only some equipment
         // Only consider fixed the first one in the initial layout
-        Set<String> fixedNodes = Set.of(initialPositions.keySet().iterator().next());
-        Map<String, Point> allPositions = layoutResult(network, initialPositions, fixedNodes);
+        Map<String, Point> movableNodes = new HashMap<>(initialPositions);
+        String firstKey = initialPositions.keySet().iterator().next();
+        Map<String, Point> fixedNodes = Map.of(firstKey, movableNodes.remove(firstKey));
+        Map<String, Point> allPositions = layoutResult(network, movableNodes, fixedNodes);
 
         // Check positions of initial layout have been preserved in global layout
         for (Map.Entry<String, Point> l : initialPositions.entrySet()) {
@@ -122,7 +124,7 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
             Point expected = l.getValue();
             Point actual = allPositions.get(equipmentId);
             assertNotNull(actual);
-            if (fixedNodes.contains(equipmentId)) {
+            if (fixedNodes.containsKey(equipmentId)) {
                 assertEquals(expected.x(), actual.x(), 0);
                 assertEquals(expected.y(), actual.y(), 0);
             } else {
@@ -133,29 +135,27 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
     }
 
     private Map<String, Point> layoutResult(Network network, Predicate<VoltageLevel> voltageLevelFilter) {
-        return layoutResult(network, Collections.emptyMap(), Collections.emptySet(), Collections.emptyMap(), voltageLevelFilter);
+        return layoutResult(network, Collections.emptyMap(), Collections.emptyMap(), voltageLevelFilter);
     }
 
-    private Map<String, Point> layoutResult(Network network, Map<String, Point> initialNodePositions, Set<String> nodesWithFixedPositions) {
-        return layoutResult(network, initialNodePositions, nodesWithFixedPositions, Collections.emptyMap(), VoltageLevelFilter.NO_FILTER);
+    private Map<String, Point> layoutResult(Network network, Map<String, Point> movableNodesInitialPositions, Map<String, Point> fixedNodesPositions) {
+        return layoutResult(network, movableNodesInitialPositions, fixedNodesPositions, VoltageLevelFilter.NO_FILTER);
     }
 
-    private Map<String, Point> layoutResult(Network network, Map<String, Point> fixedNodePositions) {
-        return layoutResult(network, Collections.emptyMap(), Collections.emptySet(), fixedNodePositions, VoltageLevelFilter.NO_FILTER);
+    private Map<String, Point> layoutResult(Network network, Map<String, Point> fixedNodesPositions) {
+        return layoutResult(network, Collections.emptyMap(), fixedNodesPositions, VoltageLevelFilter.NO_FILTER);
     }
 
     private Map<String, Point> layoutResult(Network network,
-                                            Map<String, Point> initialNodePositions,
-                                            Set<String> nodesWithFixedPositions,
-                                            Map<String, Point> fixedNodePositions,
+                                            Map<String, Point> movableNodesInitialPositions,
+                                            Map<String, Point> fixedNodesPositions,
                                             Predicate<VoltageLevel> voltageLevelFilter
     ) {
         LayoutFactory delegateLayoutFactory = new BasicForceLayoutFactory();
         PositionsLayoutFactory positionsLayoutFactory = new PositionsLayoutFactory(
                 delegateLayoutFactory,
-                initialNodePositions,
-                nodesWithFixedPositions,
-                fixedNodePositions);
+                movableNodesInitialPositions,
+                fixedNodesPositions);
         StringWriter writer = new StringWriter();
         StringWriter metadataWriter = new StringWriter();
         NetworkAreaDiagram.draw(network, writer, metadataWriter,
@@ -175,19 +175,16 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
 
         private final LayoutFactory delegateLayoutFactory;
         private final LayoutResult layoutResult = new LayoutResult();
-        private final Map<String, Point> initialNodePositions;
-        private final Set<String> nodesWithFixedPositions;
-        private final Map<String, Point> fixedNodePositions;
+        private final Map<String, Point> movableNodesInitialPositions;
+        private final Map<String, Point> fixedNodesPositions;
 
         PositionsLayoutFactory(LayoutFactory delegateLayoutFactory,
-                               Map<String, Point> initialNodePositions,
-                               Set<String> nodesWithFixedPositions,
+                               Map<String, Point> movableNodesInitialPositions,
                                Map<String, Point> fixedNodePositions
         ) {
             this.delegateLayoutFactory = delegateLayoutFactory;
-            this.initialNodePositions = initialNodePositions;
-            this.nodesWithFixedPositions = nodesWithFixedPositions;
-            this.fixedNodePositions = fixedNodePositions;
+            this.movableNodesInitialPositions = movableNodesInitialPositions;
+            this.fixedNodesPositions = fixedNodePositions;
         }
 
         public LayoutResult getLayoutResult() {
@@ -200,38 +197,33 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
             return new Layout() {
                 @Override
                 public void run(Graph graph, LayoutParameters layoutParameters) {
-                    if (!initialNodePositions.isEmpty()) {
-                        delegateLayout.setInitialNodePositions(initialNodePositions);
+                    if (!movableNodesInitialPositions.isEmpty()) {
+                        delegateLayout.setMovableNodesInitialPositions(movableNodesInitialPositions);
                     }
-                    if (!nodesWithFixedPositions.isEmpty()) {
-                        delegateLayout.setNodesWithFixedPosition(nodesWithFixedPositions);
-                    }
-                    // only if not empty,
-                    // setting nodes with fixed node positions will invalidate previous nodes with fixed positions
-                    if (!fixedNodePositions.isEmpty() && delegateLayout instanceof AbstractLayout) {
-                        ((AbstractLayout) delegateLayout).setFixedNodePositions(fixedNodePositions);
+                    if (!fixedNodesPositions.isEmpty()) {
+                        delegateLayout.setFixedNodesPositions(fixedNodesPositions);
                     }
                     delegateLayout.run(graph, layoutParameters);
                     layoutResult.positions = graph.getNodePositions();
                 }
 
                 @Override
-                public void setInitialNodePositions(Map<String, Point> initialNodePositions) {
+                public void setMovableNodesInitialPositions(Map<String, Point> movableNodesInitialPositions) {
                     throw new PowsyblException("not implemented");
                 }
 
                 @Override
-                public void setNodesWithFixedPosition(Set<String> nodesWithFixedPosition) {
+                public void setFixedNodesPositions(Map<String, Point> fixedNodesPositions) {
                     throw new PowsyblException("not implemented");
                 }
 
                 @Override
-                public Map<String, Point> getInitialNodePositions() {
+                public Map<String, Point> getMovableNodesInitialPositions() {
                     throw new PowsyblException("not implemented");
                 }
 
                 @Override
-                public Set<String> getNodesWithFixedPosition() {
+                public Map<String, Point> getFixedNodesPositions() {
                     throw new PowsyblException("not implemented");
                 }
 

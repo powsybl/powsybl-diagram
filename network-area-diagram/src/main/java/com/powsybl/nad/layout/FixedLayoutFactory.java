@@ -41,8 +41,7 @@ public class FixedLayoutFactory implements LayoutFactory {
     @Override
     public Layout create() {
         Layout layout = layoutFactory.create();
-        layout.setInitialNodePositions(fixedPositions);
-        layout.setNodesWithFixedPosition(fixedPositions.keySet());
+        layout.setFixedNodesPositions(fixedPositions);
         textNodesWithFixedPosition.forEach((k, v) -> layout.setTextNodeFixedPosition(k, v.topLeftPosition(), v.edgeConnection()));
         return layout;
     }
