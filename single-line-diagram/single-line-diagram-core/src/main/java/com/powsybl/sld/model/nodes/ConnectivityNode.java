@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.svg.IdProvider;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,7 +24,11 @@ public class ConnectivityNode extends AbstractNode {
     private boolean isShunt = false;
 
     public ConnectivityNode(String id, String componentType) {
-        super(NodeType.INTERNAL, id, componentType, true);
+        this(id, componentType, new com.powsybl.sld.svg.LegacyIdProvider(""));
+    }
+
+    public ConnectivityNode(String id, String componentType, IdProvider idProvider) {
+        super(NodeType.INTERNAL, id, componentType, true, idProvider);
     }
 
     public boolean isShunt() {

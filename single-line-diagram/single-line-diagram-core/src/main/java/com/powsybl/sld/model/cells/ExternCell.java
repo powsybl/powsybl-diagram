@@ -13,6 +13,7 @@ import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.svg.IdProvider;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,13 +35,13 @@ public final class ExternCell extends AbstractBusCell {
 
     private final List<ShuntCell> shuntCells = new ArrayList<>();
 
-    private ExternCell(int cellNumber, Collection<Node> nodes, List<ShuntCell> shuntCells) {
-        super(cellNumber, EXTERN, nodes);
+    private ExternCell(int cellNumber, Collection<Node> nodes, List<ShuntCell> shuntCells, IdProvider idProvider) {
+        super(cellNumber, EXTERN, nodes, idProvider);
         shuntCells.forEach(this::addShuntCell);
     }
 
     public static ExternCell create(VoltageLevelGraph graph, Collection<Node> nodes, List<ShuntCell> shuntCells) {
-        var externCell = new ExternCell(graph.getNextCellNumber(), nodes, shuntCells);
+        var externCell = new ExternCell(graph.getNextCellNumber(), nodes, shuntCells, graph.getIdProvider());
         graph.addCell(externCell);
         return externCell;
     }

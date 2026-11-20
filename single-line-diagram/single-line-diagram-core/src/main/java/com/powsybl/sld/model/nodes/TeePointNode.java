@@ -7,6 +7,8 @@
  */
 package com.powsybl.sld.model.nodes;
 
+import com.powsybl.sld.svg.IdProvider;
+
 import static com.powsybl.sld.library.SldComponentTypeName.TEE_POINT;
 
 /**
@@ -15,7 +17,11 @@ import static com.powsybl.sld.library.SldComponentTypeName.TEE_POINT;
 public class TeePointNode extends EquipmentNode {
 
     public TeePointNode(String id, String name, String equipmentId) {
-        super(NodeType.INTERNAL, id, name, equipmentId, TEE_POINT, true);
+        this(id, name, equipmentId, new com.powsybl.sld.svg.LegacyIdProvider(""));
+    }
+
+    public TeePointNode(String id, String name, String equipmentId, IdProvider idProvider) {
+        super(NodeType.INTERNAL, id, name, equipmentId, TEE_POINT, true, idProvider);
     }
 
 }

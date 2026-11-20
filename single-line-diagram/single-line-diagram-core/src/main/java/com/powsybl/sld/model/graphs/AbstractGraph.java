@@ -14,6 +14,8 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.svg.IdProvider;
+import com.powsybl.sld.svg.LegacyIdProvider;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -38,17 +40,28 @@ public abstract class AbstractGraph implements Graph {
     private double height;
     private final List<BranchEdge> lineEdges = new ArrayList<>();
     private final Map<Node, VoltageLevelGraph> nodeToVlGraph;
+    protected final IdProvider idProvider;
 
     AbstractGraph(Graph parentGraph) {
+        this(parentGraph, parentGraph == null ? new LegacyIdProvider("") : parentGraph.getIdProvider());
+    }
+
+    AbstractGraph(Graph parentGraph, IdProvider idProvider) {
         if (parentGraph instanceof VoltageLevelGraph) {
             throw new PowsyblException("a voltageLevelGraph can not be a parent Graph");
         }
         this.nodeToVlGraph = parentGraph == null ? new HashMap<>() : parentGraph.getNodeToVlGraph();
+        this.idProvider = Objects.requireNonNull(idProvider);
+    }
+
+    @Override
+    public IdProvider getIdProvider() {
+        return idProvider;
     }
 
     @Override
     public BranchEdge addLineEdge(String lineId, Node node1, Node node2) {
-        BranchEdge edge = new BranchEdge(lineId, node1, node2);
+        BranchEdge edge = new BranchEdge(lineId, node1, node2, idProvider);
         lineEdges.add(edge);
         return edge;
     }

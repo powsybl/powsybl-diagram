@@ -18,6 +18,7 @@ import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.svg.IdProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -108,6 +109,13 @@ public class InternCell extends AbstractBusCell {
 
     public InternCell(int cellNumber, Collection<Node> nodes) {
         super(cellNumber, CellType.INTERN, nodes);
+        legs = new EnumMap<>(Side.class);
+        setDirection(Direction.UNDEFINED);
+        shape = Shape.UNDEFINED;
+    }
+
+    public InternCell(int cellNumber, Collection<Node> nodes, IdProvider idProvider) {
+        super(cellNumber, CellType.INTERN, nodes, idProvider);
         legs = new EnumMap<>(Side.class);
         setDirection(Direction.UNDEFINED);
         shape = Shape.UNDEFINED;

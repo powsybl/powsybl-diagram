@@ -9,6 +9,7 @@ package com.powsybl.sld.model.nodes;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
+import com.powsybl.sld.svg.IdProvider;
 
 import java.util.List;
 import java.util.Objects;
@@ -19,9 +20,15 @@ import java.util.Objects;
 public class Middle2WTNode extends AbstractMiddleTwtNode {
 
     public Middle2WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, String componentType) {
+        this(id, name, voltageLevelInfosLeg1, voltageLevelInfosLeg2, componentType,
+                new com.powsybl.sld.svg.LegacyIdProvider(""));
+    }
+
+    public Middle2WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2,
+                         String componentType, IdProvider idProvider) {
         super(id, name,
             new VoltageLevelInfos[]{Objects.requireNonNull(voltageLevelInfosLeg1), Objects.requireNonNull(voltageLevelInfosLeg2) },
-            componentType);
+            componentType, idProvider);
     }
 
     @Override

@@ -11,6 +11,7 @@ import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.svg.IdProvider;
 
 import java.util.Collection;
 
@@ -25,13 +26,13 @@ public final class ArchCell extends AbstractBusCell {
 
     private final Block pillar;
 
-    private ArchCell(int cellNumber, Collection<Node> nodes, Block pillar) {
-        super(cellNumber, ARCH, nodes);
+    private ArchCell(int cellNumber, Collection<Node> nodes, Block pillar, IdProvider idProvider) {
+        super(cellNumber, ARCH, nodes, idProvider);
         this.pillar = pillar;
     }
 
     public static ArchCell create(VoltageLevelGraph graph, Collection<Node> nodes, Block pillar) {
-        var archCell = new ArchCell(graph.getNextCellNumber(), nodes, pillar);
+        var archCell = new ArchCell(graph.getNextCellNumber(), nodes, pillar, graph.getIdProvider());
         graph.addCell(archCell);
         return archCell;
     }

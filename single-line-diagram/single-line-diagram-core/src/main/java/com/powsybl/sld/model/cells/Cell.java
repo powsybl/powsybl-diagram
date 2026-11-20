@@ -47,6 +47,8 @@ public interface Cell {
 
     String getId();
 
+    String getSvgId();
+
     String getFullId();
 
     Direction getDirection();

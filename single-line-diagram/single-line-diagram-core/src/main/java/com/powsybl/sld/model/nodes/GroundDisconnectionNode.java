@@ -7,6 +7,8 @@
  */
 package com.powsybl.sld.model.nodes;
 
+import com.powsybl.sld.svg.IdProvider;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
@@ -14,7 +16,12 @@ public class GroundDisconnectionNode extends EquipmentNode {
     private final boolean isDisconnectorOpen;
 
     public GroundDisconnectionNode(String id, String name, boolean isDisconnectorOpen, String componentTypeName) {
-        super(NodeType.INTERNAL, id, name, id, componentTypeName, false);
+        this(id, name, isDisconnectorOpen, componentTypeName, new com.powsybl.sld.svg.LegacyIdProvider(""));
+    }
+
+    public GroundDisconnectionNode(String id, String name, boolean isDisconnectorOpen, String componentTypeName,
+                                   IdProvider idProvider) {
+        super(NodeType.INTERNAL, id, name, id, componentTypeName, false, idProvider);
         this.isDisconnectorOpen = isDisconnectorOpen;
     }
 

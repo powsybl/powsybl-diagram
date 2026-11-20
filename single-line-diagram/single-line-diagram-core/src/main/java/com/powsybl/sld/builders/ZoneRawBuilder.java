@@ -1,6 +1,8 @@
 package com.powsybl.sld.builders;
 
 import com.powsybl.sld.model.graphs.ZoneGraph;
+import com.powsybl.sld.svg.IdProvider;
+import com.powsybl.sld.svg.LegacyIdProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +13,11 @@ public class ZoneRawBuilder extends AbstractRawBuilder {
     List<SubstationRawBuilder> substationRawBuilders = new ArrayList<>();
 
     public ZoneRawBuilder(List<String> ids) {
-        zoneGraph = ZoneGraph.create(ids);
+        this(ids, new LegacyIdProvider(""));
+    }
+
+    public ZoneRawBuilder(List<String> ids, IdProvider idProvider) {
+        zoneGraph = ZoneGraph.create(ids, idProvider);
     }
 
     @Override

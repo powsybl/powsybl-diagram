@@ -16,6 +16,8 @@ import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.NodeSide;
 import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.svg.IdProvider;
+import com.powsybl.sld.svg.LegacyIdProvider;
 
 import java.util.function.Function;
 
@@ -33,8 +35,14 @@ public class VoltageLevelRawBuilder {
     private SubstationRawBuilder substationBuilder;
 
     public VoltageLevelRawBuilder(VoltageLevelInfos voltageLevelInfos, SubstationRawBuilder parentBuilder, Function<String, VoltageLevelInfos> getVoltageLevelInfosFromId) {
+        this(voltageLevelInfos, parentBuilder, getVoltageLevelInfosFromId,
+                parentBuilder == null ? new LegacyIdProvider("") : parentBuilder.getGraph().getIdProvider());
+    }
+
+    public VoltageLevelRawBuilder(VoltageLevelInfos voltageLevelInfos, SubstationRawBuilder parentBuilder,
+                                  Function<String, VoltageLevelInfos> getVoltageLevelInfosFromId, IdProvider idProvider) {
         this.voltageLevelInfos = voltageLevelInfos;
-        this.voltageLevelGraph = new VoltageLevelGraph(voltageLevelInfos, parentBuilder == null ? null : parentBuilder.getGraph());
+        this.voltageLevelGraph = new VoltageLevelGraph(voltageLevelInfos, parentBuilder == null ? null : parentBuilder.getGraph(), idProvider);
         this.getVoltageLevelInfosFromId = getVoltageLevelInfosFromId;
     }
 

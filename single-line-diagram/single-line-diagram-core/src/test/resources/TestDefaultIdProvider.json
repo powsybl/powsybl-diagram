@@ -1,0 +1,1063 @@
+{
+  "metadataVersion" : "1.1",
+  "components" : [ {
+    "type" : "BUSBAR_SECTION",
+    "size" : {
+      "width" : 0.0,
+      "height" : 0.0
+    },
+    "styleClass" : "sld-busbar-section"
+  }, {
+    "type" : "PHASE_SHIFT_TRANSFORMER",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -7.5,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 7.5,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 14.0,
+      "height" : 15.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION",
+      "DOWN" : "ROTATION"
+    },
+    "styleClass" : "sld-pst"
+  }, {
+    "type" : "GENERATOR",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -6.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 6.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : -6.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 6.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    } ],
+    "size" : {
+      "width" : 12.0,
+      "height" : 12.0
+    },
+    "styleClass" : "sld-generator"
+  }, {
+    "type" : "ARROW_REACTIVE",
+    "size" : {
+      "width" : 10.0,
+      "height" : 10.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
+    "styleClass" : "sld-reactive-power"
+  }, {
+    "type" : "ARROW_ACTIVE",
+    "size" : {
+      "width" : 10.0,
+      "height" : 10.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
+    "styleClass" : "sld-active-power"
+  }, {
+    "type" : "LOAD",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -4.5,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 4.5,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 9.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
+    "styleClass" : "sld-load"
+  }, {
+    "type" : "TIE_LINE",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "NONE"
+    } ],
+    "size" : {
+      "width" : 0.0,
+      "height" : 0.0
+    }
+  }, {
+    "type" : "NODE",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "NONE"
+    } ],
+    "size" : {
+      "width" : 8.0,
+      "height" : 8.0
+    },
+    "styleClass" : "sld-node"
+  }, {
+    "type" : "BUS_CONNECTION",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 8.0,
+      "height" : 8.0
+    },
+    "styleClass" : "sld-bus-connection"
+  }, {
+    "type" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "NONE"
+    } ],
+    "size" : {
+      "width" : 0.0,
+      "height" : 0.0
+    }
+  }, {
+    "type" : "TWO_WINDINGS_TRANSFORMER",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -8.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 8.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 10.0,
+      "height" : 15.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION",
+      "DOWN" : "ROTATION"
+    },
+    "styleClass" : "sld-two-wt"
+  }, {
+    "type" : "THREE_WINDINGS_TRANSFORMER",
+    "anchorPoints" : [ {
+      "x" : -7.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 7.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 0.0,
+      "y" : 12.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 24.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION",
+      "DOWN" : "FLIP"
+    },
+    "styleClass" : "sld-three-wt"
+  }, {
+    "type" : "LINE",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "NONE"
+    } ],
+    "size" : {
+      "width" : 0.0,
+      "height" : 0.0
+    }
+  }, {
+    "type" : "BREAKER",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -10.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 10.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 20.0,
+      "height" : 20.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
+    "styleClass" : "sld-breaker"
+  } ],
+  "nodes" : [ {
+    "id" : "67",
+    "vid" : "VL1",
+    "nextVId" : "VL2",
+    "componentType" : "LINE",
+    "open" : false,
+    "direction" : "TOP",
+    "vlabel" : false,
+    "equipmentId" : "L12",
+    "labels" : [ {
+      "id" : "70",
+      "positionName" : "N_LABEL"
+    } ]
+  }, {
+    "id" : "29",
+    "vid" : "VL1",
+    "componentType" : "LOAD",
+    "open" : false,
+    "direction" : "TOP",
+    "vlabel" : false,
+    "equipmentId" : "LD1",
+    "labels" : [ {
+      "id" : "32",
+      "positionName" : "N_LABEL"
+    } ]
+  }, {
+    "id" : "194",
+    "vid" : "VL1",
+    "nextVId" : "VL2",
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "open" : false,
+    "direction" : "TOP",
+    "vlabel" : false,
+    "equipmentId" : "T12",
+    "labels" : [ {
+      "id" : "197",
+      "positionName" : "N_LABEL"
+    } ]
+  }, {
+    "id" : "690",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "592",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "494",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "550",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "396",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "231",
+    "vid" : "VL1",
+    "nextVId" : "VL2",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "open" : false,
+    "direction" : "TOP",
+    "vlabel" : false,
+    "equipmentId" : "T3_12",
+    "labels" : [ {
+      "id" : "234",
+      "positionName" : "N_LABEL"
+    } ]
+  }, {
+    "id" : "452",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "354",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "156",
+    "vid" : "VL1",
+    "componentType" : "GENERATOR",
+    "open" : false,
+    "direction" : "TOP",
+    "vlabel" : false,
+    "equipmentId" : "G",
+    "labels" : [ {
+      "id" : "159",
+      "positionName" : "N_LABEL"
+    } ]
+  }, {
+    "id" : "410",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "213",
+    "vid" : "VL1",
+    "nextVId" : "VL1",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "open" : false,
+    "direction" : "TOP",
+    "vlabel" : false,
+    "equipmentId" : "T3_12",
+    "labels" : [ {
+      "id" : "216",
+      "positionName" : "N_LABEL"
+    } ]
+  }, {
+    "id" : "676",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "137",
+    "vid" : "VL1",
+    "nextVId" : "VL1",
+    "componentType" : "TIE_LINE",
+    "open" : false,
+    "direction" : "BOTTOM",
+    "vlabel" : false,
+    "equipmentId" : "B11_B12_1",
+    "labels" : [ {
+      "id" : "141",
+      "positionName" : "S_LABEL"
+    } ]
+  }, {
+    "id" : "578",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "732",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "634",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "338",
+    "vid" : "VL1",
+    "componentType" : "PHASE_SHIFT_TRANSFORMER",
+    "open" : false,
+    "vlabel" : false,
+    "equipmentId" : "T11",
+    "labels" : [ ]
+  }, {
+    "id" : "536",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "438",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "718",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "16",
+    "vid" : "VL1",
+    "componentType" : "BUSBAR_SECTION",
+    "open" : false,
+    "vlabel" : false,
+    "equipmentId" : "B12",
+    "labels" : [ {
+      "id" : "17",
+      "positionName" : "NW_LABEL"
+    } ]
+  }, {
+    "id" : "480",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "283",
+    "vid" : "VL1",
+    "componentType" : "BREAKER",
+    "open" : true,
+    "vlabel" : false,
+    "equipmentId" : "BR1",
+    "labels" : [ ]
+  }, {
+    "id" : "382",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "264",
+    "vid" : "VL1",
+    "nextVId" : "VL1",
+    "componentType" : "TIE_LINE",
+    "open" : false,
+    "direction" : "BOTTOM",
+    "vlabel" : false,
+    "equipmentId" : "B11_B12_1",
+    "labels" : [ {
+      "id" : "268",
+      "positionName" : "S_LABEL"
+    } ]
+  }, {
+    "id" : "122",
+    "vid" : "VL1",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "open" : false,
+    "vlabel" : false,
+    "equipmentId" : "T3_12",
+    "labels" : [ ]
+  }, {
+    "id" : "760",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "662",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "3",
+    "vid" : "VL1",
+    "componentType" : "BUSBAR_SECTION",
+    "open" : false,
+    "vlabel" : false,
+    "equipmentId" : "B11",
+    "labels" : [ {
+      "id" : "4",
+      "positionName" : "NW_LABEL"
+    } ]
+  }, {
+    "id" : "564",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "620",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "466",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "522",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "368",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "104",
+    "vid" : "VL1",
+    "nextVId" : "VL2",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "open" : false,
+    "direction" : "TOP",
+    "vlabel" : false,
+    "equipmentId" : "T3_12",
+    "labels" : [ {
+      "id" : "107",
+      "positionName" : "N_LABEL"
+    } ]
+  }, {
+    "id" : "424",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "249",
+    "vid" : "VL1",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "open" : false,
+    "vlabel" : false,
+    "equipmentId" : "T3_12",
+    "labels" : [ ]
+  }, {
+    "id" : "746",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "648",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "704",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "606",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "508",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "86",
+    "vid" : "VL1",
+    "nextVId" : "VL1",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "open" : false,
+    "direction" : "TOP",
+    "vlabel" : false,
+    "equipmentId" : "T3_12",
+    "labels" : [ {
+      "id" : "89",
+      "positionName" : "N_LABEL"
+    } ]
+  } ],
+  "wires" : [ {
+    "id" : "590",
+    "nodeId1" : "283",
+    "nodeId2" : "578",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "591",
+    "nodeId1" : "578",
+    "nodeId2" : "410",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "492",
+    "nodeId1" : "16",
+    "nodeId2" : "480",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "394",
+    "nodeId1" : "3",
+    "nodeId2" : "382",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "450",
+    "nodeId1" : "16",
+    "nodeId2" : "438",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "134",
+    "nodeId1" : "86",
+    "nodeId2" : "122",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "772",
+    "nodeId1" : "648",
+    "nodeId2" : "760",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "674",
+    "nodeId1" : "494",
+    "nodeId2" : "662",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "135",
+    "nodeId1" : "104",
+    "nodeId2" : "122",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "773",
+    "nodeId1" : "760",
+    "nodeId2" : "264",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "311",
+    "nodeId1" : "137",
+    "nodeId2" : "264",
+    "straight" : false,
+    "snakeLine" : true
+  }, {
+    "id" : "675",
+    "nodeId1" : "662",
+    "nodeId2" : "283",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "576",
+    "nodeId1" : "396",
+    "nodeId2" : "564",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "730",
+    "nodeId1" : "564",
+    "nodeId2" : "718",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "731",
+    "nodeId1" : "718",
+    "nodeId2" : "137",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "632",
+    "nodeId1" : "452",
+    "nodeId2" : "620",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "478",
+    "nodeId1" : "16",
+    "nodeId2" : "466",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "534",
+    "nodeId1" : "354",
+    "nodeId2" : "522",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "436",
+    "nodeId1" : "3",
+    "nodeId2" : "424",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "758",
+    "nodeId1" : "620",
+    "nodeId2" : "746",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "759",
+    "nodeId1" : "746",
+    "nodeId2" : "194",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "716",
+    "nodeId1" : "536",
+    "nodeId2" : "704",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "717",
+    "nodeId1" : "704",
+    "nodeId2" : "67",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "618",
+    "nodeId1" : "438",
+    "nodeId2" : "606",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "380",
+    "nodeId1" : "3",
+    "nodeId2" : "368",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "261",
+    "nodeId1" : "213",
+    "nodeId2" : "249",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "262",
+    "nodeId1" : "231",
+    "nodeId2" : "249",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "660",
+    "nodeId1" : "480",
+    "nodeId2" : "648",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "562",
+    "nodeId1" : "382",
+    "nodeId2" : "550",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "563",
+    "nodeId1" : "550",
+    "nodeId2" : "122",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "464",
+    "nodeId1" : "16",
+    "nodeId2" : "452",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "520",
+    "nodeId1" : "16",
+    "nodeId2" : "508",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "366",
+    "nodeId1" : "3",
+    "nodeId2" : "354",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "423",
+    "nodeId1" : "410",
+    "nodeId2" : "3",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "688",
+    "nodeId1" : "508",
+    "nodeId2" : "676",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "689",
+    "nodeId1" : "676",
+    "nodeId2" : "338",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "744",
+    "nodeId1" : "606",
+    "nodeId2" : "732",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "745",
+    "nodeId1" : "732",
+    "nodeId2" : "156",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "646",
+    "nodeId1" : "466",
+    "nodeId2" : "634",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "702",
+    "nodeId1" : "522",
+    "nodeId2" : "690",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "548",
+    "nodeId1" : "368",
+    "nodeId2" : "536",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "647",
+    "nodeId1" : "634",
+    "nodeId2" : "249",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "604",
+    "nodeId1" : "424",
+    "nodeId2" : "592",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "703",
+    "nodeId1" : "690",
+    "nodeId2" : "29",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "506",
+    "nodeId1" : "16",
+    "nodeId2" : "494",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "605",
+    "nodeId1" : "592",
+    "nodeId2" : "338",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "408",
+    "nodeId1" : "3",
+    "nodeId2" : "396",
+    "straight" : false,
+    "snakeLine" : false
+  } ],
+  "lines" : [ ],
+  "feederInfos" : [ {
+    "id" : "99",
+    "equipmentId" : "T3_12",
+    "side" : "TWO",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "170",
+    "equipmentId" : "G",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "150",
+    "equipmentId" : "B11_B12_1",
+    "side" : "ONE",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "151",
+    "equipmentId" : "B11_B12_1",
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "100",
+    "equipmentId" : "T3_12",
+    "side" : "TWO",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "244",
+    "equipmentId" : "T3_12",
+    "side" : "THREE",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "277",
+    "equipmentId" : "B11_B12_1",
+    "side" : "TWO",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "245",
+    "equipmentId" : "T3_12",
+    "side" : "THREE",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "278",
+    "equipmentId" : "B11_B12_1",
+    "side" : "TWO",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "169",
+    "equipmentId" : "G",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "226",
+    "equipmentId" : "T3_12",
+    "side" : "ONE",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "117",
+    "equipmentId" : "T3_12",
+    "side" : "THREE",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "227",
+    "equipmentId" : "T3_12",
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "80",
+    "equipmentId" : "L12",
+    "side" : "ONE",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "118",
+    "equipmentId" : "T3_12",
+    "side" : "THREE",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "81",
+    "equipmentId" : "L12",
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "207",
+    "equipmentId" : "T12",
+    "side" : "ONE",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "208",
+    "equipmentId" : "T12",
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "42",
+    "equipmentId" : "LD1",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "43",
+    "equipmentId" : "LD1",
+    "componentType" : "ARROW_REACTIVE"
+  } ],
+  "busInfos" : [ ],
+  "layoutParams" : {
+    "verticalSpaceBus" : 25.0,
+    "horizontalBusPadding" : 20.0,
+    "cellWidth" : 50.0,
+    "externCellHeight" : 250.0,
+    "internCellHeight" : 40.0,
+    "stackHeight" : 30.0,
+    "horizontalSnakeLinePadding" : 30.0,
+    "verticalSnakeLinePadding" : 30.0,
+    "spaceForFeederInfos" : 50.0,
+    "adaptCellHeightToContent" : true,
+    "maxComponentHeight" : 12.0,
+    "minSpaceBetweenComponents" : 15.0,
+    "minExternCellHeight" : 80.0,
+    "voltageLevelPadding" : {
+      "left" : 20.0,
+      "top" : 60.0,
+      "right" : 20.0,
+      "bottom" : 60.0
+    },
+    "diagramPadding" : {
+      "left" : 20.0,
+      "top" : 20.0,
+      "right" : 20.0,
+      "bottom" : 20.0
+    },
+    "busbarsAlignment" : "FIRST",
+    "componentsOnBusbars" : [ "DISCONNECTOR" ],
+    "removeFictitiousSwitchNodes" : false,
+    "zoneLayoutSnakeLinePadding" : 90,
+    "displayTeePointsInVoltageLevels" : false,
+    "threeWindingsTransformerFeederInfoMode" : "ONLY_OUTSIDE_VOLTAGE_LEVEL"
+  },
+  "svgParams" : {
+    "prefixId" : "",
+    "undefinedValueSymbol" : "—",
+    "languageTag" : "en",
+    "voltageValuePrecision" : 1,
+    "powerValuePrecision" : 0,
+    "angleValuePrecision" : 1,
+    "currentValuePrecision" : 0,
+    "percentageValuePrecision" : 0,
+    "activePowerUnit" : "",
+    "reactivePowerUnit" : "",
+    "currentUnit" : "",
+    "busInfoMargin" : 0.0,
+    "feederInfosIntraMargin" : 10.0,
+    "feederInfosOuterMargin" : 20.0,
+    "feederInfoSymmetry" : false,
+    "busesLegendAdded" : false,
+    "useName" : true,
+    "angleLabelShift" : 15.0,
+    "labelCentered" : false,
+    "labelDiagonal" : false,
+    "busLabelDiagonal" : false,
+    "tooltipEnabled" : false,
+    "svgWidthAndHeightAdded" : true,
+    "cssLocation" : "INSERTED_IN_SVG",
+    "avoidSVGComponentsDuplication" : false,
+    "diagramName" : null,
+    "drawStraightWires" : false,
+    "showGrid" : false,
+    "showInternalNodes" : false,
+    "displayEquipmentNodesLabel" : false,
+    "displayConnectivityNodesId" : false,
+    "unifyVoltageLevelColors" : false
+  }
+}

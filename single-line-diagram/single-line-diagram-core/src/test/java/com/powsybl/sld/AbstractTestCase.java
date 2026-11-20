@@ -71,7 +71,8 @@ public abstract class AbstractTestCase {
 
     protected static String normalizeLineSeparator(String str) {
         return str.replace("\r\n", "\n")
-                .replace("\r", "\n");
+                .replace("\r", "\n")
+                .stripTrailing();
     }
 
     public abstract void setUp() throws IOException;
@@ -115,11 +116,13 @@ public abstract class AbstractTestCase {
 
     public abstract String toSVG(Graph g, String filename);
 
-    public String toSVG(Graph graph, String filename, SldComponentLibrary componentLibrary, LayoutParameters layoutParameters,
-                        SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider, SVGLegendWriter legendWriter) {
-
+    public String toSVG(Graph graph, String filename, SldComponentLibrary componentLibrary,
+                        LayoutParameters layoutParameters, SvgParameters svgParameters,
+                        LabelProvider labelProvider, StyleProvider styleProvider,
+                        SVGLegendWriter legendWriter) {
         try (StringWriter writer = new StringWriter()) {
-            SingleLineDiagram.draw(graph, writer, NullWriter.nullWriter(), componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, legendWriter);
+            SingleLineDiagram.draw(graph, writer, NullWriter.nullWriter(), componentLibrary, layoutParameters,
+                svgParameters, labelProvider, styleProvider, legendWriter);
 
             if (debugSvgFiles) {
                 writeToFileInDebugDir(filename, writer);
@@ -136,8 +139,10 @@ public abstract class AbstractTestCase {
 
     public abstract String toMetadata(Graph g, String filename);
 
-    public String toMetadata(Graph graph, String refMetadataName, SldComponentLibrary componentLibrary, LayoutParameters layoutParameters,
-                             SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider, SVGLegendWriter legendWriter) {
+    public String toMetadata(Graph graph, String refMetadataName, SldComponentLibrary componentLibrary,
+                             LayoutParameters layoutParameters, SvgParameters svgParameters,
+                             LabelProvider labelProvider, StyleProvider styleProvider,
+                             SVGLegendWriter legendWriter) {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 

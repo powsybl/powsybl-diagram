@@ -9,6 +9,8 @@ package com.powsybl.sld.model.cells;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.svg.IdProvider;
+import com.powsybl.sld.svg.LegacyIdProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,9 +31,16 @@ public abstract class AbstractCell implements Cell {
     private CellType type;
     private Block rootBlock;
 
+    private final String svgId;
+
     AbstractCell(int cellNumber, CellType type, Collection<Node> nodes) {
+        this(cellNumber, type, nodes, new LegacyIdProvider(""));
+    }
+
+    AbstractCell(int cellNumber, CellType type, Collection<Node> nodes, IdProvider idProvider) {
         this.type = Objects.requireNonNull(type);
         number = cellNumber;
+        svgId = Objects.requireNonNull(idProvider).createSvgId(type + " " + cellNumber);
         setNodes(nodes);
     }
 
@@ -83,6 +92,11 @@ public abstract class AbstractCell implements Cell {
     @Override
     public String getId() {
         return type + " " + number;
+    }
+
+    @Override
+    public String getSvgId() {
+        return svgId;
     }
 
     @Override

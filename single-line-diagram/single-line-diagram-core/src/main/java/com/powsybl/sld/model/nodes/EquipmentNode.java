@@ -7,6 +7,7 @@
 package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.svg.IdProvider;
 
 import java.io.IOException;
 
@@ -20,7 +21,12 @@ public class EquipmentNode extends AbstractNode {
     private final String equipmentId;
 
     public EquipmentNode(NodeType type, String id, String name, String equipmentId, String componentTypeName, boolean fictitious) {
-        super(type, id, componentTypeName, fictitious);
+        this(type, id, name, equipmentId, componentTypeName, fictitious, new com.powsybl.sld.svg.LegacyIdProvider(""));
+    }
+
+    public EquipmentNode(NodeType type, String id, String name, String equipmentId, String componentTypeName,
+                         boolean fictitious, IdProvider idProvider) {
+        super(type, id, componentTypeName, fictitious, idProvider);
         this.name = name;
         this.equipmentId = equipmentId;
     }

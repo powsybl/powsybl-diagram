@@ -8,6 +8,7 @@
 package com.powsybl.sld;
 
 import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.builders.IdProviderFactory;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.layout.pathfinding.DijkstraPathFinder;
 import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
@@ -33,8 +34,29 @@ public class SldParameters {
     private VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator = VoltageLevelLayoutFactoryCreator.newSmartVoltageLevelLayoutFactoryCreator();
     private SubstationLayoutFactory substationLayoutFactory = new HorizontalSubstationLayoutFactory();
     private ZoneLayoutFactory zoneLayoutFactory = new HorizontalZoneLayoutFactory();
+    private IdProviderFactory idProviderFactory = LegacyIdProvider::new;
 
     private ZoneLayoutPathFinderFactory zoneLayoutPathFinderFactory = DijkstraPathFinder::new;
+
+    /**
+     * Creates the identifier provider configured for these parameters.
+     *
+     * @return a new identifier provider using the current SVG prefix
+     */
+    public IdProvider createIdProvider() {
+        return idProviderFactory.create(svgParameters.getPrefixId());
+    }
+
+    /**
+     * Sets the factory used to create SVG identifier providers.
+     *
+     * @param idProviderFactory identifier provider factory
+     * @return these parameters
+     */
+    public SldParameters setIdProviderFactory(IdProviderFactory idProviderFactory) {
+        this.idProviderFactory = Objects.requireNonNull(idProviderFactory);
+        return this;
+    }
 
     public SvgParameters getSvgParameters() {
         return svgParameters;

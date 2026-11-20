@@ -32,6 +32,7 @@ import com.powsybl.sld.model.nodes.Node.NodeType;
 import com.powsybl.sld.model.nodes.NodeSide;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
+import com.powsybl.sld.svg.IdProvider;
 import com.powsybl.sld.util.GraphTraversal;
 import org.jgrapht.graph.Pseudograph;
 import org.slf4j.Logger;
@@ -63,6 +64,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private final VoltageLevelInfos voltageLevelInfos;
 
+    private final String svgId;
+    private final String gridSvgId;
+    private final String labelSvgId;
+
     private final List<Node> nodes = new ArrayList<>();
 
     private final List<Edge> edges = new ArrayList<>();
@@ -92,7 +97,36 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     public VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos, Graph parentGraph) {
         super(parentGraph);
         this.voltageLevelInfos = Objects.requireNonNull(voltageLevelInfos);
+        this.svgId = getIdProvider().createSvgId(voltageLevelInfos.id());
+        this.gridSvgId = getIdProvider().createSvgId("GRID", voltageLevelInfos.id());
+        this.labelSvgId = getIdProvider().createSvgId("LABEL_VL", voltageLevelInfos.id());
         this.forVoltageLevelDiagram = parentGraph == null;
+    }
+
+    public VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos, Graph parentGraph, IdProvider idProvider) {
+        super(parentGraph, idProvider);
+        this.voltageLevelInfos = Objects.requireNonNull(voltageLevelInfos);
+        this.svgId = getIdProvider().createSvgId(voltageLevelInfos.id());
+        this.gridSvgId = getIdProvider().createSvgId("GRID", voltageLevelInfos.id());
+        this.labelSvgId = getIdProvider().createSvgId("LABEL_VL", voltageLevelInfos.id());
+        this.forVoltageLevelDiagram = parentGraph == null;
+    }
+
+    public String getSvgId() {
+        return svgId;
+    }
+
+    public String getGridSvgId() {
+        return gridSvgId;
+    }
+
+    public String getLabelSvgId() {
+        return labelSvgId;
+    }
+
+    @Override
+    public IdProvider getIdProvider() {
+        return idProvider;
     }
 
     @Override
@@ -252,7 +286,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
      * @param n2 second node
      */
     public Edge addEdge(Node n1, Node n2) {
-        Edge edge = new Edge(n1, n2);
+        Edge edge = new Edge(n1, n2, getIdProvider(), getId());
         edges.add(edge);
         n1.addAdjacentEdge(edge);
         n2.addAdjacentEdge(edge);

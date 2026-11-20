@@ -9,6 +9,7 @@ package com.powsybl.sld.model.graphs;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.svg.IdProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,8 +35,17 @@ public class ZoneGraph extends AbstractBaseGraph {
         this.zone = Objects.requireNonNull(zone);
     }
 
+    protected ZoneGraph(List<String> zone, IdProvider idProvider) {
+        super(null, idProvider);
+        this.zone = Objects.requireNonNull(zone);
+    }
+
     public static ZoneGraph create(List<String> zone) {
         return new ZoneGraph(zone);
+    }
+
+    public static ZoneGraph create(List<String> zone, IdProvider idProvider) {
+        return new ZoneGraph(zone, idProvider);
     }
 
     @Override

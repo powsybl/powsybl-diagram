@@ -11,6 +11,8 @@ import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 import com.powsybl.sld.model.graphs.ZoneGraph;
+import com.powsybl.sld.svg.IdProvider;
+import com.powsybl.sld.svg.LegacyIdProvider;
 
 import java.util.Comparator;
 import java.util.List;
@@ -23,13 +25,24 @@ import java.util.TreeMap;
 
 public class RawGraphBuilder implements GraphBuilder {
 
+    private final IdProvider idProvider;
+
     private final Map<String, VoltageLevelRawBuilder> vlBuilders = new TreeMap<>();
     private final Map<String, SubstationRawBuilder> ssBuilders = new TreeMap<>();
 
     private ZoneRawBuilder zBuilder;
 
+    public RawGraphBuilder() {
+        this(new LegacyIdProvider(""));
+    }
+
+    public RawGraphBuilder(IdProvider idProvider) {
+        this.idProvider = idProvider;
+    }
+
     public VoltageLevelRawBuilder createVoltageLevelBuilder(VoltageLevelInfos voltageLevelInfos, SubstationRawBuilder parentBuilder) {
-        VoltageLevelRawBuilder vlBuilder = new VoltageLevelRawBuilder(voltageLevelInfos, parentBuilder, this::getVoltageLevelInfosFromId);
+        VoltageLevelRawBuilder vlBuilder = new VoltageLevelRawBuilder(voltageLevelInfos, parentBuilder, this::getVoltageLevelInfosFromId,
+                parentBuilder == null ? idProvider : parentBuilder.getGraph().getIdProvider());
         if (parentBuilder != null) {
             parentBuilder.addVlBuilder(vlBuilder);
         }
@@ -53,7 +66,8 @@ public class RawGraphBuilder implements GraphBuilder {
     }
 
     public SubstationRawBuilder createSubstationBuilder(String id, ZoneRawBuilder parentBuilder) {
-        SubstationRawBuilder ssb = new SubstationRawBuilder(id, parentBuilder);
+        SubstationRawBuilder ssb = new SubstationRawBuilder(id, parentBuilder,
+                parentBuilder == null ? idProvider : parentBuilder.getGraph().getIdProvider());
         if (parentBuilder != null) {
             parentBuilder.addSubstationBuilder(ssb);
         }
@@ -66,7 +80,7 @@ public class RawGraphBuilder implements GraphBuilder {
     }
 
     public ZoneRawBuilder createZoneBuilder(List<String> substationIds) {
-        zBuilder = new ZoneRawBuilder(substationIds);
+        zBuilder = new ZoneRawBuilder(substationIds, idProvider);
         return zBuilder;
     }
 

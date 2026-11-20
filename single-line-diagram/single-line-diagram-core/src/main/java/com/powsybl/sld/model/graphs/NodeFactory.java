@@ -49,13 +49,13 @@ public final class NodeFactory {
     }
 
     public static EquipmentNode createEquipmentNode(VoltageLevelGraph graph, NodeType type, String id, String name, String equipmentId, String componentType, boolean fictitious) {
-        EquipmentNode node = new EquipmentNode(type, id, name, equipmentId, componentType, fictitious);
+        EquipmentNode node = new EquipmentNode(type, id, name, equipmentId, componentType, fictitious, graph.getIdProvider());
         graph.addNode(node);
         return node;
     }
 
     public static ConnectivityNode createConnectivityNode(VoltageLevelGraph graph, String id, String componentType) {
-        ConnectivityNode node = new ConnectivityNode(id, componentType);
+        ConnectivityNode node = new ConnectivityNode(id, componentType, graph.getIdProvider());
         graph.addNode(node);
         return node;
     }
@@ -66,13 +66,13 @@ public final class NodeFactory {
     }
 
     public static BusNode createBusNode(VoltageLevelGraph graph, String id, String name) {
-        BusNode bn = new BusNode(id, name, false);
+        BusNode bn = new BusNode(id, name, false, graph.getIdProvider());
         graph.addNode(bn);
         return bn;
     }
 
     public static BusNode createFictitiousBusNode(VoltageLevelGraph graph, String id, int busbarIndex, int sectionIndex) {
-        BusNode bn = new BusNode(id, null, true);
+        BusNode bn = new BusNode(id, null, true, graph.getIdProvider());
         bn.setBusBarIndexSectionIndex(busbarIndex, sectionIndex);
         graph.addNode(bn);
         return bn;
@@ -80,7 +80,7 @@ public final class NodeFactory {
 
     public static FeederNode createFeederNode(VoltageLevelGraph graph, String id, String name, String equipmentId,
                                               String componentTypeName, boolean fictitious, Feeder feeder, Orientation orientation) {
-        FeederNode fn = new FeederNode(id, name, equipmentId, componentTypeName, fictitious, feeder, orientation);
+        FeederNode fn = new FeederNode(id, name, equipmentId, componentTypeName, fictitious, feeder, orientation, graph.getIdProvider());
         graph.addNode(fn);
         return fn;
     }
@@ -131,7 +131,8 @@ public final class NodeFactory {
 
     public static Node createGroundDisconnectionNode(VoltageLevelGraph graph, SwitchNode disconnector, FeederNode ground) {
         String name = "Ground disconnection (ground " + ground.getId() + ", disconnector " + disconnector.getId() + ")";
-        GroundDisconnectionNode gdNode = new GroundDisconnectionNode(disconnector.getEquipmentId(), name, disconnector.isOpen(), SldComponentTypeName.GROUND_DISCONNECTION);
+        GroundDisconnectionNode gdNode = new GroundDisconnectionNode(disconnector.getEquipmentId(), name, disconnector.isOpen(),
+                SldComponentTypeName.GROUND_DISCONNECTION, graph.getIdProvider());
         graph.addNode(gdNode);
         return gdNode;
     }
@@ -226,14 +227,14 @@ public final class NodeFactory {
 
     public static SwitchNode createSwitchNode(VoltageLevelGraph graph, String id, String name, String componentType,
                                               boolean fictitious, SwitchKind kind, boolean open) {
-        SwitchNode sn = new SwitchNode(id, name, componentType, fictitious, kind, open);
+        SwitchNode sn = new SwitchNode(id, name, componentType, fictitious, kind, open, graph.getIdProvider());
         graph.addNode(sn);
         return sn;
     }
 
     public static EquipmentNode createInternal2WTNode(VoltageLevelGraph graph, String id, String nameOrId, String equipmentId,
                                                       Node n1, Node n2, String component) {
-        EquipmentNode i2wt = new Internal2WTNode(id, nameOrId, equipmentId, component);
+        EquipmentNode i2wt = new Internal2WTNode(id, nameOrId, equipmentId, component, graph.getIdProvider());
         graph.addNode(i2wt);
         graph.addEdge(n1, i2wt);
         graph.addEdge(n2, i2wt);
@@ -244,7 +245,7 @@ public final class NodeFactory {
                                                     FeederNode legNode2, VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2,
                                                     boolean hasPhaseTapChanger) {
         String componentType = hasPhaseTapChanger ? PHASE_SHIFT_TRANSFORMER : TWO_WINDINGS_TRANSFORMER;
-        Middle2WTNode m2wn = new Middle2WTNode(id, name, vlInfos1, vlInfos2, componentType);
+        Middle2WTNode m2wn = new Middle2WTNode(id, name, vlInfos1, vlInfos2, componentType, baseGraph.getIdProvider());
         baseGraph.addTwtEdge(legNode1, m2wn);
         baseGraph.addTwtEdge(legNode2, m2wn);
         baseGraph.addMultiTermNode(m2wn);
@@ -260,7 +261,7 @@ public final class NodeFactory {
             throw new PowsyblException("Middle3WTNode must be created with FeederNode with ComponentTypeName THREE_WINDINGS_TRANSFORMER_LEG");
         }
         String componentType = getComponentType(hasPhaseTapChanger1, hasPhaseTapChanger2, hasPhaseTapChanger3);
-        Middle3WTNode m3wn = new Middle3WTNode(id, name, vlLeg1, vlLeg2, vlLeg3, componentType, true);
+        Middle3WTNode m3wn = new Middle3WTNode(id, name, vlLeg1, vlLeg2, vlLeg3, componentType, true, baseGraph.getIdProvider());
         m3wn.setWindingOrder(Middle3WTNode.Winding.DOWN, vlSide);
         m3wn.setWindingOrder(Middle3WTNode.Winding.UPPER_LEFT, ((FeederTwLeg) firstOtherLegNode.getFeeder()).getSide());
         m3wn.setWindingOrder(Middle3WTNode.Winding.UPPER_RIGHT, ((FeederTwLeg) secondOtherLegNode.getFeeder()).getSide());
@@ -300,7 +301,7 @@ public final class NodeFactory {
                 ((FeederTwLeg) legNode2.getFeeder()).getVoltageLevelInfos(),
                 ((FeederTwLeg) legNode3.getFeeder()).getVoltageLevelInfos(),
                 THREE_WINDINGS_TRANSFORMER,
-                false);
+                false, baseGraph.getIdProvider());
         baseGraph.addTwtEdge(legNode1, m3wn);
         baseGraph.addTwtEdge(legNode2, m3wn);
         baseGraph.addTwtEdge(legNode3, m3wn);
@@ -309,7 +310,7 @@ public final class NodeFactory {
     }
 
     public static TeePointNode createTeePointNode(VoltageLevelGraph baseGraph, String id, String nameOrId, FeederNode legNode2, FeederNode legNode3) {
-        TeePointNode teePointNode = new TeePointNode(id, nameOrId, id);
+        TeePointNode teePointNode = new TeePointNode(id, nameOrId, id, baseGraph.getIdProvider());
         baseGraph.addNode(teePointNode);
         baseGraph.addEdge(legNode2, teePointNode);
         baseGraph.addEdge(legNode3, teePointNode);

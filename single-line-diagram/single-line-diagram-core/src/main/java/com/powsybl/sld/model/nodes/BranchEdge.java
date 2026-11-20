@@ -8,6 +8,7 @@ package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.svg.IdProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +28,11 @@ public class BranchEdge extends Edge {
 
     public BranchEdge(String id, Node node1, Node node2) {
         super(node1, node2);
+        this.id = id;
+    }
+
+    public BranchEdge(String id, Node node1, Node node2, IdProvider idProvider) {
+        super(node1, node2, idProvider.createSvgId(id));
         this.id = id;
     }
 

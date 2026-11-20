@@ -11,10 +11,14 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.svg.IdProvider;
+import com.powsybl.sld.svg.LegacyIdProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -25,6 +29,12 @@ import java.util.Optional;
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public abstract class AbstractNode implements Node {
+
+    private static final List<String> LABEL_POSITIONS = List.of("NW_LABEL", "NW_LABEL2", "N_LABEL", "S_LABEL",
+            "LABEL", "N_LABEL2", "S_LABEL2", "LABEL2", "NW", "default", "DECORATOR");
+
+    private static final List<String> FEEDER_INFO_TYPES = List.of("ARROW_ACTIVE", "ARROW_REACTIVE", "ARROW_CURRENT",
+            "VALUE_CURRENT", "VALUE_PERMANENT_LIMIT_PERCENTAGE");
 
     private NodeType type;
 
@@ -40,6 +50,18 @@ public abstract class AbstractNode implements Node {
 
     private String label;
 
+    private final String svgId;
+
+    private final Map<String, String> labelSvgIds = new HashMap<>();
+
+    private final String feederSvgId;
+
+    private final Map<String, String> feederSvgIds = new HashMap<>();
+
+    private final String busInfoSvgId;
+
+    private final Map<String, String> busInfoSvgIds = new HashMap<>();
+
     private Integer order;
 
     private Direction direction = Direction.UNDEFINED;
@@ -50,10 +72,30 @@ public abstract class AbstractNode implements Node {
      * Constructor
      */
     protected AbstractNode(NodeType type, String id, String componentType, boolean fictitious) {
+        this(type, id, componentType, fictitious, new LegacyIdProvider(""));
+    }
+
+    protected AbstractNode(NodeType type, String id, String componentType, boolean fictitious, IdProvider idProvider) {
         this.type = Objects.requireNonNull(type);
         this.id = Objects.requireNonNull(id);
         this.componentType = Objects.requireNonNull(componentType);
         this.fictitious = fictitious;
+        Objects.requireNonNull(idProvider);
+        this.svgId = idProvider.createSvgId(id);
+        LABEL_POSITIONS.forEach(pos -> labelSvgIds.put(pos, idProvider.createSvgId(id, pos)));
+        if (type == NodeType.FEEDER) {
+            this.feederSvgId = idProvider.createSvgId(id, componentType);
+            feederSvgIds.put(componentType, feederSvgId);
+            FEEDER_INFO_TYPES.forEach(infoType -> feederSvgIds.put(infoType, idProvider.createSvgId(id, infoType)));
+        } else {
+            this.feederSvgId = null;
+        }
+        if (type == NodeType.BUS) {
+            this.busInfoSvgId = idProvider.createSvgId(id, componentType);
+            busInfoSvgIds.put(componentType, busInfoSvgId);
+        } else {
+            this.busInfoSvgId = null;
+        }
         setOrientation(defaultOrientation());
     }
 
@@ -85,6 +127,36 @@ public abstract class AbstractNode implements Node {
     @Override
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    @Override
+    public String getSvgId() {
+        return svgId;
+    }
+
+    @Override
+    public String getLabelSvgId(String positionName) {
+        return labelSvgIds.get(positionName);
+    }
+
+    @Override
+    public String getFeederSvgId() {
+        return feederSvgId;
+    }
+
+    @Override
+    public String getFeederSvgId(String componentType) {
+        return feederSvgIds.get(componentType);
+    }
+
+    @Override
+    public String getBusInfoSvgId() {
+        return busInfoSvgId;
+    }
+
+    @Override
+    public String getBusInfoSvgId(String componentType) {
+        return busInfoSvgIds.get(componentType);
     }
 
     @Override

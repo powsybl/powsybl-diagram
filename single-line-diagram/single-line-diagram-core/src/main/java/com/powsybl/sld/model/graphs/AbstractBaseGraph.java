@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.MiddleTwtNode;
+import com.powsybl.sld.svg.IdProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,6 +31,10 @@ public abstract class AbstractBaseGraph extends AbstractGraph implements BaseGra
         super(parentGraph);
     }
 
+    AbstractBaseGraph(Graph parentGraph, IdProvider idProvider) {
+        super(parentGraph, idProvider);
+    }
+
     @Override
     public List<BranchEdge> getTwtEdges() {
         return new ArrayList<>(twtEdges);
@@ -42,7 +47,7 @@ public abstract class AbstractBaseGraph extends AbstractGraph implements BaseGra
 
     @Override
     public BranchEdge addTwtEdge(FeederNode legNode, MiddleTwtNode twtNode) {
-        BranchEdge edge = new BranchEdge(EDGE_PREFIX + legNode.getId(), legNode, twtNode);
+        BranchEdge edge = new BranchEdge(EDGE_PREFIX + legNode.getId(), legNode, twtNode, idProvider);
         twtNode.addAdjacentEdge(edge);
         twtEdges.add(edge);
         return edge;

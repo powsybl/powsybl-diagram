@@ -15,6 +15,7 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.svg.IdProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,6 +42,10 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
 
     protected AbstractBusCell(int cellIndex, CellType type, Collection<Node> nodes) {
         super(cellIndex, type, nodes);
+    }
+
+    protected AbstractBusCell(int cellIndex, CellType type, Collection<Node> nodes, IdProvider idProvider) {
+        super(cellIndex, type, nodes, idProvider);
     }
 
     @Override

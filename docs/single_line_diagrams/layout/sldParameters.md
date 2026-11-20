@@ -12,6 +12,7 @@ The `SldParameters` class allows users to customize their single-line diagrams.
 - Choose the layout algorithm for voltage levels: see the `VoltageLevelLayoutFactoryCreator` interface.
 - Choose the layout algorithm for substations: see the `SubstationLayoutFactory` interface.
 - Choose the layout algorithm for multi-substation diagrams: see the `ZoneLayoutFactory` interface.
+- Customize SVG identifier generation: see `IdProviderFactory` and `IdProvider`.
 
 
 ## How to use it
@@ -32,3 +33,21 @@ The `sldParameters` object should be then passed as an attribute to one of the `
 ```java
 SingleLineDiagram.draw(network, voltageLevelOrSubstationId, pathToSvgFile, sldParameters);
 ```
+
+## SVG identifier provider
+
+By default, `SldParameters` uses `LegacyIdProvider`, which preserves the historical
+identifier format. The provider is created from the `prefixId` configured in
+`SvgParameters`.
+
+To use another strategy, configure an `IdProviderFactory`:
+
+```java
+SldParameters sldParameters = new SldParameters()
+        .setSvgParameters(new SvgParameters().setPrefixId("diagram-"))
+        .setIdProviderFactory(IntIdProvider::new);
+```
+
+The factory creates a new provider for each diagram. Provider implementations
+must keep their identifier keys typed by semantic use (equipment, equipment
+subtype, or wire) instead of concatenating their arguments into a single key.

@@ -8,6 +8,7 @@ package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
+import com.powsybl.sld.svg.IdProvider;
 
 import java.io.IOException;
 
@@ -18,7 +19,12 @@ public abstract class AbstractMiddleTwtNode extends EquipmentNode implements Mid
     protected final VoltageLevelInfos[] voltageLevelInfosLeg;
 
     protected AbstractMiddleTwtNode(String id, String name, VoltageLevelInfos[] voltageLevelInfosLeg, String componentType) {
-        super(NodeType.INTERNAL, id, name, id, componentType, true);
+        this(id, name, voltageLevelInfosLeg, componentType, new com.powsybl.sld.svg.LegacyIdProvider(""));
+    }
+
+    protected AbstractMiddleTwtNode(String id, String name, VoltageLevelInfos[] voltageLevelInfosLeg, String componentType,
+                                    IdProvider idProvider) {
+        super(NodeType.INTERNAL, id, name, id, componentType, true, idProvider);
         this.voltageLevelInfosLeg = voltageLevelInfosLeg;
     }
 

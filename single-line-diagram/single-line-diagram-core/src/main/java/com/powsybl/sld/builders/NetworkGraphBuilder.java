@@ -17,6 +17,8 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.postprocessor.GraphBuildPostProcessor;
+import com.powsybl.sld.svg.IdProvider;
+import com.powsybl.sld.svg.LegacyIdProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,10 +53,16 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private final Network network;  // IIDM network
     private final LayoutParameters layoutParameters;
+    private final IdProvider idProvider;
 
     public NetworkGraphBuilder(Network network, LayoutParameters layoutParameters) {
+        this(network, layoutParameters, new LegacyIdProvider(""));
+    }
+
+    public NetworkGraphBuilder(Network network, LayoutParameters layoutParameters, IdProvider idProvider) {
         this.network = Objects.requireNonNull(network);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
+        this.idProvider = Objects.requireNonNull(idProvider);
     }
 
     public NetworkGraphBuilder(Network network) {
@@ -97,7 +105,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         // build the graph from the voltage level
-        VoltageLevelGraph graph = new VoltageLevelGraph(new VoltageLevelInfos(vl.getId(), vl.getNameOrId(), vl.getNominalV()), parentGraph);
+        VoltageLevelGraph graph = new VoltageLevelGraph(new VoltageLevelInfos(vl.getId(), vl.getNameOrId(), vl.getNominalV()), parentGraph,
+                parentGraph == null ? idProvider : parentGraph.getIdProvider());
         buildGraph(graph, vl);
 
         return graph;
@@ -156,7 +165,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         // build the substation graph from the substation
-        SubstationGraph graph = SubstationGraph.create(substation.getId(), parentGraph);
+        SubstationGraph graph = SubstationGraph.create(substation.getId(), parentGraph,
+                parentGraph == null ? idProvider : parentGraph.getIdProvider());
         buildSubstationGraph(graph, substation);
 
         return graph;
@@ -781,7 +791,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             return substation;
         }).collect(Collectors.toList());
 
-        ZoneGraph graph = ZoneGraph.create(substationIds);
+        ZoneGraph graph = ZoneGraph.create(substationIds, idProvider);
         buildZoneGraph(graph, zone);
 
         return graph;
@@ -793,7 +803,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             return;
         }
         // add nodes -> substation graphs
-        GraphBuilder graphBuilder = new NetworkGraphBuilder(network);
+        GraphBuilder graphBuilder = new NetworkGraphBuilder(network, layoutParameters, zoneGraph.getIdProvider());
         zone.forEach(substation -> {
             LOGGER.info("Adding substation {} to zone graph", substation.getId());
             SubstationGraph sGraph = graphBuilder.buildSubstationGraph(substation.getId(), zoneGraph);
