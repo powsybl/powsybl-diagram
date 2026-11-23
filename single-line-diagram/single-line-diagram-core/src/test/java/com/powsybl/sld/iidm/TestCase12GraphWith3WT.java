@@ -60,7 +60,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         Networks.createSwitch(vl1, "dload1", "dload1", SwitchKind.DISCONNECTOR, false, false, true, 0, 5);
         Networks.createSwitch(vl1, "bload1", "bload1", SwitchKind.BREAKER, true, false, true, 4, 5);
 
-        Networks.createGenerator(vl1, "gen1", "gen1", "gen1", 2, ConnectablePosition.Direction.BOTTOM, 6, 0, 20, false, 10, 10);
+        Networks.createGenerator(vl1, "gen1", "gen1", "gen1", 2, ConnectablePosition.Direction.BOTTOM, 6, 0, 20, 10, 10);
         Networks.createSwitch(vl1, "dgen1", "dgen1", SwitchKind.DISCONNECTOR, false, false, true, 2, 7);
         Networks.createSwitch(vl1, "bgen1", "bgen1", SwitchKind.BREAKER, true, false, true, 6, 7);
 
@@ -68,7 +68,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         Networks.createSwitch(vl1, "dload2", "dload2", SwitchKind.DISCONNECTOR, false, false, true, 1, 9);
         Networks.createSwitch(vl1, "bload2", "bload2", SwitchKind.BREAKER, true, false, true, 8, 9);
 
-        Networks.createGenerator(vl1, "gen2", "gen2", "gen2", 11, ConnectablePosition.Direction.BOTTOM, 10, 0, 20, false, 10, 10);
+        Networks.createGenerator(vl1, "gen2", "gen2", "gen2", 11, ConnectablePosition.Direction.BOTTOM, 10, 0, 20, 10, 10);
         Networks.createSwitch(vl1, "dgen2", "dgen2", SwitchKind.DISCONNECTOR, false, false, true, 3, 11);
         Networks.createSwitch(vl1, "bgen2", "bgen2", SwitchKind.BREAKER, true, false, true, 10, 11);
 
@@ -87,7 +87,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         Networks.createSwitch(vl2, "dload3", "dload3", SwitchKind.DISCONNECTOR, false, false, true, 0, 3);
         Networks.createSwitch(vl2, "bload3", "bload3", SwitchKind.BREAKER, true, false, true, 2, 3);
 
-        Networks.createGenerator(vl2, "gen4", "gen4", "gen4", 2, ConnectablePosition.Direction.BOTTOM, 4, 0, 20, false, 10, 10);
+        Networks.createGenerator(vl2, "gen4", "gen4", "gen4", 2, ConnectablePosition.Direction.BOTTOM, 4, 0, 20, 10, 10);
         Networks.createSwitch(vl2, "dgen4", "dgen4", SwitchKind.DISCONNECTOR, false, false, true, 1, 5);
         Networks.createSwitch(vl2, "bgen4", "bgen4", SwitchKind.BREAKER, true, false, true, 4, 5);
 

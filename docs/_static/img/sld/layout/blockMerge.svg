@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 210" font-family="sans-serif" font-size="13">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333333"/>
+    </marker>
+  </defs>
+
+  <text x="80" y="10" text-anchor="middle" font-size="10" fill="#555555">both similar (BusNode &amp; FICTITIOUS fork) at their extremities</text>
+
+  <!-- two LegPrimaryBlock, sharing both extremities (fork node, and a BusNode on each side) -->
+  <rect x="10" y="20" width="140" height="32" rx="4" fill="#f2f8ff" stroke="#2255aa"/>
+  <text x="80" y="40" text-anchor="middle" font-size="11">LegPrimaryBlock 1 (BUS1)</text>
+
+  <rect x="10" y="62" width="140" height="32" rx="4" fill="#f2f8ff" stroke="#2255aa"/>
+  <text x="80" y="82" text-anchor="middle" font-size="11">LegPrimaryBlock 2 (BUS2)</text>
+
+  <!-- parallel merge arrows -->
+  <line x1="150" y1="36" x2="210" y2="55" stroke="#333333" marker-end="url(#arrow)"/>
+  <line x1="150" y1="78" x2="210" y2="59" stroke="#333333" marker-end="url(#arrow)"/>
+  <text x="180" y="49" font-size="10">parallel</text>
+  <text x="180" y="96" font-size="10">merge</text>
+
+  <!-- LegParallelBlock, result of the parallel merge -->
+  <rect x="210" y="46" width="150" height="34" rx="4" fill="#eefbf0" stroke="#2a8a3d" stroke-width="2"/>
+  <text x="285" y="67" text-anchor="middle" font-size="11">LegParallelBlock</text>
+
+  <text x="285" y="106" text-anchor="middle" font-size="10" fill="#555555">start where LegParallelBlock ends</text>
+
+  <!-- the other two primary blocks, also inputs of the serial merge -->
+  <rect x="210" y="112" width="150" height="34" rx="4" fill="#f5eefb" stroke="#7a3aab"/>
+  <text x="285" y="133" text-anchor="middle" font-size="11">BodyPrimaryBlock</text>
+
+  <rect x="210" y="156" width="150" height="34" rx="4" fill="#fde9cf" stroke="#b06a11"/>
+  <text x="285" y="177" text-anchor="middle" font-size="11">FeederPrimaryBlock</text>
+
+  <!-- serial merge arrows: LegParallelBlock, BodyPrimaryBlock and FeederPrimaryBlock merge into a single SerialBlock -->
+  <line x1="360" y1="63" x2="430" y2="95" stroke="#333333" marker-end="url(#arrow)"/>
+  <line x1="360" y1="129" x2="430" y2="140" stroke="#333333" marker-end="url(#arrow)"/>
+  <line x1="360" y1="173" x2="430" y2="175" stroke="#333333" marker-end="url(#arrow)"/>
+  <text x="395" y="90" font-size="10">serial</text>
+  <text x="395" y="185" font-size="10">merge</text>
+
+  <!-- SerialBlock root -->
+  <rect x="430" y="65" width="170" height="130" rx="6" fill="#fef3e2" stroke="#b06a11" stroke-width="2"/>
+  <text x="515" y="86" text-anchor="middle" font-size="12" font-weight="bold">SerialBlock (root)</text>
+  <text x="515" y="105" text-anchor="middle" font-size="10" fill="#555555">ordered chain of sub-blocks:</text>
+  <text x="515" y="122" text-anchor="middle" font-size="10">1. LegParallelBlock</text>
+  <text x="515" y="138" text-anchor="middle" font-size="10">2. BodyPrimaryBlock</text>
+  <text x="515" y="154" text-anchor="middle" font-size="10">3. FeederPrimaryBlock</text>
+  <text x="515" y="178" text-anchor="middle" font-size="11" fill="#555555">Cell.setRootBlock</text>
+</svg>

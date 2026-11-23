@@ -5,7 +5,7 @@ The `StyleProvider` interface provides a way to customize the appearance of the 
 Regarding nodes and bus nodes, the color and the blinking is fully customizable.
 Regarding edges, the color, the width, the stroke and the blinking is also fully customizable
 
-Currently, there are 2 implementations of the `StyleProvider`: the `NominalStyleProvider` and the `TopologicalStyleProvider`
+Currently, the main implementations of the `StyleProvider` are: the `NominalVoltageStyleProvider` and the `TopologicalStyleProvider`
 
 ## Common features
 The common features are factorized in the abstract classes `AbstractStyleProvider` and `AbstractVoltageStyleProvider`.
@@ -27,10 +27,13 @@ With default CSS used, this leads to subnetworks being highlighted.
 ![subnetworks](/_static/img/nad/subnetworks.png)
 
 
-## NominalStyleProvider feature
-The voltage level nodes are marked with a class depending on their nominal voltage, leading to one colour for each range of nominal voltages defined by the BaseVoltagesConfig. 
+## NominalVoltageStyleProvider feature
+The voltage level nodes are marked with a class depending on their nominal voltage, leading to one color for each range of nominal voltages defined by the BaseVoltagesConfig. 
 
 ## TopologicalStyleProvider feature
 The bus nodes of a voltage level are each marked with a class depending on the nominal voltage and on their bus index.
-This leads to a colour shading for each range of nominal voltages defined by the BaseVoltagesConfig.
-The text node of corresponding voltage level gives a legend for the colour shading, based on the selected given `LabelProvider` - the default being the voltage and angle. 
+This leads to a color shading for each range of nominal voltages defined by the BaseVoltagesConfig.
+The text node of corresponding voltage level gives a legend for the color shading, based on the selected given `LabelProvider` - the default being the voltage and angle. 
+
+## CustomStyleProvider feature
+Custom styles can be applied to bus nodes, branch sides and three-winding transformer legs based on their IIDM identifiers.

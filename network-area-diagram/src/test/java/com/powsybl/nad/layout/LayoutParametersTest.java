@@ -23,7 +23,8 @@ class LayoutParametersTest {
                 .setMaxSteps(20)
                 .setTimeoutSeconds(2)
                 .setTextNodeEdgeConnectionYShift(30)
-                .setScaleFactor(100);
+                .setScaleFactor(100)
+                .setEdgesToInvisibleNodesDisplayed(false);
 
         LayoutParameters layoutParameters1 = new LayoutParameters(layoutParameters0);
 
@@ -34,5 +35,6 @@ class LayoutParametersTest {
         assertEquals(layoutParameters0.getTimeoutSeconds(), layoutParameters1.getTimeoutSeconds());
         assertEquals(layoutParameters0.getTextNodeEdgeConnectionYShift(), layoutParameters1.getTextNodeEdgeConnectionYShift(), 0);
         assertEquals(layoutParameters0.getScaleFactor(), layoutParameters1.getScaleFactor(), 0);
+        assertEquals(layoutParameters0.isEdgesToInvisibleNodesDisplayed(), layoutParameters1.isEdgesToInvisibleNodesDisplayed());
     }
 }

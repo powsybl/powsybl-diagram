@@ -63,7 +63,7 @@ class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm {
         // generator (small feeder cell with serial blocks)
         Networks.createSwitch(vl, "d4", "d4", SwitchKind.DISCONNECTOR, false, true, false, 1, 16);
         Networks.createSwitch(vl, "b13", "b13", SwitchKind.BREAKER, true, false, false, 16, 17);
-        Networks.createGenerator(vl, "gen1", "gen1", "gen1", 3, ConnectablePosition.Direction.BOTTOM, 17, 0, 20, false, 10, 10);
+        Networks.createGenerator(vl, "gen1", "gen1", "gen1", 3, ConnectablePosition.Direction.BOTTOM, 17, 0, 20, 10, 10);
 
         // load (small feeder cell with parallel blocks)
         Networks.createSwitch(vl, "d5", "d5", SwitchKind.DISCONNECTOR, false, true, false, 0, 18);
@@ -79,7 +79,7 @@ class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm {
         Networks.createSwitch(vl, "b18", "b18", SwitchKind.BREAKER, true, false, false, 23, 24);
         Networks.createSwitch(vl, "b19", "b19", SwitchKind.BREAKER, true, false, false, 23, 24);
         Networks.createSwitch(vl, "b20", "b20", SwitchKind.BREAKER, true, false, false, 24, 25);
-        Networks.createGenerator(vl, "gen2", "gen2", "gen2", 2, ConnectablePosition.Direction.BOTTOM, 25, 0, 20, false, 10, 10);
+        Networks.createGenerator(vl, "gen2", "gen2", "gen2", 2, ConnectablePosition.Direction.BOTTOM, 25, 0, 20, 10, 10);
     }
 
     @Test

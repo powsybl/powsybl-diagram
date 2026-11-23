@@ -12,6 +12,7 @@ import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.util.List;
@@ -53,4 +54,12 @@ public interface LabelProvider {
     Optional<BusInfo> getBusInfo(BusNode node);
 
     Map<String, Side> getBusInfoSides(VoltageLevelGraph graph);
+
+    /**
+     * Retrieves a list of feeder information associated with the specified Middle3WTNode.
+     *
+     * @param twtNode the Middle3WTNode for which to retrieve feeder information
+     * @return a list of FeederInfo objects associated with the specified node
+     */
+    List<FeederInfo> getFeederInfos(Middle3WTNode twtNode);
 }

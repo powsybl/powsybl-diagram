@@ -10,6 +10,7 @@ import com.powsybl.commons.extensions.Extendable;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.*;
+import com.powsybl.iidm.network.regulation.RegulationMode;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -121,10 +122,13 @@ public final class Networks {
                 .setBus("Bus")
                 .setConnectableBus("Bus")
                 .setTargetP(100)
-                .setTargetV(380)
-                .setVoltageRegulatorOn(true)
                 .setMaxP(100)
                 .setMinP(0)
+                .setLocalTargetV(380)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         return network;
     }
@@ -248,10 +252,12 @@ public final class Networks {
                 .setBus("Bus")
                 .setBmin(0.0002)
                 .setBmax(0.0008)
-                .setRegulationMode(StaticVarCompensator.RegulationMode.VOLTAGE)
-                .setRegulating(true)
-                .setVoltageSetpoint(390.0)
-                .setReactivePowerSetpoint(1.0)
+                .setLocalTargetQ(1.0)
+                .setLocalTargetV(390.0)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         return network;
     }
@@ -438,8 +444,11 @@ public final class Networks {
                 .setConnectableBus("Bus1")
                 .setBus("Bus1")
                 .setLossFactor(0.011f)
-                .setVoltageSetpoint(405.0)
-                .setVoltageRegulatorOn(true)
+                .setLocalTargetV(405.0)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         Substation substation2 = network.newSubstation()
                 .setId(SUBSTATION_2_ID)
@@ -459,8 +468,7 @@ public final class Networks {
                 .setConnectableBus("Bus2")
                 .setBus("Bus2")
                 .setLossFactor(0.011f)
-                .setReactivePowerSetpoint(123)
-                .setVoltageRegulatorOn(false)
+                .setLocalTargetQ(123)
                 .add();
         network.newHvdcLine()
                 .setId("HvdcLine")
@@ -597,10 +605,13 @@ public final class Networks {
                 .setId("Generator1")
                 .setNode(gN1)
                 .setTargetP(100)
-                .setTargetV(380)
-                .setVoltageRegulatorOn(true)
                 .setMaxP(100)
                 .setMinP(0)
+                .setLocalTargetV(380)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
 
         voltageLevel1.getNodeBreakerView().newBreaker()
@@ -798,10 +809,13 @@ public final class Networks {
                 .setConnectableBus("b1")
                 .setBus("b1")
                 .setTargetP(101.3664)
-                .setTargetV(390)
                 .setMinP(0)
                 .setMaxP(150)
-                .setVoltageRegulatorOn(true)
+                .setLocalTargetV(390)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         VoltageLevel vl2 = s.newVoltageLevel()
                 .setId("vl2")
@@ -957,10 +971,13 @@ public final class Networks {
                 .setConnectableBus("b1")
                 .setBus("b1")
                 .setTargetP(101.3664)
-                .setTargetV(390)
                 .setMinP(0)
                 .setMaxP(150)
-                .setVoltageRegulatorOn(true)
+                .setLocalTargetV(390)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         VoltageLevel vl2 = s.newVoltageLevel()
                 .setId("vl2")
@@ -1042,7 +1059,7 @@ public final class Networks {
         createSwitch(vl1, "dload1", "dload1", SwitchKind.DISCONNECTOR, false, false, true, 0, 5);
         createSwitch(vl1, "bload1", "bload1", SwitchKind.BREAKER, true, false, true, 4, 5);
 
-        createGenerator(vl1, "gen1", "gen1", "gen1", 2, ConnectablePosition.Direction.BOTTOM, 6, 0, 20, false, 10, 10);
+        createGenerator(vl1, "gen1", "gen1", "gen1", 2, ConnectablePosition.Direction.BOTTOM, 6, 0, 20, 10, 10);
         createSwitch(vl1, "dgen1", "dgen1", SwitchKind.DISCONNECTOR, false, false, true, 2, 7);
         createSwitch(vl1, "bgen1", "bgen1", SwitchKind.BREAKER, true, false, true, 6, 7);
 
@@ -1050,7 +1067,7 @@ public final class Networks {
         createSwitch(vl1, "dload2", "dload2", SwitchKind.DISCONNECTOR, false, false, true, 1, 9);
         createSwitch(vl1, "bload2", "bload2", SwitchKind.BREAKER, true, false, true, 8, 9);
 
-        createGenerator(vl1, "gen2", "gen2", "gen2", 12, ConnectablePosition.Direction.BOTTOM, 10, 0, 20, false, 10, 10);
+        createGenerator(vl1, "gen2", "gen2", "gen2", 12, ConnectablePosition.Direction.BOTTOM, 10, 0, 20, 10, 10);
         createSwitch(vl1, "dgen2", "dgen2", SwitchKind.DISCONNECTOR, false, false, true, 3, 11);
         createSwitch(vl1, "bgen2", "bgen2", SwitchKind.BREAKER, true, false, true, 10, 11);
 
@@ -1069,7 +1086,7 @@ public final class Networks {
         createSwitch(vl2, "dload3", "dload3", SwitchKind.DISCONNECTOR, false, false, true, 0, 3);
         createSwitch(vl2, "bload3", "bload3", SwitchKind.BREAKER, true, false, true, 2, 3);
 
-        createGenerator(vl2, "gen4", "gen4", "gen4", 2, ConnectablePosition.Direction.BOTTOM, 4, 0, 20, false, 10, 10);
+        createGenerator(vl2, "gen4", "gen4", "gen4", 2, ConnectablePosition.Direction.BOTTOM, 4, 0, 20, 10, 10);
         createSwitch(vl2, "dgen4", "dgen4", SwitchKind.DISCONNECTOR, false, false, true, 1, 5);
         createSwitch(vl2, "bgen4", "bgen4", SwitchKind.BREAKER, true, false, true, 4, 5);
 
@@ -1243,7 +1260,7 @@ public final class Networks {
         createSwitch(vl1, "D11", "D11", SwitchKind.DISCONNECTOR, false, false, false, 10, 11);
         createSwitch(vl1, "BR12", "BR12", SwitchKind.BREAKER, false, false, false, 11, 12);
 
-        createGenerator(vl1, "G", "G", "G", null, ConnectablePosition.Direction.TOP, 22, 50, 100, false, 100, 400);
+        createGenerator(vl1, "G", "G", "G", null, ConnectablePosition.Direction.TOP, 22, 50, 100, 100, 400);
 
         createSwitch(vl1, "D21", "D21", SwitchKind.DISCONNECTOR, false, false, false, 20, 21);
         createSwitch(vl1, "BR22", "BR22", SwitchKind.BREAKER, false, false, false, 21, 22);
@@ -1367,8 +1384,11 @@ public final class Networks {
                 .setMaxP(100.0)
                 .setMinP(50.0)
                 .setTargetP(100.0)
-                .setTargetV(400.0)
-                .setVoltageRegulatorOn(true)
+                .setLocalTargetV(400.0)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
 
         network.newLine()
@@ -1536,9 +1556,11 @@ public final class Networks {
                 .setNode(2)
                 .setBmin(0.0002)
                 .setBmax(0.0008)
-                .setRegulationMode(StaticVarCompensator.RegulationMode.VOLTAGE)
-                .setRegulating(true)
-                .setVoltageSetpoint(390)
+                .setLocalTargetV(390)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         svc.getTerminal()
                 .setP(100.0)
@@ -1548,8 +1570,11 @@ public final class Networks {
                 .setName(CONVERTER_1_ID)
                 .setNode(1)
                 .setLossFactor(0.011f)
-                .setVoltageSetpoint(405.0)
-                .setVoltageRegulatorOn(true)
+                .setLocalTargetV(405.0)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         vsc.getTerminal()
                 .setP(100.0)
@@ -1596,8 +1621,11 @@ public final class Networks {
                 .setName(CONVERTER_2_ID)
                 .setNode(1)
                 .setLossFactor(0.011f)
-                .setVoltageSetpoint(405.0)
-                .setVoltageRegulatorOn(true)
+                .setLocalTargetV(405.0)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         vsc2.getTerminal()
                 .setP(300.0)
@@ -1924,14 +1952,14 @@ public final class Networks {
 
     public static void createGenerator(VoltageLevel vl, String id, Integer feederOrder,
                                        ConnectablePosition.Direction direction, int node,
-                                       double minP, double maxP, boolean voltageRegulator,
+                                       double minP, double maxP,
                                        double targetP, double targetQ) {
-        createGenerator(vl, id, id, id, feederOrder, direction, node, minP, maxP, voltageRegulator, targetP, targetQ);
+        createGenerator(vl, id, id, id, feederOrder, direction, node, minP, maxP, targetP, targetQ);
     }
 
     public static void createGenerator(VoltageLevel vl, String id, String name, String feederName, Integer feederOrder,
                                        ConnectablePosition.Direction direction, int node,
-                                       double minP, double maxP, boolean voltageRegulator,
+                                       double minP, double maxP,
                                        double targetP, double targetQ) {
         Generator gen = vl.newGenerator()
                 .setId(id)
@@ -1939,9 +1967,12 @@ public final class Networks {
                 .setNode(node)
                 .setMinP(minP)
                 .setMaxP(maxP)
-                .setVoltageRegulatorOn(voltageRegulator)
                 .setTargetP(targetP)
-                .setTargetQ(targetQ)
+                .setLocalTargetQ(targetQ)
+                .newVoltageRegulation()
+                    .withRegulating(false)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         addFeederPosition(gen, feederName, feederOrder, direction);
     }
@@ -1957,7 +1988,7 @@ public final class Networks {
                 .setMinP(minP)
                 .setMaxP(maxP)
                 .setTargetP(targetP)
-                .setTargetQ(targetQ)
+                .setLocalTargetQ(targetQ)
                 .add();
         addFeederPosition(battery, feederName, feederOrder, direction);
     }
@@ -2251,8 +2282,11 @@ public final class Networks {
                 .setConnectableBus(busId)
                 .setBus(busId)
                 .setLossFactor(0.011f)
-                .setVoltageSetpoint(405.0)
-                .setVoltageRegulatorOn(true)
+                .setLocalTargetV(405.0)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
         vlId = String.format(vlFormat, subB.getId(), 230.0);
         busId = String.format(busIdFormat, vlId);
@@ -2261,8 +2295,7 @@ public final class Networks {
                 .setConnectableBus(busId)
                 .setBus(busId)
                 .setLossFactor(0.011f)
-                .setReactivePowerSetpoint(123)
-                .setVoltageRegulatorOn(false)
+                .setLocalTargetQ(123)
                 .add();
         network.newHvdcLine()
                 .setId("HvdcLine (Vsc)")
@@ -2567,8 +2600,11 @@ public final class Networks {
                 .setMinP(0.0)
                 .setMaxP(140)
                 .setTargetP(7.2)
-                .setTargetV(135)
-                .setVoltageRegulatorOn(true)
+                .setLocalTargetV(135)
+                .newVoltageRegulation()
+                    .withRegulating(true)
+                    .withMode(RegulationMode.VOLTAGE)
+                    .add()
                 .add();
 
         VoltageLevel vltee = substation.newVoltageLevel()
@@ -2656,7 +2692,7 @@ public final class Networks {
         createLoad(vl, "load", 1, ConnectablePosition.Direction.TOP, 2, 0, 0);
         createLoad(vl, "dLoad1", 2, ConnectablePosition.Direction.BOTTOM, 3, 0, 0);
         createLoad(vl, "dLoad2", 0, ConnectablePosition.Direction.TOP, 4, 10, 0);
-        createGenerator(vl, "dGen", null, ConnectablePosition.Direction.TOP, 5, 50, 100, false, 100, 400);
+        createGenerator(vl, "dGen", null, ConnectablePosition.Direction.TOP, 5, 50, 100, 100, 400);
         return network;
     }
 

@@ -38,7 +38,8 @@ import java.util.*;
 public class GraphMetadata extends AbstractMetadata<GraphMetadata> {
 
     //v 1.0 adds metadata versionning, please note further changes as a comment when version is bumped
-    private static final String METADATA_VERSION = "1.0";
+    //v 1.1 adds display side info for 3WT (inside, outside, or all the sides)
+    private static final String METADATA_VERSION = "1.1";
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     // On some systems, the export order is determined by the order of the 1st encountered JsonCreator's attributes

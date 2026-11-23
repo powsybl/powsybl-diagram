@@ -99,7 +99,7 @@ The raw graph looks:
 
 #### Step 1: Build of `VerticalBusSets`
 
-Contrary to `PositionFromExtension` no order is necessary, let's arbitrarily use the suffix in the name of the `BusNode`.
+Contrary to `PositionPredefined`, no order is necessary, let's arbitrarily use the suffix in the name of the `BusNode`.
 
 | vbs   | BusNodes(busBarIndex, sectionIndex) | ExternCells       | InternCellSides   |
 |-------|-------------------------------------|-------------------|-------------------|

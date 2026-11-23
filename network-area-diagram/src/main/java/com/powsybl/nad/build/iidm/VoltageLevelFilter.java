@@ -103,10 +103,18 @@ public record VoltageLevelFilter(Set<VoltageLevel> voltageLevels) implements Pre
         return new VoltageLevelFilter(network.getVoltageLevelStream().filter(voltageLevelPredicate).collect(Collectors.toSet()));
     }
 
-    public static Collection<VoltageLevel> getNextDepthVoltageLevels(Network network, List<VoltageLevel> voltageLevels) {
-        List<String> voltageLevelIds = voltageLevels.stream().map(VoltageLevel::getId).collect(Collectors.toList());
-        VoltageLevelFilter voltageLevelFilter = createVoltageLevelsDepthFilter(network, voltageLevelIds, 1);
-        Set<VoltageLevel> voltageLevelSet = new HashSet<>(voltageLevelFilter.voltageLevels());
+    /**
+     * Returns the voltage levels directly connected to the given voltage levels.
+     *
+     * <p>The voltage levels provided as input are excluded from the returned collection, even if
+     * they are reachable through another voltage level.</p>
+     *
+     * @param voltageLevels the voltage levels from which the topology traversal starts
+     * @return the voltage levels at the next topological depth
+     */
+    public static Collection<VoltageLevel> getNextDepthVoltageLevels(List<VoltageLevel> voltageLevels) {
+        Set<VoltageLevel> voltageLevelSet = new HashSet<>();
+        traverseVoltageLevels(new HashSet<>(voltageLevels), 1, voltageLevelSet, NO_FILTER);
         voltageLevels.forEach(voltageLevelSet::remove);
         return voltageLevelSet;
     }

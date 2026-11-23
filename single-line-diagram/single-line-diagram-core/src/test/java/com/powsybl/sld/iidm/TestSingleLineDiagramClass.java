@@ -69,7 +69,7 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
 
         VoltageLevel vl2 = Networks.createVoltageLevel(substation, "vl2", "vl2", TopologyKind.NODE_BREAKER, 225);
         Networks.createBusBarSection(vl2, "bbs2", "bbs2", 0, 1, 1);
-        Networks.createGenerator(vl2, "g", "g", "g", -1, ConnectablePosition.Direction.BOTTOM, 2, 0, 20, false, 10, 10);
+        Networks.createGenerator(vl2, "g", "g", "g", -1, ConnectablePosition.Direction.BOTTOM, 2, 0, 20, 10, 10);
         Networks.createSwitch(vl2, "d3", "d3", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
         Networks.createSwitch(vl2, "b3", "b3", SwitchKind.BREAKER, false, false, false, 1, 2);
         Networks.createSwitch(vl2, "d4", "d4", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);

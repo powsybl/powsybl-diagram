@@ -2,7 +2,7 @@
 
 The `StyleProvider` interface provides a way to customize the appearance of the single-area diagram.
 
-Currently, there are 2 implementations of the `StyleProvider`: the `BasicStyleProvider`, the `NominalVoltageStyleProvider` and the `TopologicalStyleProvider`
+Currently, there are 3 implementations of the `StyleProvider`: the `BasicStyleProvider`, the `NominalVoltageStyleProvider` and the `TopologicalStyleProvider`
 
 ## Common features
 The common features are factorized in the abstract classes `AbstractStyleProvider` and `AbstractVoltageStyleProvider`.
@@ -29,3 +29,5 @@ public class YourCustomStyleProviderFactory implements StyleProviderFactory {
 ```
 
 ![sld-highlight-buses](../../_static/img/sld/sld-highlight-buses.svg){class="forced-white-background"}
+
+The `CustomTopologicalStyleProvider` can be used to apply custom styles to a bus and its connected elements using the bus IIDM identifier.
